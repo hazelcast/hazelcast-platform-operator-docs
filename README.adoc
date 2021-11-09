@@ -1,0 +1,173 @@
+= Documentation for Hazelcast Platform Operator
+// Settings:
+ifdef::env-github[]
+:warning-caption: :warning:
+endif::[]
+// URLs:
+:url-org: https://github.com/hazelcast
+:url-contribute: https://github.com/hazelcast/hazelcast-docs/blob/develop/.github/CONTRIBUTING.adoc
+:url-ui: {url-org}/hazelcast-docs-ui
+:url-playbook: {url-org}/hazelcast-docs
+:url-staging: https://hardcore-allen-f5257d.netlify.app/
+:url-cc: https://creativecommons.org/licenses/by-nc-sa/3.0/
+:url-operator-docs: {url-org}/hazelcast-platform-operator-docs
+:url-mc-docs: {url-org}/management-center-docs
+
+image:https://img.shields.io/badge/Build-Staging-yellow[link="{url-staging}"]
+
+This repository contains the Antora components for the Hazelcast Platform Operator documentation.
+
+The documentation source files are marked up with AsciiDoc.
+
+== Docs Structure
+
+This section describes some important information about how this repository is structured:
+
+- The component name, version, and start page are configured in each branch's `antora.yml` file.
+- The navigation for all modules is stored in the ROOT module's `nav.adoc` file.
+- The {url-playbook}[docs site playbook] instructs Antora to automatically build the site using content in the `main` branch as well as any branches that are prefixed with `v/`.
+
+== Release Workflow
+
+Documentation for new releases is hosted in versioned branches that are prefixed with `v/`. The `latest-dev` content (snapshot content) is stored in the `main` branch.
+
+We support documentation for the latest patch releases of minor versions. For example, content for the `5.0` version is hosted in the `v/5.0` branch. This branch contains content for the latest patch release of version 5.0.
+
+NOTE: The documentation build process is triggered whenever you create a new branch with the `v/` prefix, push to an existing `v/` branch, or push to the `main` branch.
+
+=== Snapshot Releases
+
+Add the new snapshot version to the following:
+
+[cols="1m,1m,1m,1m"]
+|===
+|Repository|Branch|File|Fields
+
+|{url-operator-docs}[hazelcast-platform-operator-docs]
+|main
+|docs/antora.yml
+a|
+- `version`
+- `display_version`
+- `full-version`
+
+|{url-playbook}[hazelcast-docs]
+a|`main` and `develop`
+|_redirects
+|/hazelcast-operator/latest-dev/*
+
+|
+|
+|search-config.json
+a|Update the snapshot version in these fields:
+
+- `start_urls.tags`
+- `start_urls.variables.version`
+
+|===
+
+=== Latest Releases
+
+Add the `major.minor` version to the following:
+
+[cols="1m,1m,1m,1m"]
+|===
+|Repository|Branch|File|Fields
+
+|{url-operator-docs}[hazelcast-platform-operator-docs]
+|v/{major.minor version}
+|docs/antora.yml
+a|
+- `version`
+- `display_version`
+
+|{url-playbook}[hazelcast-docs]
+a|`main` and `develop`
+|_redirects
+|/hazelcast-operator/latest/*
+
+|
+|
+|search-config.json
+a| Create a new  object in the `start_urls` array.
+
+``
+{
+  "url": "https://docs.hazelcast.com/hazelcast-operator/(?P<version>.*?)/",
+  "tags": [
+    "hazelcast-operator-{major.minor version}"
+  ],
+  "variables": {
+    "version": ["{major.minor version}"]
+  },
+  "selectors_key": "operator"
+}
+``
+
+|===
+
+Add the full version `major.minor.patch` to the following:
+
+[cols="1m,1m,1m"]
+|===
+|Repository|File|Fields
+
+|{url-operator-docs}[hazelcast-platform-operator-docs]
+|docs/antora.yml
+a|
+- `full-version`
+|===
+
+=== Patch Releases
+
+In the `v/` branch for the minor version whose patch you are releasing, update the `asciidoc.attributes.full-version` field in the `antora.yml` file to the new patch version. For example, if you are releasing version 5.0.3, find the `v/5.0` branch and update the `asciidoc.attributes.full-version` field in the `antora.yml` file with 5.0.3.
+
+NOTE: As soon as you push content to this branch, GitHub will trigger a new build of the site, which will include your new content.
+
+=== Creating Release Branches
+
+. If you are releasing a new major version, create a release branch from the `main` branch.
++
+For example, if you are releasing version 5.1, create a new release branch named `5.1` from the `main` branch.
+
+. Update the fields mentioned in <<latest-releases, Latest Releases>>.
+
+. Remove the `prerelease: true` field from the `docs/antora.yml` file of the `hz-docs` repository.
++
+IMPORTANT: If you are creating a branch for a beta release, do not remove this field.
+
+. When you are ready to release, create a maintentance branch from the release branch.
++
+NOTE: As soon as you push the maintenance branch to the repository, GitHub will trigger a new build of the site, which will include your new content.
+
+. Make sure to delete the release branch.
++
+For example, if you released version `5.1`, delete the `5.1` branch. This step helps to keep the repository clean of release branches.
+
+== GitHub Actions
+
+To automate some elements of the build process, this repository includes the following GitHub Actions:
+
+.GitHub Actions
+[cols="m,a,a"]
+|===
+|File |Description |Triggers
+
+|validate-site.yml
+|Validates that all internal and external links are working
+|On a pull request to the `main` branch and `v/` maintenance branches
+
+|build-site.yml
+|Builds the production documentation site by sending a build hook to Netlify (the hosting platform that we use)
+|On a push to the `main` branch and any `v/` maintenance branches
+|===
+
+== Contributing
+
+If you want to add a change or contribute new content, see our {url-contribute}[contributing guide].
+
+To let us know about something that you'd like us to change, consider {url-org}/hazelcast-operator/issues/new[creating an issue].
+
+== License
+
+All documentation is available under the terms of a link:{url-cc}[Creative Commons License]

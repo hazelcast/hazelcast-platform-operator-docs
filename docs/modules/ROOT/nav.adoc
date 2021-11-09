@@ -1,0 +1,17 @@
+.Get Started
+* xref:index.adoc[Overview]
+* xref:get-started.adoc[]
+
+.Learn
+// For concepts/architectural patterns/discussions of how Hazelcast features work with the operator
+
+.Deploy and Manage
+// Guides for working with the operator and the Hazelcast cluster
+
+.Upgrade
+// Guides for upgrading either the operator and/or Hazelcast Platform
+
+.Reference
+// Configuration options/spec files/any other reference docs
+
+.Release Notes
