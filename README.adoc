@@ -8,7 +8,7 @@ endif::[]
 :url-contribute: https://github.com/hazelcast/hazelcast-docs/blob/develop/.github/CONTRIBUTING.adoc
 :url-ui: {url-org}/hazelcast-docs-ui
 :url-playbook: {url-org}/hazelcast-docs
-:url-staging: https://hardcore-allen-f5257d.netlify.app/
+:url-staging: https://pedantic-goldberg-f76ec1.netlify.app/
 :url-cc: https://creativecommons.org/licenses/by-nc-sa/3.0/
 :url-operator-docs: {url-org}/hazelcast-platform-operator-docs
 :url-mc-docs: {url-org}/management-center-docs

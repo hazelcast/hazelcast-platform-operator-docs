@@ -1,6 +1,6 @@
 site:
   title: Documentation
-  url: https://hardcore-allen-f5257d.netlify.app/
+  url: https://pedantic-goldberg-f76ec1.netlify.app/
   start_page: hazelcast-operator:get-started.adoc
   robots: disallow
   keys:
