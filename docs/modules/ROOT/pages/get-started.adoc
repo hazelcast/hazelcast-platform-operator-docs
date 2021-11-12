@@ -81,7 +81,7 @@ Members {size:3, ver:3} [
 
 Hazelcast Enterprise requires having the license key specified as Kubernetes Secret.
 
-NOTE: If you don't have Hazelcast Enterprise License Key, please check xref:deploy:using-enterprise-edition.adoc#requesting-a-license-key[Requesting a License Key]
+NOTE: If you don't have Hazelcast Enterprise License Key, you can link:http://trialrequest.hazelcast.com/[request one] from the Hazelcast website.
 
 [source,shell]
 ----
