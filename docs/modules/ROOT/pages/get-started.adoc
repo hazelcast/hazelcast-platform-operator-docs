@@ -46,7 +46,7 @@ kubectl apply -k .
 
 Note that you'll need to add a parameter `-n <your-namespace>` to all further commands.
 
-== Start Hazelcast cluster
+== Start Hazelcast Cluster
 
 After installing and running Hazelcast Platform Operator, you can create a Hazelcast cluster. First, create `Hazelcast` Custom Resource file as `hazelcast.yaml`.
 
