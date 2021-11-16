@@ -2,14 +2,8 @@
 * xref:index.adoc[Overview]
 * xref:get-started.adoc[]
 
-.Learn
-// For concepts/architectural patterns/discussions of how Hazelcast features work with the operator
-
 .Deploy and Manage
-// Guides for working with the operator and the Hazelcast cluster
-
-.Upgrade
-// Guides for upgrading either the operator and/or Hazelcast Platform
+* xref:connect-outside-kubernetes.adoc[]
 
 .Reference
 // Configuration options/spec files/any other reference docs

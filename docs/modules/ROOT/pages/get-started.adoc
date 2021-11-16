@@ -1,35 +1,22 @@
-= Get Started with Hazelcast Platform Operator
+= Deploy a Cluster with the Hazelcast Platform Operator for Kubernetes
+[[deploying-with-operator]]
 
-NOTE: Hazelcast Enterprise Operator is currently in the early alpha preview stage, but it will soon become the preferred way of installing Hazelcast in Kubernetes/OpenShift environments.
+The simplest way of installing and operating your Hazelcast Platform cluster in the Kubernetes (and OpenShift) environments is to use Hazelcast Platform Operator.
 
-The simplest way of installing and operating your Hazelcast Enterprise cluster in the Kubernetes (and OpenShift) environments is to use Hazelcast Enterprise Operator.
+== Deploy Hazelcast Platform Operator
 
-== Deploy Hazelcast Enterprise Operator
-
-You can deploy Hazelcast Enterprise Operator by creating the following `bundle.yaml` file.
- +
-
-.Show bundle.yaml file
-[%collapsible]
-====
-[source,yaml,subs="attributes+"]
-....
-include::ROOT:example$/bundle.yaml[]
-....
-====
-
-Then, you can apply it to your Kubernetes cluster with the following command.
+You can deploy Hazelcast Platform Operator by applying the https://github.com/hazelcast/hazelcast-platform-operator-docs/blob/main/bundle.yaml[`bundle.yaml`] file. Please apply it to your Kubernetes cluster with the following command.
 
 [source,shell]
 ----
-kubectl apply -f bundle.yaml
+kubectl apply -f https://raw.githubusercontent.com/hazelcast/hazelcast-platform-operator-docs/main/bundle.yaml
 ----
 
-At this point, your Hazelcast Enteprise Operator should be up and running. You can check it with the following command.
+At this point, your Hazelcast Platform Operator should be up and running. You can check it with the command below.
 
 [source,shell]
 ----
-kubectl logs deployment.apps/hazelcast-enterprise-controller-manager
+kubectl logs deployment.apps/hazelcast-platform-controller-manager
 ----
 
 ```
@@ -59,20 +46,9 @@ kubectl apply -k .
 
 Note that you'll need to add a parameter `-n <your-namespace>` to all further commands.
 
-== Create Secret with Hazelcast License Key
+== Start Hazelcast Cluster
 
-Hazelcast Enteprise requires having the license key specified as Kubernetes Secret.
-
-NOTE: If you don't have Hazelcast Enterprise License Key, please check xref:{page-latest-supported-hazelcast}@hazelcast:deploy:using-enterprise-edition.adoc#requesting-a-license-key[Requesting a License Key]
-
-[source,shell]
-----
-kubectl create secret generic hazelcast-license-key --from-literal=license-key=<YOUR LICENSE KEY>
-----
-
-== Start Hazelcast Enterprise Cluster
-
-Finally, you can create `Hazelcast` Custom Resource file as `hazelcast.yaml`.
+After installing and running Hazelcast Platform Operator, you can create a Hazelcast cluster. First, create `Hazelcast` Custom Resource file as `hazelcast.yaml`.
 
 [source,yaml,subs="attributes+"]
 ----
@@ -84,6 +60,46 @@ Apply it with the following command to start the Hazelcast cluster.
 [source,shell]
 ----
 kubectl apply -f hazelcast.yaml
+----
+
+After some time, you can verify that Hazelcast cluster is up and running by checking the Hazelcast member logs.
+
+[source,shell]
+----
+kubectl logs pod/hazelcast-sample-0
+----
+
+```
+Members {size:3, ver:3} [
+        Member [10.36.8.3]:5701 - ccf31703-de3b-4094-9faf-7b5d0dc145b2 this
+        Member [10.36.7.2]:5701 - e75bd6e2-de4b-4360-8113-040773d858b7
+        Member [10.36.6.2]:5701 - c3d105d2-0bca-4a66-8519-1cacffc05c98
+]
+```
+
+== Start Hazelcast Enterprise Cluster
+
+Hazelcast Enterprise requires having the license key specified as Kubernetes Secret.
+
+NOTE: If you don't have Hazelcast Enterprise License Key, you can link:http://trialrequest.hazelcast.com/[request one] from the Hazelcast website.
+
+[source,shell]
+----
+kubectl create secret generic hazelcast-license-key --from-literal=license-key=<YOUR LICENSE KEY>
+----
+
+Finally, you can create `Hazelcast` Custom Resource file as `hazelcast-enterprise.yaml`.
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-enterprise.yaml[]
+----
+
+Apply it with the following command to start the Hazelcast cluster.
+
+[source,shell]
+----
+kubectl apply -f hazelcast-enterprise.yaml
 ----
 
 After a moment, you can verify that Hazelcast cluster is up and running by checking the Hazelcast member logs.
@@ -101,75 +117,29 @@ Members {size:3, ver:3} [
 ]
 ```
 
-== Connect to Hazelcast from Outside Kubernetes
-
-To connect to a Hazelcast cluster from outside Kubernetes, you need to configure the `expose-externally` field of your custom resource.
-
-
-[source,yaml,subs="attributes+"]
-----
-include::ROOT:example$/hazelcast_expose_externally.yaml[]
-----
-
-After applying the configuration change in Kubernetes, each Hazelcast member will be exposed as a separate service.
-
-[source,shell]
-----
-kubectl get service
-----
-
-```
-NAME                 TYPE           CLUSTER-IP       EXTERNAL-IP     PORT(S)          AGE
-hazelcast-sample     LoadBalancer   10.219.246.19    35.230.92.217   5701:30560/TCP   2m11s
-hazelcast-sample-0   NodePort       10.219.254.192   <none>          5701:31890/TCP   2m11s
-hazelcast-sample-1   NodePort       10.219.247.43    <none>          5701:32310/TCP   2m11s
-hazelcast-sample-2   NodePort       10.219.243.16    <none>          5701:32585/TCP   2m11s
-```
-
-To connect to the cluster, you can add the external IP address of the LoadBalancer service to your Hazelcast client configuration.
-
-You can configure the `expose-externally` field with the following properties:
-
-* `type`: The way in which Hazelcast members are exposed to clients.
-** `Unisocket`: Members are exposed via one Kubernetes service.
-** `Smart`: Each member is exposed via a separate Kubernetes service.
-* `discoveryServiceType`: Type of Kubernetes service used for discovering members in a Hazelcast cluster.
-** `LoadBalancer` (default): Hazelcast client configuration `<load-balancer-external-ip>:5701`.
-** `NodePort`: Hazelcast client configuration `<node-address>:<node-port>`.
-* `memberAccess`: The way in which clients access Hazelcast members.
-** `NodePortExternalIP` (default): Hazelcast clients are outside the Kubernetes network, so a client can access members only via the public IP address that's assigned to their Kubernetes nodes.
-** `NodePortNodeName`: Hazelcast clients are inside the same network as the Kubernetes nodes, so clients can access a member by the hostname of its Kubernetes node.
-** `LoadBalancer`: Hazelcast clients are outside the Kubernetes network and can access members via the the external IP assigned to the LoadBalancer service.
-
-WARNING: Your Kubernetes cluster should be able to assign public IPs to LoadBalancer services to connect to Hazelcast from outside Kubernetes.
-
-WARNING: If NodePorts are used (`discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), then the Kubernetes nodes should have access from outside Kubernetes. This includes both the node IPs and ports.
-
-=== Google Kubernetes Engine
-
-If you are using Google Kubernetes Engine (GKE) and trying to connect to Hazelcast from outside Kubernetes, then you need to consider the following:
-
-- The Kubernetes cluster should not be private.
-- If NodePorts are used (`discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), a firewall rule for each Hazelcast member should be added to allow TCP traffic on node ports.
-
-=== Amazon Elastic Kubernetes Service
-
-If you are using Amazon Elastic Kubernetes Service (EKS) and trying to connect to Hazelcast from outside Kubernetes, then you need to consider the following:
-
-- Having the VPC of the EKS cluster configured only with private subnets is not recommended.
-- If NodePorts are used (`discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), the VPC of the EKS cluster should be configured only with public subnets. Additionally, inbound rules for the node ports should be added to the nodes' security groups.
-- AWS load balancers are assigned with hostnames by default. Since it takes some time to resolve these hostnames, the member pods might fail to start with `CrashLoopBackOff` status in the beginning. But the pods will be running fine eventually after a couple of restarts.
-
-=== Azure Kubernetes Service
-
-If you are using Azure Kubernetes Service (AKS) and trying to connect to Hazelcast from outside Kubernetes, then you need to consider the following:
-
-- The Kubernetes cluster should not be private.
-- If NodePorts are used (`discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), the node pools should be created by using `--enable-node-public-ip` flag. Additionally, the required inbound rules should be added for network security groups (NSGs) to allow access to node IPs and ports.
-
 == Check that the Hazelcast Cluster is Running
 
 To check if a cluster is running, see the `status` field of the Hazelcast resource.
+
+The status can be checked using the command below.
+
+[source,shell]
+----
+kubectl get hazelcast
+----
+
+```
+NAME        STATUS    MEMBERS
+hazelcast   Running   3/3
+```
+
+You can use the following command for the long format.
+
+[source,shell]
+----
+kubectl get hazelcast -o=yaml
+----
+
 [source,yaml,subs="attributes+"]
 ----
 status:
@@ -183,6 +153,8 @@ The `phase` field represents the current status of the cluster, and can contain 
 * `Running`: The cluster is up and running.
 * `Pending`: The cluster is in the process of starting.
 * `Failed`: An error occurred while starting the cluster.
+
+Any additional info such as validation errors will be provided in the `message` field.
 
 The `readyMembers` field represents the number of Hazelcast members that are connected to the cluster.
 
@@ -226,17 +198,30 @@ To access the Management Center dashboard, open the browser at address `http://$
 
 [source,shell]
 ----
-MANCENTER_IP=$( kubectl get service managementcenter-sample -o jsonpath='{.status.loadBalancer.ingress[0].ip}') 
+MANCENTER_IP=$( kubectl get service managementcenter-sample -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
 ----
 
 == Clean up
 
-Run the following commands to remove Hazelcast cluster, Management Center, Hazelcast License Key Secret, and Hazelcast Enterprise Operator.
+You can run the commands below to remove Hazelcast cluster and  Management Center.
 
 [source,shell]
 ----
 kubectl delete -f hazelcast.yaml
 kubectl delete -f management-center.yaml
+----
+
+If you installed Hazelcast Enterprise, run the following commands to remove Hazelcast Enterprise cluster and Hazelcast License Key Secret.
+
+[source,shell]
+----
+kubectl delete -f hazelcast-enterprise.yaml
 kubectl delete secret hazelcast-license-key
-kubectl delete -f bundle.yaml
+----
+
+Finally, run the command below to delete Hazelcast Platform Operator deployment.
+
+[source,shell]
+----
+kubectl delete -f https://raw.githubusercontent.com/hazelcast/hazelcast-platform-operator-docs/main/bundle.yaml
 ----
