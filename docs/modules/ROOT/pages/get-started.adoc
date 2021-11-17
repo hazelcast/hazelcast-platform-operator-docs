@@ -5,11 +5,11 @@ The simplest way of installing and operating your Hazelcast Platform cluster in 
 
 == Deploy Hazelcast Platform Operator
 
-You can deploy Hazelcast Platform Operator by applying the https://github.com/hazelcast/hazelcast-platform-operator-docs/blob/main/bundle.yaml[`bundle.yaml`] file. Please apply it to your Kubernetes cluster with the following command.
+You can deploy Hazelcast Platform Operator by applying the https://repository.hazelcast.com/operator/bundle.yaml[`bundle.yaml`] file. Please apply it to your Kubernetes cluster with the following command.
 
 [source,shell]
 ----
-kubectl apply -f https://raw.githubusercontent.com/hazelcast/hazelcast-platform-operator-docs/main/bundle.yaml
+kubectl apply -f https://repository.hazelcast.com/operator/bundle.yaml
 ----
 
 At this point, your Hazelcast Platform Operator should be up and running. You can check it with the command below.
@@ -223,5 +223,5 @@ Finally, run the command below to delete Hazelcast Platform Operator deployment.
 
 [source,shell]
 ----
-kubectl delete -f https://raw.githubusercontent.com/hazelcast/hazelcast-platform-operator-docs/main/bundle.yaml
+kubectl delete -f https://repository.hazelcast.com/operator/bundle.yaml
 ----
