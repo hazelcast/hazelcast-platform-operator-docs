@@ -1,0 +1,14 @@
+# This workflow takes the contents of the branches and builds the staging documentation site
+
+name: Build production site
+
+on:
+  push:
+    branches: [ main, 'v/*' ]
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Trigger build
+      run: curl -X POST -d {} https://api.netlify.com/build_hooks/619fa642cea3ee4d3616420b
