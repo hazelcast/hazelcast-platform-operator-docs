@@ -44,7 +44,7 @@ Then, use Kustomize to apply `bundle.yaml` with the changed namespace.
 kubectl apply -k .
 ----
 
-If you choose to deploy multiple Hazelcast Operators in different namespaces, you will need to update the name of every operator. You can add `nameSuffix` field in the `kustomization.yaml` to differentiate them.
+If you deploy multiple Hazelcast Operators in different namespaces, you need a way to differentiate the name of each operator. For example, you can give each operator's name a suffix by adding the `nameSuffix` field to the `kustomization.yaml` file:
 
 [source,yaml]
 ----
