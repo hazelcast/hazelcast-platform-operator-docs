@@ -35,36 +35,25 @@ We support documentation for the latest patch releases of minor versions. For ex
 
 NOTE: The documentation build process is triggered whenever you create a new branch with the `v/` prefix, push to an existing `v/` branch, or push to the `main` branch.
 
-=== Snapshot Releases
+=== Creating Release Branches
 
-Add the new snapshot version to the following:
+. If you are releasing a new major version, create a release branch from the `main` branch.
++
+For example, if you are releasing version 5.1, create a new release branch named `5.1` from the `main` branch.
 
-[cols="1m,1m,1m,1m"]
-|===
-|Repository|Branch|File|Fields
+. Update the fields mentioned in <<latest-releases, Latest Releases>>.
 
-|{url-operator-docs}[hazelcast-platform-operator-docs]
-|main
-|docs/antora.yml
-a|
-- `version`
-- `display_version`
-- `full-version`
+. Remove the `prerelease: true` field from the `docs/antora.yml` file of the `hz-docs` repository.
++
+IMPORTANT: If you are creating a branch for a beta release, do not remove this field.
 
-|{url-playbook}[hazelcast-docs]
-a|`main` and `develop`
-|_redirects
-|/hazelcast-operator/latest-dev/*
+. When you are ready to release, create a maintentance branch (`v/<version>`) from the release branch.
++
+NOTE: As soon as you push the maintenance branch to the repository, GitHub will trigger a new build of the site, which will include your new content.
 
-|
-|
-|search-config.json
-a|Update the snapshot version in these fields:
-
-- `start_urls.tags`
-- `start_urls.variables.version`
-
-|===
+. Make sure to delete the release branch.
++
+For example, if you released version `5.1`, delete the `5.1` branch. This step helps to keep the repository clean of release branches.
 
 === Latest Releases
 
@@ -123,26 +112,6 @@ a|
 In the `v/` branch for the minor version whose patch you are releasing, update the `asciidoc.attributes.full-version` field in the `antora.yml` file to the new patch version. For example, if you are releasing version 5.0.3, find the `v/5.0` branch and update the `asciidoc.attributes.full-version` field in the `antora.yml` file with 5.0.3.
 
 NOTE: As soon as you push content to this branch, GitHub will trigger a new build of the site, which will include your new content.
-
-=== Creating Release Branches
-
-. If you are releasing a new major version, create a release branch from the `main` branch.
-+
-For example, if you are releasing version 5.1, create a new release branch named `5.1` from the `main` branch.
-
-. Update the fields mentioned in <<latest-releases, Latest Releases>>.
-
-. Remove the `prerelease: true` field from the `docs/antora.yml` file of the `hz-docs` repository.
-+
-IMPORTANT: If you are creating a branch for a beta release, do not remove this field.
-
-. When you are ready to release, create a maintentance branch from the release branch.
-+
-NOTE: As soon as you push the maintenance branch to the repository, GitHub will trigger a new build of the site, which will include your new content.
-
-. Make sure to delete the release branch.
-+
-For example, if you released version `5.1`, delete the `5.1` branch. This step helps to keep the repository clean of release branches.
 
 == GitHub Actions
 

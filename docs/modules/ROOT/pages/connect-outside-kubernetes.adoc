@@ -3,11 +3,11 @@
 
 {description}
 
-TIP: For a working example, see link:link:https://guides.hazelcast.org/hazelcast-platform-operator-expose-externally/main/[this tutorial].
+TIP: For a working example, see link:https://guides.hazelcast.org/hazelcast-platform-operator-expose-externally/main/[this tutorial].
 
 == Before you Begin
 
-You need a Hazelcast cluster, and the `kubectl` command-line tool must be configured to communicate with your cluster.
+The `kubectl` command-line tool must be configured to communicate with your cluster.
 
 .Google Kubernetes Engine (GKE)
 [%collapsible]
@@ -186,5 +186,4 @@ client = hazelcast.HazelcastClient(
 )
 ----
 --
-
 ====

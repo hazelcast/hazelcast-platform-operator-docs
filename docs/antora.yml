@@ -1,4 +1,4 @@
-name: hazelcast-operator
+name: operator
 title: Hazelcast Operator
 # Version in the URL
 version: 'latest-snapshot'

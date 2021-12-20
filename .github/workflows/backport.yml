@@ -7,7 +7,7 @@ jobs:
   backport:
     strategy:
       matrix:
-        branch: ['v/5.0']
+        branch: ['']
     runs-on: ubuntu-latest
     steps:
     
