@@ -15,12 +15,7 @@ Known limitations
 
 == Support
 
-For support, use one of the following channels:
-
-* https://github.com/hazelcast/hazelcast[Hazelcast GitHub] (for reporting issues through our GitHub repository)
-* https://slack.hazelcast.com/[Hazelcast Community Slack^]
-* https://groups.google.com/forum/#!forum/hazelcast[Mail Group^]
-* http://www.stackoverflow.com/[StackOverflow^].
+For support, find us in the https://slack.hazelcast.com/[Hazelcast Community Slack^].
 
 == Getting Started
 
