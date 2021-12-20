@@ -3,7 +3,7 @@
 
 {description}
 
-TIP: For a working example, see link:link:https://guides.hazelcast.org/hazelcast-platform-operator-expose-externally/main/[this tutorial].
+TIP: For a working example, see link:https://guides.hazelcast.org/hazelcast-platform-operator-expose-externally/main/[this tutorial].
 
 == Before you Begin
 
