@@ -3,14 +3,20 @@
 
 {description}
 
+== Before you Begin
+
+You need a Kubernetes cluster, and the `kubectl` command-line tool must be configured to communicate with your cluster.
+
 == Step 1. Deploy Hazelcast Platform Operator
 
-To deploy Hazelcast Platform Operator, use the following command to apply the https://repository.hazelcast.com/operator/bundle-{full-version}.yaml[`bundle.yaml`] file to your Kubernetes cluster:
+To deploy Hazelcast Platform Operator, apply the https://repository.hazelcast.com/operator/bundle-{full-version}.yaml[`bundle-{full-version}.yaml`] file to your Kubernetes cluster:
 
 [source,shell,subs="attributes+"]
 ----
 kubectl apply -f https://repository.hazelcast.com/operator/bundle-{full-version}.yaml
 ----
+
+TIP: If you always want to use the latest release, you can use the `bundle-latest.yaml` file.
 
 At this point, the Hazelcast Platform Operator should be up and running. You can check it with the command below.
 

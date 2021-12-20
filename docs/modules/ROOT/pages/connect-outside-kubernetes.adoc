@@ -7,7 +7,7 @@ TIP: For a working example, see link:link:https://guides.hazelcast.org/hazelcast
 
 == Before you Begin
 
-You need to have a Kubernetes cluster, and the `kubectl` command-line tool must be configured to communicate with your cluster.
+You need a Hazelcast cluster, and the `kubectl` command-line tool must be configured to communicate with your cluster.
 
 .Google Kubernetes Engine (GKE)
 [%collapsible]
