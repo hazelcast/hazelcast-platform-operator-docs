@@ -1,18 +1,18 @@
 = Deploy a Cluster with the Hazelcast Platform Operator for Kubernetes
-[[deploying-with-operator]]
+:description: In this tutorial, you'll deploy a Hazelcast cluster and an instance of Management Center, using Hazelcast Platform Operator for Kubernetes.
 
-The simplest way of installing and operating your Hazelcast Platform cluster in the Kubernetes (and OpenShift) environments is to use Hazelcast Platform Operator.
+{description}
 
-== Deploy Hazelcast Platform Operator
+== Step 1. Deploy Hazelcast Platform Operator
 
-You can deploy Hazelcast Platform Operator by applying the https://repository.hazelcast.com/operator/bundle.yaml[`bundle.yaml`] file. Please apply it to your Kubernetes cluster with the following command.
+To deploy Hazelcast Platform Operator, use the following command to apply the https://repository.hazelcast.com/operator/bundle-{full-version}.yaml[`bundle.yaml`] file to your Kubernetes cluster:
 
-[source,shell]
+[source,shell,subs="attributes+"]
 ----
-kubectl apply -f https://repository.hazelcast.com/operator/bundle.yaml
+kubectl apply -f https://repository.hazelcast.com/operator/bundle-{full-version}.yaml
 ----
 
-At this point, your Hazelcast Platform Operator should be up and running. You can check it with the command below.
+At this point, the Hazelcast Platform Operator should be up and running. You can check it with the command below.
 
 [source,shell]
 ----
@@ -26,7 +26,7 @@ kubectl logs deployment.apps/hazelcast-platform-controller-manager
 2021-07-14T09:03:41.525Z        INFO    controller-runtime.manager      starting metrics server {"path": "/metrics"}
 ```
 
-== Customize Namespace (optional)
+== Optional: Customize the Namespace
 
 By default, Hazelcast Operator is installed into the `default` namespace. If you want to change it, you can either replace all `namespace: default` parameters in `bundle.yaml` or use https://kustomize.io/[Kustomize] to achieve it by creating the following `kustomization.yaml` file.
 
@@ -56,28 +56,38 @@ nameSuffix: <operator-suffix>
 
 Note that you'll need to add a parameter `-n <your-namespace>` to all further commands.
 
-== Start Hazelcast Cluster
+== Step 2. Start the Hazelcast Cluster
 
-After installing and running Hazelcast Platform Operator, you can create a Hazelcast cluster. First, create `Hazelcast` Custom Resource file as `hazelcast.yaml`.
+After installing and running Hazelcast Platform Operator, you can create a Hazelcast cluster. First, create the `Hazelcast` custom resource file as `hazelcast.yaml`.
 
+[tabs]
+====
+Open Source:: 
++ 
+--
+
+. Create the `Hazelcast` custom resource file and name it `hazelcast.yaml`.
++
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hazelcast.yaml[]
 ----
 
-Apply it with the following command to start the Hazelcast cluster.
-
+. Apply the custom resource to start the Hazelcast cluster.
++
 [source,shell]
 ----
 kubectl apply -f hazelcast.yaml
 ----
 
-After some time, you can verify that Hazelcast cluster is up and running by checking the Hazelcast member logs.
-
+. Verify that the cluster is up and running by checking the Hazelcast member logs.
++
 [source,shell]
 ----
 kubectl logs pod/hazelcast-sample-0
 ----
+
+You should see the following:
 
 ```
 Members {size:3, ver:3} [
@@ -86,38 +96,41 @@ Members {size:3, ver:3} [
         Member [10.36.6.2]:5701 - c3d105d2-0bca-4a66-8519-1cacffc05c98
 ]
 ```
+--
+Enterprise:: 
++ 
+--
+Hazelcast Enterprise requires a license key. If you don't have a license key, you can request one from the link:http://trialrequest.hazelcast.com/[Hazelcast website].
 
-== Start Hazelcast Enterprise Cluster
-
-Hazelcast Enterprise requires having the license key specified as Kubernetes Secret.
-
-NOTE: If you don't have Hazelcast Enterprise License Key, you can link:http://trialrequest.hazelcast.com/[request one] from the Hazelcast website.
-
+. Create a Kubernetes secret to hold your license key.
++
 [source,shell]
 ----
 kubectl create secret generic hazelcast-license-key --from-literal=license-key=<YOUR LICENSE KEY>
 ----
 
-Finally, you can create `Hazelcast` Custom Resource file as `hazelcast-enterprise.yaml`.
-
+. Create the `Hazelcast` custom resource file and name it `hazelcast-enterprise.yaml`.
++
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hazelcast-enterprise.yaml[]
 ----
 
-Apply it with the following command to start the Hazelcast cluster.
-
+. Apply the custom resource to start the Hazelcast cluster.
++
 [source,shell]
 ----
 kubectl apply -f hazelcast-enterprise.yaml
 ----
 
-After a moment, you can verify that Hazelcast cluster is up and running by checking the Hazelcast member logs.
-
+. Verify that Hazelcast cluster is up and running by checking the Hazelcast member logs.
++
 [source,shell]
 ----
 kubectl logs pod/hazelcast-sample-0
 ----
+
+You should see the following:
 
 ```
 Members {size:3, ver:3} [
@@ -127,11 +140,14 @@ Members {size:3, ver:3} [
 ]
 ```
 
-== Check that the Hazelcast Cluster is Running
+--
+====
+
+== Step 3. Check that the Hazelcast Cluster is Running
 
 To check if a cluster is running, see the `status` field of the Hazelcast resource.
 
-The status can be checked using the command below.
+The status can be checked using the `get hazelcast` command.
 
 [source,shell]
 ----
@@ -164,20 +180,21 @@ The `phase` field represents the current status of the cluster, and can contain 
 * `Pending`: The cluster is in the process of starting.
 * `Failed`: An error occurred while starting the cluster.
 
-Any additional info such as validation errors will be provided in the `message` field.
+Any additional information such as validation errors will be provided in the `message` field.
 
 The `readyMembers` field represents the number of Hazelcast members that are connected to the cluster.
 
 WARNING: Use the `readyMembers` field only for informational purposes. This field is not always accurate. Some members may have joined or left the cluster since this field was last updated.
 
-== Start Management Center
+== Step 4. Start Management Center
 
-You can monitor the Hazelcast cluster by starting the Management Center. You can create `ManagementCenter` custom resource file as `management-center.yaml`.
+You can monitor the Hazelcast cluster by starting Management Center. You can create `ManagementCenter` custom resource file as `management-center.yaml`.
 
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/management-center.yaml[]
 ----
+
 WARNING: StatefulSet does not support updates to `volumeClaimTemplates` field, so `persistence` field should be set only at the creation of the custom resource. Any update to the `persistence` field will not affect the Management Center.
 
 WARNING: `hazelcastClusters` field does not support deleting clusters from the custom resource. If you want to remove a cluster from the Management Center, you can do it from the Management Center UI.
@@ -211,9 +228,9 @@ To access the Management Center dashboard, open the browser at address `http://$
 MANCENTER_IP=$( kubectl get service managementcenter-sample -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
 ----
 
-== Clean up
+== Step 5. Clean up
 
-You can run the commands below to remove Hazelcast cluster and  Management Center.
+You can run the commands below to remove the Hazelcast cluster and Management Center.
 
 [source,shell]
 ----
@@ -231,7 +248,11 @@ kubectl delete secret hazelcast-license-key
 
 Finally, run the command below to delete Hazelcast Platform Operator deployment.
 
-[source,shell]
+[source,shell,subs="attributes+"]
 ----
-kubectl delete -f https://repository.hazelcast.com/operator/bundle.yaml
+kubectl delete -f https://repository.hazelcast.com/operator/bundle-{full-version}.yaml
 ----
+
+== Next Steps
+
+Learn how to xref:connect-outside-kubernetes.adoc[expose Hazelcast clusters outside Kubernetes] so you can connect external clients to them.

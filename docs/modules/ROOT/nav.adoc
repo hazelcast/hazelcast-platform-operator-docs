@@ -1,11 +1,11 @@
 .Get Started
 * xref:index.adoc[Overview]
-* xref:get-started.adoc[]
-
-.Deploy and Manage
+* xref:get-started.adoc[Deploy a Cluster]
 * xref:connect-outside-kubernetes.adoc[]
 
 .Reference
 // Configuration options/spec files/any other reference docs
 
 .Release Notes
+
+* xref:release-notes.adoc[5.0]

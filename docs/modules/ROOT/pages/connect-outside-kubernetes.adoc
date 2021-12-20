@@ -1,13 +1,102 @@
-= Connect to Hazelcast from Outside Kubernetes
+= Connecting to Hazelcast from Outside Kubernetes
+:description: Hazelcast supports connections from both smart and unisocket clients that are outside your Kubernetes cluster. To allow these clients to connect to Hazelcast, you need to configure the `exposeExternally` field of the Hazelcast custom resource.
 
-To connect to a Hazelcast cluster from outside Kubernetes, you need to configure the `expose-externally` field of your custom resource.
+{description}
 
+TIP: For a working example, see link:link:https://guides.hazelcast.org/hazelcast-platform-operator-expose-externally/main/[this tutorial].
+
+== Before you Begin
+
+You need to have a Kubernetes cluster, and the `kubectl` command-line tool must be configured to communicate with your cluster.
+
+.Google Kubernetes Engine (GKE)
+[%collapsible]
+====
+If you use GKE, consider the following:
+
+- Make sure the Kubernetes cluster is public.
+- If you plan on using NodePorts, (`discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), set up a firewall rule for each Hazelcast member to allow TCP traffic on node ports.
+====
+
+.Amazon Elastic Kubernetes Service (EKS)
+[%collapsible]
+====
+If you use EKS, consider the following:
+
+- Having the VPC of the EKS cluster configured only with private subnets is not recommended.
+- If you plan on using NodePorts, (`discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), the VPC of the EKS cluster should be configured only with public subnets. Additionally, inbound rules for the node ports should be added to the nodes' security groups.
+- AWS load balancers are assigned with hostnames by default. Since it takes some time to resolve these hostnames, the member pods might fail to start with `CrashLoopBackOff` status in the beginning. But the pods will be running fine eventually after a couple of restarts.
+====
+
+.Azure Kubernetes Service (AKS)
+[%collapsible]
+====
+If you use AKS, consider the following:
+
+- Make sure the Kubernetes cluster is public.
+
+- If you plan on using NodePorts, (`discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), the node pools should be created by using the `--enable-node-public-ip` flag. Additionally, the required inbound rules should be added for network security groups (NSGs) to allow access to node IPs and ports.
+====
+
+== Configuring `exposeExternally`
+
+To allow connections from clients, you need to configure the `exposeExternally` field, of the Hazelcast custom resource. This field has the following properties:
+
+[cols="20%m,80%a"]
+|===
+|Property|Description
+
+|type
+|The way in which Hazelcast members are exposed to clients:
+
+- `Unisocket`: Members are exposed through one Kubernetes service that automatically load balances the traffic to Hazelcast members. Use this property if your clients use the unisocket operation mode.
+- `Smart`: Each member is exposed through a separate Kubernetes service that allows clients to send requests directly to the members that own a particular partition. Use this property if your clients use the smart operation mode.
+
+|discoveryServiceType
+|Type of Kubernetes service used for discovering members in a Hazelcast cluster:
+
+- `LoadBalancer` (default): Hazelcast client configuration `<load-balancer-external-ip>:5701`.
++
+WARNING: Your Kubernetes cluster should be able to assign public IPs to LoadBalancer services.
+- `NodePort`: Hazelcast client configuration `<node-address>:<node-port>`.
+|memberAccess
+|The way in which clients access Hazelcast members:
+
+- `LoadBalancer`: Hazelcast clients are outside the Kubernetes network and can access members, using the external IP that is assigned to the `LoadBalancer` service.
+- `NodePortExternalIP` (default): Hazelcast clients are outside the Kubernetes network, so a client can access members only via the public IP address that's assigned to their Kubernetes nodes.
+- `NodePortNodeName`: Hazelcast clients are inside the same network as the Kubernetes nodes, so clients can access a member by the hostname of its Kubernetes node.
+
+|===
+
+WARNING: If NodePorts are used (`discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), the Kubernetes nodes must allow external TCP traffic on node IPs and ports.
+
+== Exposing Hazelcast to Smart Clients
+
+Smart clients access partitioned data in a cluster by communicating with the partition owner. This operation mode increases the overall throughput and efficiency of client-cluster communication.
+
+NOTE: For non-partitioned data, smart clients can communicate with any cluster member.
+
+To support smart clients, you should configure the `type` property as `smart`.
+
+In this configuration, the standard Kubernetes mechanism routes client traffic to the correct member. Or, if the client is not accessing partitioned data, the traffic is automatically load balanced.
+
+== Exposing Hazelcast to Unisocket Clients
+
+Unisocket clients communicate with a single member in the cluster. To enable these clients to connect to the Hazelcast cluster, you should configure the `type` property as `unisocket`.
+
+In this configuration, the standard Kubernetes mechanism automatically load balances client traffic across the Hazelcast cluster.
+
+== Example Configuration
+
+In this example, the Hazelcast cluster is configured to load balance connections from smart clients.
+
+.Example configuration
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hazelcast_expose_externally.yaml[]
 ----
 
-After applying the configuration change in Kubernetes, each Hazelcast member will be exposed as a separate service.
+This configuration creates a load balancer for the discovery service and one service for each member.
 
 [source,shell]
 ----
@@ -16,49 +105,86 @@ kubectl get service
 
 ```
 NAME                 TYPE           CLUSTER-IP       EXTERNAL-IP     PORT(S)          AGE
-hazelcast-sample     LoadBalancer   10.219.246.19    35.230.92.217   5701:30560/TCP   2m11s
-hazelcast-sample-0   NodePort       10.219.254.192   <none>          5701:31890/TCP   2m11s
-hazelcast-sample-1   NodePort       10.219.247.43    <none>          5701:32310/TCP   2m11s
-hazelcast-sample-2   NodePort       10.219.243.16    <none>          5701:32585/TCP   2m11s
+hazelcast-sample     LoadBalancer   10.219.246.19    35.230.92.217   5701:30560/TCP   2m11s <1>
+hazelcast-sample-0   NodePort       10.219.254.192   <none>          5701:31890/TCP   2m11s <2>
+hazelcast-sample-1   NodePort       10.219.247.43    <none>          5701:32310/TCP   2m11s <2>
+hazelcast-sample-2   NodePort       10.219.243.16    <none>          5701:32585/TCP   2m11s <2>
 ```
 
-To connect to the cluster, you can add the external IP address of the LoadBalancer service to your Hazelcast client configuration.
+<1> Discovery service
+<2> Member access service
 
-You can configure the `expose-externally` field with the following properties:
+Smart clients can use the external IP of the load balancer to connect to the cluster.
 
-* `type`: The way in which Hazelcast members are exposed to clients.
-** `Unisocket`: Members are exposed via one Kubernetes service.
-** `Smart`: Each member is exposed via a separate Kubernetes service.
-* `discoveryServiceType`: Type of Kubernetes service used for discovering members in a Hazelcast cluster.
-** `LoadBalancer` (default): Hazelcast client configuration `<load-balancer-external-ip>:5701`.
-** `NodePort`: Hazelcast client configuration `<node-address>:<node-port>`.
-* `memberAccess`: The way in which clients access Hazelcast members.
-** `NodePortExternalIP` (default): Hazelcast clients are outside the Kubernetes network, so a client can access members only via the public IP address that's assigned to their Kubernetes nodes.
-** `NodePortNodeName`: Hazelcast clients are inside the same network as the Kubernetes nodes, so clients can access a member by the hostname of its Kubernetes node.
-** `LoadBalancer`: Hazelcast clients are outside the Kubernetes network and can access members via the the external IP assigned to the LoadBalancer service.
+[tabs]
+====
+Java::
++
+--
+[source, java]
+----
+ClientConfig config = new ClientConfig();
+config.getNetworkConfig().addAddress("35.230.92.217");
+----
+--
 
-WARNING: Your Kubernetes cluster should be able to assign public IPs to LoadBalancer services to connect to Hazelcast from outside Kubernetes.
+Node.js::
++
+--
+[source, javascript]
+----
+const { Client } = require('hazelcast-client');
 
-WARNING: If NodePorts are used (`discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), then the Kubernetes nodes should have access from outside Kubernetes. This includes both the node IPs and ports.
+const clientConfig = {
+  network: {
+    clusterMembers: [
+      '35.230.92.217'
+    ]
+  }
+};
+const client = await Client.newHazelcastClient(clientConfig);
+----
+--
 
-== Google Kubernetes Engine
+Go::
++
+--
+[source, go]
+----
+import (
+	"log"
 
-If you are using Google Kubernetes Engine (GKE) and trying to connect to Hazelcast from outside Kubernetes, then you need to consider the following:
+	"github.com/hazelcast/hazelcast-go-client"
+)
 
-- The Kubernetes cluster should not be private.
-- If NodePorts are used (`discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), a firewall rule for each Hazelcast member should be added to allow TCP traffic on node ports.
+func main() {
+	config := hazelcast.Config{}
+	cc := &config.Cluster
+	cc.Network.SetAddresses("35.230.92.217")
+	ctx := context.TODO()
+	client, err := hazelcast.StartNewClientWithConfig(ctx, config)
+	if err != nil {
+		panic(err)
+	}
+}
+----
+--
 
-== Amazon Elastic Kubernetes Service
+Python::
++
+--
+[source, python]
+----
+import logging
+import hazelcast
 
-If you are using Amazon Elastic Kubernetes Service (EKS) and trying to connect to Hazelcast from outside Kubernetes, then you need to consider the following:
+logging.basicConfig(level=logging.INFO)
 
-- Having the VPC of the EKS cluster configured only with private subnets is not recommended.
-- If NodePorts are used (`discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), the VPC of the EKS cluster should be configured only with public subnets. Additionally, inbound rules for the node ports should be added to the nodes' security groups.
-- AWS load balancers are assigned with hostnames by default. Since it takes some time to resolve these hostnames, the member pods might fail to start with `CrashLoopBackOff` status in the beginning. But the pods will be running fine eventually after a couple of restarts.
+client = hazelcast.HazelcastClient(
+    cluster_members=["35.230.92.217"],
+    use_public_ip=True,
+)
+----
+--
 
-== Azure Kubernetes Service
-
-If you are using Azure Kubernetes Service (AKS) and trying to connect to Hazelcast from outside Kubernetes, then you need to consider the following:
-
-- The Kubernetes cluster should not be private.
-- If NodePorts are used (`discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), the node pools should be created by using `--enable-node-public-ip` flag. Additionally, the required inbound rules should be added for network security groups (NSGs) to allow access to node IPs and ports.
+====
