@@ -1,0 +1,8 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+  scheduling:
+    nodeSelector:
+      topology.kubernetes.io/region: us-west1

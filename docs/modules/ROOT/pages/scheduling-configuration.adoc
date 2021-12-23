@@ -1,0 +1,100 @@
+= Configure scheduling policy for Hazelcast instances
+:description:
+
+Kubernetes allows scheduling policies for the Pods.
+Hazelcast Platform operator also accepts same policies to explicitly allow or disallow certain scheduling policies.
+Detailed documentation about scheduling policies can be found link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/[here].
+
+{description}
+
+== Node Selector
+
+The users can specify node selector to define on which nodes Hazelcast instances run.
+The labels in node selector will match the node's label.
+
+For example, we want to run our Hazelcast instances on specific region (e.g us-west1).
+
+The example:
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/node-selector.yaml[]
+----
+
+Node selectors are hard requirements. If there is no node to match all of the selectors, then
+the Hazelcast instances will not be scheduled.
+
+More information about node selectors can be found link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector[here].
+
+== Node Affinity
+
+The users can specify node affinity to define which nodes will run Hazelcast instances.
+Nodes with specified labels are allowed to run them. Compared to node selectors, node affinity
+allow users to additionally define soft requirements, and more complex label matching.
+
+Let's assume following scenario.
+We are running a multi-region Kubernetes cluster with different architectures (`amd64`, `arm64` etc.)
+and different operating system (`Linux`, `Windows`).
+We want to schedule Hazelcast instances only on nodes with AMD64 architecture
+and Linux operating system because other variants are mostly used for other tasks.
+We also want to prefer nodes in us-west1 or us-west2 regions because other
+applications which use Hazelcast are also in these regions so we want close proximity,
+but this is not a hard requirement.
+
+The scenario above is not supported by node selector because we have `OR` in one of requirements and
+we have a hard requirement with an additional soft one. Node affinity allows us to manage it.
+
+The example below will satisfy the scenario above:
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/node-affinity.yaml[]
+----
+
+More information about node affinity can be found link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity[here].
+
+== Pod Affinity and Pod Anti-Affinity
+
+The users can also specify pod affinity and anti-affinity to define on which nodes Hazelcast instances
+run with respect to other pods.
+
+
+For example, we want to run Hazelcast instances on the same nodes with the pods of Deployment `app1` because
+its performance improves if they are co-located. We also prefer the Hazelcast instances run on different
+nodes with respect to each other but since there might be small of number of nodes, we do not want block
+the scheduling if the number of Hazelcast instances are greater than the number of nodes.
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/pod-affinity.yaml[]
+----
+
+More information about node affinity can be found link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity[here].
+
+== Tolerations
+
+Tolerations and corresponding taints are mechanisms to repel pods from certain nodes.
+Nodes can be tainted with key, value and particular effect.
+
+Let's run the following to taint the node node1:
+
+[source,shell]
+----
+kubectl taint nodes node1 forbidden:NoSchedule
+----
+
+Following configuration cannot schedule any Hazelcast instance into the node `node1`:
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast.yaml[]
+----
+
+We need to add tolerations to our Hazelcast pods. It will allow the pods to run on the node `node1`:
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/pod-tolerations.yaml[]
+----
+
+More information about taints and tolerations can be found link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/[here].
