@@ -25,3 +25,4 @@ spec:
                       values:
                         - hazelcast
                 topologyKey: kubernetes.io/hostname
+
