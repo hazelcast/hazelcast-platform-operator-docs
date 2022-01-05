@@ -81,7 +81,7 @@ This example taints the node `node1`:
 kubectl taint nodes node1 forbidden:NoSchedule
 ----
 
-Following configuration cannot schedule any Hazelcast instance into the node `node1`:
+The following configuration cannot schedule any Hazelcast pods on `node1`:
 
 [source,yaml,subs="attributes+"]
 ----
