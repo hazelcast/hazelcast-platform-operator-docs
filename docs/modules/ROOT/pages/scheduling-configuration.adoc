@@ -88,7 +88,7 @@ Following configuration cannot schedule any Hazelcast instance into the node `no
 include::ROOT:example$/hazelcast.yaml[]
 ----
 
-We need to add tolerations to our Hazelcast pods. It will allow the pods to run on the node `node1`:
+To allow the pods to run on the node `node1`, you need to add tolerations to the Hazelcast pods:
 
 [source,yaml,subs="attributes+"]
 ----
