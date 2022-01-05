@@ -2,7 +2,7 @@
 * xref:index.adoc[Overview]
 * xref:get-started.adoc[Deploy a Cluster]
 * xref:connect-outside-kubernetes.adoc[]
-* xref:scheduling-configuration.adoc[Manage Hazelcast Scheduling Policies]
+* xref:scheduling-configuration.adoc[Scheduling Hazelcast Pods]
 
 .Reference
 // Configuration options/spec files/any other reference docs
