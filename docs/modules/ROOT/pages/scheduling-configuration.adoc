@@ -74,7 +74,7 @@ More information about node affinity can be found link:https://kubernetes.io/doc
 Tolerations and corresponding taints are mechanisms to repel pods from certain nodes.
 Nodes can be tainted with key, value and particular effect.
 
-Let's run the following to taint the node node1:
+This example taints the node `node1`:
 
 [source,shell]
 ----
