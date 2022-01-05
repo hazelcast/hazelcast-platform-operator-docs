@@ -10,7 +10,6 @@ Detailed documentation about scheduling policies can be found link:https://kuber
 == Node Selector
 
 The users can specify node selector to define on which nodes Hazelcast instances run.
-The labels in node selector will match the node's label.
 
 For example, we want to run our Hazelcast instances on specific region (e.g us-west1).
 
