@@ -1,17 +1,20 @@
-= Configure scheduling policy for Hazelcast instances
+= Scheduling Hazelcast Pods
 :description: You can make sure that pods for Hazelcast members are run on certain nodes, using the following scheduling principles of Kubernetes: node selector, node affinity, taints, and tolerations.
 
 Kubernetes allows scheduling policies for the Pods.
 Hazelcast Platform operator also accepts same policies to explicitly allow or disallow certain scheduling policies.
-Detailed documentation about scheduling policies can be found link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/[here].
+Detailed documentation about scheduling policies can be found link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/[in Kubernetes docs].
 
 {description}
 
 == Node Selector
 
-The users can specify node selector to define on which nodes Hazelcast instances run.
+A node selector is a hard requirement that defines the nodes on which pods should run.
+If no node matches the requirements then the pods are not scheduled to be run. For example, you may want to make sure that Hazelcast pods are run only on nodes in a specific region.
+To define the nodes on which Hazelcast pods should run, you can use the `nodeSelector`.
 
-For example, we want to run our Hazelcast instances on specific region (e.g us-west1).
+For example, to run Hazelcast pods on a node in the us-west1 region, you can use the following example.
+This example uses the built-in link:https://kubernetes.io/docs/reference/labels-annotations-taints/#topologykubernetesioregion[`topology.kubernetes.io/region` label] to specify that the pod should be run on nodes in the us-west1 region.
 
 
 [source,yaml,subs="attributes+"]
@@ -40,7 +43,7 @@ The example below will satisfy the scenario above:
 include::ROOT:example$/node-affinity.yaml[]
 ----
 
-More information about node affinity can be found link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity[here].
+For more information about node affinity see the link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity[Kubernetes docs].
 
 == Pod Affinity and Pod Anti-Affinity
 
@@ -56,7 +59,7 @@ the scheduler if the number of Hazelcast pods is greater than the number of node
 include::ROOT:example$/pod-affinity.yaml[]
 ----
 
-More information about node affinity can be found link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity[here].
+For more information about pod affinity see the link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity[Kubernetes docs].
 
 == Tolerations
 
@@ -84,4 +87,4 @@ To allow the pods to run on the node `node1`, you need to add tolerations to the
 include::ROOT:example$/pod-tolerations.yaml[]
 ----
 
-More information about taints and tolerations can be found link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/[here].
+For more information about tolerations and taints see the link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/[Kubernetes docs].
