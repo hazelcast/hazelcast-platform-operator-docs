@@ -19,28 +19,19 @@ For example, we want to run our Hazelcast instances on specific region (e.g us-w
 include::ROOT:example$/node-selector.yaml[]
 ----
 
-Node selectors are hard requirements. If there is no node to match all of the selectors, then
-the Hazelcast instances will not be scheduled.
 
 For more information about node selectors see the link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector[Kubernetes docs].
 
 == Node Affinity
 
-The users can specify node affinity to define which nodes will run Hazelcast instances.
-Nodes with specified labels are allowed to run them. Compared to node selectors, node affinity
-allow users to additionally define soft requirements, and more complex label matching.
+Node affinity allows you to define both hard and soft requirements for the nodes on which pods should run. For example, you can set a hard requirement for Hazelcast pods to run only on nodes with AMD64 architecture
+and Linux operating system, and a soft requirement to prefer nodes in us-west1 or us-west2 regions.
 
-Let's assume following scenario.
-We are running a multi-region Kubernetes cluster with different architectures (`amd64`, `arm64` etc.)
-and different operating system (`Linux`, `Windows`).
-We want to schedule Hazelcast instances only on nodes with AMD64 architecture
-and Linux operating system because other variants are mostly used for other tasks.
-We also want to prefer nodes in us-west1 or us-west2 regions because other
-applications which use Hazelcast are also in these regions so we want close proximity,
-but this is not a hard requirement.
+NOTE: This example is not supported by the node selector because of the soft requirement.
 
-The scenario above is not supported by node selector because we have `OR` in one of requirements and
-we have a hard requirement with an additional soft one. Node affinity allows us to manage it.
+To define a node affinity, use the `nodeAffinity` field of PodSpec.
+
+
 
 The example below will satisfy the scenario above:
 
@@ -53,12 +44,10 @@ More information about node affinity can be found link:https://kubernetes.io/doc
 
 == Pod Affinity and Pod Anti-Affinity
 
-The users can also specify pod affinity and anti-affinity to define on which nodes Hazelcast instances
+You can specify pod affinity and pod anti-affinity to define on which nodes Hazelcast instances
 run with respect to other pods.
-
-
-For example, we want to run Hazelcast instances on the same nodes with the pods of Deployment `app1` because
-its performance improves if they are co-located. We also prefer the Hazelcast instances run on different
+For example, you may want to run Hazelcast pods on the same nodes as the pods of Deployment `app1` because
+your application's performance will be improved if the pods are co-located. You may also prefer that Hazelcast pods run on different
 nodes with respect to each other but since there might be small number of nodes, you don't want to block
 the scheduler if the number of Hazelcast pods is greater than the number of nodes.
 
