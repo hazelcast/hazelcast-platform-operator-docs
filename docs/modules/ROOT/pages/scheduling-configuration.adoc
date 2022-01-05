@@ -59,7 +59,7 @@ run with respect to other pods.
 
 For example, we want to run Hazelcast instances on the same nodes with the pods of Deployment `app1` because
 its performance improves if they are co-located. We also prefer the Hazelcast instances run on different
-nodes with respect to each other but since there might be small of number of nodes, we do not want block
+nodes with respect to each other but since there might be small number of nodes, you don't want to block
 the scheduling if the number of Hazelcast instances are greater than the number of nodes.
 
 [source,yaml,subs="attributes+"]
