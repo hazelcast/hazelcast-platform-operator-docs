@@ -22,7 +22,7 @@ include::ROOT:example$/node-selector.yaml[]
 Node selectors are hard requirements. If there is no node to match all of the selectors, then
 the Hazelcast instances will not be scheduled.
 
-More information about node selectors can be found link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector[here].
+For more information about node selectors see the link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector[Kubernetes docs].
 
 == Node Affinity
 
