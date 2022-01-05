@@ -1,5 +1,5 @@
 = Configure scheduling policy for Hazelcast instances
-:description:
+:description: You can make sure that pods for Hazelcast members are run on certain nodes, using the following scheduling principles of Kubernetes: node selector, node affinity, taints, and tolerations.
 
 Kubernetes allows scheduling policies for the Pods.
 Hazelcast Platform operator also accepts same policies to explicitly allow or disallow certain scheduling policies.
