@@ -13,7 +13,6 @@ The users can specify node selector to define on which nodes Hazelcast instances
 
 For example, we want to run our Hazelcast instances on specific region (e.g us-west1).
 
-The example:
 
 [source,yaml,subs="attributes+"]
 ----
