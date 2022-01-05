@@ -11,6 +11,7 @@ asciidoc:
     # The full major.minor.patch version, which is used as a variable in the docs for things like download links
     full-version: 'latest-snapshot'
     page-toclevels: 1@
+    # page-latest-supported versions are used for sample YAML files.
     page-latest-supported-mc: '5.0.4'
     page-latest-supported-hazelcast: '5.0.2'
 nav:
