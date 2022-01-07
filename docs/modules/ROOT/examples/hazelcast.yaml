@@ -1,4 +1,4 @@
 apiVersion: hazelcast.com/v1alpha1
 kind: Hazelcast
 metadata:
-  name: hazelcast
+  name: hazelcast-sample
