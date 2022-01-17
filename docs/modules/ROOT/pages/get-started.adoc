@@ -161,15 +161,15 @@ kubectl get hazelcast
 ----
 
 ```
-NAME        STATUS    MEMBERS
-hazelcast   Running   3/3
+NAME               STATUS    MEMBERS
+hazelcast-sample   Running   3/3
 ```
 
 You can use the following command for the long format.
 
 [source,shell]
 ----
-kubectl get hazelcast -o=yaml
+kubectl get hazelcast hazelcast-sample -o=yaml
 ----
 
 [source,yaml,subs="attributes+"]
