@@ -1,0 +1,45 @@
+= Phone Homes
+
+Hazelcast uses phone home data to learn about the usage of Hazelcast Platform Operator.
+
+Hazelcast Platform Operator instances call our phone home server for every Custom Resource's initial successful deployment and every 24 hours.
+
+**What is sent in?**
+
+The following information is sent in a phone home:
+
+* Operator version
+* K8s distribution, EKS, GKE, AKS etc.
+* K8s version
+* Operator uptime
+* UID of the operator
+* Operator installation origin, e.g Dockerhub, Red Hat Connect
+* Number of created OSS Hazelcast clusters
+* Number of created EE Hazelcast clusters
+* Number of created Management Centers
+* Average Hazelcast cluster creation latency
+* Average Management Center creation latency
+* Number of created Hazelcast members
+* Expose Externally specific:
+** Number of Hazelcast clusters where unisocket is used
+** Number of Hazelcast clusters where smart client is used
+** Number of Hazelcast clusters where LoadBalancer discovery is used
+** Number of Hazelcast clusters where NodePort discovery is used
+** Number of Hazelcast clusters where LoadBalancer member access is used
+** Number of Hazelcast clusters where node external IP member access is used
+** Number of Hazelcast clusters where node name member access is used
+
+**Disabling Phone Homes**
+
+You can disable the phone home using the environment variable `PHONE_HOME_ENABLED`.
+
+Simply add the following to the environment variable list in the deployment object in `bundle.yaml`.
+
+```yaml
+- name: PHONE_HOME_ENABLED
+  value: "false"
+```
+
+**Phone Home URL**
+
+For Hazelcast Platform Operator 5.0 and above: http://phonehome.hazelcast.com/pingOp.
