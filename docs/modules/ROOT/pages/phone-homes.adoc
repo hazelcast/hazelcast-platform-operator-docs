@@ -40,4 +40,4 @@ To disable phone homes, add the following to the environment variable list in th
 
 == Phone Home URL
 
-Phone home data is sent to the following URL: http://phonehome.hazelcast.com/pingOp.
+Usage data is sent to the following URL: http://phonehome.hazelcast.com/pingOp.
