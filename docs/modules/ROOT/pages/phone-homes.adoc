@@ -1,22 +1,21 @@
 = Phone Homes
+:description: Each instance of Hazelcast Platform Operator reports usage data to the Hazelcast phone home server when a Custom Resource is successfully deployed and every 24 hours after that. Hazelcast uses this data to learn about the usage of Hazelcast Platform Operator.
 
-Hazelcast uses phone home data to learn about the usage of Hazelcast Platform Operator.
+{description}
 
-Hazelcast Platform Operator instances call our phone home server for every Custom Resource's initial successful deployment and every 24 hours.
-
-**What is sent in?**
+== Usage Data
 
 The following information is sent in a phone home:
 
 * Operator version
-* K8s distribution, EKS, GKE, AKS etc.
+* K8s distribution such as EKS, GKE, AKS
 * K8s version
 * Operator uptime
 * UID of the operator
-* Operator installation origin, e.g Dockerhub, Red Hat Connect
-* Number of created OSS Hazelcast clusters
-* Number of created EE Hazelcast clusters
-* Number of created Management Centers
+* Operator installation origin such as Dockerhub or Red Hat Connect
+* Number of created Hazelcast Open Source clusters
+* Number of created Hazelcast Enterprise clusters
+* Number of created Management Center instances
 * Average Hazelcast cluster creation latency
 * Average Management Center creation latency
 * Number of created Hazelcast members
@@ -29,17 +28,16 @@ The following information is sent in a phone home:
 ** Number of Hazelcast clusters where node external IP member access is used
 ** Number of Hazelcast clusters where node name member access is used
 
-**Disabling Phone Homes**
+== Disabling Phone Homes
 
-You can disable the phone home using the environment variable `PHONE_HOME_ENABLED`.
+To disable phone homes, add the following to the environment variable list in the deployment object of the `bundle.yaml` file:
 
-Simply add the following to the environment variable list in the deployment object in `bundle.yaml`.
 
 ```yaml
 - name: PHONE_HOME_ENABLED
   value: "false"
 ```
 
-**Phone Home URL**
+== Phone Home URL
 
-For Hazelcast Platform Operator 5.0 and above: http://phonehome.hazelcast.com/pingOp.
+Phone home data is sent to the following URL: http://phonehome.hazelcast.com/pingOp.
