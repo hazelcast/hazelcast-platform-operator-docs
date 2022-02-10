@@ -1,0 +1,27 @@
+= 5.1 Release Notes
+:description: In this release, we introduced pod scheduling support and added Phone Home service to collect usage data to shape our roadmap.
+
+{description}
+
+== New features
+
+* Pod scheduling support for Hazelcast Custom Resource (Node Selector, Node Affinity, Pod Affinity&Anti-affinity, and Tolerations)
+```
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+  scheduling:
+    affinity:
+      nodeAffinity:
+...
+```
+
+== Changes
+
+* Integrated link:https://docs.hazelcast.com/operator/5.1/phone-homes[Phone Home] service.
+
+== Fixed Issues
+
+* Fix annotation for expose externally member access. link:https://github.com/hazelcast/hazelcast-platform-operator/pull/122[#122]
