@@ -1,60 +1,27 @@
-= 5.0 Release Notes
-:description: This is the first stable release of Hazelcast Platform Operator.
+= 5.1 Release Notes
+:description: In this release, we introduced pod scheduling support and added Phone Home service to collect usage data to shape our roadmap.
 
 {description}
 
 == New features
 
-* Custom resource for Hazelcast cluster that can be used for OS and EE cluster creations.
-* Custom resource for Management Center
-* Expose Hazelcast cluster to external clients (Smart and Unisocket). See xref:connect-outside-kubernetes.adoc[]
-* Initial Openshift support
-* Empty spec support for both custom resources:
-+
-```yml
+* Pod scheduling support for Hazelcast Custom Resource (Node Selector, Node Affinity, Pod Affinity&Anti-affinity, and Tolerations)
+```
 apiVersion: hazelcast.com/v1alpha1
 kind: Hazelcast
 metadata:
-    name: hazelcast
-```
-+
-```yml
-apiVersion: hazelcast.com/v1alpha1
-kind: ManagementCenter
-metadata:
-    name: managementcenter
-```
-
-* Proper status subresources for Hazelcast and Management Center custom resources:
-+
-```bash
-kubectl get hazelcast
-
-NAME        STATUS    MEMBERS
-hazelcast   Failed    0/3
-
-kubectl get hazelcast -o yaml
-
+  name: hazelcast
+spec:
+  scheduling:
+    affinity:
+      nodeAffinity:
 ...
-Status:
-Hazelcast Cluster Status:
-    Ready Members:  0/3
-Message:          multiple (1) errors: pod hazelcast-0 in namespace default failed for : ErrImagePull
-Phase:            Failed
 ```
 
-== Enhancements
+== Changes
 
-* Made `clusterName` configurable for Hazelcast custom resource
-* Added `liveness/readiness probes`, `terminationGracePeriod` and `securityContext` to both CRs' Statefulset.
-* Provided local run with Hazelcast Go client for development purposes.
-* Fail fast mechanisms for `exposeExternally` and `licenseKeySecret` specifications with meaningful user-facing log message
-* Created constants for all k8s resources that created by the CRs.
-* Created `end-to-end` and `integration` test suites via utilizing https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/envtest[EnvTest] for Hazelcast and Management Center controllers. End-to-end tests are running against GKE and OCP. 
-* Prepared workflows to release the operator to `DockerHub`, `RHEL registry` and `RedHat Marketplace`.
-* Configured names of ClusterRole and ClusterRoleBinding dynamically to prevent conflict at multi-namespace deployment.
+* Integrated link:https://docs.hazelcast.com/operator/5.1/phone-homes[Phone Home] service.
 
-== Fixes
+== Fixed Issues
 
-* Prevented panic on shutting down the client when the connection to the cluster was not established. link:https://github.com/hazelcast/hazelcast-platform-operator/pull/60[#60]
-* Problem where the controller assumes failed status for pending pods. link:https://github.com/hazelcast/hazelcast-platform-operator/pull/74[#74]
+* Fix annotation for expose externally member access. link:https://github.com/hazelcast/hazelcast-platform-operator/pull/122[#122]
