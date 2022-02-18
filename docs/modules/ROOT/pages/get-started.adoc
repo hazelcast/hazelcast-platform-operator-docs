@@ -203,6 +203,8 @@ include::ROOT:example$/management-center.yaml[]
 
 WARNING: StatefulSet does not support updates to `volumeClaimTemplates` field, so `persistence` field should be set only at the creation of the custom resource. Any update to the `persistence` field will not affect the Management Center.
 
+NOTE: By default, xref:management-center:deploy-manage:configuring.adoc#where-management-center-saves-data[Management Center data] is persisted to the `/data` directory. If you want to use an existing `PersistentVolumeClaim`, set its name in the `.spec.persistence.existingVolumeClaimName`field in the Management Center custom resource. 
+
 WARNING: `hazelcastClusters` field does not support deleting clusters from the custom resource. If you want to remove a cluster from the Management Center, you can do it from the Management Center UI.
 
 Apply it with the following command to start Management Center.
