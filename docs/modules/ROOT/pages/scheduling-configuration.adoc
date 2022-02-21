@@ -5,6 +5,8 @@ Kubernetes allows assigning Pods to certain nodes.
 Hazelcast Platform operator also accepts same policies to explicitly allow or disallow certain assignments.
 Detailed documentation about scheduling policies can be found link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/[in Kubernetes docs].
 
+NOTE: The Management Center specification also supports the same capabilities.
+
 {description}
 
 == Node Selector
@@ -16,12 +18,26 @@ To define the nodes on which Hazelcast pods should run, you can use the `nodeSel
 For example, to run Hazelcast pods on a node in the us-west1 region, you can use the following example.
 This example uses the built-in link:https://kubernetes.io/docs/reference/labels-annotations-taints/#topologykubernetesioregion[`topology.kubernetes.io/region` label] to specify that the pod should be run on nodes in the us-west1 region.
 
-
+[tabs]
+====
+Hazelcast::
++
+--
 [source,yaml,subs="attributes+"]
 ----
-include::ROOT:example$/node-selector.yaml[]
+include::ROOT:example$/hazelcast-node-selector.yaml[]
 ----
+--
 
+Management Center::
++
+--
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/management-center-node-selector.yaml[]
+----
+--
+====
 
 For more information about node selectors see the link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector[Kubernetes docs].
 
@@ -38,10 +54,26 @@ To define a node affinity, use the `nodeAffinity` field of PodSpec.
 
 The example below will satisfy the scenario above:
 
+[tabs]
+====
+Hazelcast::
++
+--
 [source,yaml,subs="attributes+"]
 ----
-include::ROOT:example$/node-affinity.yaml[]
+include::ROOT:example$/hazelcast-node-affinity.yaml[]
 ----
+--
+
+Management Center::
++
+--
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/management-center-node-affinity.yaml[]
+----
+--
+====
 
 For more information about node affinity see the link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity[Kubernetes docs].
 
@@ -54,10 +86,26 @@ your application's performance will be improved if the pods are co-located. You 
 nodes with respect to each other but since there might be small number of nodes, you don't want to block
 the scheduler if the number of Hazelcast pods is greater than the number of nodes.
 
+[tabs]
+====
+Hazelcast::
++
+--
 [source,yaml,subs="attributes+"]
 ----
-include::ROOT:example$/pod-affinity.yaml[]
+include::ROOT:example$/hazelcast-pod-affinity.yaml[]
 ----
+--
+
+Management Center::
++
+--
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/management-center-pod-affinity.yaml[]
+----
+--
+====
 
 For more information about pod affinity see the link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity[Kubernetes docs].
 
@@ -75,16 +123,48 @@ kubectl taint nodes node1 forbidden:NoSchedule
 
 The following configuration cannot schedule any Hazelcast pods on `node1`:
 
+[tabs]
+====
+Hazelcast::
++
+--
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hazelcast.yaml[]
 ----
+--
+
+Management Center::
++
+--
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/management-center.yaml[]
+----
+--
+====
 
 To allow the pods to run on the node `node1`, you need to add tolerations to the Hazelcast pods:
 
+[tabs]
+====
+Hazelcast::
++
+--
 [source,yaml,subs="attributes+"]
 ----
-include::ROOT:example$/pod-tolerations.yaml[]
+include::ROOT:example$/hazelcast-pod-tolerations.yaml[]
 ----
+--
+
+Management Center::
++
+--
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/management-center-pod-tolerations.yaml[]
+----
+--
+====
 
 For more information about tolerations and taints see the link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/[Kubernetes docs].
