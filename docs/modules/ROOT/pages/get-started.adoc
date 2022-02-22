@@ -161,8 +161,8 @@ kubectl get hazelcast
 ----
 
 ```
-NAME               STATUS    MEMBERS
-hazelcast-sample   Running   3/3
+NAME               STATUS    MEMBERS   EXTERNAL-ADDRESSES
+hazelcast-sample   Running   3/3       35.240.99.152:5701
 ```
 
 You can use the following command for the long format.
@@ -175,6 +175,7 @@ kubectl get hazelcast hazelcast-sample -o=yaml
 [source,yaml,subs="attributes+"]
 ----
 status:
+  externalAddresses: 35.240.99.152:5701
   hazelcastClusterStatus:
     readyMembers: 3/3
   phase: Running
