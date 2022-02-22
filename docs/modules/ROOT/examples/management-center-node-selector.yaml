@@ -1,0 +1,8 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: ManagementCenter
+metadata:
+  name: managementcenter
+spec:
+  scheduling:
+    nodeSelector:
+      topology.kubernetes.io/region: us-west1

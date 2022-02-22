@@ -1,0 +1,10 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: ManagementCenter
+metadata:
+  name: managementcenter
+spec:
+  scheduling:
+    tolerations:
+      - key: "forbidden"
+        operator: "Exists"
+        effect: "NoSchedule"
