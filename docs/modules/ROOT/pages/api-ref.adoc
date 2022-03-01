@@ -1,0 +1,382 @@
+
+= Hazelcast Platform Operator API Docs
+
+A reference guide to the Hazelcast Platform Operator CRD types.
+
+== Hazelcast Platform Operator API Docs
+
+This is a reference for the Hazelcast Platform Operator API types.
+These are all the types and fields that are used in the Hazelcast Platform Operator CRDs. 
+
+TIP: This document was generated from comments in the Go code in the api/ directory.
+
+=== Table of Contents
+* <<DataRecoveryPolicyType,DataRecoveryPolicyType>>
+* <<ExposeExternallyConfiguration,ExposeExternallyConfiguration>>
+* <<ExposeExternallyType,ExposeExternallyType>>
+* <<Hazelcast,Hazelcast>>
+* <<HazelcastClusterStatus,HazelcastClusterStatus>>
+* <<HazelcastList,HazelcastList>>
+* <<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>>
+* <<HazelcastSpec,HazelcastSpec>>
+* <<HazelcastStatus,HazelcastStatus>>
+* <<MemberAccess,MemberAccess>>
+* <<PersistencePvcConfiguration,PersistencePvcConfiguration>>
+* <<Phase,Phase>>
+* <<SchedulingConfiguration,SchedulingConfiguration>>
+* <<ExternalConnectivityConfiguration,ExternalConnectivityConfiguration>>
+* <<ExternalConnectivityType,ExternalConnectivityType>>
+* <<HazelcastClusterConfig,HazelcastClusterConfig>>
+* <<ManagementCenter,ManagementCenter>>
+* <<ManagementCenterList,ManagementCenterList>>
+* <<ManagementCenterSpec,ManagementCenterSpec>>
+* <<ManagementCenterStatus,ManagementCenterStatus>>
+* <<PersistenceConfiguration,PersistenceConfiguration>>
+* <<HotBackup,HotBackup>>
+* <<HotBackupList,HotBackupList>>
+* <<HotBackupSpec,HotBackupSpec>>
+* <<HotBackupStatus,HotBackupStatus>>
+
+=== ExposeExternallyConfiguration
+
+ExposeExternallyConfiguration defines how to expose Hazelcast cluster to external clients
+
+[cols="1,10,1,1,3"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| type | Specifies how members are exposed. Valid values are: - "Smart" (default): each member pod is exposed with a separate external address - "Unisocket": all member pods are exposed with one external address m| <<ExposeExternallyType,ExposeExternallyType>> | false | "Smart"
+m| discoveryServiceType | Type of the service used to discover Hazelcast cluster. m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#servicetype-v1-core[corev1.ServiceType] | false | "LoadBalancer"
+m| memberAccess | How each member is accessed from the external client. Only available for "Smart" client and valid values are: - "NodePortExternalIP" (default): each member is accessed by the NodePort service and the node external IP/hostname - "NodePortNodeName": each member is accessed by the NodePort service and the node name - "LoadBalancer": each member is accessed by the LoadBalancer service external address m| <<MemberAccess,MemberAccess>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== Hazelcast
+
+Hazelcast is the Schema for the hazelcasts API
+
+[cols="1,10,1,1,3"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | true | -
+m| spec | &#160; m| <<HazelcastSpec,HazelcastSpec>> | false | -
+m| status | &#160; m| <<HazelcastStatus,HazelcastStatus>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== HazelcastClusterStatus
+
+HazelcastClusterStatus defines the status of the Hazelcast cluster
+
+[cols="1,10,1,1,3"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| readyMembers | ReadyMembers represents the number of members that are connected to cluster from the desired number of members in the format <ready>/<desired> m| string | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== HazelcastList
+
+HazelcastList contains a list of Hazelcast
+
+[cols="1,10,1,1,3"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | true | -
+m| items | &#160; m| []<<Hazelcast,Hazelcast>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== HazelcastPersistenceConfiguration
+
+HazelcastPersistenceConfiguration contains the configuration for Hazelcast Persistence and K8s storage.
+
+[cols="1,10,1,1,3"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| baseDir | Persistence base directory. m| string | true | -
+m| clusterDataRecoveryPolicy | Configuration of the cluster recovery strategy. m| <<DataRecoveryPolicyType,DataRecoveryPolicyType>> | false | "FullRecovery"
+m| pvc | Configuration of PersistenceVolumeClaim. m| <<PersistencePvcConfiguration,PersistencePvcConfiguration>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== HazelcastSpec
+
+HazelcastSpec defines the desired state of Hazelcast
+
+[cols="1,10,1,1,3"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| clusterSize | Number of Hazelcast members in the cluster. m| int32 | false | 3
+m| repository | Repository to pull the Hazelcast Platform image from. m| string | false | "docker.io/hazelcast/hazelcast"
+m| version | Version of Hazelcast Platform. m| string | false | "5.0.2"
+m| imagePullPolicy | Pull policy for the Hazelcast Platform image m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#pullpolicy-v1-core[corev1.PullPolicy] | false | "IfNotPresent"
+m| imagePullSecrets | Image pull secrets for the Hazelcast Platform image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
+m| licenseKeySecret | Name of the secret with Hazelcast Enterprise License Key. m| string | false | -
+m| exposeExternally | Configuration to expose Hazelcast cluster to external clients. m| <<ExposeExternallyConfiguration,ExposeExternallyConfiguration>> | false | -
+m| clusterName | Name of the Hazelcast cluster. m| string | false | "dev"
+m| scheduling | Scheduling details m| <<SchedulingConfiguration,SchedulingConfiguration>> | false | -
+m| persistence | Persistence configuration m| <<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== HazelcastStatus
+
+HazelcastStatus defines the observed state of Hazelcast
+
+[cols="1,10,1,1,3"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| phase | Phase of the Hazelcast cluster m| <<Phase,Phase>> | true | -
+m| hazelcastClusterStatus | Status of the Hazelcast cluster m| <<HazelcastClusterStatus,HazelcastClusterStatus>> | true | -
+m| message | Message about the Hazelcast cluster state m| string | false | -
+m| externalAddresses | External addresses of the Hazelcast cluster members m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== PersistencePvcConfiguration
+
+
+
+[cols="1,10,1,1,3"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| accessModes | AccessModes contains the actual access modes of the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1 m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#persistentvolumeaccessmode-v1-core[corev1.PersistentVolumeAccessMode] | false | -
+m| requestStorage | A description of the PVC request capacity. m| resource.Quantity | false | -
+m| storageClassName | Name of StorageClass which this persistent volume belongs to. m| &#42;string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== SchedulingConfiguration
+
+SchedulingConfiguration defines the pods scheduling details
+
+[cols="1,10,1,1,3"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| affinity | Affinity m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#affinity-v1-core[corev1.Affinity] | false | -
+m| tolerations | Tolerations m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#toleration-v1-core[corev1.Toleration] | false | -
+m| nodeSelector | NodeSelector m| map[string]string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ExternalConnectivityConfiguration
+
+ExternalConnectivityConfiguration defines how to expose Management Center pod.
+
+[cols="1,10,1,1,3"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| type | How Management Center is exposed. Valid values are: - "ClusterIP" - "NodePort" - "Loadbalancer" (default) m| <<ExternalConnectivityType,ExternalConnectivityType>> | false | "LoadBalancer"
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== HazelcastClusterConfig
+
+
+
+[cols="1,10,1,1,3"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| name | Name of the Hazelcast cluster that Management Center will connect to, default is dev. m| string | false | "dev"
+m| address | IP address or DNS name of the Hazelcast cluster. If the cluster is exposed with a service name in a different namespace, use the following syntax "<service-name>.<service-namespace>". m| string | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ManagementCenter
+
+ManagementCenter is the Schema for the managementcenters API
+
+[cols="1,10,1,1,3"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | true | -
+m| spec | &#160; m| <<ManagementCenterSpec,ManagementCenterSpec>> | false | -
+m| status | &#160; m| <<ManagementCenterStatus,ManagementCenterStatus>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ManagementCenterList
+
+ManagementCenterList contains a list of ManagementCenter
+
+[cols="1,10,1,1,3"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | true | -
+m| items | &#160; m| []<<ManagementCenter,ManagementCenter>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ManagementCenterSpec
+
+ManagementCenterSpec defines the desired state of ManagementCenter.
+
+[cols="1,10,1,1,3"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| repository | Repository to pull the Management Center image from. m| string | false | "docker.io/hazelcast/management-center"
+m| version | Version of Management Center. m| string | false | "5.0.4"
+m| imagePullPolicy | Pull policy for the Management Center image m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#pullpolicy-v1-core[corev1.PullPolicy] | false | "IfNotPresent"
+m| imagePullSecrets | Image pull secrets for the Management Center image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
+m| licenseKeySecret | Name of the secret with Hazelcast Enterprise License Key. m| string | false | -
+m| hazelcastClusters | Connection configuration for the Hazelcast clusters that Management Center will monitor. m| []<<HazelcastClusterConfig,HazelcastClusterConfig>> | false | -
+m| externalConnectivity | Configuration to expose Management Center to outside. m| <<ExternalConnectivityConfiguration,ExternalConnectivityConfiguration>> | false | -
+m| persistence | Configuration for Management Center persistence. m| <<PersistenceConfiguration,PersistenceConfiguration>> | false | {enabled: true, size: "10Gi"}
+m| scheduling | Scheduling details m| <<SchedulingConfiguration,SchedulingConfiguration>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ManagementCenterStatus
+
+ManagementCenterStatus defines the observed state of ManagementCenter.
+
+[cols="1,10,1,1,3"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| phase | Phase of the Management Center m| <<Phase,Phase>> | true | -
+m| message | Message about the Management Center state m| string | false | -
+m| externalAddresses | External addresses of the Management Center instance m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== PersistenceConfiguration
+
+
+
+[cols="1,10,1,1,3"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| enabled | When true, MC will use a PersistentVolumeClaim to store data. m| bool | false | true
+m| existingVolumeClaimName | Name of the PersistentVolumeClaim MC will use for persistence. If not empty, MC will use the existing claim instead of creating a new one. m| string | false | -
+m| storageClass | StorageClass from which PersistentVolumeClaim will be created. m| &#42;string | false | -
+m| size | Size of the created PersistentVolumeClaim. m| resource.Quantity | false | "10Gi"
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== HotBackup
+
+HotBackup is the Schema for the hot backup API
+
+[cols="1,10,1,1,3"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | true | -
+m| status | &#160; m| <<HotBackupStatus,HotBackupStatus>> | true | -
+m| spec | &#160; m| <<HotBackupSpec,HotBackupSpec>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== HotBackupList
+
+HotBackupList contains a list of HotBackup
+
+[cols="1,10,1,1,3"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | true | -
+m| items | &#160; m| []<<HotBackup,HotBackup>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== HotBackupSpec
+
+HotBackupSpec defines the Spec of HotBackup
+
+[cols="1,10,1,1,3"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource m| string | true | -
+m| schedule | Schedule contains a crontab-like expression that defines the schedule in which HotBackup will be started. If the Schedule is empty the HotBackup will start only once when applied. Several pre-defined schedules in place of a cron expression can be used. +
+&#160;&#160;&#160;&#160;Entry                  \| Description                                \| Equivalent To + +
+&#160;&#160;&#160;&#160; + m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== DataRecoveryPolicyType
+
+DataRecoveryPolicyType represents the options for data recovery policy when the whole cluster restarts.
+
+[cols="1,10"options="header"]
+|===
+| Value | Description
+m| "FullRecoveryOnly" | FullRecovery does not allow partial start of the cluster and corresponds to "cluster-data-recovery-policy.FULL_RECOVERY_ONLY" configuration option.
+m| "PartialRecoveryMostRecent" | MostRecent allow partial start with the members that have most up-to-date partition table and corresponds to "cluster-data-recovery-policy.PARTIAL_RECOVERY_MOST_RECENT" configuration option.
+m| "PartialRecoveryMostComplete" | MostComplete allow partial start with the members that have most complete partition table and corresponds to "cluster-data-recovery-policy.PARTIAL_RECOVERY_MOST_COMPLETE" configuration option.
+m| "PartialRecoveryForceStart" | ForceStart deletes all data in your cluster members' persistence stores when the cluster recovery fails.
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ExposeExternallyType
+
+ExposeExternallyType describes how Hazelcast members are exposed.
+
+[cols="1,10"options="header"]
+|===
+| Value | Description
+m| "Smart" | ExposeExternallyTypeSmart exposes each Hazelcast member with a separate external address.
+m| "Unisocket" | ExposeExternallyTypeUnisocket exposes all Hazelcast members with one external address.
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== MemberAccess
+
+MemberAccess describes how each Hazelcast member is accessed from the external client.
+
+[cols="1,10"options="header"]
+|===
+| Value | Description
+m| "NodePortExternalIP" | MemberAccessNodePortExternalIP lets the client access Hazelcast member with the NodePort service and the node external IP/hostname
+m| "NodePortNodeName" | MemberAccessNodePortNodeName lets the client access Hazelcast member with the NodePort service and the node name
+m| "LoadBalancer" | MemberAccessLoadBalancer lets the client access Hazelcast member with the LoadBalancer service
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== Phase
+
+Phase represents the current state of the cluster
+
+[cols="1,10"options="header"]
+|===
+| Value | Description
+m| "Running" | Running phase is the state when all the members of the cluster are successfully started
+m| "Failed" | Failed phase is the state of error during the cluster startup
+m| "Pending" | Pending phase is the state of starting the cluster when not all the members are started yet
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ExternalConnectivityType
+
+ExternalConnectivityType describes how Management Center is exposed.
+
+[cols="1,10"options="header"]
+|===
+| Value | Description
+m| "ClusterIP" | ExternalConnectivityTypeClusterIP exposes Management Center with ClusterIP service.
+m| "NodePort" | ExternalConnectivityTypeNodePort exposes Management Center with NodePort service.
+m| "LoadBalancer" | ExternalConnectivityTypeLoadBalancer exposes Management Center with LoadBalancer service.
+|===
+
+<<Table of Contents,Back to TOC>>
