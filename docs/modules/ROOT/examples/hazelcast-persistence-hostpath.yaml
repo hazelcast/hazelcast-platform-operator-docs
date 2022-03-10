@@ -10,7 +10,12 @@ spec:
   persistence:
     baseDir: "/data/hot-restart/"
     clusterDataRecoveryPolicy: "FullRecoveryOnly"
-    pvc:
-      accessModes: ["ReadWriteOnce"]
-      requestStorage: 20Gi
-      storageClassName: "standard"
+    hostPath: "/tmp/hazelcast"
+  scheduling:
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/instance: hazelcast
