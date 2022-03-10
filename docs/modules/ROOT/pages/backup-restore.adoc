@@ -1,0 +1,151 @@
+= Persistence, Backup and Restore
+:description: Hazelcast supports backing up data to the persistence store and restoring from it
+
+{description}
+
+== Enable persistence for Hazelcast
+--
+You need to enable persistence for Hazelcast to work with backup and restore.
+
+. Create the Hazelcast resource:
++
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-persistence.yaml[]
+----
+
+. Apply the resource:
++
+[source,bash]
+----
+kubectl apply -f ./hazelcast.yaml
+----
+
+. Check Hazelcast instances are ready:
++
+[source,bash]
+----
+kubectl get pods -l app.kubernetes.io/instance=hazelcast
+----
++
+[source,bash]
+----
+NAME          READY   STATUS    RESTARTS   AGE
+hazelcast-0   1/1     Running   0          2m
+hazelcast-1   1/1     Running   0          1m
+hazelcast-2   1/1     Running   0          1m
+
+----
+
+. Check Hazelcast PVCs are created:
++
+[source,bash]
+----
+kubectl get pvc -l app.kubernetes.io/instance=hazelcast
+----
++
+[source,bash]
+----
+NAME                                  STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+hot-restart-persistence-hazelcast-0   Bound    pvc-116b4084-a436-4462-b413-511b77df307b   20Gi       RWO            standard       2m
+hot-restart-persistence-hazelcast-1   Bound    pvc-a7711b6b-dcbf-45cb-9577-8ce6b1892f2f   20Gi       RWO            standard       1m
+hot-restart-persistence-hazelcast-2   Bound    pvc-64314d82-da7a-4e38-bd2d-e770a63dc4e8   20Gi       RWO            standard       1m
+----
+--
+
+== Take a Single Hot Backup
+--
+. Create the HotBackup resource:
++
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hot-backup.yaml[]
+----
+
+. Apply the resource:
++
+[source,bash]
+----
+kubectl apply -f ./hot-backup.yaml
+----
+
+--
+
+== Take Scheduled Hot Backup
+
+You can also take backups on schedule using the `spec.schedule` field.
+--
+. Create the HotBackup resource with `schedule` field filled:
++
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hot-backup-scheduled.yaml[]
+----
++
+The field needs to take a valid cron expression. Some examples:
++
+[cols="1,1"]
+|===
+| ```30 10 * * *```
+| On 10:30 AM every day
+
+| ```0, 0, 1,15,25 * *```
+| On 1st, 15th and 25th each month, midnight
+
+| ```@monthly```
+| Once a month, first of the month, midnight
+|===
+
+
+. Apply the resource:
++
+[source,bash]
+----
+kubectl apply -f ./hot-backup-scheduled.yaml
+----
+--
+
+== Restore Hazelcast
+
+. Delete the Hazelcast cluster
++
+[source,bash]
+----
+kubectl delete hazelcast hazelcast
+----
+
+. Check PVCs are still there
++
+[source,bash]
+----
+kubectl get pvc -l app.kubernetes.io/instance=hazelcast
+----
++
+[source,bash]
+----
+NAME                                  STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+hot-restart-persistence-hazelcast-0   Bound    pvc-116b4084-a436-4462-b413-511b77df307b   20Gi       RWO            standard       6m
+hot-restart-persistence-hazelcast-1   Bound    pvc-a7711b6b-dcbf-45cb-9577-8ce6b1892f2f   20Gi       RWO            standard       5m
+hot-restart-persistence-hazelcast-2   Bound    pvc-64314d82-da7a-4e38-bd2d-e770a63dc4e8   20Gi       RWO            standard       5m
+
+----
+
+. Reapply the Hazelcast resource:
++
+[source,bash]
+----
+kubectl apply -f ./hazelcast-persistence.yaml
+----
+
+. Same PVCs will be bound to the new pods:
++
+[source,bash]
+----
+kubectl get pods -l app.kubernetes.io/instance=hazelcast -ojsonpath='{.items[*].spec.volumes[?(@.name=="hot-restart-persistence")].persistentVolumeClaim.claimName}'
+
+----
++
+[source,bash]
+----
+hot-restart-persistence-hazelcast-0 hot-restart-persistence-hazelcast-1 hot-restart-persistence-hazelcast-2
+----
