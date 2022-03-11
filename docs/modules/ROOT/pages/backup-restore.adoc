@@ -150,6 +150,26 @@ kubectl get pods -l app.kubernetes.io/instance=hazelcast -ojsonpath='{.items[*].
 hot-restart-persistence-hazelcast-0 hot-restart-persistence-hazelcast-1 hot-restart-persistence-hazelcast-2
 ----
 
+=== Restore Policy
+
+Restore policy can be ajusted by setting `clusterDataRecoveryPolicy` field. Supported
+options are:
+
+[cols="1,1"]
+|===
+| ```FullRecoveryOnly```
+| Does not allow partial start of the cluster
+
+| ```PartialRecoveryMostRecent```
+| Allows partial start with the members that have most recent partition table
+
+| ```PartialRecoveryMostComplete```
+| Allows partial start with the member that have most complete partition table
+
+| ```ForceStart```
+| Deletes all data in the cluster persistence store if cluster recovery fails
+|===
+
 == HostPath Support for Persistence
 
 You can also use HostPath to enable persistence.
