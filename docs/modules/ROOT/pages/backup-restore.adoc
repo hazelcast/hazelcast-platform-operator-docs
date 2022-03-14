@@ -163,16 +163,17 @@ options are:
 [cols="1,1"]
 |===
 | ```FullRecoveryOnly```
-| Does not allow partial start of the cluster
+| Does not allow partial start of the cluster.
 
 | ```PartialRecoveryMostRecent```
-| Allows partial start with the members that have most recent partition table
+| Allows partial start with the members that have most recent partition table.
 
 | ```PartialRecoveryMostComplete```
-| Allows partial start with the member that have most complete partition table
+| Allows partial start with the member that have most complete partition table.
 
 | ```ForceStart```
-| Deletes all data in the cluster persistence store if cluster recovery fails
+| Deletes all data in the cluster persistence store if cluster recovery fails.
+More detail can be found in link:https://docs.hazelcast.com/hazelcast/5.1/storage/triggering-force-start[Hazelcast documentation].
 |===
 
 == HostPath Support for Persistence
