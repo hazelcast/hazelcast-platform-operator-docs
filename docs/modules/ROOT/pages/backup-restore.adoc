@@ -5,7 +5,7 @@
 
 == Enabling Persistence
 --
-You need to enable persistence for Hazelcast to work with backup and restore.
+Before you can backup and restore Hazelcast data, you need to enable Persistence in the `Hazelcast` resource.
 
 . Create the Hazelcast resource:
 +
