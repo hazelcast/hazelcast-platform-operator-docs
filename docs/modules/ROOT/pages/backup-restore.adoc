@@ -15,7 +15,9 @@ include::ROOT:example$/hazelcast-persistence.yaml[]
 ----
 <1> Base directory of the backup data.
 <2> Cluster recovery policy. More information can be found in xref:backup-restore.adoc#restore-policy[] below.
-<3> Size of the PVC. *BE SURE* to calculate total size needed beforehand.
+<3> Size of the PersistentVolumeClaim (PVC) where Hazelcast data is persisted.
++
+NOTE: Make sure to calculate the total disk space that you will use. The total used disk space may be larger than the size of in-memory data, depending on how many <<hot-backup, hot backups>> you take.
 It should be larger than the size of the data in the memory.
 Additional backups will also take some storage.
 
