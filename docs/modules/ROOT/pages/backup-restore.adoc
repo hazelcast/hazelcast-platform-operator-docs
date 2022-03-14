@@ -3,7 +3,7 @@
 
 {description}
 
-== Enable Persistence for Hazelcast
+== Enabling Persistence
 --
 You need to enable persistence for Hazelcast to work with backup and restore.
 
