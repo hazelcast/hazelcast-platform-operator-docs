@@ -27,7 +27,7 @@ It should be larger than the size of the data in the memory.
 kubectl apply -f ./hazelcast.yaml
 ----
 
-. Check Hazelcast instances are ready:
+. Check that Hazelcast members are ready:
 +
 [source,bash]
 ----
