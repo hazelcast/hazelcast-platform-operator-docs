@@ -4,4 +4,4 @@ metadata:
   name: hot-backup
 spec:
   hazelcastResourceName: hazelcast
-  schedule: "* * * * *"
+  schedule: "* 0-23/6 * * *"

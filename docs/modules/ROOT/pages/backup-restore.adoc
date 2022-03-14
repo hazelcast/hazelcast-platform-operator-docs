@@ -152,7 +152,7 @@ hot-restart-persistence-hazelcast-0 hot-restart-persistence-hazelcast-1 hot-rest
 
 === Restore Policy
 
-Restore policy can be ajusted by setting `clusterDataRecoveryPolicy` field. Supported
+Restore policy can be adjusted by setting `clusterDataRecoveryPolicy` field. Supported
 options are:
 
 [cols="1,1"]
