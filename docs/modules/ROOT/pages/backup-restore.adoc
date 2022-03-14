@@ -157,7 +157,7 @@ hot-restart-persistence-hazelcast-0 hot-restart-persistence-hazelcast-1 hot-rest
 
 === Restore Policy
 
-Restore policy can be adjusted by setting `clusterDataRecoveryPolicy` field. Supported
+To decide how a cluster should behave when one or more members cannot rejoin after a cluster-wide restart, you can define a cluster recovery policy.
 options are:
 
 [cols="1,1"]
