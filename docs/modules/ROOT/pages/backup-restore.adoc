@@ -19,7 +19,6 @@ include::ROOT:example$/hazelcast-persistence.yaml[]
 +
 NOTE: Make sure to calculate the total disk space that you will use. The total used disk space may be larger than the size of in-memory data, depending on how many <<hot-backup, hot backups>> you take.
 It should be larger than the size of the data in the memory.
-Additional backups will also take some storage.
 
 . Apply the resource:
 +
