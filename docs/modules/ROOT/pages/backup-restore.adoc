@@ -7,7 +7,7 @@
 --
 Before you can backup and restore Hazelcast data, you need to enable Persistence in the `Hazelcast` resource.
 
-. Create the Hazelcast resource:
+. Create the `Hazelcast` resource:
 +
 [source,yaml,subs="attributes+"]
 ----
