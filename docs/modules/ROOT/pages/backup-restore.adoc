@@ -104,6 +104,8 @@ The field needs to take a valid cron expression. Some examples:
 | Once a month, first of the month, midnight
 |===
 
++
+For the full list of the supported expression, please check the link:https://pkg.go.dev/github.com/robfig/cron/v3@v3.0.1#hdr-CRON_Expression_Format[library documentation].
 
 . Apply the resource:
 +
