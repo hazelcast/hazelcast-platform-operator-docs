@@ -158,6 +158,19 @@ kubectl get pods -l app.kubernetes.io/instance=hazelcast -ojsonpath='{.items[*].
 hot-restart-persistence-hazelcast-0 hot-restart-persistence-hazelcast-1 hot-restart-persistence-hazelcast-2
 ----
 
+==== Optional: Auto Force Start
+Additionally, auto force start can be enabled:
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-autoforcestart.yaml[]
+----
+
+In this case, the operator will detect whether there are failed Hazelcast members
+and the cluster is in *PASSIVE* mode. If that is the case, it will trigger a force start.
+
+WARNING: Force start is a destructive operation. The cluster will lose data.
+
 [[recovery-policy]]
 == Choosing a Cluster Recovery Policy
 
@@ -174,10 +187,6 @@ options are:
 
 | ```PartialRecoveryMostComplete```
 | Allows partial start with the member that have most complete partition table.
-
-| ```ForceStart```
-| Deletes all data in the cluster persistence store if cluster recovery fails.
-More detail can be found in link:https://docs.hazelcast.com/hazelcast/5.1/storage/triggering-force-start[Hazelcast documentation].
 |===
 
 == HostPath Support for Persistence
