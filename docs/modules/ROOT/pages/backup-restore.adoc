@@ -6,6 +6,7 @@ Persistence allows individual members and whole clusters to recover data by pers
 This topic assumes that you know about Persistence in Hazelcast. To learn about Persistence, see the xref:hazelcast:storage:persistence.adoc[Platform documentation].
 
 The Operator supports two options for enabling Persistence: PVC and `HostPath`. We recommend using PVC, so the examples on this page use this option. If you need to use `HostPath`, see <<hostpath,  HostPath Support for Persistence>>.
+
 == Enabling Persistence
 --
 Before you can backup and restore Hazelcast data, you need to enable Persistence in the `Hazelcast` resource.
@@ -64,6 +65,7 @@ hot-restart-persistence-hazelcast-2   Bound    pvc-64314d82-da7a-4e38-bd2d-e770a
 [[hot-backup]]
 == Triggering a Single Hot Backup
 After Persistence is enabled for the cluster, you can trigger hot backups, using a `HotBackup` resource.
+
 . Create the `HotBackup` resource:
 +
 [source,yaml,subs="attributes+"]
@@ -77,8 +79,6 @@ include::ROOT:example$/hot-backup.yaml[]
 ----
 kubectl apply -f ./hot-backup.yaml
 ----
-
---
 
 == Scheduling Hot Backups
 
@@ -118,6 +118,7 @@ kubectl apply -f ./hot-backup-scheduled.yaml
 
 == Restoring from Hot Backups
 To restore a cluster from hot backups, you can reapply the `Hazelcast` resource, and it will have access to the PVCs that contain the persisted data.
+
 . Delete the Hazelcast cluster:
 +
 [source,bash]
