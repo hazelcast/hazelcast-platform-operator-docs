@@ -5,6 +5,7 @@ Persistence allows individual members and whole clusters to recover data by pers
 
 This topic assumes that you know about Persistence in Hazelcast. To learn about Persistence, see the xref:hazelcast:storage:persistence.adoc[Platform documentation].
 
+The Operator supports two options for enabling Persistence: PVC and `HostPath`. We recommend using PVC, so the examples on this page use this option. If you need to use `HostPath`, see <<hostpath,  HostPath Support for Persistence>>.
 == Enabling Persistence
 --
 Before you can backup and restore Hazelcast data, you need to enable Persistence in the `Hazelcast` resource.
@@ -62,7 +63,7 @@ hot-restart-persistence-hazelcast-2   Bound    pvc-64314d82-da7a-4e38-bd2d-e770a
 
 [[hot-backup]]
 == Triggering a Single Hot Backup
---
+After Persistence is enabled for the cluster, you can trigger hot backups, using a `HotBackup` resource.
 . Create the `HotBackup` resource:
 +
 [source,yaml,subs="attributes+"]
@@ -81,16 +82,16 @@ kubectl apply -f ./hot-backup.yaml
 
 == Scheduling Hot Backups
 
-You can also take backups on schedule using the `spec.schedule` field.
+You can schedule regular hot backups, using the `spec.schedule` field of a `HotBackup` resource.
 --
-. Create the HotBackup resource with `schedule` field filled:
+. Create the `HotBackup` resource with a `schedule` field:
 +
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hot-backup-scheduled.yaml[]
 ----
 +
-The field needs to take a valid cron expression. Some examples:
+This field takes a valid cron expression. For example:
 +
 [cols="1,1"]
 |===
@@ -116,7 +117,7 @@ kubectl apply -f ./hot-backup-scheduled.yaml
 --
 
 == Restoring from Hot Backups
-
+To restore a cluster from hot backups, you can reapply the `Hazelcast` resource, and it will have access to the PVCs that contain the persisted data.
 . Delete the Hazelcast cluster:
 +
 [source,bash]
@@ -140,7 +141,7 @@ hot-restart-persistence-hazelcast-2   Bound    pvc-64314d82-da7a-4e38-bd2d-e770a
 
 ----
 
-. Reapply the Hazelcast resource:
+. Reapply the `Hazelcast` resource:
 +
 [source,bash]
 ----
@@ -160,24 +161,24 @@ kubectl get pods -l app.kubernetes.io/instance=hazelcast -ojsonpath='{.items[*].
 hot-restart-persistence-hazelcast-0 hot-restart-persistence-hazelcast-1 hot-restart-persistence-hazelcast-2
 ----
 
-==== Optional: Auto Force Start
-Additionally, auto force start can be enabled:
+=== Configuring Force-Start
+
+If you use the `FullRecoveryOnly` policy, you can configure the Operator to detect failed Hazelcast members and automatically trigger a force-start. The Operator will trigger a force-start only if the cluster is in a `PASSIVE` state.
+
+WARNING: The cluster loses all persisted data after a force-start.
+Enable `autoForceStart`:
 
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hazelcast-autoforcestart.yaml[]
 ----
 
-In this case, the operator will detect whether there are failed Hazelcast members
-and the cluster is in *PASSIVE* mode. If that is the case, it will trigger a force start.
 
-WARNING: Force start is a destructive operation. The cluster will lose data.
 
 [[recovery-policy]]
 == Choosing a Cluster Recovery Policy
 
-To decide how a cluster should behave when one or more members cannot rejoin after a cluster-wide restart, you can define a cluster recovery policy.
-options are:
+To decide how a cluster should behave when one or more members cannot rejoin after a cluster-wide restart, you can define one of the following cluster recovery policies. The Operator supports all the policies in the `cluster-data-recovery-policy configuration options. For complete descriptions and advice on choosing a policy, see the xref:hazelcast:storage:configuring-persistence.adoc#policy[Platform documentation].
 
 [cols="1,1"]
 |===
@@ -191,6 +192,7 @@ options are:
 | Allows partial start with the member that have most complete partition table.
 |===
 
+[[hostpath]]
 == HostPath Support for Persistence
 
 You can also use HostPath to enable persistence.
