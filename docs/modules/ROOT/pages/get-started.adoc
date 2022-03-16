@@ -5,7 +5,7 @@
 
 == Before you Begin
 
-You need a Kubernetes cluster, and the `kubectl` command-line tool must be configured to communicate with your cluster.
+You need a Kubernetes or Openshift cluster, and the `kubectl` or `oc` command-line tool must be configured to communicate with your cluster.
 
 == Step 1. Deploy Hazelcast Platform Operator
 
@@ -81,10 +81,25 @@ include::ROOT:example$/hazelcast.yaml[]
 
 . Apply the custom resource to start the Hazelcast cluster.
 +
+
+[tabs]
+====
+Kubernetes:
++
+--
 [source,shell]
 ----
 kubectl apply -f hazelcast.yaml
 ----
+--
+Openshift:
++
+--
+[source,shell]
+----
+oc apply -f hazelcast.yaml
+----
+--
 
 . Verify that the cluster is up and running by checking the Hazelcast member logs.
 +
