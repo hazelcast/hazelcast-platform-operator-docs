@@ -186,6 +186,8 @@ include::ROOT:example$/hazelcast-topology-spread-constraints.yaml[]
 ----
 --
 
+====
+
 NOTE: Management Center has only one instance, so it is not sensible to use topology spread constraints for the `ManagementCenter` Custom Resource.
 
 For more information about topology spread constraints see the link:https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/[Kubernetes docs].
