@@ -157,6 +157,8 @@ kubectl get pods -l app.kubernetes.io/instance=hazelcast -ojsonpath='{.items[*].
 
 ----
 +
+You should see something like the following:
++
 [source,bash]
 ----
 hot-restart-persistence-hazelcast-0 hot-restart-persistence-hazelcast-1 hot-restart-persistence-hazelcast-2
