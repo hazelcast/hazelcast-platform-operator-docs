@@ -126,7 +126,7 @@ To restore a cluster from hot backups, you can reapply the `Hazelcast` resource,
 kubectl delete hazelcast hazelcast
 ----
 
-. Check PVCs are still there:
+. Check that the PVCs are still available:
 +
 [source,bash]
 ----
