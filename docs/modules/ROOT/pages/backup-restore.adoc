@@ -162,21 +162,6 @@ kubectl get pods -l app.kubernetes.io/instance=hazelcast -ojsonpath='{.items[*].
 hot-restart-persistence-hazelcast-0 hot-restart-persistence-hazelcast-1 hot-restart-persistence-hazelcast-2
 ----
 
-=== Configuring Force-Start
-
-If you use the `FullRecoveryOnly` policy, you can configure the Operator to detect failed Hazelcast members and automatically trigger a force-start. The Operator will trigger a force-start only if the cluster is in a `PASSIVE` state.
-
-WARNING: The cluster loses all persisted data after a force-start.
-
-Enable `autoForceStart`:
-
-[source,yaml,subs="attributes+"]
-----
-include::ROOT:example$/hazelcast-autoforcestart.yaml[]
-----
-
-
-
 [[recovery-policy]]
 == Choosing a Cluster Recovery Policy
 
@@ -193,6 +178,19 @@ To decide how a cluster should behave when one or more members cannot rejoin aft
 | ```PartialRecoveryMostComplete```
 | Allows partial start with the member that have most complete partition table.
 |===
+
+=== Configuring Force-Start
+
+If you use the `FullRecoveryOnly` policy, you can configure the Operator to detect failed Hazelcast members and automatically trigger a force-start. The Operator will trigger a force-start only if the cluster is in a `PASSIVE` state.
+
+WARNING: The cluster loses all persisted data after a force-start.
+
+Enable `autoForceStart`:
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-autoforcestart.yaml[]
+----
 
 [[hostpath]]
 == HostPath Support for Persistence
