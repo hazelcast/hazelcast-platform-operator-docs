@@ -168,3 +168,26 @@ include::ROOT:example$/management-center-pod-tolerations.yaml[]
 ====
 
 For more information about tolerations and taints see the link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/[Kubernetes docs].
+
+== Topology Spread Constraints
+
+Topology spread constraints control how pods are spread across the cluster. 
+
+The following configuration will ensure that Hazelcast pods will be spread across all the nodes evenly with at most 1 pod difference between the nodes.
+
+[tabs]
+====
+Hazelcast::
++
+--
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-topology-spread-constraints.yaml[]
+----
+--
+
+====
+
+NOTE: Management Center has only one instance, so it is not sensible to use topology spread constraints for the `ManagementCenter` Custom Resource.
+
+For more information about topology spread constraints see the link:https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/[Kubernetes docs].
