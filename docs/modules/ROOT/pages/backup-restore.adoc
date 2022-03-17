@@ -167,7 +167,7 @@ hot-restart-persistence-hazelcast-0 hot-restart-persistence-hazelcast-1 hot-rest
 [[recovery-policy]]
 == Choosing a Cluster Recovery Policy
 
-To decide how a cluster should behave when one or more members cannot rejoin after a cluster-wide restart, you can define one of the following cluster recovery policies. The Operator supports all the policies in the `cluster-data-recovery-policy configuration options. For complete descriptions and advice on choosing a policy, see the xref:hazelcast:storage:configuring-persistence.adoc#policy[Platform documentation].
+To decide how a cluster should behave when one or more members cannot rejoin after a cluster-wide restart, you can define one of the following cluster recovery policies. The Operator supports all the policies in the Hazelcast Platform `cluster-data-recovery-policy configuration` options. For complete descriptions and advice on choosing a policy, see the xref:hazelcast:storage:configuring-persistence.adoc#policy[Platform documentation].
 
 [cols="1,1"]
 |===
