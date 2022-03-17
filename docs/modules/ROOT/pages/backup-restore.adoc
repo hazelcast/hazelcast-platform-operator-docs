@@ -205,7 +205,7 @@ mentioned in the link:https://kubernetes.io/docs/concepts/storage/volumes/#hostp
 WARNING: HostPath support expects the size of the cluster to be equal to the number of Kubernetes nodes
 and pods are distributed to the nodes equally. You can manage it by setting `topologySpreadContraints` field.
 
-. Create the Hazelcast resource with the `clusterSize` equals to the number of Kubernetes nodes
+. Create the Hazelcast resource with the `clusterSize` equal to the number of Kubernetes nodes
 and give the proper `topologySpreadConstraints`:
 +
 [source,yaml,subs="attributes+"]
