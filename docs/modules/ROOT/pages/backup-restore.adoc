@@ -149,7 +149,7 @@ hot-restart-persistence-hazelcast-2   Bound    pvc-64314d82-da7a-4e38-bd2d-e770a
 kubectl apply -f ./hazelcast-persistence.yaml
 ----
 
-. Same PVCs will be bound to the new pods:
+. See that the same PVCs are bound to the new pods:
 +
 [source,bash]
 ----
