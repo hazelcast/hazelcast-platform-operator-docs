@@ -164,6 +164,16 @@ You should see something like the following:
 hot-restart-persistence-hazelcast-0 hot-restart-persistence-hazelcast-1 hot-restart-persistence-hazelcast-2
 ----
 
+=== Data Recovery Timeout
+
+To choose a data recovery timeout, you can use `dataRecoveryTimeout`.
+The field takes an integer value representing the timeout in seconds.
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-persistence-datarecoverytimeout.yaml[]
+----
+
 [[recovery-policy]]
 == Choosing a Cluster Recovery Policy
 
