@@ -1,0 +1,14 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+  scheduling:
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: corev1.DoNotSchedule
+        labelSelector: 
+          app.kubernetes.io/name: hazelcast
+          app.kubernetes.io/instance: hazelcast
+          app.kubernetes.io/managed-by: hazelcast-platform-operator

@@ -5,25 +5,55 @@
 
 == Before you Begin
 
-You need a Kubernetes cluster, and the `kubectl` command-line tool must be configured to communicate with your cluster.
+You need a Kubernetes or Openshift cluster, and the `kubectl` or `oc` command-line tool must be configured to communicate with your cluster.
 
 == Step 1. Deploy Hazelcast Platform Operator
 
 To deploy Hazelcast Platform Operator, apply the https://repository.hazelcast.com/operator/bundle-{full-version}.yaml[`bundle-{full-version}.yaml`] file to your Kubernetes cluster:
 
+[tabs]
+====
+Kubernetes::
++
+--
 [source,shell,subs="attributes+"]
 ----
 kubectl apply -f https://repository.hazelcast.com/operator/bundle-{full-version}.yaml
 ----
+--
+Openshift::
++
+--
+[source,shell,subs="attributes+"]
+----
+oc apply -f https://repository.hazelcast.com/operator/bundle-{full-version}.yaml
+----
+--
+====
 
 TIP: If you always want to use the latest release, you can use the `bundle-latest.yaml` file.
 
 At this point, the Hazelcast Platform Operator should be up and running. You can check it with the command below.
 
+[tabs]
+====
+Kubernetes::
++
+--
 [source,shell]
 ----
 kubectl logs deployment.apps/hazelcast-platform-controller-manager
 ----
+--
+Openshift::
++
+--
+[source,shell]
+----
+oc logs deployment.apps/hazelcast-platform-controller-manager
+----
+--
+====
 
 ```
 2021-07-14T09:03:40.713Z        INFO    setup   Watching namespace: default
@@ -45,10 +75,25 @@ resources:
 
 Then, use Kustomize to apply `bundle.yaml` with the changed namespace.
 
+[tabs]
+====
+Kubernetes::
++
+--
 [source,shell]
 ----
 kubectl apply -k .
 ----
+--
+Openshift::
++
+--
+[source,shell]
+----
+oc apply -k .
+----
+--
+====
 
 If you deploy multiple Hazelcast Operators in different namespaces, you need a way to differentiate the name of each operator. For example, you can give each operator's name a suffix by adding the `nameSuffix` field to the `kustomization.yaml` file:
 
@@ -81,17 +126,35 @@ include::ROOT:example$/hazelcast.yaml[]
 
 . Apply the custom resource to start the Hazelcast cluster.
 +
+
+.For Kubernetes
 [source,shell]
 ----
 kubectl apply -f hazelcast.yaml
+
 ----
++
+.For Openshift
+[source,shell]
+----
+oc apply -f hazelcast.yaml
+---- 
+
 
 . Verify that the cluster is up and running by checking the Hazelcast member logs.
 +
+
+.For Kubernetes
 [source,shell]
 ----
 kubectl logs pod/hazelcast-sample-0
 ----
++
+.For Openshift
+[source,shell]
+----
+oc logs pod/hazelcast-sample-0
+---- 
 
 You should see the following:
 
@@ -110,10 +173,17 @@ Hazelcast Enterprise requires a license key. If you don't have a license key, yo
 
 . Create a Kubernetes secret to hold your license key.
 +
+.For Kubernetes
 [source,shell]
 ----
 kubectl create secret generic hazelcast-license-key --from-literal=license-key=<YOUR LICENSE KEY>
 ----
++
+.For Openshift
+[source,shell]
+----
+oc create secret generic hazelcast-license-key --from-literal=license-key=<YOUR LICENSE KEY>
+---- 
 
 . Create the `Hazelcast` custom resource file and name it `hazelcast-enterprise.yaml`.
 +
@@ -124,18 +194,31 @@ include::ROOT:example$/hazelcast-enterprise.yaml[]
 
 . Apply the custom resource to start the Hazelcast cluster.
 +
+.For Kubernetes
 [source,shell]
 ----
 kubectl apply -f hazelcast-enterprise.yaml
 ----
++
+.For Openshift
+[source,shell]
+----
+oc apply -f hazelcast-enterprise.yaml
+---- 
 
 . Verify that Hazelcast cluster is up and running by checking the Hazelcast member logs.
 +
+.For Kubernetes
 [source,shell]
 ----
 kubectl logs pod/hazelcast-sample-0
 ----
-
++
+.For Openshift
+[source,shell]
+----
+oc logs pod/hazelcast-sample-0
+---- 
 You should see the following:
 
 ```
@@ -155,10 +238,25 @@ To check if a cluster is running, see the `status` field of the Hazelcast resour
 
 The status can be checked using the `get hazelcast` command.
 
+[tabs]
+====
+Kubernetes::
++
+--
 [source,shell]
 ----
 kubectl get hazelcast
 ----
+--
+Openshift::
++
+--
+[source,shell]
+----
+oc get hazelcast
+----
+--
+====
 
 ```
 NAME               STATUS    MEMBERS   EXTERNAL-ADDRESSES
@@ -167,10 +265,26 @@ hazelcast-sample   Running   3/3       35.240.99.152:5701
 
 You can use the following command for the long format.
 
+
+[tabs]
+====
+Kubernetes::
++
+--
 [source,shell]
 ----
 kubectl get hazelcast hazelcast-sample -o=yaml
 ----
+--
+Openshift::
++
+--
+[source,shell]
+----
+oc get hazelcast hazelcast-sample -o=yaml
+----
+--
+====
 
 [source,yaml,subs="attributes+"]
 ----
@@ -210,17 +324,48 @@ WARNING: `hazelcastClusters` field does not support deleting clusters from the c
 
 Apply it with the following command to start Management Center.
 
+[tabs]
+====
+Kubernetes::
++
+--
 [source,shell]
 ----
 kubectl apply -f management-center.yaml
 ----
+--
+Openshift::
++
+--
+[source,shell]
+----
+oc apply -f management-center.yaml
+----
+--
+====
+
 
 After a moment, you can verify that Management Center is up and running by checking the Management Center logs.
 
+[tabs]
+====
+Kubernetes::
++
+--
 [source,shell]
 ----
 kubectl logs managementcenter-sample-0
 ----
+--
+Openshift::
++
+--
+[source,shell]
+----
+oc logs managementcenter-sample-0
+----
+--
+====
 
 ```
 2021-08-26 15:21:04,842 [ INFO] [MC-Client-dev.lifecycle-1] [c.h.w.s.MCClientManager]: MC Client connected to cluster dev.
@@ -241,26 +386,73 @@ MANCENTER_IP=$( kubectl get service managementcenter-sample -o jsonpath='{.statu
 
 You can run the commands below to remove the Hazelcast cluster and Management Center.
 
+[tabs]
+====
+Kubernetes::
++
+--
 [source,shell]
 ----
 kubectl delete -f hazelcast.yaml
 kubectl delete -f management-center.yaml
 ----
+--
+Openshift::
++
+--
+[source,shell]
+----
+oc delete -f hazelcast.yaml
+oc delete -f management-center.yaml
+----
+--
+====
 
 If you installed Hazelcast Enterprise, run the following commands to remove Hazelcast Enterprise cluster and Hazelcast License Key Secret.
 
+[tabs]
+====
+Kubernetes::
++
+--
 [source,shell]
 ----
 kubectl delete -f hazelcast-enterprise.yaml
 kubectl delete secret hazelcast-license-key
 ----
+--
+Openshift::
++
+--
+[source,shell]
+----
+oc delete -f hazelcast-enterprise.yaml
+oc delete secret hazelcast-license-key
+----
+--
+====
 
 Finally, run the command below to delete Hazelcast Platform Operator deployment.
 
+[tabs]
+====
+Kubernetes::
++
+--
 [source,shell,subs="attributes+"]
 ----
 kubectl delete -f https://repository.hazelcast.com/operator/bundle-{full-version}.yaml
 ----
+--
+Openshift::
++
+--
+[source,shell,subs="attributes+"]
+----
+oc delete -f https://repository.hazelcast.com/operator/bundle-{full-version}.yaml
+----
+--
+====
 
 == Next Steps
 
