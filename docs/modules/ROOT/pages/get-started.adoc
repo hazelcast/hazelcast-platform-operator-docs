@@ -372,7 +372,7 @@ oc logs pod/ -sample-0
 Enterprise::
 +
 --
-To enable some features or dashboard at Management Center, you need require a license key. If you don't have a license key, you can request one from the link:http://trialrequest.hazelcast.com/[Hazelcast website].
+To enable some features or dashboard at Management Center, you need a license key. If you don't have a license key, you can request one from the link:http://trialrequest.hazelcast.com/[Hazelcast website].
 
 . Create a Kubernetes secret to hold your license key.
 +
