@@ -3,6 +3,7 @@
 * xref:get-started.adoc[Deploy a Cluster]
 * xref:connect-outside-kubernetes.adoc[]
 * xref:scheduling-configuration.adoc[Scheduling Hazelcast Pods]
+* xref:backup-restore.adoc[Persistence, Backup, and Restore]
 
 .Reference
 // Configuration options/spec files/any other reference docs

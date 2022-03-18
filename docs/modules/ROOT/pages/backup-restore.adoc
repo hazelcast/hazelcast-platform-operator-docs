@@ -1,0 +1,231 @@
+= Persistence, Backup and Restore
+:description: Persistence allows individual members and whole clusters to recover data by persisting map entries, JCache data, and streaming job snapshots on disk. Members can use persisted data to recover from a planned shutdown (including rolling upgrades), a sudden cluster-wide crash, or a single member failure.
+
+Persistence allows individual members and whole clusters to recover data by persisting map entries, JCache data, and streaming job snapshots on disk. Members can use persisted data to recover from a planned shutdown (including rolling upgrades), a sudden cluster-wide crash, or a single member failure.
+
+This topic assumes that you know about Persistence in Hazelcast. To learn about Persistence, see the xref:hazelcast:storage:persistence.adoc[Platform documentation].
+
+The Operator supports two options for enabling Persistence: PVC and `HostPath`. We recommend using PVC, so the examples on this page use this option. If you need to use `HostPath`, see <<hostpath,  HostPath Support for Persistence>>.
+
+== Enabling Persistence
+--
+Before you can back up and restore Hazelcast data, you need to enable Persistence in the `Hazelcast` resource.
+
+. Create the `Hazelcast` resource:
++
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-persistence.yaml[]
+----
+<1> Base directory of the backup data.
+<2> <<recovery-policy, Cluster recovery policy>>.
+<3> Size of the PersistentVolumeClaim (PVC) where Hazelcast data is persisted.
++
+NOTE: Make sure to calculate the total disk space that you will use. The total used disk space may be larger than the size of in-memory data, depending on how many <<hot-backup, hot backups>> you take.
+
+. Apply the resource:
++
+[source,bash]
+----
+kubectl apply -f ./hazelcast.yaml
+----
+
+. Check that Hazelcast members are ready:
++
+[source,bash]
+----
+kubectl get pods -l app.kubernetes.io/instance=hazelcast
+----
++
+[source,bash]
+----
+NAME          READY   STATUS    RESTARTS   AGE
+hazelcast-0   1/1     Running   0          2m
+hazelcast-1   1/1     Running   0          1m
+hazelcast-2   1/1     Running   0          1m
+
+----
+
+. Check that Hazelcast PVCs are created:
++
+[source,bash]
+----
+kubectl get pvc -l app.kubernetes.io/instance=hazelcast
+----
++
+[source,bash]
+----
+NAME                                  STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+hot-restart-persistence-hazelcast-0   Bound    pvc-116b4084-a436-4462-b413-511b77df307b   20Gi       RWO            standard       2m
+hot-restart-persistence-hazelcast-1   Bound    pvc-a7711b6b-dcbf-45cb-9577-8ce6b1892f2f   20Gi       RWO            standard       1m
+hot-restart-persistence-hazelcast-2   Bound    pvc-64314d82-da7a-4e38-bd2d-e770a63dc4e8   20Gi       RWO            standard       1m
+----
+--
+
+[[hot-backup]]
+== Triggering a Single Hot Backup
+After Persistence is enabled for the cluster, you can trigger hot backups, using a `HotBackup` resource.
+
+. Create the `HotBackup` resource:
++
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hot-backup.yaml[]
+----
+
+. Apply the resource:
++
+[source,bash]
+----
+kubectl apply -f ./hot-backup.yaml
+----
+
+== Scheduling Hot Backups
+
+You can schedule regular hot backups, using the `spec.schedule` field of a `HotBackup` resource.
+--
+. Create the `HotBackup` resource with a `schedule` field:
++
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hot-backup-scheduled.yaml[]
+----
++
+This field takes a valid cron expression. For example:
++
+[cols="1,1"]
+|===
+| ```30 10 * * *```
+| On 10:30 AM every day
+
+| ```0, 0, 1,15,25 * *```
+| On 1st, 15th and 25th each month, midnight
+
+| ```@monthly```
+| Once a month, first of the month, midnight
+|===
+
++
+For the full list of the supported expression, please check the link:https://pkg.go.dev/github.com/robfig/cron/v3@v3.0.1#hdr-CRON_Expression_Format[library documentation].
+
+. Apply the resource:
++
+[source,bash]
+----
+kubectl apply -f ./hot-backup-scheduled.yaml
+----
+--
+
+== Restoring from Hot Backups
+To restore a cluster from hot backups, you can reapply the `Hazelcast` resource, and it will have access to the PVCs that contain the persisted data.
+
+. Delete the Hazelcast cluster:
++
+[source,bash]
+----
+kubectl delete hazelcast hazelcast
+----
+
+. Check that the PVCs are still available:
++
+[source,bash]
+----
+kubectl get pvc -l app.kubernetes.io/instance=hazelcast
+----
++
+[source,bash]
+----
+NAME                                  STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+hot-restart-persistence-hazelcast-0   Bound    pvc-116b4084-a436-4462-b413-511b77df307b   20Gi       RWO            standard       6m
+hot-restart-persistence-hazelcast-1   Bound    pvc-a7711b6b-dcbf-45cb-9577-8ce6b1892f2f   20Gi       RWO            standard       5m
+hot-restart-persistence-hazelcast-2   Bound    pvc-64314d82-da7a-4e38-bd2d-e770a63dc4e8   20Gi       RWO            standard       5m
+
+----
+
+. Reapply the `Hazelcast` resource:
++
+[source,bash]
+----
+kubectl apply -f ./hazelcast-persistence.yaml
+----
+
+. See that the same PVCs are bound to the new pods:
++
+[source,bash]
+----
+kubectl get pods -l app.kubernetes.io/instance=hazelcast -ojsonpath='{.items[*].spec.volumes[?(@.name=="hot-restart-persistence")].persistentVolumeClaim.claimName}'
+
+----
++
+You should see something like the following:
++
+[source,bash]
+----
+hot-restart-persistence-hazelcast-0 hot-restart-persistence-hazelcast-1 hot-restart-persistence-hazelcast-2
+----
+
+=== Data Recovery Timeout
+
+To choose a data recovery timeout, you can use `dataRecoveryTimeout`.
+The field takes an integer value representing the timeout in seconds.
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-persistence-datarecoverytimeout.yaml[]
+----
+
+[[recovery-policy]]
+== Choosing a Cluster Recovery Policy
+
+To decide how a cluster should behave when one or more members cannot rejoin after a cluster-wide restart, you can define one of the following cluster recovery policies. The Operator supports all the policies in the Hazelcast Platform `cluster-data-recovery-policy configuration` options. For complete descriptions and advice on choosing a policy, see the xref:hazelcast:storage:configuring-persistence.adoc#policy[Platform documentation].
+
+[cols="1,1"]
+|===
+| ```FullRecoveryOnly```
+| Does not allow partial start of the cluster.
+
+| ```PartialRecoveryMostRecent```
+| Allows partial start with the members that have most recent partition table.
+
+| ```PartialRecoveryMostComplete```
+| Allows partial start with the member that have most complete partition table.
+|===
+
+=== Configuring Force-Start
+
+If you use the `FullRecoveryOnly` policy, you can configure the Operator to detect failed Hazelcast members and automatically trigger a force-start. The Operator will trigger a force-start only if the cluster is in a `PASSIVE` state.
+
+WARNING: The cluster loses all persisted data after a force-start.
+
+Enable `autoForceStart`:
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-autoforcestart.yaml[]
+----
+
+[[hostpath]]
+== HostPath Support for Persistence
+
+You can also use HostPath to enable persistence.
+
+WARNING: HostPath support is discouraged for the production environments for the reasons
+mentioned in the link:https://kubernetes.io/docs/concepts/storage/volumes/#hostpath[Kubernetes documentation]
+
+WARNING: HostPath support expects the size of the cluster to be equal to the number of Kubernetes nodes
+and pods are distributed to the nodes equally. You can manage how pods are distributed among nodes by setting the `topologySpreadContraints` field, which is described in xref:scheduling-configuration.adoc#topology-spread-constraints[Scheduling Hazelcast Pods].
+
+. Create the Hazelcast resource with the `clusterSize` equal to the number of Kubernetes nodes
+and give the proper `topologySpreadConstraints`:
++
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-persistence-hostpath.yaml[]
+----
+
+. Apply the Hazelcast resource
++
+[source,bash]
+----
+kubectl apply -f ./hazelcast-persistence-hostpath.yaml
+----
