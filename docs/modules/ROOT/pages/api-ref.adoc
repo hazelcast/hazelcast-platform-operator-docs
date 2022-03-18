@@ -112,6 +112,7 @@ m| version | Version represents the Hazelcast version of the member. m| string |
 m| connected | Ready is the flag that is set to true when the member is successfully started, connected to cluster and ready to accept connections. m| bool | true | -
 m| message | Message contains the optional message with the details of the cluster state. m| string | false | -
 m| reason | Reason contains the optional reason of member crash or restart. m| string | false | -
+m| restartCount | RestartCount is the number of times the member has been restarted. m| int32 | true | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -125,6 +126,8 @@ HazelcastPersistenceConfiguration contains the configuration for Hazelcast Persi
 | Field | Description | Type | Required | Default
 m| baseDir | Persistence base directory. m| string | true | -
 m| clusterDataRecoveryPolicy | Configuration of the cluster recovery strategy. m| <<DataRecoveryPolicyType,DataRecoveryPolicyType>> | false | "FullRecoveryOnly"
+m| autoForceStart | AutoForceStart enables the detection of constantly failing cluster and trigger the Force Start action. m| bool | false | false
+m| dataRecoveryTimeout | DataRecoveryTimeout is timeout for each step of data recovery in seconds. Maximum timeout is equal to DataRecoveryTimeout*2 (for each step: validation and data-load). m| int32 | false | -
 m| pvc | Configuration of PersistenceVolumeClaim. m| <<PersistencePvcConfiguration,PersistencePvcConfiguration>> | false | -
 m| hostPath | Host Path directory. m| string | false | -
 |===
@@ -440,7 +443,6 @@ DataRecoveryPolicyType represents the options for data recovery policy when the 
 m| "FullRecoveryOnly" | FullRecovery does not allow partial start of the cluster and corresponds to "cluster-data-recovery-policy.FULL_RECOVERY_ONLY" configuration option.
 m| "PartialRecoveryMostRecent" | MostRecent allow partial start with the members that have most up-to-date partition table and corresponds to "cluster-data-recovery-policy.PARTIAL_RECOVERY_MOST_RECENT" configuration option.
 m| "PartialRecoveryMostComplete" | MostComplete allow partial start with the members that have most complete partition table and corresponds to "cluster-data-recovery-policy.PARTIAL_RECOVERY_MOST_COMPLETE" configuration option.
-m| "ForceStart" | ForceStart deletes all data in your cluster members' persistence stores when the cluster recovery fails.
 |===
 
 <<Table of Contents,Back to TOC>>
