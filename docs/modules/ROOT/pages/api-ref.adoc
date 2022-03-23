@@ -37,13 +37,6 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<HotBackupList,HotBackupList>>
 * <<HotBackupSpec,HotBackupSpec>>
 * <<HotBackupStatus,HotBackupStatus>>
-* <<HazelcastRef,HazelcastRef>>
-* <<HazelcastReference,HazelcastReference>>
-* <<PodConfiguration,PodConfiguration>>
-* <<SidecarConfiguration,SidecarConfiguration>>
-* <<Turbine,Turbine>>
-* <<TurbineList,TurbineList>>
-* <<TurbineSpec,TurbineSpec>>
 
 === ExposeExternallyConfiguration
 
@@ -337,98 +330,6 @@ HotBackupSpec defines the Spec of HotBackup
 | Field | Description | Type | Required | Default
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource m| string | true | -
 m| schedule | Schedule contains a crontab-like expression that defines the schedule in which HotBackup will be started. If the Schedule is empty the HotBackup will start only once when applied. m| string | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== HazelcastRef
-
-
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| name | Name of Hazelcast CR m| string | true | -
-m| namespace | Namespace of Hazelcast CR m| string | false | "default"
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== HazelcastReference
-
-
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| clusterAddress | Address of the Hazelcast cluster m| &#42;string | false | -
-m| cluster | Reference to Hazelcast CR m| &#42;<<HazelcastRef,HazelcastRef>> | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== PodConfiguration
-
-
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| portName | The name of the container port that Turbine will register m| &#42;string | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== SidecarConfiguration
-
-
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| name | Name of the Turbine sidecar container m| string | false | "turbine-sidecar"
-m| repository | Repository of the image used for Turbine sidecar container m| string | false | "hazelcast/turbine-sidecar"
-m| version | Version of the image used for Turbine sidecar container m| string | false | "latest"
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== Turbine
-
-Turbine is the Schema for the turbines API
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
-m| spec | &#160; m| <<TurbineSpec,TurbineSpec>> | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== TurbineList
-
-TurbineList contains a list of Turbine
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
-m| items | &#160; m| []<<Turbine,Turbine>> | true | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== TurbineSpec
-
-TurbineSpec defines the desired state of Turbine
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| sidecar | Sidecar configuration m| &#42;<<SidecarConfiguration,SidecarConfiguration>> | false | {"name" : "turbine-sidecar"}
-m| hazelcast | Hazelcast cluster to connect. If present, only one of "clusterAddress" or "cluster" must be defined. m| &#42;<<HazelcastReference,HazelcastReference>> | false | -
-m| pods | Pod configuration m| &#42;<<PodConfiguration,PodConfiguration>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
