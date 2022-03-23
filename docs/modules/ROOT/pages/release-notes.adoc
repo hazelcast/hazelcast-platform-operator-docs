@@ -1,8 +1,7 @@
 = 5.2 Release Notes
 
 In this release, we introduced Backup & Restore to/from PVC and hostPath
-features and https://docs.hazelcast.com/turbine/latest/[Turbine] sidecar
-injection support.
+features.
 
 == New features
 
@@ -111,26 +110,6 @@ spec:
     baseDir: "/data/persistence/"
     clusterDataRecoveryPolicy: "FullRecoveryOnly"
     autoForceStart: true
-....
-* https://docs.hazelcast.com/turbine/latest/[Hazelcast Turbine] sidecar
-injection support:
-+
-....
-apiVersion: hazelcast.com/v1alpha1
-kind: Turbine
-metadata:
-  name: turbine
-spec:
-  sidecar:
-    name: turbine
-    repository: hazelcast/turbine-sidecar
-    version: latest
-  hazelcast:
-    cluster:
-      name: hazelcast
-      namespace: default
-  pods:
-    portName: app-http
 ....
 * ImagePullSecrets configuration for Hazelcast and Management Center CRs
 * Management Center can be started with existing PV claim:
