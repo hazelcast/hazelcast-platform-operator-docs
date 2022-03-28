@@ -25,7 +25,6 @@ If you use EKS, consider the following:
 
 - Having the VPC of the EKS cluster configured only with private subnets is not recommended.
 - If you plan on using NodePorts, (`discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), the VPC of the EKS cluster should be configured only with public subnets. Additionally, inbound rules for the node ports should be added to the nodes' security groups.
-- AWS load balancers are assigned with hostnames by default. Since it takes some time to resolve these hostnames, the member pods might fail to start with `CrashLoopBackOff` status in the beginning. But the pods will be running fine eventually after a couple of restarts.
 ====
 
 .Azure Kubernetes Service (AKS)
