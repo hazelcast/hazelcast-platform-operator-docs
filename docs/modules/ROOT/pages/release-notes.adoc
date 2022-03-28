@@ -1,15 +1,12 @@
 = 5.2 Release Notes
 
-In this release, we introduced Backup & Restore to/from PVC and hostPath
-features.
+In this release, we introduced the Backup and Restore feature with support for PVC and hostPath. This feature uses xref:5.1@hazelcast:storage:persistence.adoc[Hazelcast Persistence] under the hood.
 
 == New features
 
-* Backup data into
+* Back up data into
 https://kubernetes.io/docs/concepts/storage/persistent-volumes/[PVC]
-(via
-https://docs.hazelcast.com/hazelcast/latest/storage/persistence[Hazelcast
-Persistence])
+(via xref:5.1@hazelcast:storage:persistence.adoc[Hazelcast Persistence])
 +
 The persistence feature needs to be enabled at Hazelcast CR:
 +
@@ -51,9 +48,7 @@ spec:
 ....
 * Restore data from
 https://kubernetes.io/docs/concepts/storage/persistent-volumes/[PVC]
-(via
-https://docs.hazelcast.com/hazelcast/latest/storage/persistence[Hazelcast
-Persistence])
+(via xref:5.1@hazelcast:storage:persistence.adoc[Hazelcast Persistence])
 +
 ....
 apiVersion: hazelcast.com/v1alpha1
@@ -93,9 +88,7 @@ spec:
           matchLabels:
             app.kubernetes.io/instance: hazelcast
 ....
-* Auto
-https://docs.hazelcast.com/hazelcast/latest/storage/triggering-force-start[Force
-Start] support. The Platform Operator to detect failed Hazelcast members
+* Auto xref:5.1@hazelcast:storage:triggering-force-start[Force Start] support. The Platform Operator to detect failed Hazelcast members
 and automatically trigger a force-start
 +
 ....
@@ -185,11 +178,9 @@ hazelcast  Running   3/3         <EXTERNAL_IP>:5701
 
 == Fixed Issues
 
-* Add support for asynchronous Hazelcast connection with reconnection
-enabled
+* When a cluster failed to restart for any reason, the Go client failed to reconnect to it even after the cluster successfully restarted. We've now added support for the Go client to asynchronously reconnect to a cluster.
 (https://github.com/hazelcast/hazelcast-platform-operator/pull/145)
 * Disable Phone Home for MC and HZ when Operator Phone Home is disabled.
 (https://github.com/hazelcast/hazelcast-platform-operator/pull/150)
-* Changes readiness probe of Management Center into `TCPSocket` for port
-`8080`
+* Changes readiness probe of Management Center into `TCPSocket` for port `8080` to prove the Spring Web which is main process for Management Center started properly.
 (https://github.com/hazelcast/hazelcast-platform-operator/pull/132)
