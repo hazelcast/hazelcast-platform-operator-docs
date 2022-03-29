@@ -88,7 +88,7 @@ spec:
           matchLabels:
             app.kubernetes.io/instance: hazelcast
 ....
-* Auto xref:5.1@hazelcast:storage:triggering-force-start[Force Start] support. The Platform Operator to detect failed Hazelcast members
+* Auto xref:5.1@hazelcast:storage:triggering-force-start.adoc[Force Start] support. The Platform Operator to detect failed Hazelcast members
 and automatically trigger a force-start
 +
 ....
