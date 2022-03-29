@@ -1,27 +1,186 @@
-= 5.1 Release Notes
-:description: In this release, we introduced pod scheduling support and added Phone Home service to collect usage data to shape our roadmap.
+= 5.2 Release Notes
 
-{description}
+In this release, we introduced the Backup and Restore feature with support for PVC and hostPath. This feature uses xref:5.1@hazelcast:storage:persistence.adoc[Hazelcast Persistence] under the hood.
 
 == New features
 
-* Pod scheduling support for Hazelcast Custom Resource (Node Selector, Node Affinity, Pod Affinity&Anti-affinity, and Tolerations)
-```
+* Back up data into
+https://kubernetes.io/docs/concepts/storage/persistent-volumes/[PVC]
+(via xref:5.1@hazelcast:storage:persistence.adoc[Hazelcast Persistence])
++
+The persistence feature needs to be enabled at Hazelcast CR:
++
+....
 apiVersion: hazelcast.com/v1alpha1
 kind: Hazelcast
 metadata:
   name: hazelcast
 spec:
+  ...
+  licenseKeySecret: hazelcast-license-key
+  persistence:
+    baseDir: "/data/persistence/"
+    clusterDataRecoveryPolicy: "FullRecoveryOnly"
+    pvc:
+      accessModes: ["ReadWriteOnce"]
+      requestStorage: 20Gi
+....
++
+You can take backup manually or automatically(scheduled):
++
+....
+apiVersion: hazelcast.com/v1alpha1
+kind: HotBackup
+metadata:
+  name: hot-backup
+spec:
+  hazelcastResourceName: hazelcast
+....
++
+....
+apiVersion: hazelcast.com/v1alpha1
+kind: HotBackup
+metadata:
+  name: hot-backup
+spec:
+  hazelcastResourceName: hazelcast
+  schedule: "* 0-23/6 * * *"
+....
+* Restore data from
+https://kubernetes.io/docs/concepts/storage/persistent-volumes/[PVC]
+(via xref:5.1@hazelcast:storage:persistence.adoc[Hazelcast Persistence])
++
+....
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+  ...
+  licenseKeySecret: hazelcast-license-key
+  persistence:
+    baseDir: "/data/persistence/"
+    clusterDataRecoveryPolicy: "FullRecoveryOnly"
+    pvc:
+      accessModes: ["ReadWriteOnce"]
+      requestStorage: 20Gi
+....
+* Backup and Restore Hazelcast data to/from
+https://kubernetes.io/docs/concepts/storage/volumes/#hostpath[hostPath]
++
+....
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+  ...
+  licenseKeySecret: hazelcast-license-key
+  persistence:
+    ...
+    hostPath: "/tmp/hazelcast"
   scheduling:
-    affinity:
-      nodeAffinity:
-...
-```
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/instance: hazelcast
+....
+* Auto xref:5.1@hazelcast:storage:triggering-force-start[Force Start] support. The Platform Operator to detect failed Hazelcast members
+and automatically trigger a force-start
++
+....
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+  ...
+  licenseKeySecret: hazelcast-license-key
+  persistence:
+    baseDir: "/data/persistence/"
+    clusterDataRecoveryPolicy: "FullRecoveryOnly"
+    autoForceStart: true
+....
+* ImagePullSecrets configuration for Hazelcast and Management Center CRs
+* Management Center can be started with existing PV claim:
++
+....
+apiVersion: hazelcast.com/v1alpha1
+kind: ManagementCenter
+metadata:
+  name: managementcenter
+spec:
+  ...
+  persistence:
+    enabled: true
+    existingVolumeClaimName: existing-pvc
+....
+* Pod scheduling support for Management Center CR.
+* `topologySpreadConstraints` scheduling support for Hazelcast and
+Management Center CRs.
 
 == Changes
 
-* Integrated link:https://docs.hazelcast.com/operator/5.1/phone-homes[Phone Home] service.
+* Upgrade Hazelcast and MC versions to 5.1.x
+(https://github.com/hazelcast/hazelcast-platform-operator/pull/148)
+* Improve Operator Logging and add Ginkgo v2 CLI for better test
+verbosity
+(https://github.com/hazelcast/hazelcast-platform-operator/pull/151)
+* Detailed member statuses
+(https://github.com/hazelcast/hazelcast-platform-operator/pull/138)
+Sample failed member:
++
+....
+Status:
+  Hazelcast Cluster Status:
+    Ready Members:  0/3
+  Members:
+    Connected:  false
+    Ip:         10.164.2.23
+    Message:    back-off 10s restarting failed container=hazelcast pod=hazelcast-0_default(07c1a692-1be9-408d-b245-bb93cf01af66)
+    Pod Name:   hazelcast-0
+    Reason:     CrashLoopBackOff
+  Message:      multiple (1) errors: pod hazelcast-0 in namespace default failed for back-off 10s restarting failed container=hazelcast pod=hazelcast-0_default(07c1a692-1be9-408d-b245-bb93cf01af66):
+....
++
+Successful one:
++
+....
+Status:
+  Hazelcast Cluster Status:
+    Ready Members:  3/3
+  Members:
+    Connected:  true
+    Ip:         10.164.2.27
+    UID:        85eeb6f3-00a3-4bed-aa4c-30959d6bda67
+    Version:    5.0.2
+    Connected:  true
+    Ip:         10.164.1.12
+    UID:        e546754e-209d-4ac5-9fd0-119a6d8bf371
+    Version:    5.0.2
+    Connected:  true
+    Ip:         10.164.0.14
+    UID:        5a7b1a1f-4a1c-47ff-8151-24db0e5db51e
+    Version:    5.0.2
+  Phase:        Running
+....
+* Show external IP of Hazelcast members and Management Center URL at CR
+statuses:
++
+....
+$ kubectl get hazelcast
+NAME               STATUS    MEMBERS   EXTERNAL-ADDRESSES
+hazelcast  Running   3/3         <EXTERNAL_IP>:5701
+....
 
 == Fixed Issues
 
-* Fix annotation for expose externally member access. link:https://github.com/hazelcast/hazelcast-platform-operator/pull/122[#122]
+* When a cluster failed to restart for any reason, the Go client failed to reconnect to it even after the cluster successfully restarted. We've now added support for the Go client to asynchronously reconnect to a cluster.
+(https://github.com/hazelcast/hazelcast-platform-operator/pull/145)
+* Disable Phone Home for MC and HZ when Operator Phone Home is disabled.
+(https://github.com/hazelcast/hazelcast-platform-operator/pull/150)
+* Changes readiness probe of Management Center into `TCPSocket` for port `8080` to prove the Spring Web which is main process for Management Center started properly.
+(https://github.com/hazelcast/hazelcast-platform-operator/pull/132)
