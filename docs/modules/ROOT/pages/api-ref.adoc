@@ -102,6 +102,10 @@ m| podName | PodName is the name of the Hazelcast member pod. m| string | false 
 m| uid | Uid is the unique member identifier within the cluster. m| string | false | -
 m| ip | Ip is the IP address of the member within the cluster. m| string | false | -
 m| version | Version represents the Hazelcast version of the member. m| string | false | -
+m| state | State represents the observed state of the member. m| string | false | -
+m| master | Master flag is set to true if the member is master. m| bool | false | -
+m| lite | Lite is the flag that is true when the member is lite-member. m| bool | false | -
+m| ownedPartitions | OwnedPartitions represents the partitions count on the member. m| int32 | false | -
 m| connected | Ready is the flag that is set to true when the member is successfully started, connected to cluster and ready to accept connections. m| bool | true | -
 m| message | Message contains the optional message with the details of the cluster state. m| string | false | -
 m| reason | Reason contains the optional reason of member crash or restart. m| string | false | -
