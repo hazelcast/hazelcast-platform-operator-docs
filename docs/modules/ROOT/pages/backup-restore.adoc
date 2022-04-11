@@ -116,7 +116,7 @@ kubectl apply -f ./hot-backup-scheduled.yaml
 ----
 --
 
-== Hot Backups Status
+== Checking the Status of a Hot Backup
 
 You can check status of the Hot Backup task by running the folowing command.
 [source,bash]
