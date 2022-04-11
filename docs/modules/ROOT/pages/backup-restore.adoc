@@ -116,6 +116,21 @@ kubectl apply -f ./hot-backup-scheduled.yaml
 ----
 --
 
+== Hot Backups Status
+
+You can check status of the Hot Backup task by running the folowing command.
+[source,bash]
+----
+kubectl get hotbackup hot-backup
+----
+
+You should see the similar output that will indicate that the Hot Backup process finished successfully.
+[source,bash]
+----
+NAME         STATUS
+hot-backup   Success
+----
+
 == Restoring from Hot Backups
 To restore a cluster from hot backups, you can reapply the `Hazelcast` resource, and it will have access to the PVCs that contain the persisted data.
 
