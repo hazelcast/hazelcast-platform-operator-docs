@@ -124,7 +124,7 @@ To check the status of a hot backup, run the following command:
 kubectl get hotbackup hot-backup
 ----
 
-You should see the similar output that will indicate that the Hot Backup process finished successfully.
+The status of the hot backup is displayed in the output.
 [source,bash]
 ----
 NAME         STATUS
