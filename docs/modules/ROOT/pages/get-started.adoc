@@ -260,7 +260,7 @@ oc get hazelcast
 
 ```
 NAME               STATUS    MEMBERS   EXTERNAL-ADDRESSES
-hazelcast-sample   Running   3/3       35.240.99.152:5701
+hazelcast-sample   Running   3/3
 ```
 
 You can use the following command for the long format.
@@ -289,7 +289,6 @@ oc get hazelcast hazelcast-sample -o=yaml
 [source,yaml,subs="attributes+"]
 ----
 status:
-  externalAddresses: 35.240.99.152:5701
   hazelcastClusterStatus:
     readyMembers: 3/3
   phase: Running
