@@ -27,7 +27,7 @@ NOTE: Make sure to calculate the total disk space that you will use. The total u
 +
 [source,bash]
 ----
-kubectl apply -f ./hazelcast.yaml
+kubectl apply -f ./hazelcast-persistence.yaml
 ----
 
 . Check that Hazelcast members are ready:
