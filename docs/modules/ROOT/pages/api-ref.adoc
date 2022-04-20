@@ -24,6 +24,8 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<MemberAccess,MemberAccess>>
 * <<PersistencePvcConfiguration,PersistencePvcConfiguration>>
 * <<Phase,Phase>>
+* <<RestoreState,RestoreState>>
+* <<RestoreStatus,RestoreStatus>>
 * <<SchedulingConfiguration,SchedulingConfiguration>>
 * <<ExternalConnectivityConfiguration,ExternalConnectivityConfiguration>>
 * <<ExternalConnectivityType,ExternalConnectivityType>>
@@ -165,6 +167,7 @@ m| hazelcastClusterStatus | Status of the Hazelcast cluster m| <<HazelcastCluste
 m| message | Message about the Hazelcast cluster state m| string | false | -
 m| externalAddresses | External addresses of the Hazelcast cluster members m| string | false | -
 m| members | Status of Hazelcast members m| []<<HazelcastMemberStatus,HazelcastMemberStatus>> | false | -
+m| restore | Status of restore process of the Hazelcast cluster m| &#42;<<RestoreStatus,RestoreStatus>> | false | {}
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -179,6 +182,20 @@ m| members | Status of Hazelcast members m| []<<HazelcastMemberStatus,HazelcastM
 m| accessModes | AccessModes contains the actual access modes of the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1 m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#persistentvolumeaccessmode-v1-core[corev1.PersistentVolumeAccessMode] | false | -
 m| requestStorage | A description of the PVC request capacity. m| &#42;resource.Quantity | false | -
 m| storageClassName | Name of StorageClass which this persistent volume belongs to. m| &#42;string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== RestoreStatus
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| state | State shows the current phase of the restore process of the cluster. m| <<RestoreState,RestoreState>> | true | -
+m| remainingValidationTime | RemainingValidationTime show the time in seconds remained for the restore validation step. m| int64 | true | -
+m| remainingDataLoadTime | RemainingDataLoadTime show the time in seconds remained for the restore data load step. m| int64 | true | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -402,6 +419,21 @@ Phase represents the current state of the cluster
 m| "Running" | Running phase is the state when all the members of the cluster are successfully started
 m| "Failed" | Failed phase is the state of error during the cluster startup
 m| "Pending" | Pending phase is the state of starting the cluster when not all the members are started yet
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== RestoreState
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "Unknown" | &#160;
+m| "Failed" | &#160;
+m| "InProgress" | &#160;
+m| "Succeeded" | &#160;
 |===
 
 <<Table of Contents,Back to TOC>>
