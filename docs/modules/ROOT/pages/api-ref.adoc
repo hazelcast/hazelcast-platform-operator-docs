@@ -40,6 +40,16 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<HotBackupSpec,HotBackupSpec>>
 * <<HotBackupState,HotBackupState>>
 * <<HotBackupStatus,HotBackupStatus>>
+* <<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>>
+* <<EvictionConfig,EvictionConfig>>
+* <<IndexConfig,IndexConfig>>
+* <<IndexType,IndexType>>
+* <<Map,Map>>
+* <<MapConfigState,MapConfigState>>
+* <<MapList,MapList>>
+* <<MapSpec,MapSpec>>
+* <<MapStatus,MapStatus>>
+* <<UniqueKeyTransition,UniqueKeyTransition>>
 
 === ExposeExternallyConfiguration
 
@@ -368,6 +378,108 @@ m| state | &#160; m| <<HotBackupState,HotBackupState>> | true | -
 
 <<Table of Contents,Back to TOC>>
 
+=== BitmapIndexOptionsConfig
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| uniqueKey | &#160; m| string | true | -
+m| uniqueKeyTransition | &#160; m| <<UniqueKeyTransition,UniqueKeyTransition>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== EvictionConfig
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| persistenceEnabled | Eviction policy to be applied when map reaches its max size according to the max size policy. m| types.EvictionPolicyType | false | "NONE"
+m| maxSize | Max size of the map. m| &#42;int32 | false | 0
+m| maxSizePolicy | Policy for deciding if the maxSize is reached. m| types.MaxSizePolicyType | false | "PER_NODE"
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== IndexConfig
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| name | Name of the index config. m| string | false | -
+m| type | Type of the index. m| <<IndexType,IndexType>> | true | -
+m| attributes | Attributes of the index. m| []string | true | -
+m| bitMapIndexOptions | Options for "BITMAP" index type. m| &#42;<<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== Map
+
+Map is the Schema for the maps API
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| spec | &#160; m| <<MapSpec,MapSpec>> | true | -
+m| status | &#160; m| <<MapStatus,MapStatus>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== MapList
+
+MapList contains a list of Map
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| items | &#160; m| []<<Map,Map>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== MapSpec
+
+MapSpec defines the desired state of Hazelcast Map Config
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| name | Name of the map config to be created. If empty, CR name will be used. It cannot be updated after map config is created successfully. m| string | false | -
+m| backupCount | Count of synchronous backups. It cannot be updated after map config is created successfully. m| &#42;int32 | false | 1
+m| timeToLiveSeconds | Maximum time in seconds for each entry to stay in the map. If it is not 0, entries that are older than this time and not updated for this time are evicted automatically. It can be updated. m| &#42;int32 | false | 0
+m| maxIdleSeconds | Maximum time in seconds for each entry to stay idle in the map. Entries that are idle for more than this time are evicted automatically. It can be updated. m| &#42;int32 | false | 0
+m| eviction | Configuration for removing data from the map when it reaches its max size. It can be updated. m| &#42;<<EvictionConfig,EvictionConfig>> | false | {maxSize: 0}
+m| indexes | Indexes to be created for the map data. You can learn more at https://docs.hazelcast.com/hazelcast/latest/query/indexing-maps. It cannot be updated after map config is created successfully. m| []<<IndexConfig,IndexConfig>> | false | -
+m| persistenceEnabled | When enabled, map data will be persisted. It cannot be updated after map config is created successfully. m| bool | false | false
+m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource. It cannot be updated after map config is created successfully. m| string | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== MapStatus
+
+MapStatus defines the observed state of Map
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| state | &#160; m| <<MapConfigState,MapConfigState>> | false | -
+m| message | &#160; m| string | false | -
+m| memberStatuses | &#160; m| map[string]<<MapConfigState,MapConfigState>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === DataRecoveryPolicyType
 
 DataRecoveryPolicyType represents the options for data recovery policy when the whole cluster restarts.
@@ -464,6 +576,48 @@ m| "NotStarted" | &#160;
 m| "InProgress" | &#160;
 m| "Failure" | &#160;
 m| "Success" | &#160;
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== IndexType
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "SORTED" | &#160;
+m| "HASH" | &#160;
+m| "BITMAP" | &#160;
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== MapConfigState
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "Failed" | &#160;
+m| "Success" | &#160;
+m| "Pending" | &#160;
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== UniqueKeyTransition
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "OBJECT" | &#160;
+m| "LONG" | &#160;
+m| "RAW" | &#160;
 |===
 
 <<Table of Contents,Back to TOC>>
