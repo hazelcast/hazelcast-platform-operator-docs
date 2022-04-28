@@ -160,6 +160,7 @@ m| licenseKeySecret | Name of the secret with Hazelcast Enterprise License Key. 
 m| exposeExternally | Configuration to expose Hazelcast cluster to external clients. m| &#42;<<ExposeExternallyConfiguration,ExposeExternallyConfiguration>> | false | {}
 m| clusterName | Name of the Hazelcast cluster. m| string | false | "dev"
 m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingConfiguration>> | false | {}
+m| resources | Compute Resources required by the Hazelcast container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | {}
 m| persistence | Persistence configuration m| &#42;<<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>> | false | {}
 |===
 
@@ -293,6 +294,7 @@ m| hazelcastClusters | Connection configuration for the Hazelcast clusters that 
 m| externalConnectivity | Configuration to expose Management Center to outside. m| &#42;<<ExternalConnectivityConfiguration,ExternalConnectivityConfiguration>> | false | {type: "LoadBalancer"}
 m| persistence | Configuration for Management Center persistence. m| &#42;<<PersistenceConfiguration,PersistenceConfiguration>> | false | {enabled: true, size: "10Gi"}
 m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingConfiguration>> | false | -
+m| resources | Compute Resources required by the MC container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | {}
 |===
 
 <<Table of Contents,Back to TOC>>
