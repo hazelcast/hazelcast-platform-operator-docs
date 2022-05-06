@@ -591,6 +591,7 @@ m| "LoadBalancer" | ExternalConnectivityTypeLoadBalancer exposes Management Cent
 |===
 | Value | Description
 m| "Unknown" | &#160;
+m| "Pending" | &#160;
 m| "NotStarted" | &#160;
 m| "InProgress" | &#160;
 m| "Failure" | &#160;
