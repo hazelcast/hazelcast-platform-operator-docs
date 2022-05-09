@@ -4,6 +4,7 @@
 * xref:connect-outside-kubernetes.adoc[]
 * xref:scheduling-configuration.adoc[Scheduling Hazelcast Pods]
 * xref:backup-restore.adoc[Persistence, Backup, and Restore]
+* xref:map-configuration.adoc[Configuring Maps]
 
 .Reference
 // Configuration options/spec files/any other reference docs
