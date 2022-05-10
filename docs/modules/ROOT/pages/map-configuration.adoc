@@ -5,14 +5,14 @@ Hazelcast maps are used to distribute data across a cluster and make it easy to 
 
 == Configuring Map Resource
 
-Below is the configuration options for the `Map` resource. You can find more detailed information in xref:api-ref.adoc#mapspec[API Reference] page.
+Below are the configuration options for the `Map` resource. You can find more detailed information in xref:api-ref.adoc#mapspec[API Reference] page.
 
 [cols="20%m,80%a"]
 |===
 |Property|Description
 
 |name
-|Name of the map config to be created. If empty, CR name will be used. It cannot be updated after map config is created successfully.
+|Name of the map config to be created. If empty, the CR name will be used. It cannot be updated after the map config is created successfully.
 
 |backupCount
 |Count of synchronous backups.
