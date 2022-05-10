@@ -417,7 +417,7 @@ m| uniqueKeyTransition | &#160; m| <<UniqueKeyTransition,UniqueKeyTransition>> |
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| persistenceEnabled | Eviction policy to be applied when map reaches its max size according to the max size policy. m| types.EvictionPolicyType | false | "NONE"
+m| evictionPolicy | Eviction policy to be applied when map reaches its max size according to the max size policy. m| types.EvictionPolicyType | false | "NONE"
 m| maxSize | Max size of the map. m| &#42;int32 | false | 0
 m| maxSizePolicy | Policy for deciding if the maxSize is reached. m| types.MaxSizePolicyType | false | "PER_NODE"
 |===
