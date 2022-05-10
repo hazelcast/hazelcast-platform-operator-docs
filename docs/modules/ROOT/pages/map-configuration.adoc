@@ -26,7 +26,7 @@ Below are the configuration options for the `Map` resource. You can find more de
 |eviction
 |Configuration for removing data from the map when it reaches its max size.
 
-- persistenceEnabled: Eviction policy to be applied when map reaches its max size according to the max size policy.
+- evictionPolicy: Eviction policy to be applied when map reaches its max size according to the max size policy.
 - maxSize: Max size of the map.
 - maxSizePolicy: Policy for deciding if the maxSize is reached.
 
