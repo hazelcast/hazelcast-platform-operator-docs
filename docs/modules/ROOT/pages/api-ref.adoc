@@ -43,6 +43,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<HotBackupStatus,HotBackupStatus>>
 * <<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>>
 * <<EvictionConfig,EvictionConfig>>
+* <<EvictionPolicyType,EvictionPolicyType>>
 * <<IndexConfig,IndexConfig>>
 * <<IndexType,IndexType>>
 * <<Map,Map>>
@@ -50,6 +51,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<MapList,MapList>>
 * <<MapSpec,MapSpec>>
 * <<MapStatus,MapStatus>>
+* <<MaxSizePolicyType,MaxSizePolicyType>>
 * <<UniqueKeyTransition,UniqueKeyTransition>>
 
 === BackupAgentConfiguration
@@ -417,9 +419,9 @@ m| uniqueKeyTransition | &#160; m| <<UniqueKeyTransition,UniqueKeyTransition>> |
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| evictionPolicy | Eviction policy to be applied when map reaches its max size according to the max size policy. m| types.EvictionPolicyType | false | "NONE"
+m| evictionPolicy | Eviction policy to be applied when map reaches its max size according to the max size policy. m| <<EvictionPolicyType,EvictionPolicyType>> | false | "NONE"
 m| maxSize | Max size of the map. m| &#42;int32 | false | 0
-m| maxSizePolicy | Policy for deciding if the maxSize is reached. m| types.MaxSizePolicyType | false | "PER_NODE"
+m| maxSizePolicy | Policy for deciding if the maxSize is reached. m| <<MaxSizePolicyType,MaxSizePolicyType>> | false | "PER_NODE"
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -600,6 +602,21 @@ m| "Success" | &#160;
 
 <<Table of Contents,Back to TOC>>
 
+=== EvictionPolicyType
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "LRU" | Least recently used entries will be removed.
+m| "LFU" | Least frequently used entries will be removed.
+m| "NONE" | No eviction.
+m| "RANDOM" | Randomly selected entries will be removed.
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === IndexType
 
 
@@ -624,6 +641,28 @@ m| "BITMAP" | &#160;
 m| "Failed" | &#160;
 m| "Success" | &#160;
 m| "Pending" | &#160;
+m| "Persisting" | Map config is added into all members but waiting for map to be persisten into ConfigMap
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== MaxSizePolicyType
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "PER_NODE" | Maximum number of map entries in each cluster member. You cannot set the max-size to a value lower than the partition count (which is 271 by default).
+m| "PER_PARTITION" | Maximum number of map entries within each partition.
+m| "USED_HEAP_PERCENTAGE" | Maximum used heap size percentage per map for each Hazelcast instance. If, for example, JVM is configured to have 1000 MB and this value is 10, then the map entries will be evicted when used heap size exceeds 100 MB. It does not work when "in-memory-format" is set to OBJECT.
+m| "USED_HEAP_SIZE" | Maximum used heap size in megabytes per map for each Hazelcast instance. It does not work when "in-memory-format" is set to OBJECT.
+m| "FREE_HEAP_PERCENTAGE" | Minimum free heap size percentage for each Hazelcast instance. If, for example, JVM is configured to have 1000 MB and this value is 10, then the map entries will be evicted when free heap size is below 100 MB.
+m| "FREE_HEAP_SIZE" | Minimum free heap size in megabytes for each Hazelcast instance.
+m| "USED_NATIVE_MEMORY_SIZE" | Maximum used native memory size in megabytes per map for each Hazelcast instance. It is available only in Hazelcast Enterprise HD.
+m| "USED_NATIVE_MEMORY_PERCENTAGE" | Maximum used native memory size percentage per map for each Hazelcast instance. It is available only in Hazelcast Enterprise HD.
+m| "FREE_NATIVE_MEMORY_SIZE" | Minimum free native memory size in megabytes for each Hazelcast instance. It is available only in Hazelcast Enterprise HD.
+m| "FREE_NATIVE_MEMORY_PERCENTAGE" | Minimum free native memory size percentage for each Hazelcast instance. It is available only in Hazelcast Enterprise HD.
 |===
 
 <<Table of Contents,Back to TOC>>
