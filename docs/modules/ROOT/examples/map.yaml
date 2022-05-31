@@ -1,6 +1,26 @@
 apiVersion: hazelcast.com/v1alpha1
-kind: Hazelcast
+kind: Map
 metadata:
   name: map-sample
 spec:
   hazelcastResourceName: hazelcast-sample
+  backupCount: 1
+  timeToLiveSeconds: 0
+  maxIdleSeconds: 0
+  eviction:
+    evictionPolicy: NONE
+    maxSize: 0
+    maxSizePolicy: PER_NODE
+  indexes:
+    - type: HASH
+      name: index1
+      attributes:
+        - "name"
+        - "age"
+    - type: BITMAP
+      attributes:
+        - "name"
+      bitMapIndexOptions:
+        uniqueKey: id
+        uniqueKeyTransition: RAW
+  persistenceEnabled: true
