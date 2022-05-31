@@ -412,6 +412,7 @@ HotBackupStatus defines the observed state of HotBackup
 |===
 | Field | Description | Type | Required | Default
 m| state | &#160; m| <<HotBackupState,HotBackupState>> | true | -
+m| message | &#160; m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
