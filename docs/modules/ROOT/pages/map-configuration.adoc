@@ -1,15 +1,15 @@
-= Map Configuration
-:description: Hazelcast maps are used to distribute data across a cluster and make it easy to scale your applications while protecting data against member failures. You can create and configure maps using the `Map` resource.
+= Configuring Maps
+:description: pass:q[Hazelcast maps are used to distribute data across a cluster and make it easy to scale your applications while protecting data against member failures. You can create and configure maps using the `Map` resource.]
 
-Hazelcast maps are used to distribute data across a cluster and make it easy to scale your applications while protecting data against member failures. You can create and configure maps using the `Map` resource.
+{description}
 
-== Configuring Map Resource
+== Configuring the `Map` Resource
 
 Below are the configuration options for the `Map` resource. You can find more detailed information in xref:api-ref.adoc#mapspec[API Reference] page.
 
 [cols="20%m,80%a"]
 |===
-|Property|Description
+|Field|Description
 
 |name
 |Name of the map config to be created. If empty, the CR name will be used. It cannot be updated after the map config is created successfully.
