@@ -45,7 +45,7 @@ NOTE: Persistence should be enabled for Hazelcast before enabling it for the map
 
 == Example Configuration
 
-`Map` resource below will create a map configuration for the Hazelcast cluster `hazelcast`.
+The following `Map` resource creates a map configuration for the `Hazelcast` custom resource that is defined in the `hazelcastResourceName` field.
 
 .Example configuration
 [source,yaml,subs="attributes+"]
