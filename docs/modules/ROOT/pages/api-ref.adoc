@@ -400,6 +400,7 @@ HotBackupSpec defines the Spec of HotBackup
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource m| string | true | -
 m| schedule | Schedule contains a crontab-like expression that defines the schedule in which HotBackup will be started. If the Schedule is empty the HotBackup will start only once when applied. m| string | false | -
 m| bucket | URL of the bucket to download HotBackup folders. m| string | false | -
+m| secretName | Name of the secret with credentials for cloud providers. m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
