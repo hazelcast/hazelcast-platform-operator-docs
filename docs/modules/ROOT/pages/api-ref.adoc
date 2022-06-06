@@ -11,7 +11,8 @@ These are all the types and fields that are used in the Hazelcast Platform Opera
 TIP: This document was generated from comments in the Go code in the api/ directory.
 
 === Table of Contents
-* <<BackupAgentConfiguration,BackupAgentConfiguration>>
+* <<AgentConfiguration,AgentConfiguration>>
+* <<BackupType,BackupType>>
 * <<DataRecoveryPolicyType,DataRecoveryPolicyType>>
 * <<ExposeExternallyConfiguration,ExposeExternallyConfiguration>>
 * <<ExposeExternallyType,ExposeExternallyType>>
@@ -25,7 +26,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<MemberAccess,MemberAccess>>
 * <<PersistencePvcConfiguration,PersistencePvcConfiguration>>
 * <<Phase,Phase>>
-* <<RestoreAgentConfiguration,RestoreAgentConfiguration>>
+* <<RestoreConfiguration,RestoreConfiguration>>
 * <<RestoreState,RestoreState>>
 * <<RestoreStatus,RestoreStatus>>
 * <<SchedulingConfiguration,SchedulingConfiguration>>
@@ -55,16 +56,15 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<MaxSizePolicyType,MaxSizePolicyType>>
 * <<UniqueKeyTransition,UniqueKeyTransition>>
 
-=== BackupAgentConfiguration
+=== AgentConfiguration
 
 
 
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| agentRepository | Repository to pull Hazelcast Platform Operator Agent(https://github.com/hazelcast/platform-operator-agent) m| string | false | "docker.io/hazelcast/platform-operator-agent"
-m| agentVersion | Version of Hazelcast Platform Operator Agent. m| string | false | "1.0.0"
-m| bucketSecret | Name of the secret with credentials for cloud providers. m| string | false | -
+m| repository | Repository to pull Hazelcast Platform Operator Agent(https://github.com/hazelcast/platform-operator-agent) m| string | false | "docker.io/hazelcast/platform-operator-agent"
+m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.0"
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -158,6 +158,8 @@ m| autoForceStart | AutoForceStart enables the detection of constantly failing c
 m| dataRecoveryTimeout | DataRecoveryTimeout is timeout for each step of data recovery in seconds. Maximum timeout is equal to DataRecoveryTimeout*2 (for each step: validation and data-load). m| int32 | false | -
 m| pvc | Configuration of PersistenceVolumeClaim. m| <<PersistencePvcConfiguration,PersistencePvcConfiguration>> | false | -
 m| hostPath | Host Path directory. m| string | false | -
+m| restore | Restore configuration m| &#42;<<RestoreConfiguration,RestoreConfiguration>> | false | {}
+m| backupType | &#160; m| <<BackupType,BackupType>> | false | "Local"
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -180,8 +182,7 @@ m| clusterName | Name of the Hazelcast cluster. m| string | false | "dev"
 m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingConfiguration>> | false | {}
 m| resources | Compute Resources required by the Hazelcast container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | {}
 m| persistence | Persistence configuration m| &#42;<<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>> | false | {}
-m| backup | Backup Agent configuration m| &#42;<<BackupAgentConfiguration,BackupAgentConfiguration>> | false | {}
-m| restore | Restore Agent configuration m| &#42;<<RestoreAgentConfiguration,RestoreAgentConfiguration>> | false | {}
+m| agent | B&R Agent configurations m| &#42;<<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.0"}
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -217,17 +218,15 @@ m| storageClassName | Name of StorageClass which this persistent volume belongs 
 
 <<Table of Contents,Back to TOC>>
 
-=== RestoreAgentConfiguration
+=== RestoreConfiguration
 
-RestoreAgentConfiguration contains the configuration for Restore Agent
+RestoreConfiguration contains the configuration for Restore operation
 
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| agentRepository | Repository to pull Hazelcast Platform Operator Agent(https://github.com/hazelcast/platform-operator-agent) m| string | false | "docker.io/hazelcast/platform-operator-agent"
-m| agentVersion | Version of Hazelcast Platform Operator Agent. m| string | false | "1.0.0"
-m| bucketSecret | Name of the secret with credentials for cloud providers. m| string | false | -
-m| bucketPath | Full path to blob storage bucket. m| string | false | -
+m| secret | Name of the secret with credentials for cloud providers. m| string | false | -
+m| bucketURI | Full path to blob storage bucket. m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -399,8 +398,8 @@ HotBackupSpec defines the Spec of HotBackup
 | Field | Description | Type | Required | Default
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource m| string | true | -
 m| schedule | Schedule contains a crontab-like expression that defines the schedule in which HotBackup will be started. If the Schedule is empty the HotBackup will start only once when applied. m| string | false | -
-m| bucket | URL of the bucket to download HotBackup folders. m| string | false | -
-m| secretName | Name of the secret with credentials for cloud providers. m| string | false | -
+m| bucketURI | URL of the bucket to download HotBackup folders. m| string | false | -
+m| secret | Name of the secret with credentials for cloud providers. m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -516,6 +515,19 @@ MapStatus defines the observed state of Map
 m| state | &#160; m| <<MapConfigState,MapConfigState>> | false | -
 m| message | &#160; m| string | false | -
 m| memberStatuses | &#160; m| map[string]<<MapConfigState,MapConfigState>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== BackupType
+
+BackupType represents the storage options for the HotBackup
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "External" | External backups to the provided cloud provider storage
+m| "Local" | Local backups to local storage inside the cluster
 |===
 
 <<Table of Contents,Back to TOC>>
