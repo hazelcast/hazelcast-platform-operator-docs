@@ -1,0 +1,67 @@
+= Configuring Maps
+:description: pass:q[Hazelcast maps are used to distribute data across a cluster and make it easy to scale your applications while protecting data against member failures. You can create and configure maps using the `Map` resource.]
+
+{description}
+
+== Configuring the `Map` Resource
+
+Below are the configuration options for the `Map` resource. You can find more detailed information in xref:api-ref.adoc#mapspec[API Reference] page.
+
+[cols="20%m,80%a"]
+|===
+|Field|Description
+
+|name
+|Name of the map config to be created. If empty, the CR name will be used. It cannot be updated after the map config is created successfully.
+
+|backupCount
+|Count of synchronous backups.
+
+|timeToLiveSeconds
+|Maximum time in seconds for each entry to stay in the map.
+
+|maxIdleSeconds
+|Maximum time in seconds for each entry to stay idle in the map.
+
+|eviction
+|Configuration for removing data from the map when it reaches its max size.
+
+- evictionPolicy: Eviction policy to be applied when map reaches its max size according to the max size policy.
+- maxSize: Max size of the map.
+- maxSizePolicy: Policy for deciding if the maxSize is reached.
+
+|indexes
+|Indexes to be created for the map data.
+
+|persistenceEnabled
+|When enabled, map data will be persisted.
+
+NOTE: Persistence should be enabled for Hazelcast before enabling it for the map. You can learn about enabling persistence for Hazelcast in xref:backup-restore.adoc#enabling-persistence[Persistence, Backup and Restore].
+
+|hazelcastResourceName
+|HazelcastResourceName defines the name of the Hazelcast resource.
+
+|===
+
+== Example Configuration
+
+The following `Map` resource creates a map configuration for the `Hazelcast` custom resource that is defined in the `hazelcastResourceName` field.
+
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/map.yaml[]
+----
+
+After creating the `Map` resource, you can learn about its status with the following command
+
+[source,shell]
+----
+kubectl get map map-sample -o wide
+----
+
+```
+NAME   STATUS    MESSAGE
+map    Success   
+```
+
