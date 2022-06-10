@@ -132,7 +132,7 @@ kubectl apply -f ./hot-backup.yaml
 
 For triggering Hot Backup with External Persistence, you need to pass two additional configurations.
 One is `bucketURI`. The other one is `secret`. According to chosen cloud provider you need to get
-bucket URI and credentials need to creat secret.
+bucket URI and credentials need to create secret.
 
 . Create the `HotBackup` resource:
 +

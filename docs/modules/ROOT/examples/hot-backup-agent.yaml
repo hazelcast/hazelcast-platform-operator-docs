@@ -6,3 +6,4 @@ spec:
   hazelcastResourceName: hazelcast
   bucketURI: "s3://operator-backup" <1>
   secret: "br-secret-s3" <2>
+    
