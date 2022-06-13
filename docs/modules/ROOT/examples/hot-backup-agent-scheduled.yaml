@@ -1,0 +1,9 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: HotBackup
+metadata:
+  name: hot-backup
+spec:
+  hazelcastResourceName: hazelcast
+  bucketURI: "s3://operator-backup"
+  secret: "br-secret-s3"
+  schedule: "* 0-23/6 * * *"

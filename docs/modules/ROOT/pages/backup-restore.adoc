@@ -7,9 +7,10 @@ This topic assumes that you know about Persistence in Hazelcast. To learn about 
 
 The Operator supports two options for enabling Persistence: PVC and `HostPath`. We recommend using PVC, so the examples on this page use this option. If you need to use `HostPath`, see <<hostpath,  HostPath Support for Persistence>>.
 
-== Enabling Persistence
---
-Before you can back up and restore Hazelcast data, you need to enable Persistence in the `Hazelcast` resource.
+Before you back up and restore Hazelcast data, you need to enable Persistence in the `Hazelcast` resource.
+There are two options for backup and restore; `External` or `Local` (Default option)
+
+== Enabling Local Persistence
 
 . Create the `Hazelcast` resource:
 +
@@ -21,7 +22,7 @@ include::ROOT:example$/hazelcast-persistence.yaml[]
 <2> <<recovery-policy, Cluster recovery policy>>.
 <3> Size of the PersistentVolumeClaim (PVC) where Hazelcast data is persisted.
 +
-NOTE: Make sure to calculate the total disk space that you will use. The total used disk space may be larger than the size of in-memory data, depending on how many <<hot-backup, hot backups>> you take.
+NOTE: Make sure to calculate the total disk space that you will use. The total used disk space may be larger than the size of in-memory data, depending on how many <<local-backup, backups>> you take.
 
 . Apply the resource:
 +
@@ -43,7 +44,6 @@ NAME          READY   STATUS    RESTARTS   AGE
 hazelcast-0   1/1     Running   0          2m
 hazelcast-1   1/1     Running   0          1m
 hazelcast-2   1/1     Running   0          1m
-
 ----
 
 . Check that Hazelcast PVCs are created:
@@ -60,11 +60,10 @@ hot-restart-persistence-hazelcast-0   Bound    pvc-116b4084-a436-4462-b413-511b7
 hot-restart-persistence-hazelcast-1   Bound    pvc-a7711b6b-dcbf-45cb-9577-8ce6b1892f2f   20Gi       RWO            standard       1m
 hot-restart-persistence-hazelcast-2   Bound    pvc-64314d82-da7a-4e38-bd2d-e770a63dc4e8   20Gi       RWO            standard       1m
 ----
---
 
-[[hot-backup]]
-== Triggering a Single Hot Backup
-After Persistence is enabled for the cluster, you can trigger hot backups, using a `HotBackup` resource.
+[[local-backup]]
+=== Triggering Local Backups
+After Persistence is enabled for the cluster, you can trigger backups, using a `HotBackup` resource.
 
 . Create the `HotBackup` resource:
 +
@@ -80,10 +79,10 @@ include::ROOT:example$/hot-backup.yaml[]
 kubectl apply -f ./hot-backup.yaml
 ----
 
-== Scheduling Hot Backups
+=== Scheduling Backups
 
-You can schedule regular hot backups, using the `spec.schedule` field of a `HotBackup` resource.
---
+You can schedule regular backups, using the `spec.schedule` field of a `HotBackup` resource.
+
 . Create the `HotBackup` resource with a `schedule` field:
 +
 [source,yaml,subs="attributes+"]
@@ -114,25 +113,25 @@ For the full list of the supported expression, please check the link:https://pkg
 ----
 kubectl apply -f ./hot-backup-scheduled.yaml
 ----
---
 
-== Checking the Status of a Hot Backup
+=== Checking the Status of a Backup
 
-To check the status of a hot backup, run the following command:
+To check the status of a backup, run the following command:
 [source,bash]
 ----
 kubectl get hotbackup hot-backup
 ----
 
-The status of the hot backup is displayed in the output.
+The status of the backup is displayed in the output.
 [source,bash]
 ----
 NAME         STATUS
 hot-backup   Success
 ----
 
-== Restoring from Hot Backups
-To restore a cluster from hot backups, you can reapply the `Hazelcast` resource, and it will have access to the PVCs that contain the persisted data.
+=== Restoring from Local Backups
+
+To restore a cluster from local backups, you can directly reapply the `Hazelcast` resource, and it will have access to the PVCs that contain the persisted data.
 
 . Delete the Hazelcast cluster:
 +
@@ -162,6 +161,228 @@ hot-restart-persistence-hazelcast-2   Bound    pvc-64314d82-da7a-4e38-bd2d-e770a
 [source,bash]
 ----
 kubectl apply -f ./hazelcast-persistence.yaml
+----
+
+. See that the same PVCs are bound to the new pods:
++
+[source,bash]
+----
+kubectl get pods -l app.kubernetes.io/instance=hazelcast -ojsonpath='{.items[*].spec.volumes[?(@.name=="hot-restart-persistence")].persistentVolumeClaim.claimName}'
+
+----
++
+You should see something like the following:
++
+[source,bash]
+----
+hot-restart-persistence-hazelcast-0 hot-restart-persistence-hazelcast-1 hot-restart-persistence-hazelcast-2
+----
+
+== Enabling External Persistence
+
+In some cases, keeping the data only at PVC and restoring the data from it is not enough.
+For example, moving data between two Kubernetes clusters. You can use external storages so they
+will become portable.
+
+For enabling external persistence, you need two additional configurations. One is `backupType`.
+The other one is `agent configuration`. When external persistence is used, the Backup Agent container will
+be deployed with the Hazelcast container in the same Pod.
+
+. Create the `Hazelcast` resource:
++
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-persistence-agent.yaml[]
+----
+<1> The backup type for where the backup data will be stored. It is either `Local` or `External`. Default value is `Local`.
+<5> The agent which is responsible for backing data up into the external storage.
+The agent configuration is optional. If you set the `backupType` to `External` and do not pass the agent configuration, the operator
+directly use the latest stable version of the agent.
++
+
+. Apply the resource:
++
+[source,bash]
+----
+kubectl apply -f ./hazelcast-persistence-agent.yaml
+----
+
+. Check that Hazelcast members are ready:
++
+[source,bash]
+----
+kubectl get pods -l app.kubernetes.io/instance=hazelcast
+----
++
+[source,bash]
+----
+NAME          READY   STATUS    RESTARTS   AGE
+hazelcast-0   2/2     Running   0          2m55s
+hazelcast-1   2/2     Running   0          2m15s
+hazelcast-2   2/2     Running   0          99s
+----
+
+. Check that Hazelcast PVCs are created:
++
+[source,bash]
+----
+kubectl get pvc -l app.kubernetes.io/instance=hazelcast
+----
++
+[source,bash]
+----
+NAME                                  STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+hot-restart-persistence-hazelcast-0   Bound    pvc-116b4084-a436-4462-b413-511b77df307b   20Gi       RWO            standard       2m
+hot-restart-persistence-hazelcast-1   Bound    pvc-a7711b6b-dcbf-45cb-9577-8ce6b1892f2f   20Gi       RWO            standard       1m
+hot-restart-persistence-hazelcast-2   Bound    pvc-64314d82-da7a-4e38-bd2d-e770a63dc4e8   20Gi       RWO            standard       1m
+----
+
+=== Triggering External Backups
+
+To trigger an external backup, you need to configure a bucket URI and a secret to tell Hazelcast where to store backup data and how to authenticate.
+
+. Create the `HotBackup` resource:
++
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hot-backup-agent.yaml[]
+----
+<1> The bucket URI where backup data will be stored in
+<2> Name of the secret with credentials for accessing the given Bucket URI.
+
+
+. Create the secret: [[create-secret]]
++
+[tabs]
+====
+
+AWS::
++
+--
+See https://docs.aws.amazon.com/sdk-for-go/api/aws/session/[AWS Session] to learn about authentication procedure.
+[source,bash]
+----
+kubectl create secret generic <secret-name> --from-literal=region=<region> \
+	--from-literal=access-key-id=<access-key-id> \
+	--from-literal=secret-access-key=<secret-access-key>
+----
+--
+
+GCP::
++
+--
+See https://cloud.google.com/docs/authentication/production/[Application Default Credentials] to learn about authentication procedure.
+[source,bash]
+----
+kubectl create secret generic <secret-name> --from-file=google-credentials-path=<service_account_json_file>
+----
+--
+
+Azure::
++
+--
+See https://docs.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage?tabs=azure-portal/[Azure Storage Account Keys] to learn about authentication procedure.
+[source,bash]
+----
+kubectl create secret generic <secret-name> \
+	--from-literal=storage-account=<storage-account> \
+	--from-literal=storage-key=<storage-key>
+----
+--
+
+====
+
+. Apply the resource:
++
+[source,bash]
+----
+kubectl apply -f ./hot-backup-agent.yaml
+----
+
+=== Scheduling External Backups
+
+You can schedule external backups, using the `spec.schedule` field of a `HotBackup` resource.
+
+. Create the `HotBackup` resource with a `schedule` field:
++
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hot-backup-agent-scheduled.yaml[]
+----
++
+This field takes a valid cron expression. For example:
++
+[cols="1,1"]
+|===
+| ```30 10 * * *```
+| On 10:30 AM every day
+
+| ```0, 0, 1,15,25 * *```
+| On 1st, 15th and 25th each month, midnight
+
+| ```@monthly```
+| Once a month, first of the month, midnight
+|===
+
++
+For the full list of the supported expression, please check the link:https://pkg.go.dev/github.com/robfig/cron/v3@v3.0.1#hdr-CRON_Expression_Format[library documentation].
+
+. Apply the resource:
++
+[source,bash]
+----
+kubectl apply -f ./hot-backup-agent-scheduled.yaml
+----
+
+=== Checking the Status of a Backup
+
+To check the status of a backup, run the following command:
+[source,bash]
+----
+kubectl get hotbackup hot-backup
+----
+
+The status of the backup is displayed in the output.
+[source,bash]
+----
+NAME         STATUS
+hot-backup   Success
+----
+
+=== Restoring from External Backups
+
+To restore a cluster from external backups, you must enable external restore by adding `restore configuration` under the persistence.
+Similar with External Persistence, you may pass the agent configuration. If not, default value of the agent configuration will be used.
+When external restore mechanism is used, the Restore Agent container will
+be deployed with the Hazelcast container in the same Pod. The agent will start as an initContainer before the Hazelcast container.
+
+. Delete the Hazelcast cluster:
++
+[source,bash]
+----
+kubectl delete hazelcast hazelcast
+----
+
+. Recreate the `Hazelcast` resource:
++
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-persistence-restore.yaml[]
+----
+<1> The bucket URI where backup data will be restored from.
+<2> Name of the secret with credentials for accessing the given Bucket URI.
+<3> The agent which is responsible for restoring data from the external storage.
+    The agent configuration is optional. If you give `restore` under the `persistence` and do not pass the agent configuration, the operator
+    directly use the latest stable version of the agent.
++
+
+. If you have not created the secret, you must create the secret using the same way with the <<create-secret, Triggering External Backups>>.
+
+. Apply the `Hazelcast` resource:
++
+[source,bash]
+----
+kubectl apply -f ./hazelcast-persistence-restore.yaml
 ----
 
 . See that the same PVCs are bound to the new pods:
