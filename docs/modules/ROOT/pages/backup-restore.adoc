@@ -180,6 +180,10 @@ hot-restart-persistence-hazelcast-0 hot-restart-persistence-hazelcast-1 hot-rest
 
 == Enabling External Persistence
 
+In some cases, keeping the data only at PVC and restoring the data from it is not enough.
+For example, moving data between two Kubernetes clusters. You can use external storages so they
+will become portable.
+
 For enabling external persistence, you need two additional configurations. One is `backupType`.
 The other one is `agent configuration`. When external persistence is used, the Backup Agent container will
 be deployed with the Hazelcast container in the same Pod.
