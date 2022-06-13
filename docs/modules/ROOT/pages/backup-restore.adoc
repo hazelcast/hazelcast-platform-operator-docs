@@ -79,7 +79,6 @@ include::ROOT:example$/hot-backup.yaml[]
 kubectl apply -f ./hot-backup.yaml
 ----
 
-[[schedule-backup]]
 === Scheduling Backups
 
 You can schedule regular backups, using the `spec.schedule` field of a `HotBackup` resource.
@@ -115,7 +114,6 @@ For the full list of the supported expression, please check the link:https://pkg
 kubectl apply -f ./hot-backup-scheduled.yaml
 ----
 
-[[status-backup]]
 === Checking the Status of a Backup
 
 To check the status of a backup, run the following command:
@@ -131,7 +129,6 @@ NAME         STATUS
 hot-backup   Success
 ----
 
-[[restore-local]]
 === Restoring from Local Backups
 
 To restore a cluster from local backups, you can directly reapply the `Hazelcast` resource, and it will have access to the PVCs that contain the persisted data.
@@ -238,8 +235,8 @@ hot-restart-persistence-hazelcast-2   Bound    pvc-64314d82-da7a-4e38-bd2d-e770a
 
 === Triggering External Backups
 
-For triggering external Backup, you need to pass two additional configurations.
-One is `bucketURI`. The other one is `secret`. According to chosen cloud provider you need to get
+To trigger an external backup, you need to configure a bucket URI and a secret to tell Hazelcast where to store backup data and how to authenticate.
+One is `bucketURI`. The other one is `secret`. According to your chosen cloud provider, you need to get
 bucket URI and credentials to create secret.
 
 . Create the `HotBackup` resource:
@@ -251,33 +248,47 @@ include::ROOT:example$/hot-backup-agent.yaml[]
 <1> The bucket URI where backup data will be stored in
 <2> Name of the secret with credentials for accessing the given Bucket URI.
 
-[[create-secret]]
-. Create the secret:
+
+. Create the secret: [[create-secret]]
 +
-.. AWS: See https://docs.aws.amazon.com/sdk-for-go/api/aws/session/[AWS Session] to learn about authentication procedure.
+[tabs]
+====
+
+AWS::
 +
+--
+See https://docs.aws.amazon.com/sdk-for-go/api/aws/session/[AWS Session] to learn about authentication procedure.
 [source,bash]
 ----
-kubectl create secret generic br-secret-s3 --from-literal=region=<region> \
+kubectl create secret generic <secret-name> --from-literal=region=<region> \
 	--from-literal=access-key-id=<access-key-id> \
 	--from-literal=secret-access-key=<secret-access-key>
 ----
+--
 
-.. GCP: See https://cloud.google.com/docs/authentication/production/[Application Default Credentials] to learn about authentication procedure.
+GCP::
 +
+--
+See https://cloud.google.com/docs/authentication/production/[Application Default Credentials] to learn about authentication procedure.
 [source,bash]
 ----
-kubectl create secret generic br-secret-gcp --from-file=google-credentials-path=<service_account_json_file>
+kubectl create secret generic <secret-name> --from-file=google-credentials-path=<service_account_json_file>
 ----
+--
 
-.. Azure: See https://docs.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage?tabs=azure-portal/[Azure Storage Account Keys] to learn about authentication procedure.
+Azure::
 +
+--
+See https://docs.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage?tabs=azure-portal/[Azure Storage Account Keys] to learn about authentication procedure.
 [source,bash]
 ----
-kubectl create secret generic br-secret-az \
+kubectl create secret generic <secret-name> \
 	--from-literal=storage-account=<storage-account> \
 	--from-literal=storage-key=<storage-key>
 ----
+--
+
+====
 
 . Apply the resource:
 +
@@ -286,7 +297,55 @@ kubectl create secret generic br-secret-az \
 kubectl apply -f ./hot-backup-agent.yaml
 ----
 
-NOTE: You can <<status-backup, check the status of a Backup >> and <<schedule-backup, schedule external Backups >> same as the local ones
+=== Scheduling External Backups
+
+You can schedule external backups, using the `spec.schedule` field of a `HotBackup` resource.
+
+. Create the `HotBackup` resource with a `schedule` field:
++
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hot-backup-agent-scheduled.yaml[]
+----
++
+This field takes a valid cron expression. For example:
++
+[cols="1,1"]
+|===
+| ```30 10 * * *```
+| On 10:30 AM every day
+
+| ```0, 0, 1,15,25 * *```
+| On 1st, 15th and 25th each month, midnight
+
+| ```@monthly```
+| Once a month, first of the month, midnight
+|===
+
++
+For the full list of the supported expression, please check the link:https://pkg.go.dev/github.com/robfig/cron/v3@v3.0.1#hdr-CRON_Expression_Format[library documentation].
+
+. Apply the resource:
++
+[source,bash]
+----
+kubectl apply -f ./hot-backup-agent-scheduled.yaml
+----
+
+=== Checking the Status of a Backup
+
+To check the status of a backup, run the following command:
+[source,bash]
+----
+kubectl get hotbackup hot-backup
+----
+
+The status of the backup is displayed in the output.
+[source,bash]
+----
+NAME         STATUS
+hot-backup   Success
+----
 
 === Restoring from External Backups
 
@@ -295,9 +354,14 @@ Similar with External Persistence, you may pass the agent configuration. If not,
 When external restore mechanism is used, the Restore Agent container will
 be deployed with the Hazelcast container in the same Pod. The agent will start as an initContainer before the Hazelcast container.
 
-. First two steps will be the same with <<restore-local, Restoring from Local Backups>>: Deleting the Hazelcast cluster and Checking that the PVCs are still available
+. Delete the Hazelcast cluster:
++
+[source,bash]
+----
+kubectl delete hazelcast hazelcast
+----
 
-. Create the `Hazelcast` resource:
+. Recreate the `Hazelcast` resource:
 +
 [source,yaml,subs="attributes+"]
 ----
