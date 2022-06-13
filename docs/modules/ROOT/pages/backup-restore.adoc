@@ -236,8 +236,6 @@ hot-restart-persistence-hazelcast-2   Bound    pvc-64314d82-da7a-4e38-bd2d-e770a
 === Triggering External Backups
 
 To trigger an external backup, you need to configure a bucket URI and a secret to tell Hazelcast where to store backup data and how to authenticate.
-One is `bucketURI`. The other one is `secret`. According to your chosen cloud provider, you need to get
-bucket URI and credentials to create secret.
 
 . Create the `HotBackup` resource:
 +
