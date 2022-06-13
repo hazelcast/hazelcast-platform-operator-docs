@@ -5,7 +5,15 @@ Persistence allows individual members and whole clusters to recover data by pers
 
 This topic assumes that you know about Persistence in Hazelcast. To learn about Persistence, see the xref:hazelcast:storage:persistence.adoc[Platform documentation].
 
-The Operator supports three options for enabling Persistence: PVC(Local), PVC(External) and `HostPath`. We recommend using PVC, so the examples on this page use this option. If you need to use `HostPath`, see <<hostpath,  HostPath Support for Persistence>>.
+The Operator supports three options for enabling Persistence:
+
+- PVC(Local): Storing data at PVC and restoring the data from it
+
+- PVC(External): Migrating Hazelcast backup data to/from blob storages that cloud providers maintain. PVC is used for temporary storage for the backups.
+
+- HostPath: Storing data at HostPath volume instead of PVC and restoring the data from it
+
+We recommend using PVC, so the examples on this page use this option. If you need to use `HostPath`, see <<hostpath,  HostPath Support for Persistence>>.
 
 == Enabling Persistence
 
@@ -26,7 +34,7 @@ include::ROOT:example$/hazelcast-persistence.yaml[]
 <2> <<recovery-policy, Cluster recovery policy>>.
 <3> Size of the PersistentVolumeClaim (PVC) where Hazelcast data is persisted.
 +
-NOTE: Make sure to calculate the total disk space that you will use. The total used disk space may be larger than the size of in-memory data, depending on how many <<hot-backup, hot backups>> you take.
+NOTE: Make sure to calculate the total disk space that you will use. The total used disk space may be larger than the size of in-memory data, depending on how many <<single-backup, backups>> you take.
 
 . Apply the resource:
 +
@@ -79,7 +87,7 @@ include::ROOT:example$/hazelcast-persistence-agent.yaml[]
 ----
 <1> The backup type for where the backup data will be stored. It is either `Local` or `External`. Default value is `Local`.
 <5> The agent which is responsible for backing data up into the external storage.
-The agent configuration is optional. If you give backupType as 'External' and do not pass the agent configuration, the operator
+The agent configuration is optional. If you set the `backupType` to `External` and do not pass the agent configuration, the operator
 directly use the latest stable version of the agent.
 +
 
@@ -108,11 +116,11 @@ hazelcast-2   2/2     Running   0          99s
 . Hazelcast PVCs will be the same with `Local` persistence:
 
 
-[[hot-backup]]
-== Triggering a Single Hot Backup
-After Persistence is enabled for the cluster, you can trigger hot backups, using a `HotBackup` resource.
+[[single-backup]]
+== Triggering a Single Backup
+After Persistence is enabled for the cluster, you can trigger backups, using a `HotBackup` resource.
 
-=== Hot Backup with Local Persistence
+=== Backup with Local Persistence
 
 . Create the `HotBackup` resource:
 +
@@ -128,11 +136,11 @@ include::ROOT:example$/hot-backup.yaml[]
 kubectl apply -f ./hot-backup.yaml
 ----
 
-=== Hot Backup with External Persistence
+=== Backup with External Persistence
 
-For triggering Hot Backup with External Persistence, you need to pass two additional configurations.
+For triggering Backup with External Persistence, you need to pass two additional configurations.
 One is `bucketURI`. The other one is `secret`. According to chosen cloud provider you need to get
-bucket URI and credentials need to create secret.
+bucket URI and credentials to create secret.
 
 . Create the `HotBackup` resource:
 +
@@ -178,9 +186,9 @@ kubectl create secret generic br-secret-az \
 kubectl apply -f ./hot-backup-agent.yaml
 ----
 
-== Scheduling Hot Backups
+== Scheduling Backups
 
-You can schedule regular hot backups, using the `spec.schedule` field of a `HotBackup` resource.
+You can schedule regular backups, using the `spec.schedule` field of a `HotBackup` resource.
 
 . Create the `HotBackup` resource with a `schedule` field:
 +
@@ -213,27 +221,27 @@ For the full list of the supported expression, please check the link:https://pkg
 kubectl apply -f ./hot-backup-scheduled.yaml
 ----
 
-== Checking the Status of a Hot Backup
+== Checking the Status of a Backup
 
-To check the status of a hot backup, run the following command:
+To check the status of a backup, run the following command:
 [source,bash]
 ----
 kubectl get hotbackup hot-backup
 ----
 
-The status of the hot backup is displayed in the output.
+The status of the backup is displayed in the output.
 [source,bash]
 ----
 NAME         STATUS
 hot-backup   Success
 ----
 
-== Restoring from Hot Backups
+== Restoring from Backups
 
 [[Restore-Local]]
-=== Restoring from Local Hot Backups
+=== Restoring from Local Backups
 
-To restore a cluster from local hot backups, you can directly reapply the `Hazelcast` resource, and it will have access to the PVCs that contain the persisted data.
+To restore a cluster from local backups, you can directly reapply the `Hazelcast` resource, and it will have access to the PVCs that contain the persisted data.
 
 . Delete the Hazelcast cluster:
 +
@@ -280,14 +288,14 @@ You should see something like the following:
 hot-restart-persistence-hazelcast-0 hot-restart-persistence-hazelcast-1 hot-restart-persistence-hazelcast-2
 ----
 
-=== Restoring from External Hot Backups
+=== Restoring from External Backups
 
-To restore a cluster from external hot backups, you must enable external restore by adding `restore configuration` under the persistence.
+To restore a cluster from external backups, you must enable external restore by adding `restore configuration` under the persistence.
 Similar with External Persistence, you may pass the agent configuration, if not default value of the agent configuration will be used.
 When external restore mechanism is used, the Restore Agent container will
 be deployed with the Hazelcast container in the same Pod. The agent will start as an initContainer before the Hazelcast container.
 
-. First two steps will be the same with <<Restore-Local, Restoring from Local Hot Backups>>: Deleting the Hazelcast cluster and Checking that the PVCs are still available
+. First two steps will be the same with <<Restore-Local, Restoring from Local Backups>>: Deleting the Hazelcast cluster and Checking that the PVCs are still available
 
 . Create the `Hazelcast` resource:
 +
@@ -302,7 +310,7 @@ include::ROOT:example$/hazelcast-persistence-restore.yaml[]
     directly use the latest stable version of the agent.
 +
 
-. If you have not created the secret, you must create the secret using the same way with the <<Create-Secret, Hot Backup with External Persistence>>.
+. If you have not created the secret, you must create the secret using the same way with the <<Create-Secret, Backup with External Persistence>>.
 
 . Apply the `Hazelcast` resource:
 +
