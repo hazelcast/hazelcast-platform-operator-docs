@@ -35,5 +35,5 @@ the clients. Wait for DNS to resolve AWS ELB hostnames (https://github.com/hazel
 seconds (https://github.com/hazelcast/hazelcast-platform-operator/pull/174[#174])
 * Set HotBackup status to the failure when HotBackup fails (https://github.com/hazelcast/hazelcast-platform-operator/pull/198[#198])
 * Fixed evictionPolicy field name (https://github.com/hazelcast/hazelcast-platform-operator/pull/210[#210])
-* Fixed the issue when HotBackup continue to trigger by schedule even after removing the `scheduled` field from HotBackup CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/218[#218])
+* Fixed the issue that caused scheduled backups to continue even after the `scheduled` field was removed from the `HotBackup` custom resource. (https://github.com/hazelcast/hazelcast-platform-operator/pull/218[#218])
 
