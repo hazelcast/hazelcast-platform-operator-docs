@@ -16,8 +16,7 @@ In this release, we introduced a xref:map-configuration.adoc[custom Resource for
 * Added client connection message to Hazelcast CR status (https://github.com/hazelcast/hazelcast-platform-operator/pull/176[#176])
 * Added restore status Hazelcast CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/187[#187])
 * Added HotBackup pending status (https://github.com/hazelcast/hazelcast-platform-operator/pull/205[#205])
-* Persist map configs into Configmap (https://github.com/hazelcast/hazelcast-platform-operator/pull/204[#204])
-* Removing `scheduled` field from HotBackup will trigger HotBackup procedure (https://github.com/hazelcast/hazelcast-platform-operator/pull/218[#218])
+* Implemented map persistence using Hazelcast ConfigMap (https://github.com/hazelcast/hazelcast-platform-operator/pull/204[#204])
 * Defined restore agent config types (https://github.com/hazelcast/hazelcast-platform-operator/pull/196[#196])
 * Introduced `internal` package (https://github.com/hazelcast/hazelcast-platform-operator/pull/215[#215])
 * Refactored logger usage and removed unnecessary logging (https://github.com/hazelcast/hazelcast-platform-operator/pull/213[#213])
@@ -36,3 +35,5 @@ the clients. Wait for DNS to resolve AWS ELB hostnames (https://github.com/hazel
 seconds (https://github.com/hazelcast/hazelcast-platform-operator/pull/174[#174])
 * Set HotBackup status to the failure when HotBackup fails (https://github.com/hazelcast/hazelcast-platform-operator/pull/198[#198])
 * Fixed evictionPolicy field name (https://github.com/hazelcast/hazelcast-platform-operator/pull/210[#210])
+* Fixed the issue when HotBackup continue to trigger by schedule even after removing the `scheduled` field from HotBackup CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/218[#218])
+
