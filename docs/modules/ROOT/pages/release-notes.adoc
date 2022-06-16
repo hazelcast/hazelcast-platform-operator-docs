@@ -1,38 +1,38 @@
 = 5.3 Release Notes
 
-In this release, we have introduced Map Custom Resource and external storage support for Backup & Restore.
+In this release, we introduced a xref:map-configuration.adoc[custom Resource for Hazelcast maps] as well as support for xref:backup-restore.adoc#_enabling_external_persistence[backing up map data to cloud storage].
 
 == New features
 
-* Add Map CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/195[#195])
-* Add support for resource limit and request for Hazelcast and MC CRs (https://github.com/hazelcast/hazelcast-platform-operator/pull/203[#203])
-* Add agent support for external Backup and Restore (https://github.com/hazelcast/hazelcast-platform-operator/pull/191[#191])
+* Added Map CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/195[#195])
+* Added support for resource limit and request for Hazelcast and MC CRs (https://github.com/hazelcast/hazelcast-platform-operator/pull/203[#203])
+* Added agent support for external Backup and Restore (https://github.com/hazelcast/hazelcast-platform-operator/pull/191[#191])
 
 == Changes
 
-* Add Hazelcast members detailed status (https://github.com/hazelcast/hazelcast-platform-operator/pull/171[#171])
-* Add HotBackup status (https://github.com/hazelcast/hazelcast-platform-operator/pull/179[#179])
-* Add periodic member list and status update (https://github.com/hazelcast/hazelcast-platform-operator/pull/180[#180])
-* Add client connection message to Hazelcast CR status (https://github.com/hazelcast/hazelcast-platform-operator/pull/176[#176])
-* Add restore status Hazelcast CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/187[#187])
-* Add HotBackup pending status (https://github.com/hazelcast/hazelcast-platform-operator/pull/205[#205])
+* Added Hazelcast members detailed status (https://github.com/hazelcast/hazelcast-platform-operator/pull/171[#171])
+* Added HotBackup status (https://github.com/hazelcast/hazelcast-platform-operator/pull/179[#179])
+* Added periodic member list and status update (https://github.com/hazelcast/hazelcast-platform-operator/pull/180[#180])
+* Added client connection message to Hazelcast CR status (https://github.com/hazelcast/hazelcast-platform-operator/pull/176[#176])
+* Added restore status Hazelcast CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/187[#187])
+* Added HotBackup pending status (https://github.com/hazelcast/hazelcast-platform-operator/pull/205[#205])
 * Persist map configs into Configmap (https://github.com/hazelcast/hazelcast-platform-operator/pull/204[#204])
 * Removing `scheduled` field from HotBackup will trigger HotBackup procedure (https://github.com/hazelcast/hazelcast-platform-operator/pull/218[#218])
-* Define restore agent config types (https://github.com/hazelcast/hazelcast-platform-operator/pull/196[#196])
-* Introduce `internal` package (https://github.com/hazelcast/hazelcast-platform-operator/pull/215[#215])
-* Refactor logger usage and remove unnecessary logging (https://github.com/hazelcast/hazelcast-platform-operator/pull/213[#213])
+* Defined restore agent config types (https://github.com/hazelcast/hazelcast-platform-operator/pull/196[#196])
+* Introduced `internal` package (https://github.com/hazelcast/hazelcast-platform-operator/pull/215[#215])
+* Refactored logger usage and removed unnecessary logging (https://github.com/hazelcast/hazelcast-platform-operator/pull/213[#213])
 * Use different logger options for local and production environments (https://github.com/hazelcast/hazelcast-platform-operator/pull/214[#214])
 * Set HotBackup to failed when Hazelcast CR does not exist (https://github.com/hazelcast/hazelcast-platform-operator/pull/222[#222])
-* Make `resources` and `scheduling` fields updatable for Hazelcast and MC CRs (https://github.com/hazelcast/hazelcast-platform-operator/pull/227[#227])
-* Improve client to cluster connection check (https://github.com/hazelcast/hazelcast-platform-operator/pull/209[#209])
-* Add GS and Azure support for backup and restore (https://github.com/hazelcast/hazelcast-platform-operator/pull/230[#230])
-* Upgrade Hazelcast and MC versions to 5.1.2 and 5.1.3 (https://github.com/hazelcast/hazelcast-platform-operator/pull/241[#241])
+* Made `resources` and `scheduling` fields updatable for Hazelcast and MC CRs (https://github.com/hazelcast/hazelcast-platform-operator/pull/227[#227])
+* Improved client to cluster connection check (https://github.com/hazelcast/hazelcast-platform-operator/pull/209[#209])
+* Added GS and Azure support for backup and restore (https://github.com/hazelcast/hazelcast-platform-operator/pull/230[#230])
+* Upgraded Hazelcast and MC versions to 5.1.2 and 5.1.3 (https://github.com/hazelcast/hazelcast-platform-operator/pull/241[#241])
 
 == Fixed Issues
 
-* Fix the problem where the LoadBalancer hostname is present but not resolvable by
+* Fixed the problem where the LoadBalancer hostname is present but not resolvable by
 the clients. Wait for DNS to resolve AWS ELB hostnames (https://github.com/hazelcast/hazelcast-platform-operator/pull/169[#169])
-* Fix wrong duration unit usage in client connectionStrategy, use correct
+* Fixed wrong duration unit usage in client connectionStrategy, use correct
 seconds (https://github.com/hazelcast/hazelcast-platform-operator/pull/174[#174])
 * Set HotBackup status to the failure when HotBackup fails (https://github.com/hazelcast/hazelcast-platform-operator/pull/198[#198])
-* Fix evictionPolicy field name (https://github.com/hazelcast/hazelcast-platform-operator/pull/210[#210]) (edited)
+* Fixed evictionPolicy field name (https://github.com/hazelcast/hazelcast-platform-operator/pull/210[#210])
