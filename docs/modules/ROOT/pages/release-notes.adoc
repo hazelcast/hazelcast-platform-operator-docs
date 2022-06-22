@@ -1,186 +1,39 @@
-= 5.2 Release Notes
+= 5.3 Release Notes
 
-In this release, we introduced the Backup and Restore feature with support for PVC and hostPath. This feature uses xref:5.1@hazelcast:storage:persistence.adoc[Hazelcast Persistence] under the hood.
+In this release, we introduced a xref:map-configuration.adoc[custom Resource for Hazelcast maps] as well as support for xref:backup-restore.adoc#_enabling_external_persistence[backing up map data to cloud storage].
 
 == New features
 
-* Back up data into
-https://kubernetes.io/docs/concepts/storage/persistent-volumes/[PVC]
-(via xref:5.1@hazelcast:storage:persistence.adoc[Hazelcast Persistence])
-+
-The persistence feature needs to be enabled at Hazelcast CR:
-+
-....
-apiVersion: hazelcast.com/v1alpha1
-kind: Hazelcast
-metadata:
-  name: hazelcast
-spec:
-  ...
-  licenseKeySecret: hazelcast-license-key
-  persistence:
-    baseDir: "/data/persistence/"
-    clusterDataRecoveryPolicy: "FullRecoveryOnly"
-    pvc:
-      accessModes: ["ReadWriteOnce"]
-      requestStorage: 20Gi
-....
-+
-You can take backup manually or automatically(scheduled):
-+
-....
-apiVersion: hazelcast.com/v1alpha1
-kind: HotBackup
-metadata:
-  name: hot-backup
-spec:
-  hazelcastResourceName: hazelcast
-....
-+
-....
-apiVersion: hazelcast.com/v1alpha1
-kind: HotBackup
-metadata:
-  name: hot-backup
-spec:
-  hazelcastResourceName: hazelcast
-  schedule: "* 0-23/6 * * *"
-....
-* Restore data from
-https://kubernetes.io/docs/concepts/storage/persistent-volumes/[PVC]
-(via xref:5.1@hazelcast:storage:persistence.adoc[Hazelcast Persistence])
-+
-....
-apiVersion: hazelcast.com/v1alpha1
-kind: Hazelcast
-metadata:
-  name: hazelcast
-spec:
-  ...
-  licenseKeySecret: hazelcast-license-key
-  persistence:
-    baseDir: "/data/persistence/"
-    clusterDataRecoveryPolicy: "FullRecoveryOnly"
-    pvc:
-      accessModes: ["ReadWriteOnce"]
-      requestStorage: 20Gi
-....
-* Backup and Restore Hazelcast data to/from
-https://kubernetes.io/docs/concepts/storage/volumes/#hostpath[hostPath]
-+
-....
-apiVersion: hazelcast.com/v1alpha1
-kind: Hazelcast
-metadata:
-  name: hazelcast
-spec:
-  ...
-  licenseKeySecret: hazelcast-license-key
-  persistence:
-    ...
-    hostPath: "/tmp/hazelcast"
-  scheduling:
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/instance: hazelcast
-....
-* Auto xref:5.1@hazelcast:storage:triggering-force-start.adoc[Force Start] support. The Platform Operator to detect failed Hazelcast members
-and automatically trigger a force-start
-+
-....
-apiVersion: hazelcast.com/v1alpha1
-kind: Hazelcast
-metadata:
-  name: hazelcast
-spec:
-  ...
-  licenseKeySecret: hazelcast-license-key
-  persistence:
-    baseDir: "/data/persistence/"
-    clusterDataRecoveryPolicy: "FullRecoveryOnly"
-    autoForceStart: true
-....
-* ImagePullSecrets configuration for Hazelcast and Management Center CRs
-* Management Center can be started with existing PV claim:
-+
-....
-apiVersion: hazelcast.com/v1alpha1
-kind: ManagementCenter
-metadata:
-  name: managementcenter
-spec:
-  ...
-  persistence:
-    enabled: true
-    existingVolumeClaimName: existing-pvc
-....
-* Pod scheduling support for Management Center CR.
-* `topologySpreadConstraints` scheduling support for Hazelcast and
-Management Center CRs.
+* Added Map CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/195[#195])
+* Added support for resource limit and request for Hazelcast and MC CRs (https://github.com/hazelcast/hazelcast-platform-operator/pull/203[#203])
+* Added agent support for external Backup and Restore (https://github.com/hazelcast/hazelcast-platform-operator/pull/191[#191])
 
 == Changes
 
-* Upgrade Hazelcast and MC versions to 5.1.x
-(https://github.com/hazelcast/hazelcast-platform-operator/pull/148)
-* Improve Operator Logging and add Ginkgo v2 CLI for better test
-verbosity
-(https://github.com/hazelcast/hazelcast-platform-operator/pull/151)
-* Detailed member statuses
-(https://github.com/hazelcast/hazelcast-platform-operator/pull/138)
-Sample failed member:
-+
-....
-Status:
-  Hazelcast Cluster Status:
-    Ready Members:  0/3
-  Members:
-    Connected:  false
-    Ip:         10.164.2.23
-    Message:    back-off 10s restarting failed container=hazelcast pod=hazelcast-0_default(07c1a692-1be9-408d-b245-bb93cf01af66)
-    Pod Name:   hazelcast-0
-    Reason:     CrashLoopBackOff
-  Message:      multiple (1) errors: pod hazelcast-0 in namespace default failed for back-off 10s restarting failed container=hazelcast pod=hazelcast-0_default(07c1a692-1be9-408d-b245-bb93cf01af66):
-....
-+
-Successful one:
-+
-....
-Status:
-  Hazelcast Cluster Status:
-    Ready Members:  3/3
-  Members:
-    Connected:  true
-    Ip:         10.164.2.27
-    UID:        85eeb6f3-00a3-4bed-aa4c-30959d6bda67
-    Version:    5.0.2
-    Connected:  true
-    Ip:         10.164.1.12
-    UID:        e546754e-209d-4ac5-9fd0-119a6d8bf371
-    Version:    5.0.2
-    Connected:  true
-    Ip:         10.164.0.14
-    UID:        5a7b1a1f-4a1c-47ff-8151-24db0e5db51e
-    Version:    5.0.2
-  Phase:        Running
-....
-* Show external IP of Hazelcast members and Management Center URL at CR
-statuses:
-+
-....
-$ kubectl get hazelcast
-NAME               STATUS    MEMBERS   EXTERNAL-ADDRESSES
-hazelcast  Running   3/3         <EXTERNAL_IP>:5701
-....
+* Added Hazelcast members detailed status (https://github.com/hazelcast/hazelcast-platform-operator/pull/171[#171])
+* Added HotBackup status (https://github.com/hazelcast/hazelcast-platform-operator/pull/179[#179])
+* Added periodic member list and status update (https://github.com/hazelcast/hazelcast-platform-operator/pull/180[#180])
+* Added client connection message to Hazelcast CR status (https://github.com/hazelcast/hazelcast-platform-operator/pull/176[#176])
+* Added restore status Hazelcast CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/187[#187])
+* Added HotBackup pending status (https://github.com/hazelcast/hazelcast-platform-operator/pull/205[#205])
+* Implemented map persistence using Hazelcast ConfigMap (https://github.com/hazelcast/hazelcast-platform-operator/pull/204[#204])
+* Defined restore agent config types (https://github.com/hazelcast/hazelcast-platform-operator/pull/196[#196])
+* Introduced `internal` package (https://github.com/hazelcast/hazelcast-platform-operator/pull/215[#215])
+* Refactored logger usage and removed unnecessary logging (https://github.com/hazelcast/hazelcast-platform-operator/pull/213[#213])
+* Use different logger options for local and production environments (https://github.com/hazelcast/hazelcast-platform-operator/pull/214[#214])
+* Set HotBackup to failed when Hazelcast CR does not exist (https://github.com/hazelcast/hazelcast-platform-operator/pull/222[#222])
+* Made `resources` and `scheduling` fields updatable for Hazelcast and MC CRs (https://github.com/hazelcast/hazelcast-platform-operator/pull/227[#227])
+* Improved client to cluster connection check (https://github.com/hazelcast/hazelcast-platform-operator/pull/209[#209])
+* Added GS and Azure support for backup and restore (https://github.com/hazelcast/hazelcast-platform-operator/pull/230[#230])
+* Upgraded Hazelcast and MC versions to 5.1.2 and 5.1.3 (https://github.com/hazelcast/hazelcast-platform-operator/pull/241[#241])
 
 == Fixed Issues
 
-* When a cluster failed to restart for any reason, the Go client failed to reconnect to it even after the cluster successfully restarted. We've now added support for the Go client to asynchronously reconnect to a cluster.
-(https://github.com/hazelcast/hazelcast-platform-operator/pull/145)
-* Disable Phone Home for MC and HZ when Operator Phone Home is disabled.
-(https://github.com/hazelcast/hazelcast-platform-operator/pull/150)
-* Changes readiness probe of Management Center into `TCPSocket` for port `8080` to prove the Spring Web which is main process for Management Center started properly.
-(https://github.com/hazelcast/hazelcast-platform-operator/pull/132)
+* Fixed the problem where the LoadBalancer hostname is present but not resolvable by
+the clients. Wait for DNS to resolve AWS ELB hostnames (https://github.com/hazelcast/hazelcast-platform-operator/pull/169[#169])
+* Fixed wrong duration unit usage in client connectionStrategy, use correct
+seconds (https://github.com/hazelcast/hazelcast-platform-operator/pull/174[#174])
+* Set HotBackup status to the failure when HotBackup fails (https://github.com/hazelcast/hazelcast-platform-operator/pull/198[#198])
+* Fixed evictionPolicy field name (https://github.com/hazelcast/hazelcast-platform-operator/pull/210[#210])
+* Fixed the issue that caused scheduled backups to continue even after the `scheduled` field was removed from the `HotBackup` custom resource. (https://github.com/hazelcast/hazelcast-platform-operator/pull/218[#218])
+
