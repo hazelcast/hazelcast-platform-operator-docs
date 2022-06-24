@@ -1,6 +1,6 @@
 = 5.3 Release Notes
 
-In this release, we introduced a xref:map-configuration.adoc[custom Resource for Hazelcast maps] as well as support for xref:backup-restore.adoc#_enabling_external_persistence[backing up map data to cloud storage].
+In this release, we introduced a xref:map-configuration.adoc[custom Resource for Hazelcast maps] as well as support for xref:backup-restore.adoc#enabling-external-persistence[backing up map data to cloud storage].
 
 == New features
 
