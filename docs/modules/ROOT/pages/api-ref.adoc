@@ -629,6 +629,7 @@ m| "NotStarted" | &#160;
 m| "InProgress" | &#160;
 m| "Failure" | &#160;
 m| "Success" | &#160;
+m| "Waiting" | &#160;
 |===
 
 <<Table of Contents,Back to TOC>>
