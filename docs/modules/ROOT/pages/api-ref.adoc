@@ -13,6 +13,8 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 === Table of Contents
 * <<AgentConfiguration,AgentConfiguration>>
 * <<BackupType,BackupType>>
+* <<BucketConfiguration,BucketConfiguration>>
+* <<CustomClassConfiguration,CustomClassConfiguration>>
 * <<DataRecoveryPolicyType,DataRecoveryPolicyType>>
 * <<ExposeExternallyConfiguration,ExposeExternallyConfiguration>>
 * <<ExposeExternallyType,ExposeExternallyType>>
@@ -64,7 +66,34 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 |===
 | Field | Description | Type | Required | Default
 m| repository | Repository to pull Hazelcast Platform Operator Agent(https://github.com/hazelcast/platform-operator-agent) m| string | false | "docker.io/hazelcast/platform-operator-agent"
-m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.1"
+m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.2"
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== BucketConfiguration
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| secret | Name of the secret with credentials for cloud providers. m| string | true | -
+m| bucketURI | Full path to blob storage bucket. m| string | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== CustomClassConfiguration
+
+CustomClassConfiguration contains the configuration for Custom Class download operation
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| secret | Name of the secret with credentials for cloud providers. m| string | true | -
+m| bucketURI | Full path to blob storage bucket. m| string | true | -
+m| triggerSequence | A string for triggering a rolling restart for re-downloading the custom classes. m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -182,7 +211,8 @@ m| clusterName | Name of the Hazelcast cluster. m| string | false | "dev"
 m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingConfiguration>> | false | {}
 m| resources | Compute Resources required by the Hazelcast container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | {}
 m| persistence | Persistence configuration m| &#42;<<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>> | false | {}
-m| agent | B&R Agent configurations m| &#42;<<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.1"}
+m| agent | B&R Agent configurations m| &#42;<<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.2"}
+m| customClass | Custom Classes to Download into Class Path m| &#42;<<CustomClassConfiguration,CustomClassConfiguration>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -214,19 +244,6 @@ m| restore | Status of restore process of the Hazelcast cluster m| &#42;<<Restor
 m| accessModes | AccessModes contains the actual access modes of the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1 m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#persistentvolumeaccessmode-v1-core[corev1.PersistentVolumeAccessMode] | false | -
 m| requestStorage | A description of the PVC request capacity. m| &#42;resource.Quantity | false | -
 m| storageClassName | Name of StorageClass which this persistent volume belongs to. m| &#42;string | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== RestoreConfiguration
-
-RestoreConfiguration contains the configuration for Restore operation
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| secret | Name of the secret with credentials for cloud providers. m| string | false | -
-m| bucketURI | Full path to blob storage bucket. m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
