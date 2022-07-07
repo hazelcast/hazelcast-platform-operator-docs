@@ -66,7 +66,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 |===
 | Field | Description | Type | Required | Default
 m| repository | Repository to pull Hazelcast Platform Operator Agent(https://github.com/hazelcast/platform-operator-agent) m| string | false | "docker.io/hazelcast/platform-operator-agent"
-m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.3"
+m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.4"
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -211,7 +211,7 @@ m| clusterName | Name of the Hazelcast cluster. m| string | false | "dev"
 m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingConfiguration>> | false | {}
 m| resources | Compute Resources required by the Hazelcast container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | {}
 m| persistence | Persistence configuration m| &#42;<<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>> | false | {}
-m| agent | B&R Agent configurations m| &#42;<<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.3"}
+m| agent | B&R Agent configurations m| &#42;<<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.4"}
 m| customClass | Custom Classes to Download into Class Path m| &#42;<<CustomClassConfiguration,CustomClassConfiguration>> | false | -
 |===
 
