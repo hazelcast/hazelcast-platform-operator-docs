@@ -93,9 +93,9 @@ CustomClassConfiguration contains the configuration for Custom Class download op
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| secret | Name of the secret with credentials for cloud providers. m| string | true | -
-m| bucketURI | Full path to blob storage bucket. m| string | true | -
+m| bucketConfig | Jar files in the bucket will be put under CLASSPATH. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
 m| triggerSequence | A string for triggering a rolling restart for re-downloading the custom classes. m| string | false | -
+m| configMaps | Files in the ConfigMaps will be put under CLASSPATH. m| []string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
