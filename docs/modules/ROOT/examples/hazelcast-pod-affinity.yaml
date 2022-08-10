@@ -14,14 +14,14 @@ spec:
                   values:
                     - app1
             topologyKey: kubernetes.io/hostname
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 10
-              podAffinityTerm:
-                labelSelector:
-                  matchExpressions:
-                    - key: app.kubernetes.io/instance
-                      operator: In
-                      values:
-                        - hazelcast
-                topologyKey: kubernetes.io/hostname
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 10
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/instance
+                    operator: In
+                    values:
+                      - hazelcast
+              topologyKey: kubernetes.io/hostname

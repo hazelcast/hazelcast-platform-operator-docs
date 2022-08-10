@@ -7,8 +7,9 @@ spec:
     topologySpreadConstraints:
       - maxSkew: 1
         topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: corev1.DoNotSchedule
-        labelSelector: 
-          app.kubernetes.io/name: hazelcast
-          app.kubernetes.io/instance: hazelcast
-          app.kubernetes.io/managed-by: hazelcast-platform-operator
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: hazelcast
+            app.kubernetes.io/instance: hazelcast
+            app.kubernetes.io/managed-by: hazelcast-platform-operator
