@@ -16,4 +16,3 @@ spec:
       requestStorage: 20Gi
   agent: <2>
     repository: hazelcast/platform-operator-agent
-    version: 0.1.0

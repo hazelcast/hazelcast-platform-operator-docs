@@ -18,4 +18,3 @@ spec:
       secret: br-secret-s3 <2>
   agent: <3>
     repository: hazelcast/platform-operator-agent
-    version: 0.1.0
