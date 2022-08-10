@@ -1,0 +1,64 @@
+= Configuring Maps
+:description: pass:q[WAN Replication allows you to keep multiple Hazelcast clusters in sync on multi-site and multi-cloud deployments worldwide. You can create a WanReplication resource to be able to replicate a map on a target Hazelcast cluster. ]
+
+{description}
+
+== Configuring the `Map` Resource
+
+Below are the configuration options for the `WanReplication` resource. You can find more detailed information in xref:api-ref.adoc#wanreplicationspec[API Reference] page.
+
+[cols="20%m,80%a"]
+|===
+|Field|Description
+
+|mapResourceName
+|MapResourceName is the name of Map custom resource which WAN replication will be applied to.
+
+|targetClusterName
+|targetClusterName is the cluster name of the target Hazelcast cluster.
+
+|endpoints
+|Endpoints is the target cluster endpoints.
+
+|queue
+|Queue is the configuration for WAN events queue.
+
+- capacity: Capacity is the total capacity of WAN queue.
+- fullBehavior: FullBehavior represents the behavior of the new arrival when the queue is full.
+
+|batch
+|Batch is the configuration for WAN events batch.
+
+- size: Size represents the maximum batch size.
+- maximumDelay: MaximumDelay represents the maximum delay in milliseconds. If the batch size is not reached, the events will be sent after the maximum delay.
+
+|AcknowledgementSetting
+|Acknowledgement is the configuration for the condition when the next batch of WAN events are sent.
+
+- type: Type represents how a batch of replication events is considered successfully replicated.
+- timeout: Timeout represents the time the source cluster waits for the acknowledgement. After timeout, the events will be resent.
+
+|===
+
+== Example Configuration
+
+The following `WanReplication` resource creates wan replication configuration for the `Hazelcast` custom resource that map is created for.
+
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/wan-replication-example.yaml[]
+----
+
+After creating the `WanReplication` resource, you can learn about its status with the following command
+
+[source,shell]
+----
+kubectl get wanreplication wanreplication-sample -o wide
+----
+
+```
+NAME                     STATUS    MESSAGE
+wanreplication-sample    Success   
+```
+

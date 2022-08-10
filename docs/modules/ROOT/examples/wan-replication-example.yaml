@@ -1,0 +1,17 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: WanReplication
+metadata:
+  name: wanreplication-sample
+spec:
+  mapResourceName: map-sample
+  targetClusterName: dev
+  endpoints: "35.192.33.252,35.192.33.255"
+  queue:
+    capacity: 10000
+    fullBehavior: DISCARD_AFTER_MUTATION
+  batch:
+    size: 500
+    maximumDelay: 1000
+  acknowledgement:
+    type: ACK_ON_OPERATION_COMPLETE
+    timeout: 60000
