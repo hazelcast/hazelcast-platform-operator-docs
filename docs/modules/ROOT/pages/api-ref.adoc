@@ -50,11 +50,13 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<EvictionPolicyType,EvictionPolicyType>>
 * <<IndexConfig,IndexConfig>>
 * <<IndexType,IndexType>>
+* <<InitialModeType,InitialModeType>>
 * <<Map,Map>>
 * <<MapConfigState,MapConfigState>>
 * <<MapList,MapList>>
 * <<MapSpec,MapSpec>>
 * <<MapStatus,MapStatus>>
+* <<MapStoreConfig,MapStoreConfig>>
 * <<MaxSizePolicyType,MaxSizePolicyType>>
 * <<UniqueKeyTransition,UniqueKeyTransition>>
 
@@ -66,7 +68,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 |===
 | Field | Description | Type | Required | Default
 m| repository | Repository to pull Hazelcast Platform Operator Agent(https://github.com/hazelcast/platform-operator-agent) m| string | false | "docker.io/hazelcast/platform-operator-agent"
-m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.3"
+m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.5"
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -91,9 +93,9 @@ CustomClassConfiguration contains the configuration for Custom Class download op
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| secret | Name of the secret with credentials for cloud providers. m| string | true | -
-m| bucketURI | Full path to blob storage bucket. m| string | true | -
+m| bucketConfig | Jar files in the bucket will be put under CLASSPATH. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
 m| triggerSequence | A string for triggering a rolling restart for re-downloading the custom classes. m| string | false | -
+m| configMaps | Files in the ConfigMaps will be put under CLASSPATH. m| []string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -211,7 +213,7 @@ m| clusterName | Name of the Hazelcast cluster. m| string | false | "dev"
 m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingConfiguration>> | false | {}
 m| resources | Compute Resources required by the Hazelcast container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | {}
 m| persistence | Persistence configuration m| &#42;<<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>> | false | {}
-m| agent | B&R Agent configurations m| &#42;<<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.3"}
+m| agent | B&R Agent configurations m| &#42;<<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.5"}
 m| customClass | Custom Classes to Download into Class Path m| &#42;<<CustomClassConfiguration,CustomClassConfiguration>> | false | -
 |===
 
@@ -518,6 +520,7 @@ m| eviction | Configuration for removing data from the map when it reaches its m
 m| indexes | Indexes to be created for the map data. You can learn more at https://docs.hazelcast.com/hazelcast/latest/query/indexing-maps. It cannot be updated after map config is created successfully. m| []<<IndexConfig,IndexConfig>> | false | -
 m| persistenceEnabled | When enabled, map data will be persisted. It cannot be updated after map config is created successfully. m| bool | false | false
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource. It cannot be updated after map config is created successfully. m| string | true | -
+m| mapStore | Configuration options when you want to load/store the map entries from/to a persistent data store such as a relational database You can learn more at https://docs.hazelcast.com/hazelcast/latest/data-structures/working-with-external-data m| &#42;<<MapStoreConfig,MapStoreConfig>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -532,6 +535,23 @@ MapStatus defines the observed state of Map
 m| state | &#160; m| <<MapConfigState,MapConfigState>> | false | -
 m| message | &#160; m| string | false | -
 m| memberStatuses | &#160; m| map[string]<<MapConfigState,MapConfigState>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== MapStoreConfig
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| initialMode | Sets the initial entry loading mode. m| <<InitialModeType,InitialModeType>> | false | LAZY
+m| className | Name of your class implementing MapLoader and/or MapStore interface. m| string | true | -
+m| writeDelaySeconds | Number of seconds to delay the storing of entries. m| int32 | false | -
+m| writeBatchSize | Used to create batches when writing to map store. m| int32 | false | 1
+m| writeCoealescing | It is meaningful if you are using write behind in MapStore. When it is set to true, only the latest store operation on a key during the write-delay-seconds will be reflected to MapStore. m| &#42;bool | false | true
+m| propertiesSecretName | Properties can be used for giving information to the MapStore implementation m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -646,7 +666,6 @@ m| "NotStarted" | &#160;
 m| "InProgress" | &#160;
 m| "Failure" | &#160;
 m| "Success" | &#160;
-m| "Waiting" | &#160;
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -676,6 +695,19 @@ m| "RANDOM" | Randomly selected entries will be removed.
 m| "SORTED" | &#160;
 m| "HASH" | &#160;
 m| "BITMAP" | &#160;
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== InitialModeType
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "LAZY" | Loading is asynchronous. It is the default mode.
+m| "EAGER" | Loading is blocked until all partitions are loaded.
 |===
 
 <<Table of Contents,Back to TOC>>
