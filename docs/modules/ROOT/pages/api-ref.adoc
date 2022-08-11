@@ -14,8 +14,11 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<AgentConfiguration,AgentConfiguration>>
 * <<BackupType,BackupType>>
 * <<BucketConfiguration,BucketConfiguration>>
+* <<CapacityPolicyType,CapacityPolicyType>>
 * <<CustomClassConfiguration,CustomClassConfiguration>>
 * <<DataRecoveryPolicyType,DataRecoveryPolicyType>>
+* <<DurableExecutorServiceConfiguration,DurableExecutorServiceConfiguration>>
+* <<ExecutorServiceConfiguration,ExecutorServiceConfiguration>>
 * <<ExposeExternallyConfiguration,ExposeExternallyConfiguration>>
 * <<ExposeExternallyType,ExposeExternallyType>>
 * <<Hazelcast,Hazelcast>>
@@ -31,6 +34,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<RestoreConfiguration,RestoreConfiguration>>
 * <<RestoreState,RestoreState>>
 * <<RestoreStatus,RestoreStatus>>
+* <<ScheduledExecutorServiceConfiguration,ScheduledExecutorServiceConfiguration>>
 * <<SchedulingConfiguration,SchedulingConfiguration>>
 * <<ExternalConnectivityConfiguration,ExternalConnectivityConfiguration>>
 * <<ExternalConnectivityType,ExternalConnectivityType>>
@@ -96,6 +100,35 @@ CustomClassConfiguration contains the configuration for Custom Class download op
 m| bucketConfig | Jar files in the bucket will be put under CLASSPATH. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
 m| triggerSequence | A string for triggering a rolling restart for re-downloading the custom classes. m| string | false | -
 m| configMaps | Files in the ConfigMaps will be put under CLASSPATH. m| []string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== DurableExecutorServiceConfiguration
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| name | The name of the executor service m| string | false | "default"
+m| poolSize | The number of executor threads per member. m| int32 | false | 16
+m| durability | Durability of the executor. m| int32 | false | 1
+m| capacity | Capacity of the executor task per partition. m| int32 | false | 100
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ExecutorServiceConfiguration
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| name | The name of the executor service m| string | false | "default"
+m| poolSize | The number of executor threads per member. m| int32 | false | 8
+m| queueCapacity | Task queue capacity of the executor. m| int32 | false | 0
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -215,6 +248,9 @@ m| resources | Compute Resources required by the Hazelcast container. m| &#42;ht
 m| persistence | Persistence configuration m| &#42;<<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>> | false | {}
 m| agent | B&R Agent configurations m| &#42;<<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.5"}
 m| customClass | Custom Classes to Download into Class Path m| &#42;<<CustomClassConfiguration,CustomClassConfiguration>> | false | -
+m| executorServices | &#160; m| []<<ExecutorServiceConfiguration,ExecutorServiceConfiguration>> | false | -
+m| durableExecutorServices | &#160; m| []<<DurableExecutorServiceConfiguration,DurableExecutorServiceConfiguration>> | false | -
+m| scheduledExecutorServices | &#160; m| []<<ScheduledExecutorServiceConfiguration,ScheduledExecutorServiceConfiguration>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -260,6 +296,22 @@ m| storageClassName | Name of StorageClass which this persistent volume belongs 
 m| state | State shows the current phase of the restore process of the cluster. m| <<RestoreState,RestoreState>> | true | -
 m| remainingValidationTime | RemainingValidationTime show the time in seconds remained for the restore validation step. m| int64 | true | -
 m| remainingDataLoadTime | RemainingDataLoadTime show the time in seconds remained for the restore data load step. m| int64 | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ScheduledExecutorServiceConfiguration
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| name | The name of the executor service m| string | false | "default"
+m| poolSize | The number of executor threads per member. m| int32 | false | 16
+m| durability | Durability of the executor. m| int32 | false | 1
+m| capacity | Capacity of the executor task per partition. m| int32 | false | 100
+m| capacityPolicy | The active policy for the capacity setting. m| string | false | PER_NODE
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -565,6 +617,19 @@ BackupType represents the storage options for the HotBackup
 | Value | Description
 m| "External" | External backups to the provided cloud provider storage
 m| "Local" | Local backups to local storage inside the cluster
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== CapacityPolicyType
+
+CapacityPolicyType represents the active policy types for the capacity setting
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "PER_NODE" | CapacityPolicyPerNode is the policy for limiting the maximum number of tasks in each Hazelcast instance
+m| "PER_PARTITION" | CapacityPolicyPerPartition is the policy for limiting the maximum number of tasks within each partition.
 |===
 
 <<Table of Contents,Back to TOC>>
