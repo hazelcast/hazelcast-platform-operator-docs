@@ -1,0 +1,9 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+  executorServices:
+    - name: service1
+      capacity: 8
+      queueCapacity: 0
