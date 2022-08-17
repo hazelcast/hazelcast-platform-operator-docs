@@ -5,7 +5,7 @@
 
 == Configuring the `WanReplication` Resource
 
-Below are the configuration options for the `WanReplication` resource. Before creating the `WanReplication` resource you need to create a source `Hazelcast` cluster resource and a `Map` resource for the source cluster. You should also create a target cluster which should be accessible from the source cluster.
+Below are the configuration options for the `WanReplication` resource. Before creating the `WanReplication` resource you need to create a source `Hazelcast` cluster resource and a `Map` resource for the source cluster. You should also create a target cluster which should be accessible from the source cluster. You can learn more about WAN Replication in the link:https://docs.hazelcast.com/hazelcast/latest/wan/wan[Hazelcast Platform Documentation].
 
 You can find more detailed information about `WanReplication` resource configuration in xref:api-ref.adoc#wanreplicationspec[API Reference] page.
 
@@ -20,7 +20,7 @@ You can find more detailed information about `WanReplication` resource configura
 |targetClusterName is the cluster name of the target Hazelcast cluster.
 
 |endpoints
-|Endpoints is the target cluster endpoints.
+|Endpoints is the comma separated target cluster member adresses.
 
 |queue
 |Queue is the configuration for WAN events queue.
@@ -34,7 +34,7 @@ You can find more detailed information about `WanReplication` resource configura
 - size: Size represents the maximum batch size.
 - maximumDelay: MaximumDelay represents the maximum delay in milliseconds. If the batch size is not reached, the events will be sent after the maximum delay.
 
-|AcknowledgementSetting
+|acknowledgement
 |Acknowledgement is the configuration for the condition when the next batch of WAN events are sent.
 
 - type: Type represents how a batch of replication events is considered successfully replicated.
@@ -44,7 +44,7 @@ You can find more detailed information about `WanReplication` resource configura
 
 == Example Configuration
 
-The following `WanReplication` resource creates wan replication configuration for the `Hazelcast` custom resource that map is created for.
+The following `WanReplication` resource creates WAN Replication configuration for the `Hazelcast` resource the map is created for.
 
 .Example configuration
 [source,yaml,subs="attributes+"]
