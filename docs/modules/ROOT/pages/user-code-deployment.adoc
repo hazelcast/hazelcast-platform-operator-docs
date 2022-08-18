@@ -26,7 +26,7 @@ Below are the configuration options for the User Code Deployment feature.
 
 === Example Configuration
 
-The following `Hazelcast` resource will download JAR files from the given bucket and put it under Hazelcast members' CLASSPATH. It will TODO
+The following `Hazelcast` resource will download JAR files from the given bucket and put them under Hazelcast members' CLASSPATH. It will also put all the files in the ConfigMap objects under Hazelcast members' CLASSPATH.
 
 .Example configuration
 [source,yaml,subs="attributes+"]
@@ -34,13 +34,9 @@ The following `Hazelcast` resource will download JAR files from the given bucket
 include::ROOT:example$/hazelcast-user-code-deployment.yaml[]
 ----
 
-After creating the `Hazelcast` resource successfully, all user code will be in the CLASSPATH of Hazelcast members.
+== Configuring MapLoader/MapStore with the Operator
 
-== Deploying MapLoader/MapStore Classes
-
-Hazelcast offers a way to persist the entries in the maps with MapLoader/MapStore interfaces. Users can implement their MapLoader/ MapStore classes and configure them for their maps. More information about MapLoader/MapStore be found in the link:https://docs.hazelcast.com/hazelcast/latest/data-structures/working-with-external-data[documentation]
-
-=== Configuring MapLoader/MapStore in the Operator
+Hazelcast offers a way to store the entries in the maps to a data store with MapLoader/MapStore interfaces. Users can implement their MapLoader/ MapStore classes and configure them for their maps. More information about MapLoader/MapStore be found in the link:https://docs.hazelcast.com/hazelcast/latest/data-structures/working-with-external-data[documentation]
 
 MapLoader/MapStore is configured in the `Map` resource. Before configuring the MapLoader/MapStore for `Map` resource be sure to add the MapLoader/MapStore classes into Hazelcast members' CLASSPATH using User Code Deployment feature.
 
@@ -81,7 +77,9 @@ include::ROOT:example$/map-map-store.yaml[]
 
 == Configuring Executor Services with the Operator
 
-Hazelcast offers `IExecutorService` which is an implementation for `java.util.concurrent.ExecutorService`. With `IExecutorService`, you can execute tasks asynchronously and perform other useful tasks. For Executor Service users need to implement `Callable` or `Runnable` interfaces. Executor Service has two more variants Durable Executor Service and Scheduled Executor Service. More information can be found in the link:https://docs.hazelcast.com/hazelcast/latest/computing/executor-service[documentation].
+Hazelcast offers `IExecutorService` which is an implementation for `java.util.concurrent.ExecutorService`. With `IExecutorService`, you can execute tasks asynchronously and perform other useful tasks. To use Executor Service, users need to implement `Callable` or `Runnable` interfaces and deploy the deployed classes into Hazelcast cluster using User Code Deployment feature.
+
+Executor Service has two more variants Durable Executor Service and Scheduled Executor Service. More information can be found in the link:https://docs.hazelcast.com/hazelcast/latest/computing/executor-service[documentation].
 
 Executor service configuration can be added into `Hazelcast` with the following configuration. 
 
@@ -162,7 +160,7 @@ More information can be found in the xref:api-ref.adoc#scheduledexecutorservicec
 
 === Example Executor Services
 
-`ExecutorService`
+Below is an example `Hazelcast` resource with Executor Services configured.
 
 [tabs]
 ====
@@ -196,6 +194,6 @@ include::ROOT:example$/hazelcast-scheduled-executor-service.yaml[]
 
 ====
 
-== Configuring EntryProcessor with the Operator
+== Configuring Entry Processor with the Operator
 
-Entry Processor executes your code on a map entry in an atomic way. Users implement the `EntryProcessor` interface. More information can be found in the link:https://docs.hazelcast.com/hazelcast/latest/computing/entry-processor[documentation].
+Entry Processor executes your code on a map entry in an atomic way. Users implement the `EntryProcessor` interface and deploy the classes using the User Code Deployment feature. More information about entry processors can be found in the link:https://docs.hazelcast.com/hazelcast/latest/computing/entry-processor[documentation].
