@@ -11,6 +11,9 @@ Below are the configuration options for the User Code Deployment feature.
 |===
 |Field|Description
 
+|clientEnabled
+|When true, allows user code deployment from clients.
+
 |bucketConfig
 |Jar files in the bucket will be put under CLASSPATH.
   - secret: Name of the secret with credentials for cloud providers.
