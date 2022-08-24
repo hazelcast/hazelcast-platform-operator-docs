@@ -326,8 +326,9 @@ UserCodeDeploymentConfig contains the configuration for User Code download opera
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
+m| clientEnabled | When true, allows user code deployment from clients. m| bool | false | -
 m| bucketConfig | Jar files in the bucket will be put under CLASSPATH. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
-m| triggerSequence | A string for triggering a rolling restart for re-downloading the user codes. m| string | false | -
+m| triggerSequence | A string for triggering a rolling restart for re-downloading the user code. m| string | false | -
 m| configMaps | Files in the ConfigMaps will be put under CLASSPATH. m| []string | false | -
 |===
 
