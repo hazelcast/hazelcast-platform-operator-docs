@@ -19,6 +19,7 @@ The following information is sent in a phone home:
 * Average Hazelcast cluster creation latency
 * Average Management Center creation latency
 * Number of created Hazelcast members
+* Number of created Wan Replications
 * Expose Externally specific:
 ** Number of Hazelcast clusters where unisocket is used
 ** Number of Hazelcast clusters where smart client is used
