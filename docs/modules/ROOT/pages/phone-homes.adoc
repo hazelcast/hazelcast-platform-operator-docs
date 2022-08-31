@@ -25,6 +25,11 @@ The following information is sent in a phone home:
 ** Number of Hazelcast clusters where LoadBalancer member access is used
 ** Number of Hazelcast clusters where node external IP member access is used
 ** Number of Hazelcast clusters where node name member access is used
+* User Code Deployment specific:
+** Number of times clientEnabled field is given true
+** Number of times configMaps field is configured
+** Number of times bucketConfig field is configured
+* Aggregated number of all types of configured Executor Services
 * Map specific:
 ** Number of Map configurations created
 ** Number of Map configurations with persistence enabled
