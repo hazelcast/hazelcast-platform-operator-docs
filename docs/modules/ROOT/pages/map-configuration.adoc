@@ -14,6 +14,9 @@ Below are the configuration options for the `Map` resource. You can find more de
 |name
 |Name of the map config to be created. If empty, the CR name will be used. It cannot be updated after the map config is created successfully.
 
+|hazelcastResourceName
+|HazelcastResourceName defines the name of the Hazelcast resource.
+
 |backupCount
 |Count of synchronous backups.
 
@@ -38,9 +41,15 @@ Below are the configuration options for the `Map` resource. You can find more de
 
 NOTE: Persistence should be enabled for Hazelcast before enabling it for the map. You can learn about enabling persistence for Hazelcast in xref:backup-restore.adoc#enabling-persistence[Persistence, Backup and Restore].
 
-|hazelcastResourceName
-|HazelcastResourceName defines the name of the Hazelcast resource.
+|mapStore
+|Configuration options when you want to load/store the map entries from/to a persistent data store such as a relational database. You can learn more at link:https://docs.hazelcast.com/hazelcast/latest/data-structures/working-with-external-data[Working With External Data].
 
+- className: Name of your class implementing MapLoader and/or MapStore interface.
+- initialMode: Sets the initial entry loading mode.
+- writeDelaySeconds: Policy for deciding if the maxSize is reached.
+- writeBatchSize: Used to create batches when writing to map store.
+- writeCoealescing: It is meaningful if you are using write behind in MapStore. When it is set to true, only the latest store operation on a key during the write-delay-seconds will be reflected to MapStore.
+- propertiesSecretName: Name of the secret holding the properties for the MapStore classes implementing the `MapLoaderLifecycleSupport` interface.
 |===
 
 == Example Configuration
