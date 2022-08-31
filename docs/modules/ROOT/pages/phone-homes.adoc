@@ -16,8 +16,6 @@ The following information is sent in a phone home:
 * Number of created Hazelcast Open Source clusters
 * Number of created Hazelcast Enterprise clusters
 * Number of created Management Center instances
-* Average Hazelcast cluster creation latency
-* Average Management Center creation latency
 * Number of created Hazelcast members
 * Expose Externally specific:
 ** Number of Hazelcast clusters where unisocket is used
@@ -27,6 +25,10 @@ The following information is sent in a phone home:
 ** Number of Hazelcast clusters where LoadBalancer member access is used
 ** Number of Hazelcast clusters where node external IP member access is used
 ** Number of Hazelcast clusters where node name member access is used
+* Map specific:
+** Number of Map configurations created
+** Number of Map configurations with persistence enabled
+** Number of Map configurations with map store configured
 
 == Disabling Phone Homes
 
