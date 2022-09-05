@@ -25,7 +25,7 @@ In this release, we introduced the xref:user-code-deployment.adoc[User Code Depl
 
 * The "Reconciler error" is no longer thrown at the beginning of the setup process for Hazelcast Platform. (https://github.com/hazelcast/hazelcast-platform-operator/pull/323[#323])
 * Fixed the issue with hot backups where the status was set to successful before the upload of the external backup had completed (https://github.com/hazelcast/hazelcast-platform-operator/pull/242[#242])
-*  Fixed the issue for HotBackup with BucketURI, which incorrectly triggered a backup upload for the Local backup type. (https://github.com/hazelcast/hazelcast-platform-operator/pull/261[#261])
+*  Fixed the issue for HotBackup with BucketURI, which incorrectly triggered a backup upload for the Local backup type (https://github.com/hazelcast/hazelcast-platform-operator/pull/261[#261])
 * Fixed the timeout issue for long-running backup uploads in the platform-operator-agent (https://github.com/hazelcast/hazelcast-platform-operator/pull/288[#288])
 * Fixed an error which occurred when enabling persistence without PVC (https://github.com/hazelcast/hazelcast-platform-operator/pull/339[#339])
 * Fixed an operator issue which caused it to remain idle instead of picking up new CRs  (https://github.com/hazelcast/hazelcast-platform-operator/pull/343[#343])
