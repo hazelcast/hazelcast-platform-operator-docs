@@ -31,4 +31,4 @@ In this release, we introduced the xref:user-code-deployment.adoc[User Code Depl
 *  Fixed the issue for HotBackup with BucketURI, which incorrectly triggered a backup upload for the Local backup type. (https://github.com/hazelcast/hazelcast-platform-operator/pull/261[#261])
 * Fixed the timeout issue for long-running backup uploads in the platform-operator-agent (https://github.com/hazelcast/hazelcast-platform-operator/pull/288[#288])
 * Fixed an error which occurred when enabling persistence without PVC (https://github.com/hazelcast/hazelcast-platform-operator/pull/339[#339])
-* Fixed operator idle issue when it didn't pick up created CRs (https://github.com/hazelcast/hazelcast-platform-operator/pull/343[#343])
+* Fixed an operator issue which caused it to remain idle instead of picking up new CRs  (https://github.com/hazelcast/hazelcast-platform-operator/pull/343[#343])
