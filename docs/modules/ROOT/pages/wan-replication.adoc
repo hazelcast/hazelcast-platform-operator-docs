@@ -10,7 +10,8 @@ See xref:hazelcast:wan:wan.adoc[WAN replication] for more detailed information a
 Before you create and configure a `WanReplication` resource, you need to create the following:
 
 - A `Hazelcast` resource and `Map` resource for the source Hazelcast cluster.
-- A target Hazelcast cluster that is accessible from the source cluster.                
+- A target Hazelcast cluster that is accessible from the source cluster.      
+
 == Configuring the WanReplication Resource
 
 
