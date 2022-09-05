@@ -20,7 +20,6 @@ In this release, we introduced the xref:user-code-deployment.adoc[User Code Depl
 * Added configuration to skip checks of the Management Center lock file  (https://github.com/hazelcast/hazelcast-platform-operator/pull/333[#333])
 * Added Phone Home data collection as a separate process (https://github.com/hazelcast/hazelcast-platform-operator/pull/336[#336])
 * Added Phone Home data collection for Map CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/341[#341]), WAN Replication (https://github.com/hazelcast/hazelcast-platform-operator/pull/342[#342]), user code deployment (https://github.com/hazelcast/hazelcast-platform-operator/pull/342[#342]), and backup and restore (https://github.com/hazelcast/hazelcast-platform-operator/pull/345[#345])
-* Added Phone Home data collection for UCD (https://github.com/hazelcast/hazelcast-platform-operator/pull/344[#344])
 * Added Phone Home data collection for Backup & Restore (https://github.com/hazelcast/hazelcast-platform-operator/pull/345[#345])
 
 == Fixed Issues
