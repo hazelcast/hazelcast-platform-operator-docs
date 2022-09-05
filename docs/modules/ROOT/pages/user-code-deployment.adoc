@@ -12,7 +12,7 @@ Below are the configuration options for the User Code Deployment feature.
 |Field|Description
 
 |`clientEnabled`
-|When true, allows user code deployment from clients.
+|When set to true, this option enables custom code deployment from Hazelcast clients.
 
 |`bucketConfig`
 |JAR files from the external bucket are placed under the Java classpath when the following parameter values are supplied:
