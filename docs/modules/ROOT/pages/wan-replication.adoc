@@ -44,7 +44,7 @@ You can use the following configuration options in your `WanReplication` resourc
 |`acknowledgement`
 |Configuration of the acknowledgement sent after a batch of replication events is received by the target cluster:
 
-- type: Type represents how a batch of replication events is considered successfully replicated.
+- `type`: Whether an acknowledgement is sent as soon as the batch of events is received (`ACK_ON_RECEIPT`) or after each update is applied to the target cluster (`ACK_ON_OPERATION_COMPLETE`).
 - `timeout`: The period of time the source cluster waits for the acknowledgement. If the confirmation is not received before the timeout, the replication events are resent.
 
 |===
