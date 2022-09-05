@@ -1,6 +1,6 @@
 = 5.4 Release Notes
 
-In this release, we have introduced xref:wan-replication.adoc[WAN Replication] and xref:user-code-deployment.adoc[User Code Deployment] features.
+In this release, we introduced the xref:user-code-deployment.adoc[User Code Deployment] feature, which allows you to deploy custom and domain classes to Hazelcast members. We also introduced support for xref:wan-replication.adoc[WAN replication].
 
 == New features
 
