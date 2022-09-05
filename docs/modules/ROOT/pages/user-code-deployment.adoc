@@ -15,7 +15,7 @@ Below are the configuration options for the User Code Deployment feature.
 |When set to true, this option enables custom code deployment from Hazelcast clients.
 
 |`bucketConfig`
-|JAR files from the external bucket are placed under the Java classpath when the following parameter values are supplied:
+|JAR files from an external bucket are placed under the Java classpath when the following parameter values are supplied:
   - secret: Name of the Secret object which holds the credentials for your cloud provider.
   - bucketURI: Full path to blob storage bucket.
 
