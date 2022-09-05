@@ -5,7 +5,7 @@
 * xref:scheduling-configuration.adoc[Scheduling Hazelcast Pods]
 * xref:backup-restore.adoc[Persistence, Backup, and Restore]
 * xref:map-configuration.adoc[Configuring Maps]
-* xref:wan-replication.adoc[Wan Replication]
+* xref:wan-replication.adoc[Configuring WAN Replication]
 
 .Reference
 // Configuration options/spec files/any other reference docs
