@@ -1,5 +1,5 @@
 = User Code Deployment
-:description: pass:q[Hazelcast allows users to deploy code for their custom and domain classes. In the operator you can deploy your code from external buckets and Kubernetes ConfigMap objects. ]
+:description: Hazelcast allows you to deploy your own custom and domain classes to cluster members. From Hazelcast Platform Operator, you can deploy your application code from external buckets and ConfigMap objects in Kubernetes. ]
 
 {description}
 
@@ -11,25 +11,29 @@ Below are the configuration options for the User Code Deployment feature.
 |===
 |Field|Description
 
-|clientEnabled
+|`clientEnabled`
 |When true, allows user code deployment from clients.
 
-|bucketConfig
-|Jar files in the bucket will be put under CLASSPATH.
+|`bucketConfig`
+|JAR files from the external bucket are placed under the Java classpath when the following parameter values are supplied:
   - secret: Name of the secret with credentials for cloud providers.
   - bucketURI: Full path to blob storage bucket.
 
-|configMaps
-|Files in the ConfigMaps will be put under CLASSPATH.
+|`configMaps`
+|Files specified in the ConfigMaps are placed under the Java classpath.
 
-|triggerSequence
-|A string for triggering a rolling restart for re-downloading the user code.
+|`triggerSequence`
+|Triggers a rolling restart to begin another download of the custom code.
 
 |===
 
 === Example Configuration
 
-The following `Hazelcast` resource will download JAR files from the given bucket and put them under Hazelcast members' CLASSPATH. It will also put all the files in the ConfigMap objects under Hazelcast members' CLASSPATH.
+The example configuration does the following:
+
+- Downloads JAR files from the specified external bucket and places them under the classpath of each of the Hazelcast members. 
+- Puts all the files specified in the ConfigMap objects under the classpath of each of the Hazelcast members. 
+
 
 .Example configuration
 [source,yaml,subs="attributes+"]
@@ -37,9 +41,9 @@ The following `Hazelcast` resource will download JAR files from the given bucket
 include::ROOT:example$/hazelcast-user-code-deployment.yaml[]
 ----
 
-== Configuring MapLoader/MapStore with the Operator
+== Configuring an External Data Store with Hazelcast Platform Operator
 
-Hazelcast offers a way to store the entries in the maps to a data store with MapLoader/MapStore interfaces. Users can implement their MapLoader/ MapStore classes and configure them for their maps. More information about MapLoader/MapStore be found in the link:https://docs.hazelcast.com/hazelcast/latest/data-structures/working-with-external-data[documentation]
+The `MapLoader` and `MapStore` interfaces in Hazelcast allow you to load map entries from and save map entries to an external data store. See xref:hazelcast:data-structures:working-with-external-data.adoc[Working with an External Data Store] for implementation details.
 
 MapLoader/MapStore is configured in the `Map` resource. Before configuring the MapLoader/MapStore for `Map` resource be sure to add the MapLoader/MapStore classes into Hazelcast members' CLASSPATH using User Code Deployment feature.
 
@@ -48,29 +52,29 @@ Below is the configuration options for MapStore in the `Map` resource. You can f
 |===
 |Field|Description
 
-|initialMode
-|Sets the initial entry loading mode.
+|`initialMode`
+|Sets the initial entry loading mode. LAZY is the default load mode, where load is asynchronous. EAGER means map operations are blocked until all partitions are loaded.
 
-|className
-|Name of your class implementing MapLoader and/or MapStore interface.
+|`className`
+|Name of your class that implements the `MapLoader` and/or `MapStore` interface.
 
-|writeDelaySeconds
-|Number of seconds to delay the storing of entries.
+|`writeDelaySeconds`
+|Number of seconds to delay the storing of map entries.
 
-|writeBatchSize
-|Used to create batches when writing to map store.
+|`writeBatchSize`
+|Used to create batches when writing to the map store. In default mode, with a value of less than two, Hazelcast tries to write all map entries in one go.
 
-|writeCoealescing
-|It is meaningful if you are using write behind in MapStore. When it is set to true, only the latest store operation on a key during the write-delay-seconds will be reflected to MapStore.
+|`writeCoealescing`
+|For use with write-behind mode in a MapStore. When this option is set to true, Hazelcast coalesces updates on a specific key, and so applies only the last update. Set this option to false to store all updates performed on a key to the data store.
 
-|propertiesSecretName
-|Properties can be used for giving information to the MapStore implementation. Properties will be taken from the secret with the given name.
+|`propertiesSecretName`
+|You can use properties to give information to the MapStore implementation. In this case, properties are taken from the secret with the given name.
 
 |===
 
 === Example MapStore Configuration
 
-Below is an example `Map` resource with MapStore configuration. 
+An example `Map` resource with MapStore configuration. 
 
 .Example configuration
 [source,yaml,subs="attributes+"]
@@ -78,13 +82,23 @@ Below is an example `Map` resource with MapStore configuration.
 include::ROOT:example$/map-map-store.yaml[]
 ----
 
-== Configuring Executor Services with the Operator
+== Configuring Executor Services with the Hazelcast Platform Operator
 
-Hazelcast offers `IExecutorService` which is an implementation for `java.util.concurrent.ExecutorService`. With `IExecutorService`, you can execute tasks asynchronously and perform other useful tasks. To use Executor Service, users need to implement `Callable` or `Runnable` interfaces and deploy the deployed classes into Hazelcast cluster using User Code Deployment feature.
+Hazelcast offers an executor service (`IExecutorService`), which is an implementation of `java.util.concurrent.ExecutorService`. With `IExecutorService`, you can execute tasks asynchronously and perform other useful tasks.
 
-Executor Service has two more variants Durable Executor Service and Scheduled Executor Service. More information can be found in the link:https://docs.hazelcast.com/hazelcast/latest/computing/executor-service[documentation].
+To use the executor service, you need to create `Callable` and/or `Runnable` classes and add configuration. In Hazelcast Platform Operator:
 
-Executor service configuration can be added into `Hazelcast` with the following configuration. 
+. Deploy your `Callable` or `Runnable` classes to the classpath of each Hazelcast member.
+. Configure a `Hazelcast` resource for the `Callable` or `Runnable` interface.
+
+There are three variants of the executor service:
+
+- Executor Service
+- Durable Executor Service
+- Scheduled Executor Service.
+
+Configuration options for a `Hazelcast` resource to work with all three variants are shown in this section, along with examples of how you might implement these options. For more detailed implementation information, see xref:hazelcast:computing:executor-service.adoc[Java Executor Service]. 
+
 
 [tabs]
 ====
@@ -96,13 +110,13 @@ More information can be found in the xref:api-ref.adoc#executorserviceconfigurat
 |===
 |Field|Description
 
-|name
-|The name of the executor service
+|`name`
+|The name of the executor service.
 
-|poolSize
+|`poolSize`
 |The number of executor threads per member.
 
-|queueCapacity
+|`queueCapacity`
 |Task queue capacity of the executor.
 
 |===
@@ -116,16 +130,16 @@ More information can be found in the xref:api-ref.adoc#durableexecutorservicecon
 |===
 |Field|Description
 
-|name
-|The name of the executor service
+|`name`
+|The name of the executor service.
 
-|poolSize
+|`poolSize`
 |The number of executor threads per member.
 
-|durability
+|`durability`
 |Durability of the executor.
 
-|capacity
+|`capacity`
 |Capacity of the executor task per partition.
 
 |===
@@ -140,19 +154,19 @@ More information can be found in the xref:api-ref.adoc#scheduledexecutorservicec
 |===
 |Field|Description
 
-|name
+|`name`
 |The name of the executor service.
 
-|poolSize
+|`poolSize`
 |The number of executor threads per member.
 
-|durability
+|`durability`
 |Durability of the executor.
 
-|capacity
+|`capacity`
 |Capacity of the executor task per partition.
 
-|capacityPolicy
+|`capacityPolicy`
 |The active policy for the capacity setting.
 
 |===
@@ -163,7 +177,7 @@ More information can be found in the xref:api-ref.adoc#scheduledexecutorservicec
 
 === Example Executor Services
 
-Below is an example `Hazelcast` resource with Executor Services configured.
+An example `Hazelcast` resource with Executor Services configured.
 
 [tabs]
 ====
@@ -197,6 +211,6 @@ include::ROOT:example$/hazelcast-scheduled-executor-service.yaml[]
 
 ====
 
-== Configuring Entry Processor with the Operator
+== Configuring an Entry Processor with Hazelcast Platform Operator
 
-Entry Processor executes your code on a map entry in an atomic way. Users implement the `EntryProcessor` interface and deploy the classes using the User Code Deployment feature. More information about entry processors can be found in the link:https://docs.hazelcast.com/hazelcast/latest/computing/entry-processor[documentation].
+An entry processor executes your code on a map entry in an atomic way. To implement the `EntryProcessor` interface, you can deploy an `EntryProcessor` class from the Hazelcast Platform Operator to the classpath of a Hazelcast member. See xref:hazelcast:computing:entry-processor.adoc[Entry Processor] for more detailed information.
