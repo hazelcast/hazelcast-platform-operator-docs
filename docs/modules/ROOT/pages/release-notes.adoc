@@ -29,6 +29,6 @@ In this release, we have introduced xref:wan-replication.adoc[WAN Replication] a
 * Omit the throwing "Reconciler error" at the beginning of the Hazelcast platform setup (https://github.com/hazelcast/hazelcast-platform-operator/pull/323[#323])
 * Fixed the issue with hot backups where the status was set to successful before the upload of the external backup had completed (https://github.com/hazelcast/hazelcast-platform-operator/pull/242[#242])
 *  Fixed the issue for HotBackup with BucketURI, which incorrectly triggered a backup upload for the Local backup type. (https://github.com/hazelcast/hazelcast-platform-operator/pull/261[#261])
-* Fixed timeout issue for long-running backup upload in platform-operator-agent (https://github.com/hazelcast/hazelcast-platform-operator/pull/288[#288])
+* Fixed the timeout issue for long-running backup uploads in the platform-operator-agent (https://github.com/hazelcast/hazelcast-platform-operator/pull/288[#288])
 * Fixed error on enabling persistence without PVC (https://github.com/hazelcast/hazelcast-platform-operator/pull/339[#339])
 * Fixed operator idle issue when it didn't pick up created CRs (https://github.com/hazelcast/hazelcast-platform-operator/pull/343[#343])
