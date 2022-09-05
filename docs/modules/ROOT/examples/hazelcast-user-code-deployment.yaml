@@ -4,6 +4,7 @@ metadata:
   name: hazelcast
 spec:
   userCodeDeployment:
+    clientEnabled: true
     bucketConfig:
       secret: map-store-bucket-secret
       bucketURI: gs://map-store-bucket/path/to/jars
