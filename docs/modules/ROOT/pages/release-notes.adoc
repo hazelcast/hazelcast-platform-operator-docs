@@ -13,7 +13,7 @@ In this release, we introduced the xref:user-code-deployment.adoc[User Code Depl
 
 * Enabled client-side code deployments (https://github.com/hazelcast/hazelcast-platform-operator/pull/340[#340])
 * Enabled JAR file uploads using ConfigMaps (https://github.com/hazelcast/hazelcast-platform-operator/pull/304[#304])
-* Added downloading JAR into classpath (PVC) functionality (https://github.com/hazelcast/hazelcast-platform-operator/pull/244[#244])
+* Enabled JAR file downloads into the Java classpath (PVC) (https://github.com/hazelcast/hazelcast-platform-operator/pull/244[#244])
 * Added enabling Map WAN Reference (https://github.com/hazelcast/hazelcast-platform-operator/pull/216[#216])
 * Deleted dependent CRs when a Hazelcast CR is marked to be deleted (https://github.com/hazelcast/hazelcast-platform-operator/pull/314[#314])
 * Added support for stopping HotBackup gracefully (https://github.com/hazelcast/hazelcast-platform-operator/pull/318[#318])
