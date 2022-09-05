@@ -34,16 +34,6 @@ The following information is sent in a phone home:
 ** Number of Map configurations created
 ** Number of Map configurations with persistence enabled
 ** Number of Map configurations with map store configured
-* HotHackup specific:
-** Number of local backups
-** Number of external backups
-** Number of backups using K8s Persistance Volume Claim
-** Number of backups using K8s Host Path
-** Number of backups using K8s Host Path
-** Number of clusters with enabled persistence restore feature
-** Number of external backups to AWS S3
-** Number of external backups to Google Storage
-** Number of external backups to Azure Blob Storage
 
 == Disabling Phone Homes
 
