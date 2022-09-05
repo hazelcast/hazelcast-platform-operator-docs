@@ -17,7 +17,7 @@ Before you create and configure a `WanReplication` resource, you need to create 
 
 You can use the following configuration options in your `WanReplication` resource. For more detailed information, see the xref:api-ref.adoc#wanreplicationspec[API Reference].
 
-[cols="20%m,80%a"]
+[cols="25%m,75%a"]
 |===
 |Field|Description
 
