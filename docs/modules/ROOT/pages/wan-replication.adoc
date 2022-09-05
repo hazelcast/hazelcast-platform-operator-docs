@@ -69,6 +69,8 @@ After creating the `WanReplication` resource, run the following command to find 
 kubectl get wanreplication wanreplication-sample -o wide
 ----
 
+The returned status message will look something like this:
+
 ----
 NAME                     STATUS    MESSAGE
 wanreplication-sample    Success
