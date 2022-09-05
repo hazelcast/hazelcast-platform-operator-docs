@@ -140,7 +140,7 @@ More information can be found in the xref:api-ref.adoc#durableexecutorservicecon
 |The number of executor threads per member.
 
 |`durability`
-|Durability of the executor.
+|Number of backups in the cluster for the submitted task.
 
 |`capacity`
 |Capacity of the executor task per partition.
@@ -164,7 +164,7 @@ More information can be found in the xref:api-ref.adoc#scheduledexecutorservicec
 |The number of executor threads per member.
 
 |`durability`
-|Durability of the executor.
+|Number of backups in the cluster for the submitted task.
 
 |`capacity`
 |Capacity of the executor task per partition.
