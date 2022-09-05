@@ -27,6 +27,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>>
 * <<HazelcastSpec,HazelcastSpec>>
 * <<HazelcastStatus,HazelcastStatus>>
+* <<LoggingLevel,LoggingLevel>>
 * <<MemberAccess,MemberAccess>>
 * <<PersistencePvcConfiguration,PersistencePvcConfiguration>>
 * <<Phase,Phase>>
@@ -249,6 +250,7 @@ m| executorServices | &#160; m| []<<ExecutorServiceConfiguration,ExecutorService
 m| durableExecutorServices | &#160; m| []<<DurableExecutorServiceConfiguration,DurableExecutorServiceConfiguration>> | false | -
 m| scheduledExecutorServices | &#160; m| []<<ScheduledExecutorServiceConfiguration,ScheduledExecutorServiceConfiguration>> | false | -
 m| properties | &#160; m| map[string]string | false | -
+m| loggingLevel | &#160; m| <<LoggingLevel,LoggingLevel>> | false | "INFO"
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -768,6 +770,25 @@ ExposeExternallyType describes how Hazelcast members are exposed.
 | Value | Description
 m| "Smart" | ExposeExternallyTypeSmart exposes each Hazelcast member with a separate external address.
 m| "Unisocket" | ExposeExternallyTypeUnisocket exposes all Hazelcast members with one external address.
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== LoggingLevel
+
+LoggingLevel controlls log verbosity for Hazelcast.
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "OFF" | &#160;
+m| "FATAL" | &#160;
+m| "ERROR" | &#160;
+m| "WARN" | &#160;
+m| "INFO" | &#160;
+m| "DEBUG" | &#160;
+m| "TRACE" | &#160;
+m| "ALL" | &#160;
 |===
 
 <<Table of Contents,Back to TOC>>
