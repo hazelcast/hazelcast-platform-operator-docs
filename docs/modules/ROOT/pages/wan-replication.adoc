@@ -1,0 +1,80 @@
+= Configuring WAN Replication
+:description: pass:q[WAN Replication allows you to keep Hazelcast clusters in sync across multiple sites or cloud deployments. In Hazelcast Platform Operator, you can create a `WanReplication` resource to replicate a map from a source to a target Hazelcast cluster. ]
+:page-enterprise: true
+
+{description}
+
+See xref:hazelcast:wan:wan.adoc[WAN replication] for more detailed information about the configuration and behavior of WAN replication in Hazelcast.
+
+== Prerequisites for WAN Replication
+
+Before you create and configure a `WanReplication` resource, you need to create the following:
+
+- A `Hazelcast` resource and `Map` resource for the source Hazelcast cluster.
+- A target Hazelcast cluster that is accessible from the source cluster.      
+
+== Configuring the WanReplication Resource
+
+You can use the following configuration options in your `WanReplication` resource. For more detailed information, see the xref:api-ref.adoc#wanreplicationspec[API Reference].
+
+[cols="25%m,75%a"]
+|===
+|Field|Description
+
+|`mapResourceName`
+|The name of the custom `Map` resource to which WAN replication applies.
+
+|`targetClusterName`
+|The name of the Hazelcast cluster that is the target of replication.
+
+|`endpoints`
+|A comma-separated list of the addresses of the Hazelcast members in the target cluster.
+
+|`queue`
+|The configuration of the WAN events queue, which includes two related parameters:
+
+- `capacity`: The total capacity of WAN events queue. The `fullBehavior` is triggered when the number of events exceeds this limit.
+- `fullBehavior`: What happens to new events that arrive after the events queue is full.
+
+|`batch`
+|How WAN replication events are batched.
+
+- `size`: The maximum batch size.
+- `maximumDelay`: If the batch size is not reached, the events will be sent after the maximum delay (in milliseconds).
+
+|`acknowledgement`
+|Configuration of the acknowledgement sent after a batch of replication events is received by the target cluster:
+
+- `type`: Whether an acknowledgement is sent as soon as the batch of events is received (`ACK_ON_RECEIPT`) or after each update is applied to the target cluster (`ACK_ON_OPERATION_COMPLETE`).
+- `timeout`: The period of time the source cluster waits for the acknowledgement. If the confirmation is not received before the timeout, the replication events are resent.
+
+|===
+
+== Example Configuration
+
+The following `WanReplication` resource creates the WAN replication configuration for the `Hazelcast` and `Map` resources on the source Hazelcast cluster.
+
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/wan-replication-example.yaml[]
+----
+
+
+== Checking the Status of a WAN Replication
+
+After creating the `WanReplication` resource, run the following command to find out the WAN replication status:
+
+[source,shell]
+----
+kubectl get wanreplication wanreplication-sample -o wide
+----
+
+The returned status message will look something like this:
+
+----
+NAME                     STATUS    MESSAGE
+wanreplication-sample    Success
+----
+
+You can also monitor the status of the WAN replications in xref:get-started.adoc#step-4-start-management-center[Management Center].
