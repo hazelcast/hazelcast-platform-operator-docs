@@ -27,7 +27,6 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>>
 * <<HazelcastSpec,HazelcastSpec>>
 * <<HazelcastStatus,HazelcastStatus>>
-* <<LoggingLevel,LoggingLevel>>
 * <<MemberAccess,MemberAccess>>
 * <<PersistencePvcConfiguration,PersistencePvcConfiguration>>
 * <<Phase,Phase>>
@@ -37,11 +36,6 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<ScheduledExecutorServiceConfiguration,ScheduledExecutorServiceConfiguration>>
 * <<SchedulingConfiguration,SchedulingConfiguration>>
 * <<UserCodeDeploymentConfig,UserCodeDeploymentConfig>>
-* <<HotBackup,HotBackup>>
-* <<HotBackupList,HotBackupList>>
-* <<HotBackupSpec,HotBackupSpec>>
-* <<HotBackupState,HotBackupState>>
-* <<HotBackupStatus,HotBackupStatus>>
 * <<ExternalConnectivityConfiguration,ExternalConnectivityConfiguration>>
 * <<ExternalConnectivityType,ExternalConnectivityType>>
 * <<HazelcastClusterConfig,HazelcastClusterConfig>>
@@ -50,6 +44,11 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<ManagementCenterSpec,ManagementCenterSpec>>
 * <<ManagementCenterStatus,ManagementCenterStatus>>
 * <<PersistenceConfiguration,PersistenceConfiguration>>
+* <<HotBackup,HotBackup>>
+* <<HotBackupList,HotBackupList>>
+* <<HotBackupSpec,HotBackupSpec>>
+* <<HotBackupState,HotBackupState>>
+* <<HotBackupStatus,HotBackupStatus>>
 * <<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>>
 * <<EvictionConfig,EvictionConfig>>
 * <<EvictionPolicyType,EvictionPolicyType>>
@@ -65,16 +64,6 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<MapStoreConfig,MapStoreConfig>>
 * <<MaxSizePolicyType,MaxSizePolicyType>>
 * <<UniqueKeyTransition,UniqueKeyTransition>>
-* <<AcknowledgementSetting,AcknowledgementSetting>>
-* <<AcknowledgementType,AcknowledgementType>>
-* <<BatchSetting,BatchSetting>>
-* <<FullBehaviorSetting,FullBehaviorSetting>>
-* <<QueueSetting,QueueSetting>>
-* <<WanReplication,WanReplication>>
-* <<WanReplicationList,WanReplicationList>>
-* <<WanReplicationSpec,WanReplicationSpec>>
-* <<WanReplicationStatus,WanReplicationStatus>>
-* <<WanStatus,WanStatus>>
 
 === AgentConfiguration
 
@@ -250,7 +239,6 @@ m| executorServices | &#160; m| []<<ExecutorServiceConfiguration,ExecutorService
 m| durableExecutorServices | &#160; m| []<<DurableExecutorServiceConfiguration,DurableExecutorServiceConfiguration>> | false | -
 m| scheduledExecutorServices | &#160; m| []<<ScheduledExecutorServiceConfiguration,ScheduledExecutorServiceConfiguration>> | false | -
 m| properties | &#160; m| map[string]string | false | -
-m| loggingLevel | &#160; m| <<LoggingLevel,LoggingLevel>> | false | "INFO"
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -342,61 +330,6 @@ m| clientEnabled | When true, allows user code deployment from clients. m| bool 
 m| bucketConfig | Jar files in the bucket will be put under CLASSPATH. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
 m| triggerSequence | A string for triggering a rolling restart for re-downloading the user code. m| string | false | -
 m| configMaps | Files in the ConfigMaps will be put under CLASSPATH. m| []string | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== HotBackup
-
-HotBackup is the Schema for the hot backup API
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
-m| status | &#160; m| <<HotBackupStatus,HotBackupStatus>> | false | -
-m| spec | &#160; m| <<HotBackupSpec,HotBackupSpec>> | true | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== HotBackupList
-
-HotBackupList contains a list of HotBackup
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
-m| items | &#160; m| []<<HotBackup,HotBackup>> | true | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== HotBackupSpec
-
-HotBackupSpec defines the Spec of HotBackup
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource m| string | true | -
-m| schedule | Schedule contains a crontab-like expression that defines the schedule in which HotBackup will be started. If the Schedule is empty the HotBackup will start only once when applied. m| string | false | -
-m| bucketURI | URL of the bucket to download HotBackup folders. m| string | false | -
-m| secret | Name of the secret with credentials for cloud providers. m| string | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== HotBackupStatus
-
-HotBackupStatus defines the observed state of HotBackup
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| state | &#160; m| <<HotBackupState,HotBackupState>> | true | -
-m| message | &#160; m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -499,6 +432,61 @@ m| enabled | When true, MC will use a PersistentVolumeClaim to store data. m| bo
 m| existingVolumeClaimName | Name of the PersistentVolumeClaim MC will use for persistence. If not empty, MC will use the existing claim instead of creating a new one. m| string | false | -
 m| storageClass | StorageClass from which PersistentVolumeClaim will be created. m| &#42;string | false | -
 m| size | Size of the created PersistentVolumeClaim. m| &#42;resource.Quantity | false | "10Gi"
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== HotBackup
+
+HotBackup is the Schema for the hot backup API
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| status | &#160; m| <<HotBackupStatus,HotBackupStatus>> | false | -
+m| spec | &#160; m| <<HotBackupSpec,HotBackupSpec>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== HotBackupList
+
+HotBackupList contains a list of HotBackup
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| items | &#160; m| []<<HotBackup,HotBackup>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== HotBackupSpec
+
+HotBackupSpec defines the Spec of HotBackup
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource m| string | true | -
+m| schedule | Schedule contains a crontab-like expression that defines the schedule in which HotBackup will be started. If the Schedule is empty the HotBackup will start only once when applied. m| string | false | -
+m| bucketURI | URL of the bucket to download HotBackup folders. m| string | false | -
+m| secret | Name of the secret with credentials for cloud providers. m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== HotBackupStatus
+
+HotBackupStatus defines the observed state of HotBackup
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| state | &#160; m| <<HotBackupState,HotBackupState>> | true | -
+m| message | &#160; m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -624,103 +612,6 @@ m| propertiesSecretName | Properties can be used for giving information to the M
 
 <<Table of Contents,Back to TOC>>
 
-=== AcknowledgementSetting
-
-
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| type | Type represents how a batch of replication events is considered successfully replicated. m| <<AcknowledgementType,AcknowledgementType>> | false | ACK_ON_OPERATION_COMPLETE
-m| timeout | Timeout represents the time the source cluster waits for the acknowledgement. After timeout, the events will be resent. m| int32 | false | 60000
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== BatchSetting
-
-
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| size | Size represents the maximum batch size. m| int32 | false | 500
-m| maximumDelay | MaximumDelay represents the maximum delay in milliseconds. If the batch size is not reached, the events will be sent after the maximum delay. m| int32 | false | 1000
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== QueueSetting
-
-QueueSetting defines the configuration for Hazelcast WAN queue
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| capacity | Capacity is the total capacity of WAN queue. m| int32 | false | 10000
-m| fullBehavior | FullBehavior represents the behavior of the new arrival when the queue is full. m| <<FullBehaviorSetting,FullBehaviorSetting>> | false | DISCARD_AFTER_MUTATION
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== WanReplication
-
-WanReplication is the Schema for the wanreplications API
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
-m| spec | &#160; m| <<WanReplicationSpec,WanReplicationSpec>> | false | -
-m| status | &#160; m| <<WanReplicationStatus,WanReplicationStatus>> | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== WanReplicationList
-
-WanReplicationList contains a list of WanReplication
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
-m| items | &#160; m| []<<WanReplication,WanReplication>> | true | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== WanReplicationSpec
-
-WanReplicationSpec defines the desired state of WanReplication
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| mapResourceName | MapResourceName is the name of Map custom resource which WAN replication will be applied to. m| string | true | -
-m| targetClusterName | ClusterName is the clusterName field of the target Hazelcast resource. m| string | true | -
-m| endpoints | Endpoints is the target cluster endpoints. m| string | true | -
-m| queue | Queue is the configuration for WAN events queue. m| <<QueueSetting,QueueSetting>> | false | -
-m| batch | Batch is the configuration for WAN events batch. m| <<BatchSetting,BatchSetting>> | false | -
-m| acknowledgement | Acknowledgement is the configuration for the condition when the next batch of WAN events are sent. m| <<AcknowledgementSetting,AcknowledgementSetting>> | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== WanReplicationStatus
-
-WanReplicationStatus defines the observed state of WanReplication
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| publisherId | PublisherId is the ID used for WAN publisher ID m| string | false | -
-m| status | Status is the status of WAN replication m| <<WanStatus,WanStatus>> | false | -
-m| message | Message is the field to show detail information or error m| string | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
 === BackupType
 
 BackupType represents the storage options for the HotBackup
@@ -774,25 +665,6 @@ m| "Unisocket" | ExposeExternallyTypeUnisocket exposes all Hazelcast members wit
 
 <<Table of Contents,Back to TOC>>
 
-=== LoggingLevel
-
-LoggingLevel controlls log verbosity for Hazelcast.
-
-[cols="5,10"options="header"]
-|===
-| Value | Description
-m| "OFF" | &#160;
-m| "FATAL" | &#160;
-m| "ERROR" | &#160;
-m| "WARN" | &#160;
-m| "INFO" | &#160;
-m| "DEBUG" | &#160;
-m| "TRACE" | &#160;
-m| "ALL" | &#160;
-|===
-
-<<Table of Contents,Back to TOC>>
-
 === MemberAccess
 
 MemberAccess describes how each Hazelcast member is accessed from the external client.
@@ -837,6 +709,20 @@ m| "Succeeded" | &#160;
 
 <<Table of Contents,Back to TOC>>
 
+=== ExternalConnectivityType
+
+ExternalConnectivityType describes how Management Center is exposed.
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "ClusterIP" | ExternalConnectivityTypeClusterIP exposes Management Center with ClusterIP service.
+m| "NodePort" | ExternalConnectivityTypeNodePort exposes Management Center with NodePort service.
+m| "LoadBalancer" | ExternalConnectivityTypeLoadBalancer exposes Management Center with LoadBalancer service.
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === HotBackupState
 
 
@@ -850,20 +736,6 @@ m| "NotStarted" | &#160;
 m| "InProgress" | &#160;
 m| "Failure" | &#160;
 m| "Success" | &#160;
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== ExternalConnectivityType
-
-ExternalConnectivityType describes how Management Center is exposed.
-
-[cols="5,10"options="header"]
-|===
-| Value | Description
-m| "ClusterIP" | ExternalConnectivityTypeClusterIP exposes Management Center with ClusterIP service.
-m| "NodePort" | ExternalConnectivityTypeNodePort exposes Management Center with NodePort service.
-m| "LoadBalancer" | ExternalConnectivityTypeLoadBalancer exposes Management Center with LoadBalancer service.
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -971,47 +843,6 @@ m| "FREE_NATIVE_MEMORY_PERCENTAGE" | Minimum free native memory size percentage 
 m| "OBJECT" | &#160;
 m| "LONG" | &#160;
 m| "RAW" | &#160;
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== AcknowledgementType
-
-
-
-[cols="5,10"options="header"]
-|===
-| Value | Description
-m| "ACK_ON_RECEIPT" | &#160;
-m| "ACK_ON_OPERATION_COMPLETE" | &#160;
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== FullBehaviorSetting
-
-
-
-[cols="5,10"options="header"]
-|===
-| Value | Description
-m| "DISCARD_AFTER_MUTATION" | &#160;
-m| "THROW_EXCEPTION" | &#160;
-m| "THROW_EXCEPTION_ONLY_IF_REPLICATION_ACTIVE" | &#160;
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== WanStatus
-
-
-
-[cols="5,10"options="header"]
-|===
-| Value | Description
-m| "Failed" | &#160;
-m| "Pending" | &#160;
-m| "Success" | &#160;
 |===
 
 <<Table of Contents,Back to TOC>>
