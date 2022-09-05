@@ -1,0 +1,11 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+  scheduledExecutorServices:
+    - name: service1
+      poolSize: 16
+      capacity: 100
+      durability: 1
+      capacityPolicy: PER_NODE

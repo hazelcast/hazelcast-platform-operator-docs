@@ -6,6 +6,7 @@
 * xref:backup-restore.adoc[Persistence, Backup, and Restore]
 * xref:map-configuration.adoc[Configuring Maps]
 * xref:wan-replication.adoc[Configuring WAN Replication]
+* xref:user-code-deployment.adoc[User Code Deployment]
 
 .Reference
 // Configuration options/spec files/any other reference docs

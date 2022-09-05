@@ -1,0 +1,13 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: Map
+metadata:
+  name: map-sample
+spec:
+  hazelcastResourceName: hazelcast-sample
+  mapStore:
+    className: com.example.SimpleStore
+    propertiesSecretName: props
+    initialMode: LAZY
+    writeDelaySeconds: 1
+    writeBatchSize: 20
+    writeCoalescing: false
