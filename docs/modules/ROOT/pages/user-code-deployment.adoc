@@ -3,6 +3,7 @@
 
 {description}
 
+This topic explains how to configure code deployments. It also brings together examples of when you might use code deployments as part of the configuration of other features, such as the xref:hazelcast:data-structures:working-with-external-data.adoc[implementation of an external datastore] or an xref:hazelcast:computing:executor-service.adoc[executor service] for the asynchronous execution of tasks.
 == Configuring User Code Deployment
 
 Below are the configuration options for the User Code Deployment feature.
