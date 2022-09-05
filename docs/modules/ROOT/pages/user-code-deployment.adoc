@@ -45,9 +45,12 @@ include::ROOT:example$/hazelcast-user-code-deployment.yaml[]
 
 The `MapLoader` and `MapStore` interfaces in Hazelcast allow you to load map entries from and save map entries to an external data store. See xref:hazelcast:data-structures:working-with-external-data.adoc[Working with an External Data Store] for implementation details.
 
-MapLoader/MapStore is configured in the `Map` resource. Before configuring the MapLoader/MapStore for `Map` resource be sure to add the MapLoader/MapStore classes into Hazelcast members' CLASSPATH using User Code Deployment feature.
+To use an external data store, you need to create `MapLoader` and/or `MapStore` classes and add configuration. In Hazelcast Platform Operator:
 
-Below is the configuration options for MapStore in the `Map` resource. You can find more detailed information in the xref:api-ref.adoc#mapstoreconfig[API Reference] page.
+. Deploy the `MapLoader` and/or `MapStore` classes to the classpath of each Hazelcast member.
+. Configure a `Map` resource for the MapLoader or MapStore.
+
+Use the following configuration options in the `Map` resource for a MapStore. The example shows how you might implement these options. For more detailed information,  see the xref:api-ref.adoc#mapstoreconfig[API Reference].
 
 |===
 |Field|Description
