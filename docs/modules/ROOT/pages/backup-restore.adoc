@@ -80,18 +80,18 @@ include::ROOT:example$/hot-backup.yaml[]
 kubectl apply -f ./hot-backup.yaml
 ----
 
-=== Scheduling Backups
+=== Scheduling Backups with CronHotBackup Custom Resource
 
-You can schedule regular backups, using the `spec.schedule` field of a `HotBackup` resource.
+You can schedule regular backups, using the `.spec.schedule` and `.spec.hotBackupTemplate` fields of the `CronHotBackup` resource
 
-. Create the `HotBackup` resource with a `schedule` field:
+. Create the `CronHotBackup` resource with `schedule` and `hotBackupTemplate` fields.
 +
 [source,yaml,subs="attributes+"]
 ----
-include::ROOT:example$/hot-backup-scheduled.yaml[]
+include::ROOT:example$/cron-hot-backup.yaml[]
 ----
 +
-This field takes a valid cron expression. For example:
+`.spec.schedule` field takes a valid cron expression. For example:
 +
 [cols="1,1"]
 |===
@@ -112,7 +112,7 @@ For the full list of the supported expression, please check the link:https://pkg
 +
 [source,bash]
 ----
-kubectl apply -f ./hot-backup-scheduled.yaml
+kubectl apply -f ./cron-hot-backup.yaml.yaml
 ----
 
 === Checking the Status of a Backup
@@ -300,18 +300,18 @@ kubectl create secret generic <secret-name> \
 kubectl apply -f ./hot-backup-agent.yaml
 ----
 
-=== Scheduling External Backups
+=== Scheduling External Backups with CronHotBackup Custom Resource
 
-You can schedule external backups, using the `spec.schedule` field of a `HotBackup` resource.
+You can schedule external backups, using the `.spec.schedule` and `.spec.hotBackupTemplate` fields of the `CronHotBackup` resource
 
-. Create the `HotBackup` resource with a `schedule` field:
+. Create the `CronHotBackup` resource with `schedule` and `hotBackupTemplate` fields.
 +
 [source,yaml,subs="attributes+"]
 ----
-include::ROOT:example$/hot-backup-agent-scheduled.yaml[]
+include::ROOT:example$/cron-hot-backup-agent.yaml[]
 ----
 +
-This field takes a valid cron expression. For example:
+`.spec.schedule` field takes a valid cron expression. For example:
 +
 [cols="1,1"]
 |===
@@ -332,7 +332,7 @@ For the full list of the supported expression, please check the link:https://pkg
 +
 [source,bash]
 ----
-kubectl apply -f ./hot-backup-agent-scheduled.yaml
+kubectl apply -f ./cron-hot-backup-agent.yaml
 ----
 
 === Checking the Status of a Backup
