@@ -112,7 +112,7 @@ For the full list of the supported expression, please check the link:https://pkg
 +
 [source,bash]
 ----
-kubectl apply -f ./cron-hot-backup.yaml.yaml
+kubectl apply -f ./cron-hot-backup.yaml
 ----
 
 === Checking the Status of a Backup
