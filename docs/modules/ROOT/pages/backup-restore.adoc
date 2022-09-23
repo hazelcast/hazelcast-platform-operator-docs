@@ -82,7 +82,7 @@ kubectl apply -f ./hot-backup.yaml
 
 === Scheduling Backups with CronHotBackup Custom Resource
 
-You can schedule regular backups, using the `.spec.schedule` and `.spec.hotBackupTemplate` fields of the `CronHotBackup` resource
+You can schedule regular backups, using the `.spec.schedule` and `.spec.hotBackupTemplate` fields of the `CronHotBackup` resource. You can find more detailed information about the `CronHotBackup` resource in the xref:api-ref.adoc#cronhotbackupspec[API Reference] page.
 
 . Create the `CronHotBackup` resource with `schedule` and `hotBackupTemplate` fields.
 +
@@ -302,7 +302,7 @@ kubectl apply -f ./hot-backup-agent.yaml
 
 === Scheduling External Backups with CronHotBackup Custom Resource
 
-You can schedule external backups, using the `.spec.schedule` and `.spec.hotBackupTemplate` fields of the `CronHotBackup` resource
+You can schedule external backups, using the `.spec.schedule` and `.spec.hotBackupTemplate` fields of the `CronHotBackup` resource. You can find more detailed information about the `CronHotBackup` resource in the xref:api-ref.adoc#cronhotbackupspec[API Reference] page.
 
 . Create the `CronHotBackup` resource with `schedule` and `hotBackupTemplate` fields.
 +
