@@ -80,44 +80,44 @@ include::ROOT:example$/hot-backup.yaml[]
 kubectl apply -f ./hot-backup.yaml
 ----
 
-=== Scheduling Backups
+=== Scheduling Local Backups
 
-You can schedule regular backups, using the `spec.schedule` field of a `HotBackup` resource.
+You can schedule regular backups, using the `schedule` and `hotBackupTemplate` fields of the `CronHotBackup` resource. For more information about the `CronHotBackup` resource, see the xref:api-ref.adoc#cronhotbackupspec[API Reference].
 
-. Create the `HotBackup` resource with a `schedule` field:
+. Create the `CronHotBackup` resource and add values for the `schedule` and `hotBackupTemplate` fields. For example:
 +
 [source,yaml,subs="attributes+"]
 ----
-include::ROOT:example$/hot-backup-scheduled.yaml[]
+include::ROOT:example$/cron-hot-backup.yaml[]
 ----
 +
-This field takes a valid cron expression. For example:
+The `schedule` field takes a valid cron expression. For example, you can configure the following scheduled backups:
 +
 [cols="1,1"]
 |===
 | ```30 10 * * *```
-| On 10:30 AM every day
+| At 10:30 AM every day
 
 | ```0, 0, 1,15,25 * *```
-| On 1st, 15th and 25th each month, midnight
+| On 1st, 15th, and 25th of each month at midnight
 
 | ```@monthly```
-| Once a month, first of the month, midnight
+| On the first day of each month at midnight
 |===
 
 +
-For the full list of the supported expression, please check the link:https://pkg.go.dev/github.com/robfig/cron/v3@v3.0.1#hdr-CRON_Expression_Format[library documentation].
+For a full list of supported expressions, see the link:https://pkg.go.dev/github.com/robfig/cron/v3@v3.0.1#hdr-CRON_Expression_Format[library documentation].
 
 . Apply the resource:
 +
 [source,bash]
 ----
-kubectl apply -f ./hot-backup-scheduled.yaml
+kubectl apply -f ./cron-hot-backup.yaml
 ----
 
-=== Checking the Status of a Backup
+=== Checking the Status of a Local Backup
 
-To check the status of a backup, run the following command:
+To check the status of a local backup, run the following command:
 [source,bash]
 ----
 kubectl get hotbackup hot-backup
@@ -302,42 +302,42 @@ kubectl apply -f ./hot-backup-agent.yaml
 
 === Scheduling External Backups
 
-You can schedule external backups, using the `spec.schedule` field of a `HotBackup` resource.
+You can schedule regular backups to an external storage bucket, using the `schedule` and `hotBackupTemplate` fields of the `CronHotBackup` resource. For more information about the `CronHotBackup` resource, see the xref:api-ref.adoc#cronhotbackupspec[API Reference].
 
-. Create the `HotBackup` resource with a `schedule` field:
+. Create the `CronHotBackup` resource and add values for the `schedule` and `hotBackupTemplate` fields. For example:
 +
 [source,yaml,subs="attributes+"]
 ----
-include::ROOT:example$/hot-backup-agent-scheduled.yaml[]
+include::ROOT:example$/cron-hot-backup-agent.yaml[]
 ----
 +
-This field takes a valid cron expression. For example:
+The `schedule` field takes a valid cron expression. For example, you can configure the following scheduled backups:
 +
 [cols="1,1"]
 |===
 | ```30 10 * * *```
-| On 10:30 AM every day
+| At 10:30 AM every day
 
 | ```0, 0, 1,15,25 * *```
-| On 1st, 15th and 25th each month, midnight
+| On 1st, 15th, and 25th of each month at midnight
 
 | ```@monthly```
-| Once a month, first of the month, midnight
+| On the first day of each month at midnight
 |===
 
 +
-For the full list of the supported expression, please check the link:https://pkg.go.dev/github.com/robfig/cron/v3@v3.0.1#hdr-CRON_Expression_Format[library documentation].
+For a full list of supported expressions, see the link:https://pkg.go.dev/github.com/robfig/cron/v3@v3.0.1#hdr-CRON_Expression_Format[library documentation].
 
 . Apply the resource:
 +
 [source,bash]
 ----
-kubectl apply -f ./hot-backup-agent-scheduled.yaml
+kubectl apply -f ./cron-hot-backup-agent.yaml
 ----
 
-=== Checking the Status of a Backup
+=== Checking the Status of an External Backup
 
-To check the status of a backup, run the following command:
+To check the status of an external backup, run the following command:
 [source,bash]
 ----
 kubectl get hotbackup hot-backup

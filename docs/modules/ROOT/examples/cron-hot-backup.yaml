@@ -1,0 +1,9 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: CronHotBackup
+metadata:
+  name: cron-hot-backup
+spec:
+  schedule: "* 0-23/6 * * *"
+  hotBackupTemplate:
+    spec:
+      hazelcastResourceName: hazelcast
