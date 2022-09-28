@@ -106,7 +106,7 @@ The `schedule` field takes a valid cron expression. For example, you can configu
 |===
 
 +
-For a full list of support expressions, see the link:https://pkg.go.dev/github.com/robfig/cron/v3@v3.0.1#hdr-CRON_Expression_Format[library documentation].
+For a full list of supported expressions, see the link:https://pkg.go.dev/github.com/robfig/cron/v3@v3.0.1#hdr-CRON_Expression_Format[library documentation].
 
 . Apply the resource:
 +
@@ -117,7 +117,7 @@ kubectl apply -f ./cron-hot-backup.yaml
 
 === Checking the Status of a Local Backup
 
-To check the status of a backup, run the following command:
+To check the status of a local backup, run the following command:
 [source,bash]
 ----
 kubectl get hotbackup hot-backup
@@ -326,7 +326,7 @@ The `schedule` field takes a valid cron expression. For example, you can configu
 |===
 
 +
-For a full list of support expressions, see the link:https://pkg.go.dev/github.com/robfig/cron/v3@v3.0.1#hdr-CRON_Expression_Format[library documentation].
+For a full list of supported expressions, see the link:https://pkg.go.dev/github.com/robfig/cron/v3@v3.0.1#hdr-CRON_Expression_Format[library documentation].
 
 . Apply the resource:
 +
@@ -337,7 +337,7 @@ kubectl apply -f ./cron-hot-backup-agent.yaml
 
 === Checking the Status of an External Backup
 
-To check the status of a backup, run the following command:
+To check the status of an external backup, run the following command:
 [source,bash]
 ----
 kubectl get hotbackup hot-backup
