@@ -96,17 +96,17 @@ The `schedule` field takes a valid cron expression. For example, you can configu
 [cols="1,1"]
 |===
 | ```30 10 * * *```
-| On 10:30 AM every day
+| At 10:30 AM every day
 
 | ```0, 0, 1,15,25 * *```
-| On 1st, 15th and 25th each month, midnight
+| On 1st, 15th, and 25th of each month at midnight
 
 | ```@monthly```
-| Once a month, first of the month, midnight
+| On the first day of each month at midnight
 |===
 
 +
-For the full list of the supported expression, please check the link:https://pkg.go.dev/github.com/robfig/cron/v3@v3.0.1#hdr-CRON_Expression_Format[library documentation].
+For a full list of support expressions, see the link:https://pkg.go.dev/github.com/robfig/cron/v3@v3.0.1#hdr-CRON_Expression_Format[library documentation].
 
 . Apply the resource:
 +
@@ -316,17 +316,17 @@ The `schedule` field takes a valid cron expression. For example, you can configu
 [cols="1,1"]
 |===
 | ```30 10 * * *```
-| On 10:30 AM every day
+| At 10:30 AM every day
 
 | ```0, 0, 1,15,25 * *```
-| On 1st, 15th and 25th each month, midnight
+| On 1st, 15th, and 25th of each month at midnight
 
 | ```@monthly```
-| Once a month, first of the month, midnight
+| On the first day of each month at midnight
 |===
 
 +
-For the full list of the supported expression, please check the link:https://pkg.go.dev/github.com/robfig/cron/v3@v3.0.1#hdr-CRON_Expression_Format[library documentation].
+For a full list of support expressions, see the link:https://pkg.go.dev/github.com/robfig/cron/v3@v3.0.1#hdr-CRON_Expression_Format[library documentation].
 
 . Apply the resource:
 +
