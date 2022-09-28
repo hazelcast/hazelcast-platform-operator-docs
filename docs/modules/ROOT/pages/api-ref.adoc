@@ -75,8 +75,11 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<BatchSetting,BatchSetting>>
 * <<FullBehaviorSetting,FullBehaviorSetting>>
 * <<QueueSetting,QueueSetting>>
+* <<ResourceKind,ResourceKind>>
+* <<ResourceSpec,ResourceSpec>>
 * <<WanReplication,WanReplication>>
 * <<WanReplicationList,WanReplicationList>>
+* <<WanReplicationMapStatus,WanReplicationMapStatus>>
 * <<WanReplicationSpec,WanReplicationSpec>>
 * <<WanReplicationStatus,WanReplicationStatus>>
 * <<WanStatus,WanStatus>>
@@ -723,6 +726,19 @@ m| fullBehavior | FullBehavior represents the behavior of the new arrival when t
 
 <<Table of Contents,Back to TOC>>
 
+=== ResourceSpec
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| name | ResourceName is the name of custom resource which WAN replication will be applied to. m| string | true | -
+m| kind | ResourceKind is the type of custom resource which WAN replication will be applied to. m| <<ResourceKind,ResourceKind>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === WanReplication
 
 WanReplication is the Schema for the wanreplications API
@@ -750,6 +766,20 @@ m| items | &#160; m| []<<WanReplication,WanReplication>> | true | -
 
 <<Table of Contents,Back to TOC>>
 
+=== WanReplicationMapStatus
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| publisherId | PublisherId is the ID used for WAN publisher ID m| string | false | -
+m| status | Status is the status of WAN replication m| <<WanStatus,WanStatus>> | false | -
+m| message | Message is the field to show detail information or error m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === WanReplicationSpec
 
 WanReplicationSpec defines the desired state of WanReplication
@@ -757,7 +787,7 @@ WanReplicationSpec defines the desired state of WanReplication
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| mapResourceName | MapResourceName is the name of Map custom resource which WAN replication will be applied to. m| string | true | -
+m| resources | Resources is the list of custom resources which WAN replication will be applied to. m| []<<ResourceSpec,ResourceSpec>> | true | -
 m| targetClusterName | ClusterName is the clusterName field of the target Hazelcast resource. m| string | true | -
 m| endpoints | Endpoints is the target cluster endpoints. m| string | true | -
 m| queue | Queue is the configuration for WAN events queue. m| <<QueueSetting,QueueSetting>> | false | -
@@ -774,9 +804,9 @@ WanReplicationStatus defines the observed state of WanReplication
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| publisherId | PublisherId is the ID used for WAN publisher ID m| string | false | -
 m| status | Status is the status of WAN replication m| <<WanStatus,WanStatus>> | false | -
 m| message | Message is the field to show detail information or error m| string | false | -
+m| wanReplicationMapsStatus | &#160; m| map[string]<<WanReplicationMapStatus,WanReplicationMapStatus>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1062,6 +1092,19 @@ m| "THROW_EXCEPTION_ONLY_IF_REPLICATION_ACTIVE" | &#160;
 
 <<Table of Contents,Back to TOC>>
 
+=== ResourceKind
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "Map" | &#160;
+m| "Hazelcast" | &#160;
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === WanStatus
 
 
@@ -1072,6 +1115,7 @@ m| "THROW_EXCEPTION_ONLY_IF_REPLICATION_ACTIVE" | &#160;
 m| "Failed" | &#160;
 m| "Pending" | &#160;
 m| "Success" | &#160;
+m| "Terminating" | &#160;
 |===
 
 <<Table of Contents,Back to TOC>>
