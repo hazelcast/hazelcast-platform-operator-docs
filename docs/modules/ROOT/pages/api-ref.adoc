@@ -11,6 +11,11 @@ These are all the types and fields that are used in the Hazelcast Platform Opera
 TIP: This document was generated from comments in the Go code in the api/ directory.
 
 === Table of Contents
+* <<CronHotBackup,CronHotBackup>>
+* <<CronHotBackupList,CronHotBackupList>>
+* <<CronHotBackupSpec,CronHotBackupSpec>>
+* <<CronHotBackupStatus,CronHotBackupStatus>>
+* <<HotBackupTemplateSpec,HotBackupTemplateSpec>>
 * <<AgentConfiguration,AgentConfiguration>>
 * <<BackupType,BackupType>>
 * <<BucketConfiguration,BucketConfiguration>>
@@ -75,6 +80,62 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<WanReplicationSpec,WanReplicationSpec>>
 * <<WanReplicationStatus,WanReplicationStatus>>
 * <<WanStatus,WanStatus>>
+
+=== CronHotBackup
+
+CronHotBackup is the Schema for the cronhotbackups API
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| spec | &#160; m| <<CronHotBackupSpec,CronHotBackupSpec>> | true | -
+m| status | &#160; m| <<CronHotBackupStatus,CronHotBackupStatus>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== CronHotBackupList
+
+CronHotBackupList contains a list of CronHotBackup
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| items | &#160; m| []<<CronHotBackup,CronHotBackup>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== CronHotBackupSpec
+
+CronHotBackupSpec defines the desired state of CronHotBackup
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| schedule | Schedule contains a crontab-like expression that defines the schedule in which HotBackup will be started. If the Schedule is empty the HotBackup will start only once when applied. m| string | true | -
+m| hotBackupTemplate | Specifies the hot backup that will be created when executing a CronHotBackup. m| <<HotBackupTemplateSpec,HotBackupTemplateSpec>> | true | -
+m| successfulHotBackupsHistoryLimit | The number of successful finished hot backups to retain. This is a pointer to distinguish between explicit zero and not specified. m| &#42;int32 | false | 5
+m| failedHotBackupsHistoryLimit | The number of failed finished hot backups to retain. This is a pointer to distinguish between explicit zero and not specified. m| &#42;int32 | false | 3
+m| suspend | When true, CronHotBackup will stop creating HotBackup CRs until it is disabled m| bool | false | false
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== HotBackupTemplateSpec
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | Standard object's metadata of the hot backups created from this template. m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| spec | Specification of the desired behavior of the hot backup. m| <<HotBackupSpec,HotBackupSpec>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
 
 === AgentConfiguration
 
@@ -381,7 +442,6 @@ HotBackupSpec defines the Spec of HotBackup
 |===
 | Field | Description | Type | Required | Default
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource m| string | true | -
-m| schedule | Schedule contains a crontab-like expression that defines the schedule in which HotBackup will be started. If the Schedule is empty the HotBackup will start only once when applied. m| string | false | -
 m| bucketURI | URL of the bucket to download HotBackup folders. m| string | false | -
 m| secret | Name of the secret with credentials for cloud providers. m| string | false | -
 |===
