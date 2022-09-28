@@ -80,18 +80,18 @@ include::ROOT:example$/hot-backup.yaml[]
 kubectl apply -f ./hot-backup.yaml
 ----
 
-=== Scheduling Backups with CronHotBackup Custom Resource
+=== Scheduling Local Backups
 
-You can schedule regular backups, using the `.spec.schedule` and `.spec.hotBackupTemplate` fields of the `CronHotBackup` resource. You can find more detailed information about the `CronHotBackup` resource in the xref:api-ref.adoc#cronhotbackupspec[API Reference] page.
+You can schedule regular backups, using the `schedule` and `hotBackupTemplate` fields of the `CronHotBackup` resource. For more information about the `CronHotBackup` resource, see the xref:api-ref.adoc#cronhotbackupspec[API Reference].
 
-. Create the `CronHotBackup` resource with `schedule` and `hotBackupTemplate` fields.
+. Create the `CronHotBackup` resource and add values for the `schedule` and `hotBackupTemplate` fields. For example:
 +
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/cron-hot-backup.yaml[]
 ----
 +
-`.spec.schedule` field takes a valid cron expression. For example:
+The `schedule` field takes a valid cron expression. For example, you can configure the following scheduled backups:
 +
 [cols="1,1"]
 |===
@@ -115,7 +115,7 @@ For the full list of the supported expression, please check the link:https://pkg
 kubectl apply -f ./cron-hot-backup.yaml
 ----
 
-=== Checking the Status of a Backup
+=== Checking the Status of a Local Backup
 
 To check the status of a backup, run the following command:
 [source,bash]
@@ -300,18 +300,18 @@ kubectl create secret generic <secret-name> \
 kubectl apply -f ./hot-backup-agent.yaml
 ----
 
-=== Scheduling External Backups with CronHotBackup Custom Resource
+=== Scheduling External Backups
 
-You can schedule external backups, using the `.spec.schedule` and `.spec.hotBackupTemplate` fields of the `CronHotBackup` resource. You can find more detailed information about the `CronHotBackup` resource in the xref:api-ref.adoc#cronhotbackupspec[API Reference] page.
+You can schedule regular backups to an external storage bucket, using the `schedule` and `hotBackupTemplate` fields of the `CronHotBackup` resource. For more information about the `CronHotBackup` resource, see the xref:api-ref.adoc#cronhotbackupspec[API Reference].
 
-. Create the `CronHotBackup` resource with `schedule` and `hotBackupTemplate` fields.
+. Create the `CronHotBackup` resource and add values for the `schedule` and `hotBackupTemplate` fields. For example:
 +
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/cron-hot-backup-agent.yaml[]
 ----
 +
-`.spec.schedule` field takes a valid cron expression. For example:
+The `schedule` field takes a valid cron expression. For example, you can configure the following scheduled backups:
 +
 [cols="1,1"]
 |===
@@ -335,7 +335,7 @@ For the full list of the supported expression, please check the link:https://pkg
 kubectl apply -f ./cron-hot-backup-agent.yaml
 ----
 
-=== Checking the Status of a Backup
+=== Checking the Status of an External Backup
 
 To check the status of a backup, run the following command:
 [source,bash]
