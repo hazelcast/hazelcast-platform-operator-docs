@@ -1,0 +1,9 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: MultiMap
+metadata:
+  name: multimap-sample
+spec:
+  hazelcastResourceName: hazelcast
+  binary: true
+  backupCount: 3
+  collectionType: LIST

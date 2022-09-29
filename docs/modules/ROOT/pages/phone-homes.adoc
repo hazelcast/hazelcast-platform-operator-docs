@@ -19,6 +19,7 @@ The following information is sent in a phone home:
 * Number of created Hazelcast members
 * Number of created Wan Replications
 * Number of created CronHotBackup resources
+* Number of created MultiMap resources
 * Expose Externally specific:
 ** Number of Hazelcast clusters where unisocket is used
 ** Number of Hazelcast clusters where smart client is used

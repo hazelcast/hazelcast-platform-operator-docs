@@ -1,0 +1,52 @@
+= Configuring MultiMaps
+:description: pass:q[Hazelcast MultiMap, also known as IMultiMap, is a specialized map where you can store multiple values under a single key. Just like any other distributed data structure implementation in Hazelcast, MultiMap is distributed and thread-safe. You can create and configure the multimaps using the `MultiMap` Custom Resource.]
+
+{description}
+
+== Configuring the `MultiMap` Resource
+
+Below are the configuration options for the `MultiMap` resource. You can find more detailed information in xref:api-ref.adoc#multimapspec[API Reference] page.
+
+[cols="20%m,80%a"]
+|===
+|Field|Description
+
+|name
+|Name of the multiMap config to be created. If empty, the CR name will be used.
+
+|hazelcastResourceName
+|HazelcastResourceName defines the name of the Hazelcast resource.
+
+|backupCount
+|Count of synchronous backups.
+
+|binary
+|When true stores values in BINARY format, otherwise stores values in OBJECT format
+
+|collectionType
+|Type of the value collection. It can be SET or LIST.
+
+
+|===
+
+== Example Configuration
+
+The following `MultiMap` resource creates a multiMap configuration for the `Hazelcast` custom resource that is defined in the `hazelcastResourceName` field.
+
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/multimap.yaml[]
+----
+
+After creating the `MultiMap` resource, you can learn about its status with the following command
+
+[source,shell]
+----
+kubectl get multimap multimap-sample -o wide
+----
+
+```
+NAME               STATUS    MESSAGE
+multimap-sample    Success
+```
