@@ -3,7 +3,11 @@ kind: WanReplication
 metadata:
   name: wanreplication-sample
 spec:
-  mapResourceName: map-sample
+  resources:
+    - name: map-sample
+      kind: Map
+    - name: hz-sample
+      kind: Hazelcast
   targetClusterName: dev
   endpoints: "35.192.33.252,35.192.33.255"
   queue:
