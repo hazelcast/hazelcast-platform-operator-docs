@@ -1,0 +1,8 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: Topic
+metadata:
+  name: topic-sample
+spec:
+  hazelcastResourceName: hazelcast-sample
+  globalOrderingEnabled: true
+  multiThreadingEnabled: false

@@ -1,0 +1,51 @@
+= Configuring Topics
+:description: pass:q[Hazelcast provides a distribution mechanism for publishing messages that are delivered to multiple subscribers. This is also known as a publish/subscribe (pub/sub) messaging model. Publishing and subscribing operations are cluster wide. When a member subscribes to a topic, it is actually registering for messages published by any member in the cluster, including the new members that joined after you add the listener. You can create and configure the topics using the `Topic` Custom Resource.]
+
+{description}
+
+== Configuring the `Topic` Resource
+
+Below are the configuration options for the `Topic` resource. You can find more detailed information in xref:api-ref.adoc#topicspec[API Reference] page.
+
+[cols="20%m,80%a"]
+|===
+|Field|Description
+
+|name
+|Name of the topic config to be created. If empty, the CR name will be used.
+
+|hazelcastResourceName
+|HazelcastResourceName defines the name of the Hazelcast resource.
+
+|globalOrderingEnabled
+|When true all nodes listening to the same topic get their messages in the same order
+
+|multiThreadingEnabled
+|When true enables multi-threaded processing of incoming messages, otherwise a single thread will handle all topic messages
+
+NOTE: Multi threading can not be enabled when global ordering is used.
+
+|===
+
+== Example Configuration
+
+The following `Topic` resource creates a topic configuration for the `Hazelcast` custom resource that is defined in the `hazelcastResourceName` field.
+
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/topic.yaml[]
+----
+
+After creating the `Topic` resource, you can learn about its status with the following command
+
+[source,shell]
+----
+kubectl get topic topic-sample -o wide
+----
+
+```
+NAME            STATUS    MESSAGE
+topic-sample    Success   
+```
+
