@@ -1,18 +1,18 @@
 = Configuring MultiMaps
-:description: pass:q[Hazelcast MultiMap, also known as IMultiMap, is a specialized map where you can store multiple values under a single key. Just like any other distributed data structure implementation in Hazelcast, MultiMap is distributed and thread-safe. You can create and configure the multimaps using the `MultiMap` Custom Resource.]
+:description: pass:q[Hazelcast MultiMap, also known as IMultiMap, is a specialized map where you can store multiple values under a single key. Just like any other distributed data structure implementation in Hazelcast, MultiMap is distributed and thread-safe. You can create and configure MultiMaps using the `MultiMap` custom resource.]
 
 {description}
 
-== Configuring the `MultiMap` Resource
+== Configuring a MultiMap Resource
 
-Below are the configuration options for the `MultiMap` resource. You can find more detailed information in xref:api-ref.adoc#multimapspec[API Reference] page.
+You can use any of the following configuration options in the `MultiMap` resource. For more information, see the xref:api-ref.adoc#multimapspec[API Reference].
 
 [cols="20%m,80%a"]
 |===
 |Field|Description
 
 |name
-|Name of the multiMap config to be created. If empty, the CR name will be used.
+|Name of the MultiMap configuration that you're creating. If empty, the custom resource (CR) name is used.
 
 |hazelcastResourceName
 |HazelcastResourceName defines the name of the Hazelcast resource.
@@ -21,17 +21,17 @@ Below are the configuration options for the `MultiMap` resource. You can find mo
 |Count of synchronous backups.
 
 |binary
-|When true stores values in BINARY format, otherwise stores values in OBJECT format
+|When true, stores all MultiMap values in BINARY format, otherwise stores these values in OBJECT format.
 
 |collectionType
-|Type of the value collection. It can be SET or LIST.
+|The type of the value collection. Use either SET or LIST.
 
 
 |===
 
 == Example Configuration
 
-The following `MultiMap` resource creates a multiMap configuration for the `Hazelcast` custom resource that is defined in the `hazelcastResourceName` field.
+The following `MultiMap` custom resource creates a MultiMap configuration for the `Hazelcast` resource that is defined in the `hazelcastResourceName` field.
 
 .Example configuration
 [source,yaml,subs="attributes+"]
@@ -39,7 +39,7 @@ The following `MultiMap` resource creates a multiMap configuration for the `Haze
 include::ROOT:example$/multimap.yaml[]
 ----
 
-After creating the `MultiMap` resource, you can learn about its status with the following command
+After creating the `MultiMap` resource, use the following command to check its status:
 
 [source,shell]
 ----
