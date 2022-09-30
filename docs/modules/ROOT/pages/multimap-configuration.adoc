@@ -15,7 +15,7 @@ You can use any of the following configuration options in the `MultiMap` resourc
 |Name of the MultiMap configuration that you're creating. If empty, the custom resource (CR) name is used.
 
 |hazelcastResourceName
-|HazelcastResourceName defines the name of the Hazelcast resource.
+|Defines the name of the Hazelcast resource.
 
 |backupCount
 |Count of synchronous backups.
