@@ -3,8 +3,10 @@
 * xref:get-started.adoc[Deploy a Cluster]
 * xref:connect-outside-kubernetes.adoc[]
 * xref:scheduling-configuration.adoc[Scheduling Hazelcast Pods]
+* Configuring Data Structures
+** xref:map-configuration.adoc[Map]
+** xref:multimap-configuration.adoc[MultiMap]
 * xref:backup-restore.adoc[Persistence, Backup, and Restore]
-* xref:map-configuration.adoc[Configuring Maps]
 * xref:wan-replication.adoc[Configuring WAN Replication]
 * xref:user-code-deployment.adoc[User Code Deployment]
 
@@ -14,5 +16,4 @@
 * xref:api-ref.adoc[API References]
 
 .Release Notes
-
 * xref:release-notes.adoc[5.3]
