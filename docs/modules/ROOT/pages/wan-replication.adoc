@@ -22,7 +22,7 @@ You can use the following configuration options in your `WanReplication` resourc
 |Field|Description
 
 |`resources`
-|The list of the custom `Map` or `Hazelcast` resource to which WAN replication applies.
+|The list of custom `Map` or `Hazelcast` resources to which WAN replication applies.
 
 - `name`: The name of custom resource to which WAN replication applies.
 - `kind`: The type of custom resource. Either `Map`(default) or `Hazelcast`. Use the  `Hazelcast` kind to apply WAN replication to all custom maps created under the given `Hazelcast` resource.
