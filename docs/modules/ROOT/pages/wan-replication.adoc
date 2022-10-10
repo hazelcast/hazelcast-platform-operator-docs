@@ -70,7 +70,7 @@ After creating the `WanReplication` resource, run the following command to find 
 
 [source,shell]
 ----
-kubectl get wanreplication wanreplication-sample
+kubectl get wanreplication wanreplication-sample -o wide
 ----
 
 The returned status message will look something like this:
