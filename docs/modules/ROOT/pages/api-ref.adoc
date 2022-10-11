@@ -76,6 +76,11 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<MultiMapList,MultiMapList>>
 * <<MultiMapSpec,MultiMapSpec>>
 * <<MultiMapStatus,MultiMapStatus>>
+* <<Topic,Topic>>
+* <<TopicConfigState,TopicConfigState>>
+* <<TopicList,TopicList>>
+* <<TopicSpec,TopicSpec>>
+* <<TopicStatus,TopicStatus>>
 * <<AcknowledgementSetting,AcknowledgementSetting>>
 * <<AcknowledgementType,AcknowledgementType>>
 * <<BatchSetting,BatchSetting>>
@@ -750,6 +755,62 @@ m| memberStatuses | &#160; m| map[string]<<MultiMapConfigState,MultiMapConfigSta
 
 <<Table of Contents,Back to TOC>>
 
+=== Topic
+
+Topic is the Schema for the topics API
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| spec | &#160; m| <<TopicSpec,TopicSpec>> | true | -
+m| status | &#160; m| <<TopicStatus,TopicStatus>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== TopicList
+
+TopicList contains a list of Topic
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| items | &#160; m| []<<Topic,Topic>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== TopicSpec
+
+TopicSpec defines the desired state of Topic
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| name | Name of the topic config to be created. If empty, CR name will be used. m| string | false | -
+m| globalOrderingEnabled | When true all nodes listening to the same topic get their messages in the same order m| bool | false | false
+m| multiThreadingEnabled | When true enables multi-threaded processing of incoming messages, otherwise a single thread will handle all topic messages m| bool | false | false
+m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource for which topic config will be created m| string | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== TopicStatus
+
+TopicStatus defines the observed state of Topic
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| state | &#160; m| <<TopicConfigState,TopicConfigState>> | false | -
+m| message | &#160; m| string | false | -
+m| memberStatuses | &#160; m| map[string]<<TopicConfigState,TopicConfigState>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === AcknowledgementSetting
 
 
@@ -1152,6 +1213,22 @@ m| "Failed" | &#160;
 m| "Success" | &#160;
 m| "Pending" | &#160;
 m| "Persisting" | MultiMap config is added into all members but waiting for multiMap to be persisten into ConfigMap
+m| "Terminating" | &#160;
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== TopicConfigState
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "Failed" | &#160;
+m| "Success" | &#160;
+m| "Pending" | &#160;
+m| "Persisting" | Topic config is added into all members but waiting for Topic to be persisten into ConfigTopic
 m| "Terminating" | &#160;
 |===
 
