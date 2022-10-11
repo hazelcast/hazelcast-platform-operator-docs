@@ -70,6 +70,12 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<MapStoreConfig,MapStoreConfig>>
 * <<MaxSizePolicyType,MaxSizePolicyType>>
 * <<UniqueKeyTransition,UniqueKeyTransition>>
+* <<CollectionType,CollectionType>>
+* <<MultiMap,MultiMap>>
+* <<MultiMapConfigState,MultiMapConfigState>>
+* <<MultiMapList,MultiMapList>>
+* <<MultiMapSpec,MultiMapSpec>>
+* <<MultiMapStatus,MultiMapStatus>>
 * <<AcknowledgementSetting,AcknowledgementSetting>>
 * <<AcknowledgementType,AcknowledgementType>>
 * <<BatchSetting,BatchSetting>>
@@ -687,6 +693,63 @@ m| propertiesSecretName | Properties can be used for giving information to the M
 
 <<Table of Contents,Back to TOC>>
 
+=== MultiMap
+
+MultiMap is the Schema for the multimaps API
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| spec | &#160; m| <<MultiMapSpec,MultiMapSpec>> | false | -
+m| status | &#160; m| <<MultiMapStatus,MultiMapStatus>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== MultiMapList
+
+MultiMapList contains a list of MultiMap
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| items | &#160; m| []<<MultiMap,MultiMap>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== MultiMapSpec
+
+MultiMapSpec defines the desired state of MultiMap
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| name | Name of the multiMap config to be created. If empty, CR name will be used. m| string | false | -
+m| backupCount | Count of synchronous backups. m| &#42;int32 | false | 1
+m| binary | Specifies in which format data will be stored in your multiMap. false: OBJECT true: BINARY m| bool | false | false
+m| collectionType | Type of the value collection m| <<CollectionType,CollectionType>> | false | SET
+m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource. m| string | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== MultiMapStatus
+
+MultiMapStatus defines the observed state of MultiMap
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| state | &#160; m| <<MultiMapConfigState,MultiMapConfigState>> | false | -
+m| message | &#160; m| string | false | -
+m| memberStatuses | &#160; m| map[string]<<MultiMapConfigState,MultiMapConfigState>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === AcknowledgementSetting
 
 
@@ -1061,6 +1124,35 @@ m| "FREE_NATIVE_MEMORY_PERCENTAGE" | Minimum free native memory size percentage 
 m| "OBJECT" | &#160;
 m| "LONG" | &#160;
 m| "RAW" | &#160;
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== CollectionType
+
+CollectionType represents the value collection options for storing the data in the multiMap.
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "SET" | &#160;
+m| "LIST" | &#160;
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== MultiMapConfigState
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "Failed" | &#160;
+m| "Success" | &#160;
+m| "Pending" | &#160;
+m| "Persisting" | MultiMap config is added into all members but waiting for multiMap to be persisten into ConfigMap
+m| "Terminating" | &#160;
 |===
 
 <<Table of Contents,Back to TOC>>
