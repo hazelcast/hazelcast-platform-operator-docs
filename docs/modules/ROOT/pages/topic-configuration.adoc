@@ -1,5 +1,5 @@
 = Configuring Topics
-:description: pass:q[Hazelcast provides a distribution mechanism for publishing messages that are delivered to multiple subscribers. This is also known as a publish/subscribe (pub/sub) messaging model. Publishing and subscribing operations are cluster wide. When a member subscribes to a topic, it is actually registering for messages published by any member in the cluster, including the new members that joined after you add the listener. You can create and configure Topics using the `Topic` custom resource.]
+:description: pass:q[Hazelcast provides a distribution mechanism for publishing messages that are delivered to multiple subscribers. This is known as a publish/subscribe (pub/sub) messaging model. Publishing and subscription operations are cluster wide. When a member subscribes to a topic, it is registered to receive messages published by any member in the cluster, including any new members that joined after you added the listener. You can create and configure topics using the `Topic` custom resource.]
 
 {description}
 
@@ -12,24 +12,24 @@ You can use any of the following configuration options in the `Topic` resource. 
 |Field|Description
 
 |name
-|Name of the Topic configuration that you're creating. If empty, the custom resource (CR) name is used.
+|Name of the topic configuration that you're creating. If empty, the custom resource (CR) name is used.
 
 |hazelcastResourceName
-|Defines the name of the Hazelcast resource for which Topic configuration will be created.
+|Defines the name of the Hazelcast resource for which the topic configuration is created.
 
 |globalOrderingEnabled
-|When true all nodes listening to the same topic get their messages in the same order.
+|When true, all nodes listening to the same topic get their messages in the same order.
 
 |multiThreadingEnabled
-|When true enables multi-threaded processing of incoming messages, otherwise a single thread will handle all topic messages.
+|When true, enables multi-threaded processing of incoming messages. Otherwise, a single thread handles all topic messages.
 
-NOTE: Multi threading can not be enabled when global ordering is used.
+NOTE: You cannot enable multi-threading when global ordering is in use.
 
 |===
 
 == Example Configuration
 
-The following `Topic` custom resource creates a Topic configuration for the `Hazelcast` custom resource that is defined in the `hazelcastResourceName` field.
+The following `Topic` custom resource creates a topic configuration for the `Hazelcast` custom resource that is defined in the `hazelcastResourceName` field.
 
 .Example configuration
 [source,yaml,subs="attributes+"]
