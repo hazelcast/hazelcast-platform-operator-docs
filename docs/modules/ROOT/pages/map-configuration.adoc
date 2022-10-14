@@ -70,7 +70,7 @@ kubectl get map map-sample -o wide
 ----
 
 ```
-NAME   STATUS    MESSAGE
-map    Success   
+NAME          STATUS    MESSAGE
+map-sample    Success   
 ```
 
