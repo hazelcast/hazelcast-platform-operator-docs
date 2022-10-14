@@ -1,0 +1,8 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: ReplicatedMap
+metadata:
+  name: replicatedmap-sample
+spec:
+  hazelcastResourceName: hazelcast
+  inMemoryFormat: OBJECT
+  asyncFillup: true

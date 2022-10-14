@@ -7,6 +7,7 @@
 ** xref:map-configuration.adoc[Map]
 ** xref:multimap-configuration.adoc[MultiMap]
 ** xref:topic-configuration.adoc[Topic]
+** xref:replicatedmap-configuration.adoc[ReplicatedMap]
 * xref:backup-restore.adoc[Persistence, Backup, and Restore]
 * xref:wan-replication.adoc[Configuring WAN Replication]
 * xref:user-code-deployment.adoc[User Code Deployment]
