@@ -1,5 +1,5 @@
-= Configuring ReplicatedMaps
-:description: pass:q[A Replicated Map is a distributed key-value data structure where the data is replicated to all members in the cluster. It provides full replication of entries to all members for high speed access. You can create and configure ReplicatedMaps using the `ReplicatedMap` custom resource.]
+= Configuring Replicated Maps
+:description: pass:q[A replicated map is a distributed key-value data structure where the data is replicated to all members in the cluster. It provides full replication of entries to all members for high-speed access. You can create and configure replicated maps using the `ReplicatedMap` custom resource.]
 
 {description}
 
@@ -18,7 +18,7 @@ You can use any of the following configuration options in the `ReplicatedMap` re
 |Defines the name of the Hazelcast resource.
 
 |inMemoryFormat
-|Internal storage format. Use either OBJECT or BINARY.
+|Internal storage format. Use either `OBJECT` or `BINARY`.
 
 |asyncFillup
 |Specifies whether the ReplicatedMap is available for reads before the initial replication is completed. Its default value is true. If set to false, i.e., synchronous initial fill up, no exception is thrown when the ReplicatedMap is not yet ready, but null values can be seen until the initial replication is completed.
