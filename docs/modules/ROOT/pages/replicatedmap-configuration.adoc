@@ -21,7 +21,7 @@ You can use any of the following configuration options in the `ReplicatedMap` re
 |Internal storage format. Use either `OBJECT` or `BINARY`.
 
 |asyncFillup
-|Specifies whether the ReplicatedMap is available for reads before the initial replication is completed. Its default value is true. If set to false, i.e., synchronous initial fill up, no exception is thrown when the ReplicatedMap is not yet ready, but null values can be seen until the initial replication is completed.
+|Specifies whether the ReplicatedMap is filled with entries asynchronously. The default value is true, in which case calls to the ReplicatedMap during the initial replication may return `null` values. If set to false, calls to the ReplicatedMap are blocked until the initial replication is complete, and no exceptions are thrown.
 
 |===
 
