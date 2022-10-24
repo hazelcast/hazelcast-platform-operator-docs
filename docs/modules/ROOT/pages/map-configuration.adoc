@@ -50,6 +50,13 @@ NOTE: Persistence should be enabled for Hazelcast before enabling it for the map
 - writeBatchSize: Used to create batches when writing to map store.
 - writeCoealescing: It is meaningful if you are using write behind in MapStore. When it is set to true, only the latest store operation on a key during the write-delay-seconds will be reflected to MapStore.
 - propertiesSecretName: Name of the secret holding the properties for the MapStore classes implementing the `MapLoaderLifecycleSupport` interface.
+
+|entryListeners
+|Configuration options for listening for the map-level or entry-based events using the listeners provided by the Hazelcast’s eventing framework. You can learn more at link:https://docs.hazelcast.com/imdg/latest/events/object-events[Distributed Object Events].
+
+- className: Name of your class implementing a `MapListener` sub-interface.
+- includeValues: An optional attribute that indicates whether the map event should contains the map value.
+- local: An optional attribute that indicates whether you can listen to the map on the local member.
 |===
 
 == Example Configuration
