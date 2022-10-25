@@ -76,6 +76,10 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<MultiMapList,MultiMapList>>
 * <<MultiMapSpec,MultiMapSpec>>
 * <<MultiMapStatus,MultiMapStatus>>
+* <<ReplicatedMap,ReplicatedMap>>
+* <<ReplicatedMapList,ReplicatedMapList>>
+* <<ReplicatedMapSpec,ReplicatedMapSpec>>
+* <<ReplicatedMapStatus,ReplicatedMapStatus>>
 * <<Topic,Topic>>
 * <<TopicList,TopicList>>
 * <<TopicSpec,TopicSpec>>
@@ -743,6 +747,62 @@ m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelca
 === MultiMapStatus
 
 MultiMapStatus defines the observed state of MultiMap
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| state | &#160; m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
+m| message | &#160; m| string | false | -
+m| memberStatuses | &#160; m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ReplicatedMap
+
+ReplicatedMap is the Schema for the replicatedmaps API
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| spec | &#160; m| <<ReplicatedMapSpec,ReplicatedMapSpec>> | false | -
+m| status | &#160; m| <<ReplicatedMapStatus,ReplicatedMapStatus>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ReplicatedMapList
+
+ReplicatedMapList contains a list of ReplicatedMap
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| items | &#160; m| []<<ReplicatedMap,ReplicatedMap>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ReplicatedMapSpec
+
+ReplicatedMapSpec defines the desired state of ReplicatedMap
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| name | Name of the ReplicatedMap config to be created. If empty, CR name will be used. m| string | false | -
+m| asyncFillup | AsyncFillup specifies whether the ReplicatedMap is available for reads before the initial replication is completed m| bool | false | true
+m| inMemoryFormat | InMemoryFormat specifies in which format data will be stored in the ReplicatedMap m| <<InMemoryFormatType,InMemoryFormatType>> | false | OBJECT
+m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource. m| string | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ReplicatedMapStatus
+
+ReplicatedMapStatus defines the observed state of ReplicatedMap
 
 [cols="4,8,4,2,4"options="header"]
 |===
