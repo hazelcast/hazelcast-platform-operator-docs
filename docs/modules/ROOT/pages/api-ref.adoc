@@ -56,6 +56,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<ManagementCenterStatus,ManagementCenterStatus>>
 * <<PersistenceConfiguration,PersistenceConfiguration>>
 * <<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>>
+* <<EntryListenerConfiguration,EntryListenerConfiguration>>
 * <<EvictionConfig,EvictionConfig>>
 * <<EvictionPolicyType,EvictionPolicyType>>
 * <<InMemoryFormatType,InMemoryFormatType>>
@@ -593,6 +594,20 @@ m| uniqueKeyTransition | &#160; m| <<UniqueKeyTransition,UniqueKeyTransition>> |
 
 <<Table of Contents,Back to TOC>>
 
+=== EntryListenerConfiguration
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| className | ClassName is the fully qualified name of the class that implements any of the Listener interface. m| string | true | -
+m| includeValues | IncludeValues is an optional attribute that indicates whether the event will contain the map value. Defaults to true. m| &#42;bool | false | true
+m| local | Local is an optional attribute that indicates whether the map on the local member can be listened to. Defaults to false. m| bool | false | false
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === EvictionConfig
 
 
@@ -666,6 +681,7 @@ m| persistenceEnabled | When enabled, map data will be persisted. It cannot be u
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource. It cannot be updated after map config is created successfully. m| string | true | -
 m| mapStore | Configuration options when you want to load/store the map entries from/to a persistent data store such as a relational database You can learn more at https://docs.hazelcast.com/hazelcast/latest/data-structures/working-with-external-data m| &#42;<<MapStoreConfig,MapStoreConfig>> | false | -
 m| inMemoryFormat | InMemoryFormat specifies in which format data will be stored in your map m| <<InMemoryFormatType,InMemoryFormatType>> | false | BINARY
+m| entryListeners | EntryListeners contains the configuration for the map-level or entry-based events listeners provided by the Hazelcast’s eventing framework. You can learn more at https://docs.hazelcast.com/imdg/latest/events/object-events. m| []<<EntryListenerConfiguration,EntryListenerConfiguration>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
