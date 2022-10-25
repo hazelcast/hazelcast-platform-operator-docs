@@ -71,13 +71,12 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<MaxSizePolicyType,MaxSizePolicyType>>
 * <<UniqueKeyTransition,UniqueKeyTransition>>
 * <<CollectionType,CollectionType>>
+* <<DataStructureConfigState,DataStructureConfigState>>
 * <<MultiMap,MultiMap>>
-* <<MultiMapConfigState,MultiMapConfigState>>
 * <<MultiMapList,MultiMapList>>
 * <<MultiMapSpec,MultiMapSpec>>
 * <<MultiMapStatus,MultiMapStatus>>
 * <<Topic,Topic>>
-* <<TopicConfigState,TopicConfigState>>
 * <<TopicList,TopicList>>
 * <<TopicSpec,TopicSpec>>
 * <<TopicStatus,TopicStatus>>
@@ -748,9 +747,9 @@ MultiMapStatus defines the observed state of MultiMap
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| state | &#160; m| <<MultiMapConfigState,MultiMapConfigState>> | false | -
+m| state | &#160; m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
 m| message | &#160; m| string | false | -
-m| memberStatuses | &#160; m| map[string]<<MultiMapConfigState,MultiMapConfigState>> | false | -
+m| memberStatuses | &#160; m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -804,9 +803,9 @@ TopicStatus defines the observed state of Topic
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| state | &#160; m| <<TopicConfigState,TopicConfigState>> | false | -
+m| state | &#160; m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
 m| message | &#160; m| string | false | -
-m| memberStatuses | &#160; m| map[string]<<TopicConfigState,TopicConfigState>> | false | -
+m| memberStatuses | &#160; m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1202,7 +1201,7 @@ m| "LIST" | &#160;
 
 <<Table of Contents,Back to TOC>>
 
-=== MultiMapConfigState
+=== DataStructureConfigState
 
 
 
@@ -1212,23 +1211,7 @@ m| "LIST" | &#160;
 m| "Failed" | &#160;
 m| "Success" | &#160;
 m| "Pending" | &#160;
-m| "Persisting" | MultiMap config is added into all members but waiting for multiMap to be persisten into ConfigMap
-m| "Terminating" | &#160;
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== TopicConfigState
-
-
-
-[cols="5,10"options="header"]
-|===
-| Value | Description
-m| "Failed" | &#160;
-m| "Success" | &#160;
-m| "Pending" | &#160;
-m| "Persisting" | Topic config is added into all members but waiting for Topic to be persisten into ConfigTopic
+m| "Persisting" | The config is added into all members but waiting for the config to be persisten into ConfigMap
 m| "Terminating" | &#160;
 |===
 
