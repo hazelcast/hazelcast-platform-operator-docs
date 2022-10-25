@@ -24,3 +24,7 @@ spec:
         uniqueKey: id
         uniqueKeyTransition: RAW
   persistenceEnabled: true
+  entryListeners:
+    - className: com.example.MyListener
+      includeValues: true
+      local: false
