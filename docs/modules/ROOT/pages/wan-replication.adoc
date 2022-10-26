@@ -80,9 +80,9 @@ NAME                     STATUS    MESSAGE
 wanreplication-sample    Success
 ----
 
-You can also monitor the status of the WAN replications in xref:get-started.adoc#step-4-start-management-center[Management Center].
+You can also monitor the status of WAN replications in xref:get-started.adoc#step-4-start-management-center[Management Center].
 
 
 == Deleting the WanReplication Custom Resource
 
-Upon deletion of the WanReplication object replication of all the maps in the `.spec.resources` field will be stopped and the queues will be cleared.
+Deleting the `WanReplication` object stops the replication of all maps in the `.spec.resources` field and clears the queues.
