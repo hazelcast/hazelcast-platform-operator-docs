@@ -164,8 +164,7 @@ hot-restart-persistence-hazelcast-2   Bound    pvc-64314d82-da7a-4e38-bd2d-e770a
 
 . Apply the `Hazelcast` resource with restore configuration:
 +
-[source,bash]
-
+[source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hazelcast-persistence-restore-cr-name.yaml[]
 ----
@@ -387,6 +386,7 @@ kubectl delete hazelcast hazelcast
 Bucket Configuration::
 +
 --
+[source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hazelcast-persistence-restore-external.yaml[]
 ----
@@ -404,6 +404,7 @@ include::ROOT:example$/hazelcast-persistence-restore-external.yaml[]
 HotBackup resource name::
 +
 --
+[source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hazelcast-persistence-restore-cr-name.yaml[]
 ----
