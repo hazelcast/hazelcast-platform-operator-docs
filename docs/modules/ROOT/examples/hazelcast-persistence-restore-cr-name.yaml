@@ -1,0 +1,19 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+  clusterSize: 3
+  repository: 'docker.io/hazelcast/hazelcast-enterprise'
+  version: '{page-latest-supported-hazelcast}-slim'
+  licenseKeySecret: hazelcast-license-key
+  persistence:
+    baseDir: "/data/hot-restart/"
+    clusterDataRecoveryPolicy: "FullRecoveryOnly"
+    pvc:
+      accessModes: ["ReadWriteOnce"]
+      requestStorage: 20Gi
+    restore:
+      hotBackupResourceName: hot-backup <1>
+  agent: <2>
+    repository: hazelcast/platform-operator-agent
