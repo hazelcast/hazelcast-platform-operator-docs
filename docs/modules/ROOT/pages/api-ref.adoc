@@ -77,6 +77,10 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<MultiMapList,MultiMapList>>
 * <<MultiMapSpec,MultiMapSpec>>
 * <<MultiMapStatus,MultiMapStatus>>
+* <<Queue,Queue>>
+* <<QueueList,QueueList>>
+* <<QueueSpec,QueueSpec>>
+* <<QueueStatus,QueueStatus>>
 * <<ReplicatedMap,ReplicatedMap>>
 * <<ReplicatedMapList,ReplicatedMapList>>
 * <<ReplicatedMapSpec,ReplicatedMapSpec>>
@@ -776,6 +780,65 @@ m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelca
 === MultiMapStatus
 
 MultiMapStatus defines the observed state of MultiMap
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| state | &#160; m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
+m| message | &#160; m| string | false | -
+m| memberStatuses | &#160; m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== Queue
+
+Queue is the Schema for the queues API
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| spec | &#160; m| <<QueueSpec,QueueSpec>> | false | -
+m| status | &#160; m| <<QueueStatus,QueueStatus>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== QueueList
+
+QueueList contains a list of Queue
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| items | &#160; m| []<<Queue,Queue>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== QueueSpec
+
+QueueSpec defines the desired state of Queue It cannot be updated after the Queue is created
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| name | Name of the queue config to be created. If empty, CR name will be used. m| string | false | -
+m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource. m| string | true | -
+m| backupCount | Number of synchronous backups. m| &#42;int32 | false | 1
+m| asyncBackupCount | Number of asynchronous backups. m| &#42;int32 | false | 0
+m| maxSize | Max size of the queue. m| &#42;int32 | false | 0
+m| emptyQueueTTLSeconds | Time in seconds after which the Queue will be destroyed if it stays empty or unused. If the values is not provided the Queue will never be destroyed. m| &#42;int32 | false | -1
+m| priorityComparatorClassName | The name of the comparator class. If the class name is provided, the Queue becomes Priority Queue. You can learn more at https://docs.hazelcast.com/hazelcast/latest/data-structures/priority-queue. m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== QueueStatus
+
+QueueStatus defines the observed state of Queue
 
 [cols="4,8,4,2,4"options="header"]
 |===
