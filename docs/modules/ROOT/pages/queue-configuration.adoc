@@ -1,5 +1,5 @@
-= Configuring Topics
-:description: pass:q[Hazelcast distributed queue is an implementation of java.util.concurrent.BlockingQueue. Being distributed, Hazelcast distributed queue enables all cluster members to interact with it. Using Hazelcast distributed queue, you can add an item in one cluster member and remove it from another one. You can create and configure topics using the `Queue` custom resource.]
+= Configuring Queues
+:description: pass:q[Hazelcast distributed queue is an implementation of java.util.concurrent.BlockingQueue. Being distributed, Hazelcast distributed queue enables all cluster members to interact with it. Using Hazelcast distributed queue, you can add an item in one cluster member and remove it from another one. You can create and configure queue using the `Queue` custom resource.]
 
 {description}
 
