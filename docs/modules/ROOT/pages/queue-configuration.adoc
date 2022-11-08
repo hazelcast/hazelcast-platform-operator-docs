@@ -1,0 +1,52 @@
+= Configuring Topics
+:description: pass:q[Hazelcast distributed queue is an implementation of java.util.concurrent.BlockingQueue. Being distributed, Hazelcast distributed queue enables all cluster members to interact with it. Using Hazelcast distributed queue, you can add an item in one cluster member and remove it from another one. You can create and configure topics using the `Queue` custom resource.]
+
+{description}
+
+== Configuring a Queue Resource
+
+You can use any of the following configuration options in the `Queue` resource. For more information, see the xref:api-ref.adoc#queuespec[API Reference].
+
+[cols="20%m,80%a"]
+|===
+|Field|Description
+
+|name
+|Name of the queue configuration that you're creating. If empty, the custom resource (CR) name is used.
+
+|hazelcastResourceName
+|Defines the name of the Hazelcast resource for which the queue configuration is created.
+
+|maxSize
+|Max size of the queue.
+
+|emptyQueueTTLSeconds
+|Time in seconds after which the Queue will be destroyed if it stays empty or unused. If the values is not provided the Queue will never be destroyed.
+
+|priorityComparatorClassName
+|The name of the comparator class. If the class name is provided, the Queue becomes Priority Queue.
+
+|===
+
+== Example Configuration
+
+The following `Queue` custom resource creates a queue configuration for the `Hazelcast` custom resource that is defined in the `hazelcastResourceName` field.
+
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/queue.yaml[]
+----
+
+After creating the `Queue` resource, use the following command to check its status:
+
+[source,shell]
+----
+kubectl get queue queue-sample -o wide
+----
+
+```
+NAME            STATUS    MESSAGE
+queue-sample    Success   
+```
+
