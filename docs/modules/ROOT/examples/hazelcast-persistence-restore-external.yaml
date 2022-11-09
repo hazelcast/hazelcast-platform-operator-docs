@@ -14,7 +14,8 @@ spec:
       accessModes: ["ReadWriteOnce"]
       requestStorage: 20Gi
     restore:
-      bucketURI: "s3://operator-backup?prefix=hazelcast/2022-06-08-17-01-20/" <1>
-      secret: br-secret-s3 <2>
+      bucketConfig:
+        bucketURI: "s3://operator-backup?prefix=hazelcast/2022-06-08-17-01-20/" <1>
+        secret: br-secret-s3 <2>
   agent: <3>
     repository: hazelcast/platform-operator-agent
