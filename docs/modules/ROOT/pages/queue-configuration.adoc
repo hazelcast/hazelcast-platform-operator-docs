@@ -17,6 +17,12 @@ You can use any of the following configuration options in the `Queue` resource. 
 |hazelcastResourceName
 |Defines the name of the Hazelcast resource for which the queue configuration is created.
 
+|backupCount
+|Count of synchronous backups.
+
+|asyncBackupCount
+|Count of asynchronous backups.
+
 |maxSize
 |Max size of the queue.
 

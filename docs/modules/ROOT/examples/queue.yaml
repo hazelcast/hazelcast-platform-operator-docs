@@ -4,5 +4,8 @@ metadata:
   name: queue-sample
 spec:
   hazelcastResourceName: hazelcast
-  maxSize: 10
-  emptyQueueTTLSeconds: 100
+  backupCount: 1
+  asyncBackupCount: 0
+  emptyQueueTTLSeconds: -1
+  maxSize: 0
+  priorityComparatorClassName: "com.hazelcast.collection.impl.queue.model.PriorityElementComparator"
