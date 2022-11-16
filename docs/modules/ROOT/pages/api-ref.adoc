@@ -317,7 +317,7 @@ HazelcastSpec defines the desired state of Hazelcast
 | Field | Description | Type | Required | Default
 m| clusterSize | Number of Hazelcast members in the cluster. m| &#42;int32 | false | 3
 m| repository | Repository to pull the Hazelcast Platform image from. m| string | false | "docker.io/hazelcast/hazelcast"
-m| version | Version of Hazelcast Platform. m| string | false | "5.1.4"
+m| version | Version of Hazelcast Platform. m| string | false | "5.2.1"
 m| imagePullPolicy | Pull policy for the Hazelcast Platform image m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#pullpolicy-v1-core[corev1.PullPolicy] | false | "IfNotPresent"
 m| imagePullSecrets | Image pull secrets for the Hazelcast Platform image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
 m| licenseKeySecret | Name of the secret with Hazelcast Enterprise License Key. m| string | false | -
@@ -556,7 +556,7 @@ ManagementCenterSpec defines the desired state of ManagementCenter.
 |===
 | Field | Description | Type | Required | Default
 m| repository | Repository to pull the Management Center image from. m| string | false | "docker.io/hazelcast/management-center"
-m| version | Version of Management Center. m| string | false | "5.1.4"
+m| version | Version of Management Center. m| string | false | "5.2.0"
 m| imagePullPolicy | Pull policy for the Management Center image m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#pullpolicy-v1-core[corev1.PullPolicy] | false | "IfNotPresent"
 m| imagePullSecrets | Image pull secrets for the Management Center image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
 m| licenseKeySecret | Name of the secret with Hazelcast Enterprise License Key. m| string | false | -
