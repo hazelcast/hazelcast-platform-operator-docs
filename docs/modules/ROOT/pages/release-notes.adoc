@@ -32,4 +32,4 @@ In this release, we introduced custom resources (CRs) for xref:topic-configurati
 
 * Fixes topic controller import (https://github.com/hazelcast/hazelcast-platform-operator/pull/387[#387])
 * Fix error hiding in startBackup() function (https://github.com/hazelcast/hazelcast-platform-operator/pull/445[#445])
-* Remove the agent port from the discovery service, which fixes the problem when the member can't get an external IP (https://github.com/hazelcast/hazelcast-platform-operator/pull/409[#409])
+* Removed the agent port from the Kubernetes discovery service, to resolve an issue where external IP addresses were not correctly allocated to members (https://github.com/hazelcast/hazelcast-platform-operator/pull/409[#409])
