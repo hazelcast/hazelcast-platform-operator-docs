@@ -1,6 +1,6 @@
 = 5.5 Release Notes
 
-In this release, we introduced the Custom Resources for xref:topic-configuration.adoc[Topic], xref:multimap-configuration.adoc[Multimap] and xref:replicatedmap-configuration.adoc[Replicated Map] data structure support. We also introduced EntryListener support for Map CR.
+In this release, we introduced custom resources (CRs) for xref:topic-configuration.adoc[Topic], xref:multimap-configuration.adoc[Multimap], and xref:replicatedmap-configuration.adoc[Replicated Map] data structures. We also added EntryListener support for the Map CR.
 
 == New features
 
