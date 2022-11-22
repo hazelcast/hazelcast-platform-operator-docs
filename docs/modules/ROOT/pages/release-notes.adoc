@@ -21,7 +21,7 @@ In this release, we introduced custom resources (CRs) for xref:topic-configurati
 * Add a default value to resource Kind in WanReplication spec (https://github.com/hazelcast/hazelcast-platform-operator/pull/374[#374])
 * Added a namespaced Role and RoleBinding that are created and passed to the namespaced service account of the Hazelcast cluster to grant secret access (https://github.com/hazelcast/hazelcast-platform-operator/pull/407[#407])
 * Replaced the REST client with Go for triggering backups (https://github.com/hazelcast/hazelcast-platform-operator/pull/381[#381])
-* Change default repo to EE when licenseKeySecret is present (https://github.com/hazelcast/hazelcast-platform-operator/pull/402[#402])
+* Changed the default repository to Hazelcast Enterprise when the `licenseKeySecret` is present (https://github.com/hazelcast/hazelcast-platform-operator/pull/402[#402])
 * Enables TLS for the backup server sidecar (https://github.com/hazelcast/hazelcast-platform-operator/pull/350[#350])
 * Added a retry for backup service calls (https://github.com/hazelcast/hazelcast-platform-operator/pull/434[#434])
 * Add WanReplication API Ref (https://github.com/hazelcast/hazelcast-platform-operator/pull/355[#355])
