@@ -32,6 +32,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>>
 * <<HazelcastSpec,HazelcastSpec>>
 * <<HazelcastStatus,HazelcastStatus>>
+* <<JetEngineConfiguration,JetEngineConfiguration>>
 * <<LoggingLevel,LoggingLevel>>
 * <<MemberAccess,MemberAccess>>
 * <<PersistencePvcConfiguration,PersistencePvcConfiguration>>
@@ -327,6 +328,7 @@ m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingC
 m| resources | Compute Resources required by the Hazelcast container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | {}
 m| persistence | Persistence configuration m| &#42;<<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>> | false | {}
 m| agent | B&R Agent configurations m| &#42;<<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.8"}
+m| jet | Jet Engine configuration m| &#42;<<JetEngineConfiguration,JetEngineConfiguration>> | false | {enabled: true}
 m| userCodeDeployment | User Codes to Download into CLASSPATH m| &#42;<<UserCodeDeploymentConfig,UserCodeDeploymentConfig>> | false | -
 m| executorServices | &#160; m| []<<ExecutorServiceConfiguration,ExecutorServiceConfiguration>> | false | -
 m| durableExecutorServices | &#160; m| []<<DurableExecutorServiceConfiguration,DurableExecutorServiceConfiguration>> | false | -
@@ -350,6 +352,19 @@ m| message | Message about the Hazelcast cluster state m| string | false | -
 m| externalAddresses | External addresses of the Hazelcast cluster members m| string | false | -
 m| members | Status of Hazelcast members m| []<<HazelcastMemberStatus,HazelcastMemberStatus>> | false | -
 m| restore | Status of restore process of the Hazelcast cluster m| &#42;<<RestoreStatus,RestoreStatus>> | false | {}
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== JetEngineConfiguration
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| enabled | When false, disables Jet Engine. m| &#42;bool | false | true
+m| resourceUploadEnabled | When true, enables resource uploading for Jet jobs. m| bool | false | false
 |===
 
 <<Table of Contents,Back to TOC>>
