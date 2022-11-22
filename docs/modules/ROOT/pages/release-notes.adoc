@@ -4,7 +4,7 @@ In this release, we introduced custom resources (CRs) for xref:topic-configurati
 
 == New features
 
-* Add support for MultiMap CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/367[#367])
+* Added support for the MultiMap CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/367[#367])
 * Add support for Topic CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/371[#371])
 * Add support for ReplicatedMap CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/394[#394])
 * Add support for CronHotBackup CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/362[#362])
