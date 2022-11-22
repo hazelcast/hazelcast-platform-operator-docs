@@ -24,7 +24,7 @@ In this release, we introduced custom resources (CRs) for xref:topic-configurati
 * Changed the default repository to Hazelcast Enterprise when the `licenseKeySecret` is present (https://github.com/hazelcast/hazelcast-platform-operator/pull/402[#402])
 * Enables TLS for the backup server sidecar (https://github.com/hazelcast/hazelcast-platform-operator/pull/350[#350])
 * Added a retry for backup service calls (https://github.com/hazelcast/hazelcast-platform-operator/pull/434[#434])
-* Add WanReplication API Ref (https://github.com/hazelcast/hazelcast-platform-operator/pull/355[#355])
+* Added `WanReplication` to the API reference (https://github.com/hazelcast/hazelcast-platform-operator/pull/355[#355])
 * Refactored the Multimap and Topic CR data structures and Hazelcast's `configMap` creation (https://github.com/hazelcast/hazelcast-platform-operator/pull/393[#393])
 * Upgraded Hazelcast and Management Center versions to 5.1.4
 
