@@ -7,7 +7,7 @@ In this release, we introduced custom resources (CRs) for xref:topic-configurati
 * Added support for the MultiMap CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/367[#367])
 * Added support for Topic CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/371[#371])
 * Added support for the ReplicatedMap CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/394[#394])
-* Add support for CronHotBackup CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/362[#362])
+* Added support for the CronHotBackup CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/362[#362])
 * Add support for restoring from HotBackup resource name (https://github.com/hazelcast/hazelcast-platform-operator/pull/401[#401])
 * Make Jet engine configurable from Hazelcast CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/457[#457])
 * Add Map Entry listener to get notified when a map entry is added, removed, updated, evicted, or expired (https://github.com/hazelcast/hazelcast-platform-operator/pull/408[#408])
