@@ -1,31 +1,35 @@
-= 5.4 Release Notes
+= 5.5 Release Notes
 
-In this release, we introduced the xref:user-code-deployment.adoc[User Code Deployment] feature, which allows you to deploy custom and domain classes to Hazelcast members. We also introduced support for xref:wan-replication.adoc[WAN replication].
+In this release, we introduced the Custom Resources for xref:topic-configuration.adoc[Topic], xref:multimap-configuration.adoc[Multimap] and xref:replicatedmap-configuration.adoc[Replicated Map] data structure support. We also introduced EntryListener support for Map CR.
 
 == New features
 
-* Added support for WAN replication (https://github.com/hazelcast/hazelcast-platform-operator/pull/226[#226])
-* Added support for the `EntryProcessor` interface (https://github.com/hazelcast/hazelcast-platform-operator/pull/334[#334])
-* Added supported for the `MapStore`/`MapLoader` interfaces (https://github.com/hazelcast/hazelcast-platform-operator/pull/291[#291])
-* Added support for the Executor service (https://github.com/hazelcast/hazelcast-platform-operator/pull/300[#300])
+* Add support for MultiMap CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/367[#367])
+* Add support for Topic CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/371[#371])
+* Add support for ReplicatedMap CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/394[#394])
+* Add support for CronHotBackup CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/362[#362])
+* Add support for restoring from HotBackup resource name (https://github.com/hazelcast/hazelcast-platform-operator/pull/401[#401])
+* Make Jet engine configurable from Hazelcast CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/457[#457])
+* Add Map Entry listener to get notified when a map entry is added, removed, updated, evicted, or expired (https://github.com/hazelcast/hazelcast-platform-operator/pull/408[#408])
+* Add support WAN Replication for multiple resources (https://github.com/hazelcast/hazelcast-platform-operator/pull/363[#363])
+* Add ClearWanQueue function into WanReplication finalizer executor (https://github.com/hazelcast/hazelcast-platform-operator/pull/403[#403])
+* Make LOGGING_LEVEL configurable for Hazelcast containers (https://github.com/hazelcast/hazelcast-platform-operator/pull/352[#352])
 
 == Changes
 
-* Enabled client-side code deployments (https://github.com/hazelcast/hazelcast-platform-operator/pull/340[#340])
-* Enabled JAR file uploads using ConfigMaps (https://github.com/hazelcast/hazelcast-platform-operator/pull/304[#304])
-* Enabled JAR file downloads into the Java classpath (PVC) (https://github.com/hazelcast/hazelcast-platform-operator/pull/244[#244])
-* Enabled a reference to the `Map` resource so that the resource is updated with configuration changes for WAN replication (https://github.com/hazelcast/hazelcast-platform-operator/pull/216[#216])
-* When a Hazelcast CR is marked for deletion, all dependent CRs are also deleted (https://github.com/hazelcast/hazelcast-platform-operator/pull/314[#314])
-* Added support for stopping hot backups gracefully (https://github.com/hazelcast/hazelcast-platform-operator/pull/318[#318])
-* Added configuration to skip checks of the Management Center lock file  (https://github.com/hazelcast/hazelcast-platform-operator/pull/333[#333])
-* Added Phone Home data collection as a separate process (https://github.com/hazelcast/hazelcast-platform-operator/pull/336[#336])
-* Added Phone Home data collection for Map CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/341[#341]), WAN replication (https://github.com/hazelcast/hazelcast-platform-operator/pull/342[#342]), user code deployment (https://github.com/hazelcast/hazelcast-platform-operator/pull/342[#342]), and backup and restore (https://github.com/hazelcast/hazelcast-platform-operator/pull/345[#345])
+* Remove the schedule from HotBackup API (https://github.com/hazelcast/hazelcast-platform-operator/pull/362[#362])
+* Add a default value to resource Kind in WanReplication spec (https://github.com/hazelcast/hazelcast-platform-operator/pull/374[#374])
+* Add namespaced Role and RoleBinding that are created and passed to the namespaced service account of the hazelcast cluster to grant secret access (https://github.com/hazelcast/hazelcast-platform-operator/pull/407[#407])
+* Replace REST client with Go for backup (https://github.com/hazelcast/hazelcast-platform-operator/pull/381[#381])
+* Change default repo to EE when licenseKeySecret is present (https://github.com/hazelcast/hazelcast-platform-operator/pull/402[#402])
+* Use TLS for backup server sidecar (https://github.com/hazelcast/hazelcast-platform-operator/pull/350[#350])
+* Add retry for backup service calls (https://github.com/hazelcast/hazelcast-platform-operator/pull/434[#434])
+* Add WanReplication API Ref (https://github.com/hazelcast/hazelcast-platform-operator/pull/355[#355])
+* Refactor Multimap CR and Topic CR data structure and Hazelcast configMap creation (https://github.com/hazelcast/hazelcast-platform-operator/pull/393[#393])
+* Upgraded Hazelcast and MC versions to 5.1.4
 
 == Fixed Issues
 
-* The "Reconciler error" is no longer thrown at the beginning of the setup process for Hazelcast Platform. (https://github.com/hazelcast/hazelcast-platform-operator/pull/323[#323])
-* Fixed the issue with hot backups where the status was set to successful before the upload of the external backup had completed (https://github.com/hazelcast/hazelcast-platform-operator/pull/242[#242])
-*  Fixed the issue for HotBackup with BucketURI, which incorrectly triggered a backup upload for the Local backup type (https://github.com/hazelcast/hazelcast-platform-operator/pull/261[#261])
-* Fixed the timeout issue for long-running backup uploads in the platform-operator-agent (https://github.com/hazelcast/hazelcast-platform-operator/pull/288[#288])
-* Fixed an error which occurred when enabling persistence without PVC (https://github.com/hazelcast/hazelcast-platform-operator/pull/339[#339])
-* Fixed an operator issue which caused it to remain idle instead of picking up new CRs  (https://github.com/hazelcast/hazelcast-platform-operator/pull/343[#343])
+* Fix topic controller import (https://github.com/hazelcast/hazelcast-platform-operator/pull/387[#387])
+* Fix error hiding in startBackup() function (https://github.com/hazelcast/hazelcast-platform-operator/pull/445[#445])
+* Remove the agent port from the discovery service, which fixes the problem when the member can't get an external IP (https://github.com/hazelcast/hazelcast-platform-operator/pull/409[#409])
