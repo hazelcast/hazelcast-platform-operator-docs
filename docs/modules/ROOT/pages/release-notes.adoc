@@ -13,7 +13,7 @@ In this release, we introduced custom resources (CRs) for xref:topic-configurati
 * Add Map Entry listener to get notified when a map entry is added, removed, updated, evicted, or expired (https://github.com/hazelcast/hazelcast-platform-operator/pull/408[#408])
 * Add support for using WAN Replication with multiple resources (https://github.com/hazelcast/hazelcast-platform-operator/pull/363[#363])
 * Add ClearWanQueue function into WanReplication finalizer executor (https://github.com/hazelcast/hazelcast-platform-operator/pull/403[#403])
-* Make LOGGING_LEVEL configurable for Hazelcast containers (https://github.com/hazelcast/hazelcast-platform-operator/pull/352[#352])
+* Made the `LOGGING_LEVEL` configurable for Hazelcast containers (https://github.com/hazelcast/hazelcast-platform-operator/pull/352[#352])
 
 == Changes
 
