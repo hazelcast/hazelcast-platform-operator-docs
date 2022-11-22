@@ -25,7 +25,7 @@ In this release, we introduced custom resources (CRs) for xref:topic-configurati
 * Use TLS for backup server sidecar (https://github.com/hazelcast/hazelcast-platform-operator/pull/350[#350])
 * Add retry for backup service calls (https://github.com/hazelcast/hazelcast-platform-operator/pull/434[#434])
 * Add WanReplication API Ref (https://github.com/hazelcast/hazelcast-platform-operator/pull/355[#355])
-* Refactor Multimap CR and Topic CR data structure and Hazelcast configMap creation (https://github.com/hazelcast/hazelcast-platform-operator/pull/393[#393])
+* Refactored the Multimap and Topic CR data structures and Hazelcast's `configMap` creation (https://github.com/hazelcast/hazelcast-platform-operator/pull/393[#393])
 * Upgraded Hazelcast and MC versions to 5.1.4
 
 == Fixed Issues
