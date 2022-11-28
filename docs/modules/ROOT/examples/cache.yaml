@@ -1,0 +1,11 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: Cache
+metadata:
+  name: cache-sample
+spec:
+  hazelcastResourceName: hazelcast
+  backupCount: 1
+  asyncBackupCount: 0
+  keyType: java.lang.Object
+  valueType: java.lang.Object
+  persistenceEnabled: false

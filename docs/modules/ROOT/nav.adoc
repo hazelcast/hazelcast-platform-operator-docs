@@ -8,6 +8,7 @@
 ** xref:multimap-configuration.adoc[MultiMap]
 ** xref:topic-configuration.adoc[Topic]
 ** xref:queue-configuration.adoc[Queue]
+** xref:cache-configuration.adoc[Cache]
 ** xref:replicatedmap-configuration.adoc[ReplicatedMap]
 * xref:backup-restore.adoc[Persistence, Backup, and Restore]
 * xref:wan-replication.adoc[Configuring WAN Replication]
