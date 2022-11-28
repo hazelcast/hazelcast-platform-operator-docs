@@ -11,6 +11,10 @@ These are all the types and fields that are used in the Hazelcast Platform Opera
 TIP: This document was generated from comments in the Go code in the api/ directory.
 
 === Table of Contents
+* <<Cache,Cache>>
+* <<CacheList,CacheList>>
+* <<CacheSpec,CacheSpec>>
+* <<CacheStatus,CacheStatus>>
 * <<CronHotBackup,CronHotBackup>>
 * <<CronHotBackupList,CronHotBackupList>>
 * <<CronHotBackupSpec,CronHotBackupSpec>>
@@ -73,7 +77,6 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<MaxSizePolicyType,MaxSizePolicyType>>
 * <<UniqueKeyTransition,UniqueKeyTransition>>
 * <<CollectionType,CollectionType>>
-* <<DataStructureConfigState,DataStructureConfigState>>
 * <<MultiMap,MultiMap>>
 * <<MultiMapList,MultiMapList>>
 * <<MultiMapSpec,MultiMapSpec>>
@@ -103,6 +106,46 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<WanReplicationSpec,WanReplicationSpec>>
 * <<WanReplicationStatus,WanReplicationStatus>>
 * <<WanStatus,WanStatus>>
+
+=== Cache
+
+Cache is the Schema for the caches API
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| spec | &#160; m| <<CacheSpec,CacheSpec>> | false | -
+m| status | &#160; m| <<CacheStatus,CacheStatus>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== CacheList
+
+CacheList contains a list of Cache
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| items | &#160; m| []<<Cache,Cache>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== CacheSpec
+
+CacheSpec defines the desired state of Cache It cannot be updated after the Cache is created
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| keyType | Class name of the key type m| string | false | -
+m| valueType | Class name of the value type m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
 
 === CronHotBackup
 
@@ -703,14 +746,11 @@ MapSpec defines the desired state of Hazelcast Map Config
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| name | Name of the map config to be created. If empty, CR name will be used. It cannot be updated after map config is created successfully. m| string | false | -
-m| backupCount | Count of synchronous backups. It cannot be updated after map config is created successfully. m| &#42;int32 | false | 1
 m| timeToLiveSeconds | Maximum time in seconds for each entry to stay in the map. If it is not 0, entries that are older than this time and not updated for this time are evicted automatically. It can be updated. m| &#42;int32 | false | 0
 m| maxIdleSeconds | Maximum time in seconds for each entry to stay idle in the map. Entries that are idle for more than this time are evicted automatically. It can be updated. m| &#42;int32 | false | 0
 m| eviction | Configuration for removing data from the map when it reaches its max size. It can be updated. m| &#42;<<EvictionConfig,EvictionConfig>> | false | {maxSize: 0}
 m| indexes | Indexes to be created for the map data. You can learn more at https://docs.hazelcast.com/hazelcast/latest/query/indexing-maps. It cannot be updated after map config is created successfully. m| []<<IndexConfig,IndexConfig>> | false | -
 m| persistenceEnabled | When enabled, map data will be persisted. It cannot be updated after map config is created successfully. m| bool | false | false
-m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource. It cannot be updated after map config is created successfully. m| string | true | -
 m| mapStore | Configuration options when you want to load/store the map entries from/to a persistent data store such as a relational database You can learn more at https://docs.hazelcast.com/hazelcast/latest/data-structures/working-with-external-data m| &#42;<<MapStoreConfig,MapStoreConfig>> | false | -
 m| inMemoryFormat | InMemoryFormat specifies in which format data will be stored in your map m| <<InMemoryFormatType,InMemoryFormatType>> | false | BINARY
 m| entryListeners | EntryListeners contains the configuration for the map-level or entry-based events listeners provided by the Hazelcast’s eventing framework. You can learn more at https://docs.hazelcast.com/hazelcast/latest/events/object-events. m| []<<EntryListenerConfiguration,EntryListenerConfiguration>> | false | -
@@ -783,25 +823,8 @@ MultiMapSpec defines the desired state of MultiMap
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| name | Name of the multiMap config to be created. If empty, CR name will be used. m| string | false | -
-m| backupCount | Count of synchronous backups. m| &#42;int32 | false | 1
 m| binary | Specifies in which format data will be stored in your multiMap. false: OBJECT true: BINARY m| bool | false | false
 m| collectionType | Type of the value collection m| <<CollectionType,CollectionType>> | false | SET
-m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource. m| string | true | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== MultiMapStatus
-
-MultiMapStatus defines the observed state of MultiMap
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| state | &#160; m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
-m| message | &#160; m| string | false | -
-m| memberStatuses | &#160; m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -840,27 +863,9 @@ QueueSpec defines the desired state of Queue It cannot be updated after the Queu
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| name | Name of the queue config to be created. If empty, CR name will be used. m| string | false | -
-m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource. m| string | true | -
-m| backupCount | Number of synchronous backups. m| &#42;int32 | false | 1
-m| asyncBackupCount | Number of asynchronous backups. m| &#42;int32 | false | 0
 m| maxSize | Max size of the queue. m| &#42;int32 | false | 0
 m| emptyQueueTTLSeconds | Time in seconds after which the Queue will be destroyed if it stays empty or unused. If the values is not provided the Queue will never be destroyed. m| &#42;int32 | false | -1
 m| priorityComparatorClassName | The name of the comparator class. If the class name is provided, the Queue becomes Priority Queue. You can learn more at https://docs.hazelcast.com/hazelcast/latest/data-structures/priority-queue. m| string | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== QueueStatus
-
-QueueStatus defines the observed state of Queue
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| state | &#160; m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
-m| message | &#160; m| string | false | -
-m| memberStatuses | &#160; m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -907,20 +912,6 @@ m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelca
 
 <<Table of Contents,Back to TOC>>
 
-=== ReplicatedMapStatus
-
-ReplicatedMapStatus defines the observed state of ReplicatedMap
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| state | &#160; m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
-m| message | &#160; m| string | false | -
-m| memberStatuses | &#160; m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
 === Topic
 
 Topic is the Schema for the topics API
@@ -959,20 +950,6 @@ m| name | Name of the topic config to be created. If empty, CR name will be used
 m| globalOrderingEnabled | When true all nodes listening to the same topic get their messages in the same order m| bool | false | false
 m| multiThreadingEnabled | When true enables multi-threaded processing of incoming messages, otherwise a single thread will handle all topic messages m| bool | false | false
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource for which topic config will be created m| string | true | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== TopicStatus
-
-TopicStatus defines the observed state of Topic
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| state | &#160; m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
-m| message | &#160; m| string | false | -
-m| memberStatuses | &#160; m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1364,22 +1341,6 @@ CollectionType represents the value collection options for storing the data in t
 | Value | Description
 m| "SET" | &#160;
 m| "LIST" | &#160;
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== DataStructureConfigState
-
-
-
-[cols="5,10"options="header"]
-|===
-| Value | Description
-m| "Failed" | &#160;
-m| "Success" | &#160;
-m| "Pending" | &#160;
-m| "Persisting" | The config is added into all members but waiting for the config to be persisten into ConfigMap
-m| "Terminating" | &#160;
 |===
 
 <<Table of Contents,Back to TOC>>
