@@ -216,6 +216,7 @@ m| backupCount | Number of synchronous backups. m| &#42;int32 | false | 1
 m| asyncBackupCount | Number of asynchronous backups. m| &#42;int32 | false | 0
 m| keyType | Class name of the key type m| string | false | -
 m| valueType | Class name of the value type m| string | false | -
+m| persistenceEnabled | When enabled, cache data will be persisted. m| bool | false | false
 |===
 
 <<Table of Contents,Back to TOC>>
