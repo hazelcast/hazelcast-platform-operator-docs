@@ -119,7 +119,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 |===
 | Field | Description | Type | Required | Default
 m| type | Type represents how a batch of replication events is considered successfully replicated. m| <<AcknowledgementType,AcknowledgementType>> | false | ACK_ON_OPERATION_COMPLETE
-m| timeout | Timeout represents the time the source cluster waits for the acknowledgement. After timeout, the events will be resent. m| int32 | false | 60000
+m| timeout | Timeout represents the time in milliseconds the source cluster waits for the acknowledgement. After timeout, the events will be resent. m| int32 | false | 60000
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -132,7 +132,7 @@ m| timeout | Timeout represents the time the source cluster waits for the acknow
 |===
 | Field | Description | Type | Required | Default
 m| repository | Repository to pull Hazelcast Platform Operator Agent(https://github.com/hazelcast/platform-operator-agent) m| string | false | "docker.io/hazelcast/platform-operator-agent"
-m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.10"
+m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.11"
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -184,7 +184,7 @@ Cache is the Schema for the caches API
 |===
 | Field | Description | Type | Required | Default
 m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
-m| spec | &#160; m| <<CacheSpec,CacheSpec>> | false | -
+m| spec | &#160; m| <<CacheSpec,CacheSpec>> | true | -
 m| status | &#160; m| <<CacheStatus,CacheStatus>> | false | -
 |===
 
@@ -213,7 +213,7 @@ CacheSpec defines the desired state of Cache It cannot be updated after the Cach
 m| name | Name of the data structure config to be created. If empty, CR name will be used. It cannot be updated after the config is created successfully. m| string | false | -
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource. m| string | true | -
 m| backupCount | Number of synchronous backups. m| &#42;int32 | false | 1
-m| asyncBackupCount | Number of asynchronous backups. m| &#42;int32 | false | 0
+m| asyncBackupCount | Number of asynchronous backups. m| int32 | false | 0
 m| keyType | Class name of the key type m| string | false | -
 m| valueType | Class name of the value type m| string | false | -
 m| persistenceEnabled | When enabled, cache data will be persisted. m| bool | false | false
@@ -271,8 +271,8 @@ CronHotBackupSpec defines the desired state of CronHotBackup
 | Field | Description | Type | Required | Default
 m| schedule | Schedule contains a crontab-like expression that defines the schedule in which HotBackup will be started. If the Schedule is empty the HotBackup will start only once when applied. m| string | true | -
 m| hotBackupTemplate | Specifies the hot backup that will be created when executing a CronHotBackup. m| <<HotBackupTemplateSpec,HotBackupTemplateSpec>> | true | -
-m| successfulHotBackupsHistoryLimit | The number of successful finished hot backups to retain. This is a pointer to distinguish between explicit zero and not specified. m| &#42;int32 | false | 5
-m| failedHotBackupsHistoryLimit | The number of failed finished hot backups to retain. This is a pointer to distinguish between explicit zero and not specified. m| &#42;int32 | false | 3
+m| successfulHotBackupsHistoryLimit | The number of successful finished hot backups to retain. m| &#42;int32 | false | 5
+m| failedHotBackupsHistoryLimit | The number of failed finished hot backups to retain. m| &#42;int32 | false | 3
 m| suspend | When true, CronHotBackup will stop creating HotBackup CRs until it is disabled m| bool | false | false
 |===
 
@@ -288,7 +288,7 @@ m| suspend | When true, CronHotBackup will stop creating HotBackup CRs until it 
 m| name | Name of the data structure config to be created. If empty, CR name will be used. It cannot be updated after the config is created successfully. m| string | false | -
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource. m| string | true | -
 m| backupCount | Number of synchronous backups. m| &#42;int32 | false | 1
-m| asyncBackupCount | Number of asynchronous backups. m| &#42;int32 | false | 0
+m| asyncBackupCount | Number of asynchronous backups. m| int32 | false | 0
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -344,7 +344,7 @@ m| local | Local is an optional attribute that indicates whether the map on the 
 |===
 | Field | Description | Type | Required | Default
 m| evictionPolicy | Eviction policy to be applied when map reaches its max size according to the max size policy. m| <<EvictionPolicyType,EvictionPolicyType>> | false | "NONE"
-m| maxSize | Max size of the map. m| &#42;int32 | false | 0
+m| maxSize | Max size of the map. m| int32 | false | 0
 m| maxSizePolicy | Policy for deciding if the maxSize is reached. m| <<MaxSizePolicyType,MaxSizePolicyType>> | false | "PER_NODE"
 |===
 
@@ -398,7 +398,7 @@ Hazelcast is the Schema for the hazelcasts API
 |===
 | Field | Description | Type | Required | Default
 m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
-m| spec | &#160; m| <<HazelcastSpec,HazelcastSpec>> | false | {"repository" : "docker.io/hazelcast/hazelcast"}
+m| spec | Initial values will be filled with its fields' default values. m| <<HazelcastSpec,HazelcastSpec>> | false | {"repository" : "docker.io/hazelcast/hazelcast"}
 m| status | &#160; m| <<HazelcastStatus,HazelcastStatus>> | false | -
 |===
 
@@ -424,7 +424,7 @@ HazelcastClusterStatus defines the status of the Hazelcast cluster
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| readyMembers | ReadyMembers represents the number of members that are connected to cluster from the desired number of members in the format <ready>/<desired> m| string | true | -
+m| readyMembers | ReadyMembers represents the number of members that are connected to cluster from the desired number of members in the format <ready>/<desired> m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -457,10 +457,10 @@ m| state | State represents the observed state of the member. m| <<NodeState,Nod
 m| master | Master flag is set to true if the member is master. m| bool | false | -
 m| lite | Lite is the flag that is true when the member is lite-member. m| bool | false | -
 m| ownedPartitions | OwnedPartitions represents the partitions count on the member. m| int32 | false | -
-m| connected | Ready is the flag that is set to true when the member is successfully started, connected to cluster and ready to accept connections. m| bool | true | -
+m| connected | Ready is the flag that is set to true when the member is successfully started, connected to cluster and ready to accept connections. m| bool | false | -
 m| message | Message contains the optional message with the details of the cluster state. m| string | false | -
 m| reason | Reason contains the optional reason of member crash or restart. m| string | false | -
-m| restartCount | RestartCount is the number of times the member has been restarted. m| int32 | true | -
+m| restartCount | RestartCount is the number of times the member has been restarted. m| int32 | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -476,9 +476,9 @@ m| baseDir | Persistence base directory. m| string | true | -
 m| clusterDataRecoveryPolicy | Configuration of the cluster recovery strategy. m| <<DataRecoveryPolicyType,DataRecoveryPolicyType>> | false | "FullRecoveryOnly"
 m| autoForceStart | AutoForceStart enables the detection of constantly failing cluster and trigger the Force Start action. m| bool | false | false
 m| dataRecoveryTimeout | DataRecoveryTimeout is timeout for each step of data recovery in seconds. Maximum timeout is equal to DataRecoveryTimeout*2 (for each step: validation and data-load). m| int32 | false | -
-m| pvc | Configuration of PersistenceVolumeClaim. m| <<PersistencePvcConfiguration,PersistencePvcConfiguration>> | false | -
+m| pvc | Configuration of PersistenceVolumeClaim. m| <<PersistencePvcConfiguration,PersistencePvcConfiguration>> | false | {}
 m| hostPath | Host Path directory. m| string | false | -
-m| restore | Restore configuration m| &#42;<<RestoreConfiguration,RestoreConfiguration>> | false | {}
+m| restore | Restore configuration m| <<RestoreConfiguration,RestoreConfiguration>> | false | {}
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -498,12 +498,12 @@ m| imagePullSecrets | Image pull secrets for the Hazelcast Platform image m| []h
 m| licenseKeySecret | Name of the secret with Hazelcast Enterprise License Key. m| string | false | -
 m| exposeExternally | Configuration to expose Hazelcast cluster to external clients. m| &#42;<<ExposeExternallyConfiguration,ExposeExternallyConfiguration>> | false | {}
 m| clusterName | Name of the Hazelcast cluster. m| string | false | "dev"
-m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingConfiguration>> | false | {}
-m| resources | Compute Resources required by the Hazelcast container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | {}
+m| scheduling | Scheduling details m| <<SchedulingConfiguration,SchedulingConfiguration>> | false | {}
+m| resources | Compute Resources required by the Hazelcast container. m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | {}
 m| persistence | Persistence configuration m| &#42;<<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>> | false | {}
-m| agent | B&R Agent configurations m| &#42;<<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.11"}
-m| jet | Jet Engine configuration m| &#42;<<JetEngineConfiguration,JetEngineConfiguration>> | false | {enabled: true}
-m| userCodeDeployment | User Codes to Download into CLASSPATH m| &#42;<<UserCodeDeploymentConfig,UserCodeDeploymentConfig>> | false | -
+m| agent | B&R Agent configurations m| <<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.11"}
+m| jet | Jet Engine configuration m| <<JetEngineConfiguration,JetEngineConfiguration>> | false | {enabled: true, resourceUploadEnabled: false}
+m| userCodeDeployment | User Codes to Download into CLASSPATH m| <<UserCodeDeploymentConfig,UserCodeDeploymentConfig>> | false | {}
 m| executorServices | &#160; m| []<<ExecutorServiceConfiguration,ExecutorServiceConfiguration>> | false | -
 m| durableExecutorServices | &#160; m| []<<DurableExecutorServiceConfiguration,DurableExecutorServiceConfiguration>> | false | -
 m| scheduledExecutorServices | &#160; m| []<<ScheduledExecutorServiceConfiguration,ScheduledExecutorServiceConfiguration>> | false | -
@@ -525,7 +525,7 @@ m| hazelcastClusterStatus | Status of the Hazelcast cluster m| <<HazelcastCluste
 m| message | Message about the Hazelcast cluster state m| string | false | -
 m| externalAddresses | External addresses of the Hazelcast cluster members m| string | false | -
 m| members | Status of Hazelcast members m| []<<HazelcastMemberStatus,HazelcastMemberStatus>> | false | -
-m| restore | Status of restore process of the Hazelcast cluster m| &#42;<<RestoreStatus,RestoreStatus>> | false | {}
+m| restore | Status of restore process of the Hazelcast cluster m| <<RestoreStatus,RestoreStatus>> | false | {}
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -538,8 +538,8 @@ HotBackup is the Schema for the hot backup API
 |===
 | Field | Description | Type | Required | Default
 m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
-m| status | &#160; m| <<HotBackupStatus,HotBackupStatus>> | false | -
 m| spec | &#160; m| <<HotBackupSpec,HotBackupSpec>> | true | -
+m| status | &#160; m| <<HotBackupStatus,HotBackupStatus>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -578,8 +578,8 @@ HotBackupStatus defines the observed state of HotBackup
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| state | &#160; m| <<HotBackupState,HotBackupState>> | true | -
-m| message | &#160; m| string | true | -
+m| state | &#160; m| <<HotBackupState,HotBackupState>> | false | -
+m| message | &#160; m| string | false | -
 m| backupUUIDs | &#160; m| []string | false | -
 |===
 
@@ -607,8 +607,8 @@ m| spec | Specification of the desired behavior of the hot backup. m| <<HotBacku
 | Field | Description | Type | Required | Default
 m| name | Name of the index config. m| string | false | -
 m| type | Type of the index. m| <<IndexType,IndexType>> | true | -
-m| attributes | Attributes of the index. m| []string | true | -
-m| bitMapIndexOptions | Options for "BITMAP" index type. m| &#42;<<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>> | false | -
+m| attributes | Attributes of the index. m| []string | false | -
+m| bitMapIndexOptions | Options for "BITMAP" index type. m| &#42;<<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>> | false | {}
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -634,7 +634,7 @@ ManagementCenter is the Schema for the managementcenters API
 |===
 | Field | Description | Type | Required | Default
 m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
-m| spec | &#160; m| <<ManagementCenterSpec,ManagementCenterSpec>> | false | {"repository" : "docker.io/hazelcast/management-center"}
+m| spec | Initial values will be filled with its fields' default values. m| <<ManagementCenterSpec,ManagementCenterSpec>> | false | {"repository" : "docker.io/hazelcast/management-center"}
 m| status | &#160; m| <<ManagementCenterStatus,ManagementCenterStatus>> | false | -
 |===
 
@@ -666,10 +666,10 @@ m| imagePullPolicy | Pull policy for the Management Center image m| https://kube
 m| imagePullSecrets | Image pull secrets for the Management Center image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
 m| licenseKeySecret | Name of the secret with Hazelcast Enterprise License Key. m| string | false | -
 m| hazelcastClusters | Connection configuration for the Hazelcast clusters that Management Center will monitor. m| []<<HazelcastClusterConfig,HazelcastClusterConfig>> | false | -
-m| externalConnectivity | Configuration to expose Management Center to outside. m| &#42;<<ExternalConnectivityConfiguration,ExternalConnectivityConfiguration>> | false | {type: "LoadBalancer"}
-m| persistence | Configuration for Management Center persistence. m| &#42;<<PersistenceConfiguration,PersistenceConfiguration>> | false | {enabled: true, size: "10Gi"}
-m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingConfiguration>> | false | -
-m| resources | Compute Resources required by the MC container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | {}
+m| externalConnectivity | Configuration to expose Management Center to outside. m| <<ExternalConnectivityConfiguration,ExternalConnectivityConfiguration>> | false | {type: "LoadBalancer"}
+m| persistence | Configuration for Management Center persistence. m| <<PersistenceConfiguration,PersistenceConfiguration>> | false | {enabled: true, size: "10Gi"}
+m| scheduling | Scheduling details m| <<SchedulingConfiguration,SchedulingConfiguration>> | false | {}
+m| resources | Compute Resources required by the MC container. m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | {}
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -725,10 +725,10 @@ MapSpec defines the desired state of Hazelcast Map Config
 m| name | Name of the data structure config to be created. If empty, CR name will be used. It cannot be updated after the config is created successfully. m| string | false | -
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource. m| string | true | -
 m| backupCount | Number of synchronous backups. m| &#42;int32 | false | 1
-m| asyncBackupCount | Number of asynchronous backups. m| &#42;int32 | false | 0
-m| timeToLiveSeconds | Maximum time in seconds for each entry to stay in the map. If it is not 0, entries that are older than this time and not updated for this time are evicted automatically. It can be updated. m| &#42;int32 | false | 0
-m| maxIdleSeconds | Maximum time in seconds for each entry to stay idle in the map. Entries that are idle for more than this time are evicted automatically. It can be updated. m| &#42;int32 | false | 0
-m| eviction | Configuration for removing data from the map when it reaches its max size. It can be updated. m| &#42;<<EvictionConfig,EvictionConfig>> | false | {maxSize: 0}
+m| asyncBackupCount | Number of asynchronous backups. m| int32 | false | 0
+m| timeToLiveSeconds | Maximum time in seconds for each entry to stay in the map. If it is not 0, entries that are older than this time and not updated for this time are evicted automatically. It can be updated. m| int32 | false | 0
+m| maxIdleSeconds | Maximum time in seconds for each entry to stay idle in the map. Entries that are idle for more than this time are evicted automatically. It can be updated. m| int32 | false | 0
+m| eviction | Configuration for removing data from the map when it reaches its max size. It can be updated. m| <<EvictionConfig,EvictionConfig>> | false | {maxSize: 0, evictionPolicy: NONE, maxSizePolicy: PER_NODE}
 m| indexes | Indexes to be created for the map data. You can learn more at https://docs.hazelcast.com/hazelcast/latest/query/indexing-maps. It cannot be updated after map config is created successfully. m| []<<IndexConfig,IndexConfig>> | false | -
 m| persistenceEnabled | When enabled, map data will be persisted. It cannot be updated after map config is created successfully. m| bool | false | false
 m| mapStore | Configuration options when you want to load/store the map entries from/to a persistent data store such as a relational database You can learn more at https://docs.hazelcast.com/hazelcast/latest/data-structures/working-with-external-data m| &#42;<<MapStoreConfig,MapStoreConfig>> | false | -
@@ -777,7 +777,7 @@ MultiMap is the Schema for the multimaps API
 |===
 | Field | Description | Type | Required | Default
 m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
-m| spec | &#160; m| <<MultiMapSpec,MultiMapSpec>> | false | -
+m| spec | &#160; m| <<MultiMapSpec,MultiMapSpec>> | true | -
 m| status | &#160; m| <<MultiMapStatus,MultiMapStatus>> | false | -
 |===
 
@@ -806,7 +806,7 @@ MultiMapSpec defines the desired state of MultiMap
 m| name | Name of the data structure config to be created. If empty, CR name will be used. It cannot be updated after the config is created successfully. m| string | false | -
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource. m| string | true | -
 m| backupCount | Number of synchronous backups. m| &#42;int32 | false | 1
-m| asyncBackupCount | Number of asynchronous backups. m| &#42;int32 | false | 0
+m| asyncBackupCount | Number of asynchronous backups. m| int32 | false | 0
 m| binary | Specifies in which format data will be stored in your multiMap. false: OBJECT true: BINARY m| bool | false | false
 m| collectionType | Type of the value collection m| <<CollectionType,CollectionType>> | false | SET
 |===
@@ -834,7 +834,7 @@ m| memberStatuses | &#160; m| map[string]<<DataStructureConfigState,DataStructur
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| enabled | When true, MC will use a PersistentVolumeClaim to store data. m| bool | false | true
+m| enabled | When true, MC will use a PersistentVolumeClaim to store data. m| &#42;bool | false | true
 m| existingVolumeClaimName | Name of the PersistentVolumeClaim MC will use for persistence. If not empty, MC will use the existing claim instead of creating a new one. m| string | false | -
 m| storageClass | StorageClass from which PersistentVolumeClaim will be created. m| &#42;string | false | -
 m| size | Size of the created PersistentVolumeClaim. m| &#42;resource.Quantity | false | "10Gi"
@@ -864,7 +864,7 @@ Queue is the Schema for the queues API
 |===
 | Field | Description | Type | Required | Default
 m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
-m| spec | &#160; m| <<QueueSpec,QueueSpec>> | false | -
+m| spec | &#160; m| <<QueueSpec,QueueSpec>> | true | -
 m| status | &#160; m| <<QueueStatus,QueueStatus>> | false | -
 |===
 
@@ -906,8 +906,8 @@ QueueSpec defines the desired state of Queue It cannot be updated after the Queu
 m| name | Name of the data structure config to be created. If empty, CR name will be used. It cannot be updated after the config is created successfully. m| string | false | -
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource. m| string | true | -
 m| backupCount | Number of synchronous backups. m| &#42;int32 | false | 1
-m| asyncBackupCount | Number of asynchronous backups. m| &#42;int32 | false | 0
-m| maxSize | Max size of the queue. m| &#42;int32 | false | 0
+m| asyncBackupCount | Number of asynchronous backups. m| int32 | false | 0
+m| maxSize | Max size of the queue. m| int32 | false | 0
 m| emptyQueueTTLSeconds | Time in seconds after which the Queue will be destroyed if it stays empty or unused. If the values is not provided the Queue will never be destroyed. m| &#42;int32 | false | -1
 m| priorityComparatorClassName | The name of the comparator class. If the class name is provided, the Queue becomes Priority Queue. You can learn more at https://docs.hazelcast.com/hazelcast/latest/data-structures/priority-queue. m| string | false | -
 |===
@@ -936,7 +936,7 @@ ReplicatedMap is the Schema for the replicatedmaps API
 |===
 | Field | Description | Type | Required | Default
 m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
-m| spec | &#160; m| <<ReplicatedMapSpec,ReplicatedMapSpec>> | false | -
+m| spec | &#160; m| <<ReplicatedMapSpec,ReplicatedMapSpec>> | true | -
 m| status | &#160; m| <<ReplicatedMapStatus,ReplicatedMapStatus>> | false | -
 |===
 
@@ -963,7 +963,7 @@ ReplicatedMapSpec defines the desired state of ReplicatedMap
 |===
 | Field | Description | Type | Required | Default
 m| name | Name of the ReplicatedMap config to be created. If empty, CR name will be used. m| string | false | -
-m| asyncFillup | AsyncFillup specifies whether the ReplicatedMap is available for reads before the initial replication is completed m| bool | false | true
+m| asyncFillup | AsyncFillup specifies whether the ReplicatedMap is available for reads before the initial replication is completed m| &#42;bool | false | true
 m| inMemoryFormat | InMemoryFormat specifies in which format data will be stored in the ReplicatedMap m| <<InMemoryFormatType,InMemoryFormatType>> | false | OBJECT
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource. m| string | true | -
 |===
@@ -992,7 +992,7 @@ m| memberStatuses | &#160; m| map[string]<<DataStructureConfigState,DataStructur
 |===
 | Field | Description | Type | Required | Default
 m| name | Name is the name of custom resource to which WAN replication applies. m| string | true | -
-m| kind | Kind is the kind of custom resource to which WAN replication applies. m| <<ResourceKind,ResourceKind>> | true | Map
+m| kind | Kind is the kind of custom resource to which WAN replication applies. m| <<ResourceKind,ResourceKind>> | false | Map
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1017,9 +1017,9 @@ m| hotBackupResourceName | Name of the HotBackup resource from which backup will
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| state | State shows the current phase of the restore process of the cluster. m| <<RestoreState,RestoreState>> | true | -
-m| remainingValidationTime | RemainingValidationTime show the time in seconds remained for the restore validation step. m| int64 | true | -
-m| remainingDataLoadTime | RemainingDataLoadTime show the time in seconds remained for the restore data load step. m| int64 | true | -
+m| state | State shows the current phase of the restore process of the cluster. m| <<RestoreState,RestoreState>> | false | -
+m| remainingValidationTime | RemainingValidationTime show the time in seconds remained for the restore validation step. m| int64 | false | -
+m| remainingDataLoadTime | RemainingDataLoadTime show the time in seconds remained for the restore data load step. m| int64 | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1118,7 +1118,7 @@ UserCodeDeploymentConfig contains the configuration for User Code download opera
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| clientEnabled | When true, allows user code deployment from clients. m| bool | false | -
+m| clientEnabled | When true, allows user code deployment from clients. m| &#42;bool | false | -
 m| bucketConfig | Jar files in the bucket will be put under CLASSPATH. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
 m| triggerSequence | A string for triggering a rolling restart for re-downloading the user code. m| string | false | -
 m| configMaps | Files in the ConfigMaps will be put under CLASSPATH. m| []string | false | -
@@ -1134,7 +1134,7 @@ WanReplication is the Schema for the wanreplications API
 |===
 | Field | Description | Type | Required | Default
 m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
-m| spec | &#160; m| <<WanReplicationSpec,WanReplicationSpec>> | false | -
+m| spec | &#160; m| <<WanReplicationSpec,WanReplicationSpec>> | true | -
 m| status | &#160; m| <<WanReplicationStatus,WanReplicationStatus>> | false | -
 |===
 
@@ -1177,9 +1177,9 @@ WanReplicationSpec defines the desired state of WanReplication
 m| resources | Resources is the list of custom resources to which WAN replication applies. m| []<<ResourceSpec,ResourceSpec>> | true | -
 m| targetClusterName | ClusterName is the clusterName field of the target Hazelcast resource. m| string | true | -
 m| endpoints | Endpoints is the target cluster endpoints. m| string | true | -
-m| queue | Queue is the configuration for WAN events queue. m| <<QueueSetting,QueueSetting>> | false | -
-m| batch | Batch is the configuration for WAN events batch. m| <<BatchSetting,BatchSetting>> | false | -
-m| acknowledgement | Acknowledgement is the configuration for the condition when the next batch of WAN events are sent. m| <<AcknowledgementSetting,AcknowledgementSetting>> | false | -
+m| queue | Queue is the configuration for WAN events queue. m| <<QueueSetting,QueueSetting>> | false | {capacity: 10000, fullBehavior: DISCARD_AFTER_MUTATION}
+m| batch | Batch is the configuration for WAN events batch. m| <<BatchSetting,BatchSetting>> | false | {size: 500, maximumDelay: 1000}
+m| acknowledgement | Acknowledgement is the configuration for the condition when the next batch of WAN events are sent. m| <<AcknowledgementSetting,AcknowledgementSetting>> | false | {type: ACK_ON_OPERATION_COMPLETE, timeout: 60000}
 |===
 
 <<Table of Contents,Back to TOC>>
