@@ -10,6 +10,8 @@ The Operator supports two volume options for enabling Persistence: PVC and `Host
 
 There are two options for a backup: local and external. Local backups are kept in volume and never moved anywhere whereas external backups are moved into buckets provided by the user. 
 
+TIP: For a working example, see link:https://docs.hazelcast.com/tutorials/hazelcast-platform-operator-external-backup-restore[this tutorial].
+
 == Enabling Persistence
 
 Enabling Hazelcast is done with the following configuration.
