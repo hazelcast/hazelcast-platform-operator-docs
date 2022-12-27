@@ -1274,7 +1274,7 @@ m| "PartialRecoveryMostComplete" | MostComplete allow partial start with the mem
 m| "Failed" | &#160;
 m| "Success" | &#160;
 m| "Pending" | &#160;
-m| "Persisting" | The config is added into all members but waiting for the config to be persisten into ConfigMap
+m| "Persisting" | The config is added into all members but waiting for the config to be persisted into ConfigMap
 m| "Terminating" | &#160;
 |===
 
@@ -1546,6 +1546,7 @@ m| "RAW" | &#160;
 m| "Failed" | &#160;
 m| "Pending" | &#160;
 m| "Success" | &#160;
+m| "Persisting" | The config is added into all members but waiting for the config to be persisted into ConfigMap
 m| "Terminating" | &#160;
 |===
 
