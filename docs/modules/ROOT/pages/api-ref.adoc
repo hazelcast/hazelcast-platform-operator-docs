@@ -81,6 +81,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<NodeState,NodeState>>
 * <<PersistenceConfiguration,PersistenceConfiguration>>
 * <<PersistencePvcConfiguration,PersistencePvcConfiguration>>
+* <<PersistenceStartupAction,PersistenceStartupAction>>
 * <<Phase,Phase>>
 * <<Queue,Queue>>
 * <<QueueList,QueueList>>
@@ -474,7 +475,7 @@ HazelcastPersistenceConfiguration contains the configuration for Hazelcast Persi
 | Field | Description | Type | Required | Default
 m| baseDir | Persistence base directory. m| string | true | -
 m| clusterDataRecoveryPolicy | Configuration of the cluster recovery strategy. m| <<DataRecoveryPolicyType,DataRecoveryPolicyType>> | false | "FullRecoveryOnly"
-m| autoForceStart | AutoForceStart enables the detection of constantly failing cluster and trigger the Force Start action. m| bool | false | false
+m| startupAction | StartupAction represents the action triggered when the cluster starts to force the cluster startup. m| <<PersistenceStartupAction,PersistenceStartupAction>> | false | -
 m| dataRecoveryTimeout | DataRecoveryTimeout is timeout for each step of data recovery in seconds. Maximum timeout is equal to DataRecoveryTimeout*2 (for each step: validation and data-load). m| int32 | false | -
 m| pvc | Configuration of PersistenceVolumeClaim. m| <<PersistencePvcConfiguration,PersistencePvcConfiguration>> | false | {}
 m| hostPath | Host Path directory. m| string | false | -
@@ -1475,6 +1476,19 @@ m| "PASSIVE" | &#160;
 m| "ACTIVE" | &#160;
 m| "SHUT_DOWN" | &#160;
 m| "STARTING" | &#160;
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== PersistenceStartupAction
+
+PersistenceStartupAction represents the action triggered on the cluster startup to force the cluster startup.
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "ForceStart" | ForceStart will trigger the force start action on the startup
+m| "PartialStart" | PartialStart will trigger the partial start action on the startup. Can be used only with the MostComplete or MostRecent DataRecoveryPolicyType type.
 |===
 
 <<Table of Contents,Back to TOC>>
