@@ -15,6 +15,7 @@ The following information is sent in a phone home:
 * Operator installation origin such as Dockerhub or Red Hat Connect
 * Number of created Hazelcast Open Source clusters
 * Number of created Hazelcast Enterprise clusters
+* List of created Hazelcast cluster UUIDs
 * Number of created Management Center instances
 * Number of created Hazelcast members
 * Number of created Wan Replications
