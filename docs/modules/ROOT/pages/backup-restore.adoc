@@ -235,18 +235,22 @@ To decide how a cluster should behave when one or more members cannot rejoin aft
 | Allows partial start with the member that have most complete partition table.
 |===
 
-=== Configuring Force-Start
+=== Configuring Force/Partial Start
 
-If you use the `FullRecoveryOnly` policy, you can configure the Operator to detect failed Hazelcast members and automatically trigger a force-start. The Operator will trigger a force-start only if the cluster is in a `PASSIVE` state.
+To recover a cluster that has Persistence enabled after a cluster-wide restart, you can force a cluster to delete their persistence stores when one or more members fail to restart by triggering Force Start. Or you can force a cluster to start without some members by triggering Partial Start
 
 WARNING: The cluster loses all persisted data after a force-start.
 
-Enable `autoForceStart`:
+WARNING: The cluster loses some persistend data after a partial-start.
+
+To trigger the cluster recover action set the `startupAction`:
 
 [source,yaml,subs="attributes+"]
 ----
-include::ROOT:example$/hazelcast-autoforcestart.yaml[]
+include::ROOT:example$/hazelcast-forcestart.yaml[]
 ----
+
+The `PartialStart` can be triggered only when `clusterDataRecoveryPolicy` is set to `PartialRecoveryMostRecent` or `PartialRecoveryMostComplete`.
 
 [[hostpath]]
 == HostPath Support for Persistence

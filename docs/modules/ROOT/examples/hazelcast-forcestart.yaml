@@ -9,4 +9,9 @@ spec:
   licenseKeySecret: hazelcast-license-key
   persistence:
     baseDir: "/data/hot-restart/"
-    autoForceStart: true
+    clusterDataRecoveryPolicy: "FullRecoveryOnly"
+    pvc:
+      accessModes: ["ReadWriteOnce"]
+      requestStorage: 8Gi
+      storageClassName: "standard"
+    startupAction: ForceStart
