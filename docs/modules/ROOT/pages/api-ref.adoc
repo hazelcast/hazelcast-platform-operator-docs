@@ -50,6 +50,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>>
 * <<HazelcastSpec,HazelcastSpec>>
 * <<HazelcastStatus,HazelcastStatus>>
+* <<HighAvailabilityMode,HighAvailabilityMode>>
 * <<HotBackup,HotBackup>>
 * <<HotBackupList,HotBackupList>>
 * <<HotBackupSpec,HotBackupSpec>>
@@ -510,6 +511,7 @@ m| durableExecutorServices | &#160; m| []<<DurableExecutorServiceConfiguration,D
 m| scheduledExecutorServices | &#160; m| []<<ScheduledExecutorServiceConfiguration,ScheduledExecutorServiceConfiguration>> | false | -
 m| properties | &#160; m| map[string]string | false | -
 m| loggingLevel | &#160; m| <<LoggingLevel,LoggingLevel>> | false | "INFO"
+m| highAvailabilityMode | Configuration to create clusters resilient to node and zone failures m| <<HighAvailabilityMode,HighAvailabilityMode>> | false | {}
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1333,6 +1335,19 @@ m| "LoadBalancer" | ExternalConnectivityTypeLoadBalancer exposes Management Cent
 m| "DISCARD_AFTER_MUTATION" | &#160;
 m| "THROW_EXCEPTION" | &#160;
 m| "THROW_EXCEPTION_ONLY_IF_REPLICATION_ACTIVE" | &#160;
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== HighAvailabilityMode
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "NODE" | &#160;
+m| "ZONE" | &#160;
 |===
 
 <<Table of Contents,Back to TOC>>
