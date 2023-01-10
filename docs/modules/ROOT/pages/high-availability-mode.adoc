@@ -18,21 +18,41 @@ Below are the configuration options for the High Availability Mode feature.
 |Field|Description
 
 |`highAvailabilityMode`
+|The option to configure type partition-group and Kubernetes scheduling policy:
 
-  - `NODE`: option to configure partition-group as NODE_AWARE.
-  - `ZONE`: option to configure partition-group as ZONE_AWARE. 
+  - `NODE`: the partition-group is configured as NODE_AWARE and `topologySpreadConstraints` is added into the statefulset:
+
+[source,yaml]
+```
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: hazelcast
+            app.kubernetes.io/instance: hazelcast
+            app.kubernetes.io/managed-by: hazelcast-platform-operator
+```
+
+  - `ZONE`: the partition-group is configured as ZONE_AWARE and `topologySpreadConstraints` is added into the statefulset: 
+[source,yaml]
+```
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/topology.kubernetes.io/zone
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: hazelcast
+            app.kubernetes.io/instance: hazelcast
+            app.kubernetes.io/managed-by: hazelcast-platform-operator
+```
 
 |===
 
 === Example Configuration
 
-The example configuration does the following:
-
-- Enable partition-group and configure type of it for Hazelcast cluster
-- Configure proper Kubernetes `topologySpreadConstraints` policy based on the mode
-
-
-.Example configuration
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hazelcast-high-availability-mode.yaml[]
