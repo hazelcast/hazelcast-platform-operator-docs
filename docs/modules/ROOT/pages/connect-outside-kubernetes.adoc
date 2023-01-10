@@ -124,6 +124,8 @@ Java::
 ----
 ClientConfig config = new ClientConfig();
 config.getNetworkConfig().addAddress("35.230.92.217");
+config.getNetworkConfig().setSmartRouting(false);
+HazelcastInstance client = HazelcastClient.newHazelcastClient(config);
 ----
 --
 
@@ -151,7 +153,7 @@ Go::
 [source, go]
 ----
 import (
-	"log"
+	"context"
 
 	"github.com/hazelcast/hazelcast-go-client"
 )
@@ -160,6 +162,7 @@ func main() {
 	config := hazelcast.Config{}
 	cc := &config.Cluster
 	cc.Network.SetAddresses("35.230.92.217")
+	cc.Discovery.UsePublicIP = true
 	ctx := context.TODO()
 	client, err := hazelcast.StartNewClientWithConfig(ctx, config)
 	if err != nil {
