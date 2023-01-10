@@ -1,0 +1,39 @@
+= Running Highly Availiable Hazelcast clusters
+:description: High Availability Mode guarantees that even if the Kubernetes node or whole availability zone is down (and all related Hazelcast members are terminated), you will not experience any data loss.
+
+Hazelcast offers the Partition Group Configuration and its types are ZONE_AWARE and NODE_AWARE, which forces Hazelcast members to store the given data partition backup inside a member located in a different availability zone or Kubernetes node. To learn about more, see the xref:hazelcast:clusters:partition-group-configuration.adoc[Platform documentation].
+
+When using the ZONE_AWARE and NODE_AWARE partition grouping, a Hazelcast cluster spanning multiple availability zones and nodes should have an equal number of members in each availability zones and node. Otherwise, it results in uneven partition distribution among the members.
+
+At the Platform Operator, users can configure type of partition-group and required Kubernetes scheduling policy(`topologySpreadConstraints`) to distribute members across availability zones and nodes automatically via modifying single `highAvailabilityMode` parameter.
+
+{description}
+
+== Configuring High Availability Mode 
+
+Below are the configuration options for the High Availability Mode feature.
+
+[cols="20%m,80%a"]
+|===
+|Field|Description
+
+|`highAvailabilityMode`
+
+  - `NODE`: option to configure partition-group as NODE_AWARE.
+  - `ZONE`: option to configure partition-group as ZONE_AWARE. 
+
+|===
+
+=== Example Configuration
+
+The example configuration does the following:
+
+- Enable partition-group and configure type of it for Hazelcast cluster
+- Configure proper Kubernetes `topologySpreadConstraints` policy based on the mode
+
+
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-high-availability-mode.yaml[]
+----
