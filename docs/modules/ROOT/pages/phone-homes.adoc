@@ -16,6 +16,7 @@ The following information is sent in a phone home:
 * Number of created Hazelcast Open Source clusters
 * Number of created Hazelcast Enterprise clusters
 * List of created Hazelcast cluster UUIDs
+* List of High Availability Modes of Hazelcast clusters
 * Number of created Management Center instances
 * Number of created Hazelcast members
 * Number of created Wan Replications
