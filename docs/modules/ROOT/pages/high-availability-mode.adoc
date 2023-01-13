@@ -1,0 +1,60 @@
+= Running Highly Available Hazelcast Clusters
+:description: High Availability Mode guarantees that even if the Kubernetes node or whole availability zone is down, and all related Hazelcast members are terminated, you will not experience any data loss.
+
+In the Hazelcast Platform Operator, you can use partition groups with High Availability Mode to add resilience to your clusters. Avoid data loss even when a Kubernetes node or whole availability zone is down, and all related Hazelcast members are terminated.
+
+Partition groups let you choose where Hazelcast members store backups of a data partition. You can configure a partition group to backup data inside a member in a different availability zone (ZONE_AWARE) or on a different Kubernetes node (NODE_AWARE). See xref:hazelcast:clusters:partition-group-configuration.adoc[Partition Group Configuration] for more details. 
+
+When using either type of partition grouping (ZONE_AWARE or NODE_AWARE) with a Hazelcast cluster that spans multiple availability zones and nodes, you must have an equal number of members in each zone or node. Otherwise, it results in the uneven distribution of partitions amongst the members.
+
+The `highAvailabilityMode` parameter allows you to specify partition groups and to automatically distribute members across availability zones and nodes, using the Kubernetes policy `topologySpreadConstraints`.
+
+
+== Configuring High Availability Mode 
+
+Below are the configuration options for the High Availability Mode feature.
+
+[cols="20%m,80%a"]
+|===
+|Field|Description
+
+|`highAvailabilityMode`
+|Configuration for partition groups and Kubernetes scheduling policy::
+
+  - `NODE`: the partition-group is configured as NODE_AWARE and `topologySpreadConstraints` is added into the statefulset:
+
+[source,yaml]
+```
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: hazelcast
+            app.kubernetes.io/instance: hazelcast
+            app.kubernetes.io/managed-by: hazelcast-platform-operator
+```
+
+  - `ZONE`: the partition-group is configured as ZONE_AWARE and `topologySpreadConstraints` is added into the statefulset: 
+[source,yaml]
+```
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/topology.kubernetes.io/zone
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: hazelcast
+            app.kubernetes.io/instance: hazelcast
+            app.kubernetes.io/managed-by: hazelcast-platform-operator
+```
+
+|===
+
+=== Example Configuration
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-high-availability-mode.yaml[]
+----
