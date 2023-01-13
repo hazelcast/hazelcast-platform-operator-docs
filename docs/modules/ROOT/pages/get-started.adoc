@@ -9,43 +9,52 @@ You need a Kubernetes or Openshift cluster, and the `kubectl` or `oc` command-li
 
 == Step 1. Deploy Hazelcast Platform Operator
 
-Starting from the Hazelcast Platform Operator 5.6.0, a Helm chart is available to install the operator. It is available from the Hazelcast Helm Charts repository and can be added to your Helm repository list by running the following command:
+From the Hazelcast Platform Operator 5.6.0 onwards, you can use a Helm chart to install the Hazelcast Platform Operator.
 
+. Add the link:https://github.com/hazelcast/charts[Hazelcast Helm Charts repository] to your Helm repository list by running the following command:
+
++
 [source,shell]
 ----
 helm repo add hazelcast https://hazelcast-charts.s3.amazonaws.com/
 helm repo update
 ----
 
-=== Deploy the Hazelcast Platform Operator and the CRDs together
+. You can either deploy the Hazelcast Platform Operator at the same time as CRDs or separately.
 
++
+NOTE: Since CRDs are global resources, they may need to be installed by an administrator.
+
+.. Run the following command to *deploy the operator and the CRDs together*
+
++
 [source,shell]
 ----
 helm install operator hazelcast/hazelcast-platform-operator --set installCRDs=true
 ----
 
-=== Deploy the Hazelcast Platform Operator and the CRDs separately
+.. Run the following commands to *deploy the operator and the CRDs separately*
 
-This avoids installing any cluster-scoped resources
-
-Since CRDs are global resources, they still need to be installed by an administrator. This can be achieved by:
-
++
 [source,shell]
 ----
 helm install operator-crds hazelcast/hazelcast-platform-operator-crds
 ----
 
++
 After installing CRDs, the operator can be installed by running the following command:
 
++
 [source,shell]
 ----
 helm install operator hazelcast/hazelcast-platform-operator
 ----
 
-=== Monitor the operator logs
-
++
+. Monitor the operator logs
++
 At this point, the Hazelcast Platform Operator should be up and running. You can check it with the command below.
-
++
 [source,shell]
 ----
 kubectl logs deployment.apps/operator-hazelcast-platform-operator
