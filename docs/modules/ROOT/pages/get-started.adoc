@@ -42,6 +42,8 @@ After installing CRDs, the operator can be installed by running the following co
 helm install operator hazelcast/hazelcast-platform-operator
 ----
 
+=== Monitor the operator logs
+
 At this point, the Hazelcast Platform Operator should be up and running. You can check it with the command below.
 
 [source,shell]
