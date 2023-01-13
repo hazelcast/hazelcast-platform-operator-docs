@@ -13,6 +13,7 @@
 * xref:backup-restore.adoc[Persistence, Backup, and Restore]
 * xref:wan-replication.adoc[Configuring WAN Replication]
 * xref:user-code-deployment.adoc[User Code Deployment]
+* xref:high-availability-mode.adoc[High Availability Mode]
 
 .Reference
 // Configuration options/spec files/any other reference docs
