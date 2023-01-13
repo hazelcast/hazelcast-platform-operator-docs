@@ -52,13 +52,13 @@ The following information is sent in a phone home:
 
 == Disabling Phone Homes
 
-To disable phone homes, add the following to the environment variable list in the deployment object of the `bundle.yaml` file:
+To disable phone homes, set `phoneHomeEnabled` value to `false` with your helm release:
 
 
-```yaml
-- name: PHONE_HOME_ENABLED
-  value: "false"
-```
+[source,shell]
+----
+helm install operator hazelcast/hazelcast-platform-operator --set phoneHomeEnabled=false
+----
 
 == Phone Home URL
 

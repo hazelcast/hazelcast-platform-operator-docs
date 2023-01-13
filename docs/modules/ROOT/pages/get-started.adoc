@@ -9,103 +9,45 @@ You need a Kubernetes or Openshift cluster, and the `kubectl` or `oc` command-li
 
 == Step 1. Deploy Hazelcast Platform Operator
 
-To deploy Hazelcast Platform Operator, apply the https://repository.hazelcast.com/operator/bundle-{full-version}.yaml[`bundle-{full-version}.yaml`] file to your Kubernetes cluster:
+Starting from the Hazelcast Platform Operator 5.6.0, a Helm chart is available to install the operator. It is available from the Hazelcast Helm Charts repository and can be added to your Helm repository list by running the following command:
 
-[tabs]
-====
-Kubernetes::
-+
---
-[source,shell,subs="attributes+"]
+[source,shell]
 ----
-kubectl apply -f https://repository.hazelcast.com/operator/bundle-{full-version}.yaml
+helm repo add hazelcast https://hazelcast-charts.s3.amazonaws.com/
+helm repo update
 ----
---
-Openshift::
-+
---
-[source,shell,subs="attributes+"]
-----
-oc apply -f https://repository.hazelcast.com/operator/bundle-{full-version}.yaml
-----
---
-====
 
-TIP: If you always want to use the latest release, you can use the `bundle-latest.yaml` file.
+=== Deploy the Hazelcast Platform Operator and the CRDs together
+
+[source,shell]
+----
+helm install operator hazelcast/hazelcast-platform-operator --set installCRDs=true
+----
+
+=== Deploy the Hazelcast Platform Operator and the CRDs separately
+
+This avoids installing any cluster-scoped resources
+
+Since CRDs are global resources, they still need to be installed by an administrator. This can be achieved by:
+
+[source,shell]
+----
+helm install operator-crds hazelcast/hazelcast-platform-operator-crds
+----
+
+After installing CRDs, the operator can be installed by running the following command:
+
+[source,shell]
+----
+helm install operator hazelcast/hazelcast-platform-operator
+----
 
 At this point, the Hazelcast Platform Operator should be up and running. You can check it with the command below.
 
-[tabs]
-====
-Kubernetes::
-+
---
 [source,shell]
 ----
-kubectl logs deployment.apps/hazelcast-platform-controller-manager
+kubectl logs deployment.apps/operator-hazelcast-platform-operator
 ----
---
-Openshift::
-+
---
-[source,shell]
-----
-oc logs deployment.apps/hazelcast-platform-controller-manager
-----
---
-====
-
-```
-2021-07-14T09:03:40.713Z        INFO    setup   Watching namespace: default
-2021-07-14T09:03:41.524Z        INFO    controller-runtime.metrics      metrics server is starting to listen    {"addr": ":8080"}
-2021-07-14T09:03:41.524Z        INFO    setup   starting manager
-2021-07-14T09:03:41.525Z        INFO    controller-runtime.manager      starting metrics server {"path": "/metrics"}
-```
-
-== Optional: Customize the Namespace
-
-By default, Hazelcast Operator is installed into the `default` namespace. If you want to change it, you can either replace all `namespace: default` parameters in `bundle.yaml` or use https://kustomize.io/[Kustomize] to achieve it by creating the following `kustomization.yaml` file.
-
-[source,yaml]
-----
-namespace: <your-namespace>
-resources:
-- bundle.yaml
-----
-
-Then, use Kustomize to apply `bundle.yaml` with the changed namespace.
-
-[tabs]
-====
-Kubernetes::
-+
---
-[source,shell]
-----
-kubectl apply -k .
-----
---
-Openshift::
-+
---
-[source,shell]
-----
-oc apply -k .
-----
---
-====
-
-If you deploy multiple Hazelcast Operators in different namespaces, you need a way to differentiate the name of each operator. For example, you can give each operator's name a suffix by adding the `nameSuffix` field to the `kustomization.yaml` file:
-
-[source,yaml]
-----
-namespace: <your-namespace>
-resources:
-- bundle.yaml
-nameSuffix: <operator-suffix>
-----
-
-Note that you'll need to add a parameter `-n <your-namespace>` to all further commands.
 
 == Step 2. Start the Hazelcast Cluster
 
@@ -538,25 +480,17 @@ oc delete secret hazelcast-license-key
 
 Finally, run the command below to delete Hazelcast Platform Operator deployment.
 
-[tabs]
-====
-Kubernetes::
-+
---
-[source,shell,subs="attributes+"]
+[source,shell]
 ----
-kubectl delete -f https://repository.hazelcast.com/operator/bundle-{full-version}.yaml
+helm uninstall operator
 ----
---
-Openshift::
-+
---
-[source,shell,subs="attributes+"]
+
+If you install the CRDs separately from the operator, you need to remove the CRDs by running the following command:
+
+[source,shell]
 ----
-oc delete -f https://repository.hazelcast.com/operator/bundle-{full-version}.yaml
+helm uninstall operator-crds
 ----
---
-====
 
 == Next Steps
 
