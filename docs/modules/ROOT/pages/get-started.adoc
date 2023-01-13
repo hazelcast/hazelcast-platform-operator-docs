@@ -55,10 +55,25 @@ helm install operator hazelcast/hazelcast-platform-operator
 +
 At this point, the Hazelcast Platform Operator should be up and running. You can check it with the command below.
 +
+[tabs]
+====
+Kubernetes::
++
+--
 [source,shell]
 ----
 kubectl logs deployment.apps/operator-hazelcast-platform-operator
 ----
+--
+Openshift::
++
+--
+[source,shell]
+----
+oc logs deployment.apps/operator-hazelcast-platform-operator
+----
+--
+====
 
 == Step 2. Start the Hazelcast Cluster
 
