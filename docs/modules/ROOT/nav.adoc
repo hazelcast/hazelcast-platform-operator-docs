@@ -21,4 +21,4 @@
 * xref:api-ref.adoc[API References]
 
 .Release Notes
-* xref:release-notes.adoc[5.3]
+* xref:release-notes.adoc[5.6]
