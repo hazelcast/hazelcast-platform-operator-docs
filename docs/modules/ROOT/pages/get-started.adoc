@@ -25,7 +25,7 @@ helm repo update
 +
 NOTE: Since CRDs are global resources, they may need to be installed by an administrator.
 
-.. Run the following command to *deploy the operator and the CRDs together*
+.. Run the following command to *deploy the operator and the CRDs together*.
 
 +
 [source,shell]
@@ -33,7 +33,7 @@ NOTE: Since CRDs are global resources, they may need to be installed by an admin
 helm install operator hazelcast/hazelcast-platform-operator --set installCRDs=true
 ----
 
-.. Run the following commands to *deploy the operator and the CRDs separately*
+.. Run the following commands to *deploy the operator and the CRDs separately*.
 
 +
 [source,shell]
@@ -42,7 +42,7 @@ helm install operator-crds hazelcast/hazelcast-platform-operator-crds
 ----
 
 +
-After installing CRDs, the operator can be installed by running the following command:
+After installing CRDs, install the operator by running the following command:
 
 +
 [source,shell]
@@ -51,9 +51,7 @@ helm install operator hazelcast/hazelcast-platform-operator
 ----
 
 +
-. Monitor the operator logs
-+
-At this point, the Hazelcast Platform Operator should be up and running. You can check it with the command below.
+. Monitor the operator logs. At this point, the Hazelcast Platform Operator should be up and running. You can check it with the command below.
 +
 [tabs]
 ====
@@ -77,7 +75,7 @@ oc logs deployment.apps/operator-hazelcast-platform-operator
 
 == Step 2. Start the Hazelcast Cluster
 
-After installing and running Hazelcast Platform Operator, you can create a Hazelcast cluster. First, create the `Hazelcast` custom resource file as `hazelcast.yaml`.
+After installing and running the Hazelcast Platform Operator, you can create a Hazelcast cluster. First, create the `Hazelcast` custom resource file as `hazelcast.yaml`.
 
 [tabs]
 ====
@@ -504,14 +502,14 @@ oc delete secret hazelcast-license-key
 --
 ====
 
-Finally, run the command below to delete Hazelcast Platform Operator deployment.
+Finally, run the command below to delete the Hazelcast Platform Operator deployment.
 
 [source,shell]
 ----
 helm uninstall operator
 ----
 
-If you install the CRDs separately from the operator, you need to remove the CRDs by running the following command:
+If you installed the CRDs separately from the operator, you need to remove them by running the following command:
 
 [source,shell]
 ----
