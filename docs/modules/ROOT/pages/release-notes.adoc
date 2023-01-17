@@ -1,35 +1,43 @@
-= 5.5 Release Notes
+= 5.6 Release Notes
 
-In this release, we introduced custom resources (CRs) for xref:topic-configuration.adoc[Topic], xref:multimap-configuration.adoc[Multimap], and xref:replicatedmap-configuration.adoc[Replicated Map] data structures. We also added EntryListener support for the Map CR.
+This release introduced the xref:high-availability-mode.adoc[High Availability Mode] configuration and custom resources (CRs) for xref:cache-configuration.adoc[Cache] and xref:queue-configuration.adoc[Queue] data structures. We also added persistence support for the Cache CR and provided Operator installation using Helm.
 
-== New features
+== New Features
 
-* Added support for the MultiMap CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/367[#367])
-* Added support for the Topic CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/371[#371])
-* Added support for the ReplicatedMap CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/394[#394])
-* Added support for the CronHotBackup CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/362[#362])
-* Added support for restores using the HotBackup resource name (https://github.com/hazelcast/hazelcast-platform-operator/pull/401[#401])
-* Added configuration for the Jet engine to the Hazelcast CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/457[#457])
-* Added a Map Entry listener that is notified when a map entry is added, removed, updated, evicted, or expired (https://github.com/hazelcast/hazelcast-platform-operator/pull/408[#408])
-* Add support for using WAN Replication with multiple resources (https://github.com/hazelcast/hazelcast-platform-operator/pull/363[#363])
-* Added the `ClearWanQueue` function into the `WanReplication` finalizer executor to clean the WAN Replication queue after a CR deletion (https://github.com/hazelcast/hazelcast-platform-operator/pull/403[#403])
-* Made the `LOGGING_LEVEL` configurable for Hazelcast containers (https://github.com/hazelcast/hazelcast-platform-operator/pull/352[#352])
+* Introduced High Availability Mode configuration to create clusters that are resilient to node and zone failures (https://github.com/hazelcast/hazelcast-platform-operator/pull/538[#538])
+* Added support for the Queue CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/428[#428])
+* Added support for the Cache CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/430[#430])
+* Users can enable persistence support for the Cache CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/474[#474])
+* Replaced the `autoForceStart` option with the `startupAction` that allows the user to trigger Force Start or Partial Start when applied (https://github.com/hazelcast/hazelcast-platform-operator/pull/511[#511])
+* Introduced Helm chart for Platform Operator installation
 
 == Changes
 
-* Moved scheduling of HotBackups from the HotBackup API to the CronHotBackup CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/362[#362])
-* Added a default value to the `kind` property in the `WanReplication` CR specification (https://github.com/hazelcast/hazelcast-platform-operator/pull/374[#374])
-* Added a namespaced Role and RoleBinding that are created and passed to the namespaced service account of the Hazelcast cluster to grant secret access (https://github.com/hazelcast/hazelcast-platform-operator/pull/407[#407])
-* Replaced the REST client with Go for triggering backups (https://github.com/hazelcast/hazelcast-platform-operator/pull/381[#381])
-* Changed the default repository to Hazelcast Enterprise when the `licenseKeySecret` is present (https://github.com/hazelcast/hazelcast-platform-operator/pull/402[#402])
-* Enabled TLS for the backup server sidecar (https://github.com/hazelcast/hazelcast-platform-operator/pull/350[#350])
-* Added a retry for backup service calls (https://github.com/hazelcast/hazelcast-platform-operator/pull/434[#434])
-* Added `WanReplication` to the API reference (https://github.com/hazelcast/hazelcast-platform-operator/pull/355[#355])
-* Refactored the Multimap and Topic CR data structures and Hazelcast's `configMap` creation (https://github.com/hazelcast/hazelcast-platform-operator/pull/393[#393])
-* Upgraded Hazelcast and Management Center versions to 5.1.4
+* Added connectivity check to WAN Replication CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/541[#541])
+** When creating a WAN Replication CR, a user will be sure that the target cluster is reachable
+* Persist Wan Replication configuration into generated Hazelcast ConfigMap (https://github.com/hazelcast/hazelcast-platform-operator/pull/513[#513])
+** Wan Replication configurations will be stored in Hazelcast ConfigMap. When member containers restart, they will be able to continue the replication
+* Client recreation logic for times the client cannot access the cluster (https://github.com/hazelcast/hazelcast-platform-operator/pull/500[#500])
+** The Platform Operator will restart the Hazelcast client when the cluster is inaccessible
+* Converted existing CR validation to validating webhook (https://github.com/hazelcast/hazelcast-platform-operator/pull/492[#492])
+** This change allows the Operator to report issues with CRs before they are applied
+* Unified the approach for exposing API fields (https://github.com/hazelcast/hazelcast-platform-operator/pull/498[#498])
+** Exposed API fields are now more consistent with each other
+* Removed `h.Spec.Persistence.DataLoadTimeoutSec` parameter (https://github.com/hazelcast/hazelcast-platform-operator/pull/512[#512])
+* Split `restore` and `restore_local` commands (https://github.com/hazelcast/hazelcast-platform-operator/pull/471[#471])
+* Used Go client for cluster activation logic (https://github.com/hazelcast/hazelcast-platform-operator/pull/466[#466])
+* Added tilt-debug support  (https://github.com/hazelcast/hazelcast-platform-operator/pull/528[#528])
+* Added `ClusterIDs` to Phone Home data (https://github.com/hazelcast/hazelcast-platform-operator/pull/527[#527])
+* Changed capabilities at CSV from Seamless Upgrades to Full Lifecycle, which is become visible on OCP OperatorHub dashboard(https://github.com/hazelcast/hazelcast-platform-operator/pull/476[#476])
 
 == Fixed Issues
 
-* Fixes topic controller import (https://github.com/hazelcast/hazelcast-platform-operator/pull/387[#387])
-* Errors are now handled correctly by the `startBackup()` function. Previously, no errors were returned (https://github.com/hazelcast/hazelcast-platform-operator/pull/445[#445])
-* Removed the agent port from the Kubernetes discovery service, to resolve an issue where external IP addresses were not correctly allocated to members (https://github.com/hazelcast/hazelcast-platform-operator/pull/409[#409])
+* Allowed creating HotBackup before the Hazelcast cluster is ready (https://github.com/hazelcast/hazelcast-platform-operator/pull/503[#503])
+* Added webhook support for OLM (https://github.com/hazelcast/hazelcast-platform-operator/pull/540[#540])
+* Set Hazelcast resource message on non-existing hot backup (https://github.com/hazelcast/hazelcast-platform-operator/pull/514[#514])
+* Fixed Hazelcast ConfigMap when multiple CRs for Data Structures are created (https://github.com/hazelcast/hazelcast-platform-operator/pull/501[#501])
+** The user can create multiple CR, and all will be stored in the ConfigMap
+* Added security context to all containers for hostPath permissions (https://github.com/hazelcast/hazelcast-platform-operator/pull/485[#485])
+* Fixed wrong variable assignment in WanRep ConfigMap (https://github.com/hazelcast/hazelcast-platform-operator/pull/554[#554])
+** After members restart, they will be able to continue replicating the map entries using Wan Replication
+* Fixed empty pod name field in Hazelcast member status (https://github.com/hazelcast/hazelcast-platform-operator/pull/456[#456])
