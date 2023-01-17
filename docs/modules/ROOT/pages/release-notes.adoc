@@ -32,7 +32,6 @@ This release introduced the xref:high-availability-mode.adoc[High Availability M
 * Added webhook support for Operator Lifecycle Management (OLM) (https://github.com/hazelcast/hazelcast-platform-operator/pull/540[#540])
 * Sets a Hazelcast resource message when attempting to restore a hot backup that does not exist (https://github.com/hazelcast/hazelcast-platform-operator/pull/514[#514])
 * Multiple CRs for data structures can now be created and then stored correctly in the ConfigMap (https://github.com/hazelcast/hazelcast-platform-operator/pull/501[#501])
-** The user can create multiple CR, and all will be stored in the ConfigMap
 * Added a security context to all containers for hostPath permissions (https://github.com/hazelcast/hazelcast-platform-operator/pull/485[#485])
 * Fixed the incorrect assignment of a variable in WanRep ConfigMap. After a restart, cluster members will now continue replicating map entries (https://github.com/hazelcast/hazelcast-platform-operator/pull/554[#554])
 * Hazelcast member status no longer contains an empty pod name field (https://github.com/hazelcast/hazelcast-platform-operator/pull/456[#456])
