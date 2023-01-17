@@ -1,6 +1,6 @@
 = 5.6 Release Notes
 
-This release introduced the xref:high-availability-mode.adoc[High Availability Mode] configuration and custom resources (CRs) for xref:cache-configuration.adoc[Cache] and xref:queue-configuration.adoc[Queue] data structures. We also added persistence support for the Cache CR and provided Operator installation using Helm.
+This release introduced the xref:high-availability-mode.adoc[High Availability Mode] configuration and custom resources (CRs) for xref:cache-configuration.adoc[Cache] and xref:queue-configuration.adoc[Queue] data structures. We also added persistence support for the Cache CR and introduced a new way to install the Hazelcast Platform Operator, using Helm.
 
 == New Features
 
