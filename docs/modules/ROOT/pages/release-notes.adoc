@@ -40,4 +40,4 @@ This release introduced the xref:high-availability-mode.adoc[High Availability M
 * Added a security context to all containers for hostPath permissions (https://github.com/hazelcast/hazelcast-platform-operator/pull/485[#485])
 * Fixed the incorrect assignment of a variable in WanRep ConfigMap. After a restart, cluster members will now continue replicating map entries (https://github.com/hazelcast/hazelcast-platform-operator/pull/554[#554])
 ** After members restart, they will be able to continue replicating the map entries using Wan Replication
-* Fixed empty pod name field in Hazelcast member status (https://github.com/hazelcast/hazelcast-platform-operator/pull/456[#456])
+* Hazelcast member status no longer contains an empty pod name field (https://github.com/hazelcast/hazelcast-platform-operator/pull/456[#456])
