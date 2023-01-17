@@ -18,7 +18,6 @@ This release introduced the xref:high-availability-mode.adoc[High Availability M
 * Added logic for recreating a Hazelcast client when the client is unable to access a cluster. When the client is unable to connect, the Hazelcast Platform Operator restarts it (https://github.com/hazelcast/hazelcast-platform-operator/pull/500[#500])
 * Updated CR validation to use a webhook. The Hazelcast Platform Operator can now report issues with CRs before they are applied (https://github.com/hazelcast/hazelcast-platform-operator/pull/492[#492])
 * Improved the approach for exposing API fields. Exposed API fields are now more consistent  (https://github.com/hazelcast/hazelcast-platform-operator/pull/498[#498])
-** Exposed API fields are now more consistent with each other
 * Removed the `h.Spec.Persistence.DataLoadTimeoutSec` parameter (https://github.com/hazelcast/hazelcast-platform-operator/pull/512[#512])
 * Split `restore` and `restore_local` commands (https://github.com/hazelcast/hazelcast-platform-operator/pull/471[#471])
 * Updated the cluster activation logic to use the Go client (https://github.com/hazelcast/hazelcast-platform-operator/pull/466[#466])
