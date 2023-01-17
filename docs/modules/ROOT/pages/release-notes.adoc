@@ -32,7 +32,7 @@ This release introduced the xref:high-availability-mode.adoc[High Availability M
 
 == Fixed Issues
 
-* Allowed creating HotBackup before the Hazelcast cluster is ready (https://github.com/hazelcast/hazelcast-platform-operator/pull/503[#503])
+* A HotBackup can now be created before the Hazelcast cluster is ready (https://github.com/hazelcast/hazelcast-platform-operator/pull/503[#503])
 * Added webhook support for Operator Lifecycle Management (OLM) (https://github.com/hazelcast/hazelcast-platform-operator/pull/540[#540])
 * Sets a Hazelcast resource message when attempting to restore a hot backup that does not exist (https://github.com/hazelcast/hazelcast-platform-operator/pull/514[#514])
 * Fixed Hazelcast ConfigMap when multiple CRs for Data Structures are created (https://github.com/hazelcast/hazelcast-platform-operator/pull/501[#501])
