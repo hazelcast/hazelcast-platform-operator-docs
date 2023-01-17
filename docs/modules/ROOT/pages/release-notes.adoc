@@ -9,7 +9,7 @@ This release introduced the xref:high-availability-mode.adoc[High Availability M
 * Added support for the Cache CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/430[#430])
 * Made persistence support for the Cache CR configurable (https://github.com/hazelcast/hazelcast-platform-operator/pull/474[#474])
 * Replaced the `autoForceStart` option with the `startupAction` that allows the user to trigger Force Start or Partial Start when applied (https://github.com/hazelcast/hazelcast-platform-operator/pull/511[#511])
-* Introduced Helm chart for Platform Operator installation
+* Introduced a new way to install the Hazelcast Platform Operator, using Helm
 
 == Changes
 
