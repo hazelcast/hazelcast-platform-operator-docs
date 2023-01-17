@@ -14,7 +14,6 @@ This release introduced the xref:high-availability-mode.adoc[High Availability M
 == Changes
 
 * Added a connectivity check to the WAN Replication CR. When creating a WAN Replication CR, you can now check that the target cluster is reachable (https://github.com/hazelcast/hazelcast-platform-operator/pull/541[#541])
-** When creating a WAN Replication CR, a user will be sure that the target cluster is reachable
 * Added persistence for WAN Replication configurations. WAN Replication configurations are now stored in the Hazelcast ConfigMap so that when member containers restart, replication continues (https://github.com/hazelcast/hazelcast-platform-operator/pull/513[#513])
 ** Wan Replication configurations will be stored in Hazelcast ConfigMap. When member containers restart, they will be able to continue the replication
 * Added logic for recreating a Hazelcast client when the client is unable to access a cluster. When the client is unable to connect, the Hazelcast Platform Operator restarts it (https://github.com/hazelcast/hazelcast-platform-operator/pull/500[#500])
