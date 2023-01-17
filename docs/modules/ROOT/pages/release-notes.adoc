@@ -26,7 +26,7 @@ This release introduced the xref:high-availability-mode.adoc[High Availability M
 * Removed `h.Spec.Persistence.DataLoadTimeoutSec` parameter (https://github.com/hazelcast/hazelcast-platform-operator/pull/512[#512])
 * Split `restore` and `restore_local` commands (https://github.com/hazelcast/hazelcast-platform-operator/pull/471[#471])
 * Used Go client for cluster activation logic (https://github.com/hazelcast/hazelcast-platform-operator/pull/466[#466])
-* Added tilt-debug support  (https://github.com/hazelcast/hazelcast-platform-operator/pull/528[#528])
+* Added `tilt-debug` support for the remote debugging of local Kubernetes clusters  (https://github.com/hazelcast/hazelcast-platform-operator/pull/528[#528])
 * Added `ClusterIDs` to Phone Home data (https://github.com/hazelcast/hazelcast-platform-operator/pull/527[#527])
 * Changed capabilities at CSV from Seamless Upgrades to Full Lifecycle, which is become visible on OCP OperatorHub dashboard(https://github.com/hazelcast/hazelcast-platform-operator/pull/476[#476])
 
