@@ -19,7 +19,7 @@ This release introduced the xref:high-availability-mode.adoc[High Availability M
 ** Wan Replication configurations will be stored in Hazelcast ConfigMap. When member containers restart, they will be able to continue the replication
 * Client recreation logic for times the client cannot access the cluster (https://github.com/hazelcast/hazelcast-platform-operator/pull/500[#500])
 ** The Platform Operator will restart the Hazelcast client when the cluster is inaccessible
-* Converted existing CR validation to validating webhook (https://github.com/hazelcast/hazelcast-platform-operator/pull/492[#492])
+* Updated CR validation to use a webhook. The Hazelcast Platform Operator can now report issues with CRs before they are applied (https://github.com/hazelcast/hazelcast-platform-operator/pull/492[#492])
 ** This change allows the Operator to report issues with CRs before they are applied
 * Improved the approach for exposing API fields. Exposed API fields are now more consistent  (https://github.com/hazelcast/hazelcast-platform-operator/pull/498[#498])
 ** Exposed API fields are now more consistent with each other
