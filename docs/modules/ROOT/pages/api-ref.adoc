@@ -61,6 +61,8 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<IndexConfig,IndexConfig>>
 * <<IndexType,IndexType>>
 * <<InitialModeType,InitialModeType>>
+* <<JVMConfiguration,JVMConfiguration>>
+* <<JVMMemoryConfiguration,JVMMemoryConfiguration>>
 * <<JetEngineConfiguration,JetEngineConfiguration>>
 * <<LoggingLevel,LoggingLevel>>
 * <<ManagementCenter,ManagementCenter>>
@@ -512,6 +514,7 @@ m| scheduledExecutorServices | &#160; m| []<<ScheduledExecutorServiceConfigurati
 m| properties | &#160; m| map[string]string | false | -
 m| loggingLevel | &#160; m| <<LoggingLevel,LoggingLevel>> | false | "INFO"
 m| highAvailabilityMode | Configuration to create clusters resilient to node and zone failures m| <<HighAvailabilityMode,HighAvailabilityMode>> | false | {}
+m| jvm | Hazelcast JVM configuration m| &#42;<<JVMConfiguration,JVMConfiguration>> | false | {}
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -612,6 +615,32 @@ m| name | Name of the index config. m| string | false | -
 m| type | Type of the index. m| <<IndexType,IndexType>> | true | -
 m| attributes | Attributes of the index. m| []string | false | -
 m| bitMapIndexOptions | Options for "BITMAP" index type. m| &#42;<<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>> | false | {}
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== JVMConfiguration
+
+JVMConfiguration is a Hazelcast JVM configuration
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| memory | Memory is a JVM memory configuration m| &#42;<<JVMMemoryConfiguration,JVMMemoryConfiguration>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== JVMMemoryConfiguration
+
+JVMMemoryConfiguration is a JVM memory configuration
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| initialRAMPercentage | InitialRAMPercentage configures JVM initial heap size m| &#42;string | false | -
+m| minRAMPercentage | MinRAMPercentage sets the minimum heap size for a JVM m| &#42;string | false | -
+m| maxRAMPercentage | MaxRAMPercentage sets the maximum heap size for a JVM m| &#42;string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
