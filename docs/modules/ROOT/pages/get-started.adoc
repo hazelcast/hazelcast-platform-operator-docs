@@ -31,13 +31,13 @@ NOTE: Since CRDs are global resources, they may need to be installed by an admin
 Cluster Wide Installation::
 +
 --
-Run the following command to *deploy the Operator and the CRDs together*. By default, the Hazelcast Platform Operator watches all namespaces. Use the `watchNamespace` variable to update this configuration.
+Run the following command to *deploy the Operator and the CRDs together*. By default, the Hazelcast Platform Operator watches all namespaces. Use the `watchedNamespace` variable to update this configuration.
 
 [source,shell]
 ----
 helm install operator hazelcast/hazelcast-platform-operator \
     --set=installCRDs=true \
-    --set=watchNamespace="*"
+    --set=watchedNamespace="*"
 ----
 --
 
