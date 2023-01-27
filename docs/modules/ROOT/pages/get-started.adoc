@@ -9,7 +9,7 @@ You need a Kubernetes or Openshift cluster, and the `kubectl` or `oc` command-li
 
 == Step 1. Deploy Hazelcast Platform Operator
 
-From the Hazelcast Platform Operator 5.6.0 onwards, you can use a Helm chart to install the Hazelcast Platform Operator.
+From release 5.6.0 onwards, you can use a Helm chart to install the Hazelcast Platform Operator.
 
 . Add the link:https://github.com/hazelcast/charts[Hazelcast Helm Charts repository] to your Helm repository list by running the following command:
 
@@ -25,33 +25,52 @@ helm repo update
 +
 NOTE: Since CRDs are global resources, they may need to be installed by an administrator.
 
-.. Run the following command to *deploy the operator and the CRDs together*.
-
 +
+[tabs]
+====
+Cluster Wide Installation::
++
+--
+Run the following command to *deploy the Operator and the CRDs together*. By default, the Hazelcast Platform Operator watches all namespaces. Use the `watchedNamespace` variable to update this configuration.
+
 [source,shell]
 ----
-helm install operator hazelcast/hazelcast-platform-operator --set installCRDs=true
+helm install operator hazelcast/hazelcast-platform-operator \
+    --set=installCRDs=true \
+    --set=watchedNamespace="*"
 ----
+--
 
-.. Run the following commands to *deploy the operator and the CRDs separately*.
-
+Restricted Installation::
 +
+--
+Run the following commands to *deploy the Operator and the CRDs separately*. An administrator may need to do this.
+
 [source,shell]
 ----
 helm install operator-crds hazelcast/hazelcast-platform-operator-crds
 ----
 
-+
-After installing CRDs, install the operator by running the following command:
+After installing CRDs, install the Operator by running the following command. This operation requires only namespace-scoped permissions for `hz-system` and `watched-namespace` namespaces.
 
-+
 [source,shell]
 ----
-helm install operator hazelcast/hazelcast-platform-operator
+helm install operator hazelcast/hazelcast-platform-operator -n hz-system 
+    --set=createClusterScopedResources=false \
+    --set=webhook.enabled=false \
+    --set=enableHazelcastNodeDiscovery=false \
+    --set=installCRDs=false \
+    --set=watchedNamespace=watched-namespace \
 ----
+--
+====
+
++
+NOTE: You can view all configuration options by running the following command: `helm show values hazelcast/hazelcast-platform-operator`
 
 +
 . Monitor the operator logs. At this point, the Hazelcast Platform Operator should be up and running. You can check it with the command below.
+
 +
 [tabs]
 ====
