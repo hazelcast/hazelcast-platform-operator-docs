@@ -70,7 +70,8 @@ AWS::
 See https://docs.aws.amazon.com/sdk-for-go/api/aws/session/[AWS Session] to learn about authentication procedure.
 [source,bash]
 ----
-kubectl create secret generic <secret-name> --from-literal=region=<region> \
+kubectl create secret generic <secret-name> \
+	--from-literal=region=<region> \
 	--from-literal=access-key-id=<access-key-id> \
 	--from-literal=secret-access-key=<secret-access-key>
 ----
@@ -82,7 +83,8 @@ GCP::
 See https://cloud.google.com/docs/authentication/production/[Application Default Credentials] to learn about authentication procedure.
 [source,bash]
 ----
-kubectl create secret generic <secret-name> --from-file=google-credentials-path=<service_account_json_file>
+kubectl create secret generic <secret-name> \
+	--from-file=google-credentials-path=<service_account_json_file>
 ----
 --
 
