@@ -37,7 +37,6 @@ Run the following command to *deploy the Operator and the CRDs together*. By def
 ----
 helm install operator hazelcast/hazelcast-platform-operator \
     --set=installCRDs=true \
-    --set=watchedNamespaces="*"
 ----
 --
 
@@ -60,7 +59,7 @@ helm install operator hazelcast/hazelcast-platform-operator -n hz-system
     --set=webhook.enabled=false \
     --set=enableHazelcastNodeDiscovery=false \
     --set=installCRDs=false \
-    --set=watchedNamespace=ns-1,ns-2
+    --set=watchedNamespaces="{ns-1, ns-2}"
 ----
 --
 ====
