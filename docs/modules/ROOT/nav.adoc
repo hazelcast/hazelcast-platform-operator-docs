@@ -18,6 +18,7 @@
 .Reference
 // Configuration options/spec files/any other reference docs
 * xref:phone-homes.adoc[Phone Homes]
+* xref:jvm-parameters.adoc[JVM Parameters]
 * xref:api-ref.adoc[API References]
 
 .Release Notes
