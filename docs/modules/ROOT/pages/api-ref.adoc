@@ -1192,6 +1192,7 @@ m| items | &#160; m| []<<WanReplication,WanReplication>> | true | -
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
+m| resourceName | ResourceName is the name of the Map CR m| string | false | -
 m| publisherId | PublisherId is the ID used for WAN publisher ID m| string | false | -
 m| status | Status is the status of WAN replication m| <<WanStatus,WanStatus>> | false | -
 m| message | Message is the field to show detail information or error m| string | false | -
