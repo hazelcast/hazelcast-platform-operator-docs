@@ -50,6 +50,11 @@ The following information is sent in a phone home:
 ** Number of external backups to AWS S3
 ** Number of external backups to Google Storage
 ** Number of external backups to Azure Blob Storage
+* Management Center External Connectivity specific:
+** Number of ClusterIP services exposing Management Center
+** Number of NodePort services exposing Management Center
+** Number of LoadBalancer services exposing Management Center
+** Number of Ingresses routing to Management Center
 
 == Disabling Phone Homes
 
