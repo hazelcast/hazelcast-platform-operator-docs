@@ -45,7 +45,6 @@ The following information is sent in a phone home:
 ** Number of local backups
 ** Number of external backups
 ** Number of backups using K8s Persistance Volume Claim
-** Number of backups using K8s Host Path
 ** Number of clusters with enabled persistence restore feature
 ** Number of external backups to AWS S3
 ** Number of external backups to Google Storage
