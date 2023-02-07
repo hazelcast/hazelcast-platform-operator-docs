@@ -5,7 +5,7 @@
 
 == Configuring a JVM Parameter
 
-You can use any of the following configuration options in the `Hazelcast` resource. For more information, see the xref:api-ref.adoc#hazelcast[API Reference].
+You can use any of the following configuration options in the `Hazelcast` resource. For more information, see the xref:api-ref.adoc#jvmconfiguration[API Reference].
 
 [cols="25%m,75%a"]
 |===
