@@ -11,9 +11,6 @@ You can use any of the following configuration options in the `Hazelcast` resour
 |===
 |Field|Description
 
-|name
-|Name of the JVM Memory parameter.
-
 |initialRAMPercentage
 |The InitialRAMPercentage JVM parameter allows us to configure the initial heap size of the Hazelcast process. It's a percentage of the total memory of a container.
 
