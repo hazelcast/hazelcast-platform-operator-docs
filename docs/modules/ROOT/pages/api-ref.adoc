@@ -81,6 +81,8 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<MultiMapList,MultiMapList>>
 * <<MultiMapSpec,MultiMapSpec>>
 * <<MultiMapStatus,MultiMapStatus>>
+* <<NativeMemoryAllocatorType,NativeMemoryAllocatorType>>
+* <<NativeMemoryConfiguration,NativeMemoryConfiguration>>
 * <<NodeState,NodeState>>
 * <<PersistenceConfiguration,PersistenceConfiguration>>
 * <<PersistencePvcConfiguration,PersistencePvcConfiguration>>
@@ -515,6 +517,7 @@ m| properties | &#160; m| map[string]string | false | -
 m| loggingLevel | &#160; m| <<LoggingLevel,LoggingLevel>> | false | "INFO"
 m| highAvailabilityMode | Configuration to create clusters resilient to node and zone failures m| <<HighAvailabilityMode,HighAvailabilityMode>> | false | {}
 m| jvm | Hazelcast JVM configuration m| &#42;<<JVMConfiguration,JVMConfiguration>> | false | {}
+m| nativeMemory | Hazelcast Native Memory (HD Memory) configuration m| &#42;<<NativeMemoryConfiguration,NativeMemoryConfiguration>> | false | {}
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -855,6 +858,22 @@ MultiMapStatus defines the observed state of MultiMap
 m| state | &#160; m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
 m| message | &#160; m| string | false | -
 m| memberStatuses | &#160; m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== NativeMemoryConfiguration
+
+NativeMemoryConfiguration is a Hazelcast HD memory configuration
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| allocatorType | AllocatorType specifies one of 2 types of mechanism for allocating memory to HD m| <<NativeMemoryAllocatorType,NativeMemoryAllocatorType>> | false | "STANDARD"
+m| size | Size of the total native memory to allocate m| resource.Quantity | false | "512M"
+m| minBlockSize | MinBlockSize is the size of smallest block that will be allocated. It is used only by the POOLED memory allocator. m| int32 | false | -
+m| pageSize | PageSize is the size of the page in bytes to allocate memory as a block. It is used only by the POOLED memory allocator. m| int32 | false | 4194304
+m| metadataSpacePercentage | MetadataSpacePercentage defines percentage of the allocated native memory that is used for the metadata of other map components such as index (for predicates), offset, etc. m| int32 | false | 12
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1506,6 +1525,19 @@ MemberAccess describes how each Hazelcast member is accessed from the external c
 m| "NodePortExternalIP" | MemberAccessNodePortExternalIP lets the client access Hazelcast member with the NodePort service and the node external IP/hostname
 m| "NodePortNodeName" | MemberAccessNodePortNodeName lets the client access Hazelcast member with the NodePort service and the node name
 m| "LoadBalancer" | MemberAccessLoadBalancer lets the client access Hazelcast member with the LoadBalancer service
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== NativeMemoryAllocatorType
+
+NativeMemoryAllocatorType is one of 2 types of mechanism for allocating HD Memory
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "STANDARD" | NativeMemoryStandard allocate memory using default OS memory manager
+m| "POOLED" | NativeMemoryPooled is Hazelcast own pooling memory allocator
 |===
 
 <<Table of Contents,Back to TOC>>
