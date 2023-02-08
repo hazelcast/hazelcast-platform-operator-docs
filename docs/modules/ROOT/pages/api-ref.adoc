@@ -40,6 +40,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<ExposeExternallyConfiguration,ExposeExternallyConfiguration>>
 * <<ExposeExternallyType,ExposeExternallyType>>
 * <<ExternalConnectivityConfiguration,ExternalConnectivityConfiguration>>
+* <<ExternalConnectivityIngress,ExternalConnectivityIngress>>
 * <<ExternalConnectivityType,ExternalConnectivityType>>
 * <<FullBehaviorSetting,FullBehaviorSetting>>
 * <<Hazelcast,Hazelcast>>
@@ -392,6 +393,21 @@ ExternalConnectivityConfiguration defines how to expose Management Center pod.
 |===
 | Field | Description | Type | Required | Default
 m| type | How Management Center is exposed. Valid values are: - "ClusterIP" - "NodePort" - "LoadBalancer" (default) m| <<ExternalConnectivityType,ExternalConnectivityType>> | false | "LoadBalancer"
+m| ingress | Ingress configuration of Management Center m| &#42;<<ExternalConnectivityIngress,ExternalConnectivityIngress>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ExternalConnectivityIngress
+
+ExternalConnectivityIngress defines ingress configuration of Management Center
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| hostname | Hostname of Management Center exposed by Ingress. Ingress controller will use this hostname to route inbound traffic. m| string | true | -
+m| ingressClassName | IngressClassName of the ingress object. m| string | false | -
+m| annotations | Annotations added to the ingress object. m| map[string]string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
