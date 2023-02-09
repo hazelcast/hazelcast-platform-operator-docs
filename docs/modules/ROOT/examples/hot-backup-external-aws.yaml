@@ -4,5 +4,5 @@ metadata:
   name: hot-backup
 spec:
   hazelcastResourceName: hazelcast
-  bucketURI: "s3://operator-backup" <1>
+  bucketURI: "s3://bucket-name/path/to/folder" <1>
   secret: "secret-aws-s3" <2>

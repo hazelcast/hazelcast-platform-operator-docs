@@ -4,5 +4,5 @@ metadata:
   name: hot-backup
 spec:
   hazelcastResourceName: hazelcast
-  bucketURI: "gs://operator-backup" <1>
+  bucketURI: "gs://bucket-name/path/to/folder" <1>
   secret: "secret-gcp-bucket" <2>

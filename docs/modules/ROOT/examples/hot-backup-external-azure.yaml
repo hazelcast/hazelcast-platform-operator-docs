@@ -4,5 +4,5 @@ metadata:
   name: hot-backup
 spec:
   hazelcastResourceName: hazelcast
-  bucketURI: "azblob://operator-backup" <1>
+  bucketURI: "azblob://bucket-name/path/to/folder" <1>
   secret: "secret-azure-blob" <2>
