@@ -33,9 +33,9 @@ Cluster Wide Installation::
 --
 Run the following command to *deploy the Operator and the CRDs together*. By default, the Hazelcast Platform Operator watches all namespaces. Use the `watchedNamespaces` variable to update this configuration.
 
-[source,shell]
+[source,shell,subs="attributes"]
 ----
-helm install operator hazelcast/hazelcast-platform-operator \
+helm install operator hazelcast/hazelcast-platform-operator --version={operator-chart-version} \
     --set=installCRDs=true \
 ----
 --
@@ -45,16 +45,16 @@ Restricted Installation::
 --
 Run the following commands to *deploy the Operator and the CRDs separately*. An administrator may need to do this.
 
-[source,shell]
+[source,shell,subs="attributes"]
 ----
-helm install operator-crds hazelcast/hazelcast-platform-operator-crds
+helm install operator-crds hazelcast/hazelcast-platform-operator-crds --version={operator-chart-version}
 ----
 
 After installing CRDs, install the Operator by running the following command. This operation requires only namespace-scoped permissions for `hz-system`, `ns-1` and `ns-2` namespaces.
 
-[source,shell]
+[source,shell,subs="attributes"]
 ----
-helm install operator hazelcast/hazelcast-platform-operator -n hz-system 
+helm install operator hazelcast/hazelcast-platform-operator --version={operator-chart-version} -n hz-system
     --set=createClusterScopedResources=false \
     --set=webhook.enabled=false \
     --set=enableHazelcastNodeDiscovery=false \
