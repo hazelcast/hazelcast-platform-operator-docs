@@ -269,23 +269,3 @@ include::ROOT:example$/hazelcast-forcestart.yaml[]
 ----
 
 The `PartialStart` can be triggered only when `clusterDataRecoveryPolicy` is set to `PartialRecoveryMostRecent` or `PartialRecoveryMostComplete`.
-
-[[hostpath]]
-== HostPath Support for Persistence
-
-You can also use HostPath to enable persistence.
-
-WARNING: HostPath support is discouraged for the production environments for the reasons
-mentioned in the link:https://kubernetes.io/docs/concepts/storage/volumes/#hostpath[Kubernetes documentation]
-
-WARNING: HostPath support expects the size of the cluster to be equal to the number of Kubernetes nodes
-and pods are distributed to the nodes equally. You can manage how pods are distributed among nodes by setting the `topologySpreadContraints` field, which is described in xref:scheduling-configuration.adoc#topology-spread-constraints[Scheduling Hazelcast Pods].
-
-Create the Hazelcast resource with the `clusterSize` equal to the number of Kubernetes nodes and give the proper `topologySpreadConstraints`.
-
-+
-[source,yaml,subs="attributes+"]
-----
-include::ROOT:example$/hazelcast-persistence-hostpath.yaml[]
-----
-
