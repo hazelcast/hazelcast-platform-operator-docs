@@ -54,6 +54,7 @@ The following information is sent in a phone home:
 ** Number of NodePort services exposing Management Center
 ** Number of LoadBalancer services exposing Management Center
 ** Number of Ingresses routing to Management Center
+** Number of OpenShift routes created for Management Center resources
 
 == Disabling Phone Homes
 
