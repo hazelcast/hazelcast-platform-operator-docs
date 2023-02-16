@@ -1,5 +1,5 @@
 = JVM Parameters
-:description: pass:q[Hazelcast allows selected JVM arguments to be passed to the JVM in the `hazelcast` container by using th `jvm` field of the CRD spec.]
+:description: pass:q[You can configure the JVM in the `hazelcast` container using the `jvm` field of the CRD spec.]
 
 {description}
 
