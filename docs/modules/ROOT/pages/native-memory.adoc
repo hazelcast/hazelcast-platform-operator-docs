@@ -14,7 +14,7 @@ Below are the configuration options for the Native Memory Store.
 |Field|Description
 
 |`allocatorType`
-| Specifies the mechanism for allocating memory; either XXXX or XXXX.
+| Specifies the mechanism for allocating memory; either STANDARD or POOLED.
 
 |`size`
 |Size of the total native memory to allocate.
