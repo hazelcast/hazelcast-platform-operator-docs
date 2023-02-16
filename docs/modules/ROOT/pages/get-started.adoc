@@ -28,26 +28,26 @@ NOTE: Since CRDs are global resources, they may need to be installed by an admin
 .. Run the following command to *deploy the operator and the CRDs together*.
 
 +
-[source,shell]
+[source,shell,subs="attributes"]
 ----
-helm install operator hazelcast/hazelcast-platform-operator --set installCRDs=true
+helm install operator hazelcast/hazelcast-platform-operator --version={operator-chart-version} --set installCRDs=true
 ----
 
 .. Run the following commands to *deploy the operator and the CRDs separately*.
 
 +
-[source,shell]
+[source,shell,subs="attributes"]
 ----
-helm install operator-crds hazelcast/hazelcast-platform-operator-crds
+helm install operator-crds hazelcast/hazelcast-platform-operator-crds --version={operator-chart-version}
 ----
 
 +
 After installing CRDs, install the operator by running the following command:
 
 +
-[source,shell]
+[source,shell,subs="attributes"]
 ----
-helm install operator hazelcast/hazelcast-platform-operator
+helm install operator hazelcast/hazelcast-platform-operator --version={operator-chart-version}
 ----
 
 +
