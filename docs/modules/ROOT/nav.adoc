@@ -14,11 +14,11 @@
 * xref:wan-replication.adoc[Configuring WAN Replication]
 * xref:user-code-deployment.adoc[User Code Deployment]
 * xref:high-availability-mode.adoc[High Availability Mode]
+* xref:jvm-parameters.adoc[Configuring JVM Parameters]
 
 .Reference
 // Configuration options/spec files/any other reference docs
 * xref:phone-homes.adoc[Phone Homes]
-* xref:jvm-parameters.adoc[JVM Parameters]
 * xref:api-ref.adoc[API References]
 
 .Release Notes

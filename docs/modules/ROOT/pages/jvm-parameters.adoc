@@ -1,4 +1,4 @@
-= JVM Parameters
+= Configuring JVM Parameters
 :description: pass:q[You can configure the JVM in the `hazelcast` container using the `jvm` field of the CRD spec.]
 
 {description}
