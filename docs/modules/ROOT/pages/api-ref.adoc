@@ -41,6 +41,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<ExposeExternallyType,ExposeExternallyType>>
 * <<ExternalConnectivityConfiguration,ExternalConnectivityConfiguration>>
 * <<ExternalConnectivityIngress,ExternalConnectivityIngress>>
+* <<ExternalConnectivityRoute,ExternalConnectivityRoute>>
 * <<ExternalConnectivityType,ExternalConnectivityType>>
 * <<FullBehaviorSetting,FullBehaviorSetting>>
 * <<Hazelcast,Hazelcast>>
@@ -394,6 +395,7 @@ ExternalConnectivityConfiguration defines how to expose Management Center pod.
 | Field | Description | Type | Required | Default
 m| type | How Management Center is exposed. Valid values are: - "ClusterIP" - "NodePort" - "LoadBalancer" (default) m| <<ExternalConnectivityType,ExternalConnectivityType>> | false | "LoadBalancer"
 m| ingress | Ingress configuration of Management Center m| &#42;<<ExternalConnectivityIngress,ExternalConnectivityIngress>> | false | -
+m| route | OpenShift Route configuration of Management Center m| &#42;<<ExternalConnectivityRoute,ExternalConnectivityRoute>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -408,6 +410,18 @@ ExternalConnectivityIngress defines ingress configuration of Management Center
 m| hostname | Hostname of Management Center exposed by Ingress. Ingress controller will use this hostname to route inbound traffic. m| string | true | -
 m| ingressClassName | IngressClassName of the ingress object. m| string | false | -
 m| annotations | Annotations added to the ingress object. m| map[string]string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ExternalConnectivityRoute
+
+ExternalConnectivityRoute defines OpenShift route configuration of Management Center
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| hostname | Hostname of Management Center exposed by route. Openshift routers will use this hostname to route inbound traffic. m| string | true | -
 |===
 
 <<Table of Contents,Back to TOC>>
