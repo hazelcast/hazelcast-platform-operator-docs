@@ -1,0 +1,33 @@
+= Configuring JVM Parameters
+:description: pass:q[You can configure the JVM in the `hazelcast` container using the `jvm` field of the CRD spec.]
+
+{description}
+
+== Configuring a JVM Parameter
+
+Use any of the following configuration options in the `Hazelcast` resource. For more information, see the xref:api-ref.adoc#jvmconfiguration[API Reference].
+
+[cols="25%m,75%a"]
+|===
+|Field|Description
+
+|initialRAMPercentage
+|Configures the initial heap size of the Hazelcast process as a percentage of the total memory of a container.
+
+|maxRAMPercentage
+|Sets the maximum heap size for a JVM running with a large amount of memory.
+
+|minRAMPercentage
+|Unlike its name, this parameter sets the maximum heap size for a JVM running with a small amount of memory.
+
+|===
+
+== Example Configuration
+
+The following `Hazelcast` custom resource creates a cluster that uses all three parameters.
+
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/jvm.yaml[]
+----
