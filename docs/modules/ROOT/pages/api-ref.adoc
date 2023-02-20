@@ -40,6 +40,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<ExposeExternallyConfiguration,ExposeExternallyConfiguration>>
 * <<ExposeExternallyType,ExposeExternallyType>>
 * <<ExternalConnectivityConfiguration,ExternalConnectivityConfiguration>>
+* <<ExternalConnectivityIngress,ExternalConnectivityIngress>>
 * <<ExternalConnectivityType,ExternalConnectivityType>>
 * <<FullBehaviorSetting,FullBehaviorSetting>>
 * <<Hazelcast,Hazelcast>>
@@ -81,6 +82,8 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<MultiMapList,MultiMapList>>
 * <<MultiMapSpec,MultiMapSpec>>
 * <<MultiMapStatus,MultiMapStatus>>
+* <<NativeMemoryAllocatorType,NativeMemoryAllocatorType>>
+* <<NativeMemoryConfiguration,NativeMemoryConfiguration>>
 * <<NodeState,NodeState>>
 * <<PersistenceConfiguration,PersistenceConfiguration>>
 * <<PersistencePvcConfiguration,PersistencePvcConfiguration>>
@@ -136,7 +139,7 @@ m| timeout | Timeout represents the time in milliseconds the source cluster wait
 |===
 | Field | Description | Type | Required | Default
 m| repository | Repository to pull Hazelcast Platform Operator Agent(https://github.com/hazelcast/platform-operator-agent) m| string | false | "docker.io/hazelcast/platform-operator-agent"
-m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.14"
+m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.15"
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -390,6 +393,21 @@ ExternalConnectivityConfiguration defines how to expose Management Center pod.
 |===
 | Field | Description | Type | Required | Default
 m| type | How Management Center is exposed. Valid values are: - "ClusterIP" - "NodePort" - "LoadBalancer" (default) m| <<ExternalConnectivityType,ExternalConnectivityType>> | false | "LoadBalancer"
+m| ingress | Ingress configuration of Management Center m| &#42;<<ExternalConnectivityIngress,ExternalConnectivityIngress>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ExternalConnectivityIngress
+
+ExternalConnectivityIngress defines ingress configuration of Management Center
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| hostname | Hostname of Management Center exposed by Ingress. Ingress controller will use this hostname to route inbound traffic. m| string | true | -
+m| ingressClassName | IngressClassName of the ingress object. m| string | false | -
+m| annotations | Annotations added to the ingress object. m| map[string]string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -481,7 +499,6 @@ m| clusterDataRecoveryPolicy | Configuration of the cluster recovery strategy. m
 m| startupAction | StartupAction represents the action triggered when the cluster starts to force the cluster startup. m| <<PersistenceStartupAction,PersistenceStartupAction>> | false | -
 m| dataRecoveryTimeout | DataRecoveryTimeout is timeout for each step of data recovery in seconds. Maximum timeout is equal to DataRecoveryTimeout*2 (for each step: validation and data-load). m| int32 | false | -
 m| pvc | Configuration of PersistenceVolumeClaim. m| <<PersistencePvcConfiguration,PersistencePvcConfiguration>> | false | {}
-m| hostPath | Host Path directory. m| string | false | -
 m| restore | Restore configuration m| <<RestoreConfiguration,RestoreConfiguration>> | false | {}
 |===
 
@@ -505,7 +522,7 @@ m| clusterName | Name of the Hazelcast cluster. m| string | false | "dev"
 m| scheduling | Scheduling details m| <<SchedulingConfiguration,SchedulingConfiguration>> | false | {}
 m| resources | Compute Resources required by the Hazelcast container. m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | {}
 m| persistence | Persistence configuration m| &#42;<<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>> | false | {}
-m| agent | B&R Agent configurations m| <<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.14"}
+m| agent | B&R Agent configurations m| <<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.15"}
 m| jet | Jet Engine configuration m| <<JetEngineConfiguration,JetEngineConfiguration>> | false | {enabled: true, resourceUploadEnabled: false}
 m| userCodeDeployment | User Codes to Download into CLASSPATH m| <<UserCodeDeploymentConfig,UserCodeDeploymentConfig>> | false | {}
 m| executorServices | &#160; m| []<<ExecutorServiceConfiguration,ExecutorServiceConfiguration>> | false | -
@@ -515,6 +532,7 @@ m| properties | &#160; m| map[string]string | false | -
 m| loggingLevel | &#160; m| <<LoggingLevel,LoggingLevel>> | false | "INFO"
 m| highAvailabilityMode | Configuration to create clusters resilient to node and zone failures m| <<HighAvailabilityMode,HighAvailabilityMode>> | false | {}
 m| jvm | Hazelcast JVM configuration m| &#42;<<JVMConfiguration,JVMConfiguration>> | false | {}
+m| nativeMemory | Hazelcast Native Memory (HD Memory) configuration m| &#42;<<NativeMemoryConfiguration,NativeMemoryConfiguration>> | false | {}
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -571,7 +589,7 @@ HotBackupSpec defines the Spec of HotBackup
 |===
 | Field | Description | Type | Required | Default
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource m| string | true | -
-m| bucketURI | URL of the bucket to download HotBackup folders. m| string | false | -
+m| bucketURI | URL of the bucket to download HotBackup folders. AWS S3, GCP Bucket and Azure Blob storage buckets are supported. Example bucket URIs: - AWS S3     -> s3://bucket-name/path/to/folder - GCP Bucket -> gs://bucket-name/path/to/folder - Azure Blob -> azblob://bucket-name/path/to/folder m| string | false | -
 m| secret | Name of the secret with credentials for cloud providers. m| string | false | -
 |===
 
@@ -855,6 +873,22 @@ MultiMapStatus defines the observed state of MultiMap
 m| state | &#160; m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
 m| message | &#160; m| string | false | -
 m| memberStatuses | &#160; m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== NativeMemoryConfiguration
+
+NativeMemoryConfiguration is a Hazelcast HD memory configuration
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| allocatorType | AllocatorType specifies one of 2 types of mechanism for allocating memory to HD m| <<NativeMemoryAllocatorType,NativeMemoryAllocatorType>> | false | "STANDARD"
+m| size | Size of the total native memory to allocate m| resource.Quantity | false | "512M"
+m| minBlockSize | MinBlockSize is the size of smallest block that will be allocated. It is used only by the POOLED memory allocator. m| int32 | false | -
+m| pageSize | PageSize is the size of the page in bytes to allocate memory as a block. It is used only by the POOLED memory allocator. m| int32 | false | 4194304
+m| metadataSpacePercentage | MetadataSpacePercentage defines percentage of the allocated native memory that is used for the metadata of other map components such as index (for predicates), offset, etc. m| int32 | false | 12
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1506,6 +1540,19 @@ MemberAccess describes how each Hazelcast member is accessed from the external c
 m| "NodePortExternalIP" | MemberAccessNodePortExternalIP lets the client access Hazelcast member with the NodePort service and the node external IP/hostname
 m| "NodePortNodeName" | MemberAccessNodePortNodeName lets the client access Hazelcast member with the NodePort service and the node name
 m| "LoadBalancer" | MemberAccessLoadBalancer lets the client access Hazelcast member with the LoadBalancer service
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== NativeMemoryAllocatorType
+
+NativeMemoryAllocatorType is one of 2 types of mechanism for allocating HD Memory
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "STANDARD" | NativeMemoryStandard allocate memory using default OS memory manager
+m| "POOLED" | NativeMemoryPooled is Hazelcast own pooling memory allocator
 |===
 
 <<Table of Contents,Back to TOC>>

@@ -15,6 +15,7 @@
 * xref:user-code-deployment.adoc[User Code Deployment]
 * xref:high-availability-mode.adoc[High Availability Mode]
 * xref:native-memory.adoc[Native Memory]
+* xref:jvm-parameters.adoc[Configuring JVM Parameters]
 
 .Reference
 // Configuration options/spec files/any other reference docs
