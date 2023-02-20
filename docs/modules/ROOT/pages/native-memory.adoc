@@ -1,0 +1,51 @@
+= Configuring the Native Memory Store
+:description: The Native Memory Store is a pluggable memory manager. It allows you to set up different configurations, or stores, for your application’s data structures on a single JVM. These memory stores form part of a common access layer which scales up to use a configured amount of memory on the JVM.
+
+{description}
+
+As well as providing more predictable application scaling, using a Native Memory Store boosts performance, reduces latency, and minimizes garbage collection pauses. 
+
+== Configuring a Native Memory Store
+
+Below are the configuration options for the Native Memory Store.
+
+[cols="25%m,75%a"]
+|===
+|Field|Description
+
+|`allocatorType`
+| Specifies the mechanism for allocating memory; either STANDARD or POOLED.
+
+|`size`
+|Size of the total native memory to allocate.
+
+|`minBlockSize`
+|Size of smallest block of memory to allocate.
+
+|`pageSize`
+|Size of the page in bytes to allocate as a block of memory.
+
+|`metadataSpacePercentage`
+|Percentage of the allocated native memory that is used for the metadata of other map components such as index (for predicates), offset, etc.
+
+|===
+
+=== Example Configuration
+
+The example configuration does the following:
+
+- Creates a cluster with `Native Memory` and the `POOLED` allocator enabled.
+- Configures a map on the cluster to use native memory.
+
+
+.Example Hazelcast configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-native-memory.yaml[]
+----
+
+.Example Map configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-native-memory-map.yaml[]
+----
