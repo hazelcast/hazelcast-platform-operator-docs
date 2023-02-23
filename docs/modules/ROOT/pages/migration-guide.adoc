@@ -1,0 +1,9 @@
+= Migrating to 5.3
+
+`PartialRecoveryForceStart` option is removed:
+
+```hazelcast:
+  spec:
+    persistence:
+      clusterDataRecoveryPolicy: PartialRecoveryForceStart
+```
