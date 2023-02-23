@@ -48,7 +48,7 @@ kind: CronHotBackup
 metadata:
   name: cronhotbackup
 spec:
-  schedule: "*/30 * * * *"
+  schedule: "* * * * *"
   hotBackupTemplate:
     metadata:
       labels:
