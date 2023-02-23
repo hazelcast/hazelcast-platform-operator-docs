@@ -2,13 +2,10 @@
 
 Minimum length is specified for the following fields:
 
-```
-hazelcast:
-  persistence:
-    restore:
-      bucketURI:
-      secret:
-```
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/migration-guide.yaml[]
+----
 
 - `bucketURI` must be at least 6 characters long.
 - `secret` must be at least 1 character long.
