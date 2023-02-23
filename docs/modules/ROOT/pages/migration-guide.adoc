@@ -1,0 +1,8 @@
+= Migrating to 5.6
+
+- To increase the reliability of the `ForceStart` and avoid unnecessary data loss, `autoForceStart` is removed from the operator's persistence options. Instead, you can use `startupAction` option and set it to `ForceStart` or `PartialStart`. For example:
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-startup-action.yaml[]
+----
