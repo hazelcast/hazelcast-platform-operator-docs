@@ -6,3 +6,55 @@
 ----
 include::ROOT:example$/hazelcast-startup-action.yaml[]
 ----
+
+- Starting from 5.6, Helm Charts is used for the operator installations. So while migrating from 5.5 to 5.6, following steps must be followed:
+
+*Step 1: Add labels and annotations to existing CRDs to authorize Helm Chart to manage them (`<namespace>` must be replaced with the namespace where operator is already installed.):*
+[shell,yaml]
+----
+kubectl label --overwrite crd hazelcasts.hazelcast.com "app.kubernetes.io/managed-by=Helm" && \
+kubectl label --overwrite crd hotbackups.hazelcast.com "app.kubernetes.io/managed-by=Helm" && \
+kubectl label --overwrite crd maps.hazelcast.com "app.kubernetes.io/managed-by=Helm" && \
+kubectl label --overwrite crd multimaps.hazelcast.com "app.kubernetes.io/managed-by=Helm" && \
+kubectl label --overwrite crd replicatedmaps.hazelcast.com "app.kubernetes.io/managed-by=Helm" && \
+kubectl label --overwrite crd topics.hazelcast.com "app.kubernetes.io/managed-by=Helm" && \
+kubectl label --overwrite crd managementcenters.hazelcast.com "app.kubernetes.io/managed-by=Helm" && \
+kubectl label --overwrite crd cronhotbackups.hazelcast.com "app.kubernetes.io/managed-by=Helm" && \
+kubectl label --overwrite crd wanreplications.hazelcast.com "app.kubernetes.io/managed-by=Helm"
+
+kubectl annotate --overwrite crd hazelcasts.hazelcast.com "meta.helm.sh/release-name=operator-crds" "meta.helm.sh/release-namespace=<namespace>" && \
+kubectl annotate --overwrite crd hotbackups.hazelcast.com "meta.helm.sh/release-name=operator-crds" "meta.helm.sh/release-namespace=<namespace>" && \
+kubectl annotate --overwrite crd cronhotbackups.hazelcast.com "meta.helm.sh/release-name=operator-crds" "meta.helm.sh/release-namespace=<namespace>" && \
+kubectl annotate --overwrite crd maps.hazelcast.com "meta.helm.sh/release-name=operator-crds" "meta.helm.sh/release-namespace=<namespace>" && \
+kubectl annotate --overwrite crd multimaps.hazelcast.com "meta.helm.sh/release-name=operator-crds" "meta.helm.sh/release-namespace=<namespace>" && \
+kubectl annotate --overwrite crd replicatedmaps.hazelcast.com "meta.helm.sh/release-name=operator-crds" "meta.helm.sh/release-namespace=<namespace>" && \
+kubectl annotate --overwrite crd topics.hazelcast.com "meta.helm.sh/release-name=operator-crds" "meta.helm.sh/release-namespace=<namespace>" && \
+kubectl annotate --overwrite crd managementcenters.hazelcast.com "meta.helm.sh/release-name=operator-crds" "meta.helm.sh/release-namespace=<namespace>" && \
+kubectl annotate --overwrite crd wanreplications.hazelcast.com "meta.helm.sh/release-name=operator-crds" "meta.helm.sh/release-namespace=<namespace>"
+[shell,yaml]
+----
+
+*Step 2: Install CRDs for the new version:*
+[shell,yaml]
+----
+helm install operator-crds hazelcast/hazelcast-platform-operator-crds
+----
+
+*Step 3: Delete existing deployments and roles (replace `<cr_name>` with your Hazelcast instance's name):*
+[shell,yaml]
+----
+kubectl delete serviceaccount/hazelcast-platform-controller-manager && \
+kubectl delete role.rbac.authorization.k8s.io/hazelcast-platform-manager-role && \
+kubectl delete clusterrole.rbac.authorization.k8s.io/hazelcast-platform-manager-role && \
+kubectl delete rolebinding.rbac.authorization.k8s.io/hazelcast-platform-manager-rolebinding && \
+kubectl delete clusterrolebinding.rbac.authorization.k8s.io/hazelcast-platform-manager-clusterrolebinding && \
+kubectl delete deployment.apps/hazelcast-platform-controller-manager
+
+kubectl delete $(kubectl get clusterrole,role -o name | grep <cr_name>)
+----
+
+*Step 4: Install new operator using Helm Chart:*
+[shell,yaml]
+----
+helm install operator hazelcast/hazelcast-platform-operator
+----
