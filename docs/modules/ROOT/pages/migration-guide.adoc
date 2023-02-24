@@ -58,3 +58,4 @@ kubectl delete $(kubectl get clusterrole,role -o name | grep <cr_name>)
 ----
 helm install operator hazelcast/hazelcast-platform-operator
 ----
+TIP: After completing these steps, Hazelcast Enterprise users can also upgrade their Hazelcast Cluster version by triggering a rolling upgrade. To trigger a rolling upgrade, you just need to update Hazelcast version in your Kubernetes specification and re-apply it.
