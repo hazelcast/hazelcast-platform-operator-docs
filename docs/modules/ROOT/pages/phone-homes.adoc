@@ -42,6 +42,8 @@ The following information is sent in a phone home:
 ** Number of Map configurations created
 ** Number of Map configurations with persistence enabled
 ** Number of Map configurations with map store configured
+* Cache specific:
+** Number of Cache configurations created
 * HotHackup specific:
 ** Number of local backups
 ** Number of external backups
