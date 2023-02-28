@@ -32,18 +32,7 @@ To enable Garbage Collector Logging, you can use the following configuration:
 include::ROOT:example$/jvm_gc_logging.yaml[]
 ----
 
-It is going to set the following JVM arguments:
-
-[source,bash]
-----
--verbose:gc
--XX:+PrintGCDetails
--XX:+PrintGCTimeStamps
--XX:+PrintHeapAtGC
--XX:+PrintTenuringDistribution
--XX:+PrintGCApplicationStoppedTime
--XX:+PrintGCApplicationConcurrentTime
-----
+It is going to set the following JVM argument: `-verbose:gc`
 
 ==== Setting the Garbage Collector
 WARNING: Before making Garbage Collector related changes using the Hazelcast Platform Operator, it is highly recommended to read link:https://docs.hazelcast.com/hazelcast/5.2/capacity-planning#garbage-collection-considerations[Garbage Collector Considerations section of Capacity Planning Document] to decide which Garbage Collector to use.
