@@ -6,7 +6,7 @@ spec:
   resources:
     - name: map
       kind: Map
-    - name: new-map
+    - name: new-hazelcast
       kind: Hazelcast
   targetClusterName: dev
   endpoints: "35.192.33.252"

@@ -37,7 +37,7 @@ include::ROOT:example$/migration_guide/schedule_after.yaml[]
 ----
 
 
-- `mapResourceName` field renamed as `resources` and WAN Replication with multiple resources support is added.
+- `mapResourceName` field is removed and `resources` field is added to make it possible to specify multiple WAN Replication resources.
 
 ==== Before:
 [source,yaml,subs="attributes+"]
