@@ -43,6 +43,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<ExternalConnectivityRoute,ExternalConnectivityRoute>>
 * <<ExternalConnectivityType,ExternalConnectivityType>>
 * <<FullBehaviorSetting,FullBehaviorSetting>>
+* <<GCType,GCType>>
 * <<Hazelcast,Hazelcast>>
 * <<HazelcastClusterConfig,HazelcastClusterConfig>>
 * <<HazelcastClusterStatus,HazelcastClusterStatus>>
@@ -63,6 +64,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<IndexType,IndexType>>
 * <<InitialModeType,InitialModeType>>
 * <<JVMConfiguration,JVMConfiguration>>
+* <<JVMGCConfiguration,JVMGCConfiguration>>
 * <<JVMMemoryConfiguration,JVMMemoryConfiguration>>
 * <<JetEngineConfiguration,JetEngineConfiguration>>
 * <<LoggingLevel,LoggingLevel>>
@@ -659,6 +661,21 @@ JVMConfiguration is a Hazelcast JVM configuration
 |===
 | Field | Description | Type | Required | Default
 m| memory | Memory is a JVM memory configuration m| &#42;<<JVMMemoryConfiguration,JVMMemoryConfiguration>> | false | -
+m| gc | GC is for configuring JVM Garbage Collector m| &#42;<<JVMGCConfiguration,JVMGCConfiguration>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== JVMGCConfiguration
+
+JVMGCConfiguration is for configuring JVM Garbage Collector
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| logging | Logging enables logging when set to true m| &#42;bool | false | -
+m| collector | Collector is the Garbage Collector type m| &#42;<<GCType,GCType>> | false | -
+m| args | Args is for arbitrary garbage collection arguments m| []string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1400,6 +1417,20 @@ m| "LoadBalancer" | ExternalConnectivityTypeLoadBalancer exposes Management Cent
 m| "DISCARD_AFTER_MUTATION" | &#160;
 m| "THROW_EXCEPTION" | &#160;
 m| "THROW_EXCEPTION_ONLY_IF_REPLICATION_ACTIVE" | &#160;
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== GCType
+
+GCType is Garbage Collector type
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "Serial" | &#160;
+m| "Parallel" | &#160;
+m| "G1" | &#160;
 |===
 
 <<Table of Contents,Back to TOC>>
