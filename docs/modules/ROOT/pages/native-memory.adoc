@@ -49,3 +49,9 @@ include::ROOT:example$/hazelcast-native-memory.yaml[]
 ----
 include::ROOT:example$/hazelcast-native-memory-map.yaml[]
 ----
+
+.Example Cache configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-native-memory-cache.yaml[]
+----

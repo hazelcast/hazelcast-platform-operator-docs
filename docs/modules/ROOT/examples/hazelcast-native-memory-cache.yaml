@@ -1,0 +1,7 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: Cache
+metadata:
+  name: cache
+spec:
+  hazelcastResourceName: hazelcast
+  inMemoryFormat: NATIVE

@@ -32,6 +32,9 @@ You can use any of the following configuration options in the `Cache` resource. 
 |persistenceEnabled
 |When enabled, the cache data will be persisted.
 
+|inMemoryFormat
+|Represents the format options for storing the data in cache.
+
 |===
 
 == Example Configuration
