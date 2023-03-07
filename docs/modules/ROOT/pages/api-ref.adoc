@@ -224,6 +224,7 @@ m| asyncBackupCount | Number of asynchronous backups. m| int32 | false | 0
 m| keyType | Class name of the key type m| string | false | -
 m| valueType | Class name of the value type m| string | false | -
 m| persistenceEnabled | When enabled, cache data will be persisted. m| bool | false | false
+m| inMemoryFormat | InMemoryFormat specifies in which format data will be stored in your cache m| <<InMemoryFormatType,InMemoryFormatType>> | false | BINARY
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1435,7 +1436,7 @@ m| "Success" | &#160;
 
 === InMemoryFormatType
 
-InMemoryFormatType represents the format options for storing the data in the map. For now, we are not exposing NATIVE format type since currently there is no support for High-Density Memory Store feature in the operator.
+InMemoryFormatType represents the format options for storing the data in the map/cache.
 
 [cols="5,10"options="header"]
 |===
