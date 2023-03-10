@@ -4,7 +4,6 @@ metadata:
   name: hazelcast
 spec:
   jvm:
-    gc:
-      args:
-        - "-XX:MaxGCPauseMillis=200"
+    args:
+      - "-XX:MaxGCPauseMillis=200"
 
