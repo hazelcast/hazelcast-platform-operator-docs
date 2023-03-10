@@ -9,6 +9,7 @@ spec:
   licenseKeySecret: hazelcast-license-key
   advancedNetwork:
     wan:
+    - name: istanbul
       port: 5710
       portCount: 5
       serviceType: NodePort
