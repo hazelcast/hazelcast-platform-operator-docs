@@ -1,7 +1,12 @@
 = Advanced Network Configuration
-:description: In Hazelcast, you can configure the Hazelcast members with separate server sockets using a different network configuration for different protocols. It is called Advanced Network and support Member, Client, Rest, Memcache and WAN protocols.
 
-In the Hazelcast Platform Operator, advanced networking configuration is enabled by default and Rest and Client protocols are already configured. For Client protocol the port number is 5701. For Rest, port number is 8081 and `Persistence`, `HealthCheck` and `ClusterWrite` endpoint groups enabled by default.
+In Hazelcast, you can configure the Hazelcast members with separate server sockets using a different network configuration for different protocols. It is called  link:https://docs.hazelcast.com/hazelcast/latest/clusters/network-configuration#advanced-network-configuration[ Advanced Network] and support Member, Client, REST, Memcache and WAN protocols.
+
+In the Hazelcast Platform Operator, advanced networking configuration is enabled by default and REST and Client protocols are already configured:
+
+- For Client protocol the port number is `5701`.
+- For REST, port number is `8081` and `Persistence`, `HealthCheck` and `ClusterWrite` endpoint groups enabled by default.
+- For WAN, default port number is `5710`.
 
 You can configure Member Protocol interfaces and WAN Protocol sockets using the Hazelcast Platform Operator.
 
