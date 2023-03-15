@@ -1,0 +1,82 @@
+= Configuring JVM Parameters
+:description: pass:q[You can configure the JVM in the `hazelcast` container using the `jvm` field of the CRD spec.]
+
+{description}
+
+== Configuring a JVM Parameter
+
+Use any of the following configuration options in the `Hazelcast` resource. For more information, see the xref:api-ref.adoc#jvmconfiguration[API Reference].
+
+[cols="25%m,75%a"]
+|===
+|Field|Description
+
+|initialRAMPercentage
+|Configures the initial heap size of the Hazelcast process as a percentage of the total memory of a container.
+
+|maxRAMPercentage
+|Sets the maximum heap size for a JVM running with a large amount of memory.
+
+|minRAMPercentage
+|Unlike its name, this parameter sets the maximum heap size for a JVM running with a small amount of memory.
+
+|===
+
+== Example Configuration
+
+The following `Hazelcast` custom resource creates a cluster that uses all three parameters.
+
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/jvm.yaml[]
+----
+
+== GC Parameters
+=== Enabling Logging
+To enable Garbage Collector Logging, you can use the following configuration:
+
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/jvm_gc_logging.yaml[]
+----
+
+It is going to set the following JVM argument: `-verbose:gc`
+
+=== Setting the Garbage Collector
+WARNING: Before making Garbage Collector related changes using the Hazelcast Platform Operator, it is highly recommended to read link:https://docs.hazelcast.com/hazelcast/5.2/capacity-planning#garbage-collection-considerations[Garbage Collector Considerations section of Capacity Planning Document] to decide which Garbage Collector to use.
+
+To set the Garbage Collector, following configuration can be used:
+
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/jvm_gc_collector.yaml[]
+----
+
+`<collector>` can be replaced with the following options:
+
+[cols="25%m,75%a"]
+|===
+|`<collector>`|JVM Equivalent
+
+|Serial
+|`-XX:+UseSerialGC`
+
+|Parallel
+|`-XX:+UseParallelGC`
+
+|G1
+|`-XX:+UseG1GC`
+
+|===
+
+=== Setting Arbitrary JVM Arguments
+You can provide a list of JVM arguments.
+
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/jvm_gc_args.yaml[]
+----

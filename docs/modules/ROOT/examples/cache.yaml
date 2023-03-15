@@ -6,6 +6,7 @@ spec:
   hazelcastResourceName: hazelcast
   backupCount: 1
   asyncBackupCount: 0
+  inMemoryFormat: NATIVE
   keyType: java.lang.Object
   valueType: java.lang.Object
   persistenceEnabled: false

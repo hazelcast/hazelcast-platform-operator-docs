@@ -14,6 +14,8 @@
 * xref:wan-replication.adoc[Configuring WAN Replication]
 * xref:user-code-deployment.adoc[User Code Deployment]
 * xref:high-availability-mode.adoc[High Availability Mode]
+* xref:native-memory.adoc[Native Memory]
+* xref:jvm-parameters.adoc[Configuring JVM Parameters]
 * xref:advanced-networking.adoc[Advanced Networking]
 
 .Reference

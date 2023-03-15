@@ -14,7 +14,6 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<AcknowledgementSetting,AcknowledgementSetting>>
 * <<AcknowledgementType,AcknowledgementType>>
 * <<AgentConfiguration,AgentConfiguration>>
-* <<BackupType,BackupType>>
 * <<BatchSetting,BatchSetting>>
 * <<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>>
 * <<BucketConfiguration,BucketConfiguration>>
@@ -40,8 +39,11 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<ExposeExternallyConfiguration,ExposeExternallyConfiguration>>
 * <<ExposeExternallyType,ExposeExternallyType>>
 * <<ExternalConnectivityConfiguration,ExternalConnectivityConfiguration>>
+* <<ExternalConnectivityIngress,ExternalConnectivityIngress>>
+* <<ExternalConnectivityRoute,ExternalConnectivityRoute>>
 * <<ExternalConnectivityType,ExternalConnectivityType>>
 * <<FullBehaviorSetting,FullBehaviorSetting>>
+* <<GCType,GCType>>
 * <<Hazelcast,Hazelcast>>
 * <<HazelcastClusterConfig,HazelcastClusterConfig>>
 * <<HazelcastClusterStatus,HazelcastClusterStatus>>
@@ -62,6 +64,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<IndexType,IndexType>>
 * <<InitialModeType,InitialModeType>>
 * <<JVMConfiguration,JVMConfiguration>>
+* <<JVMGCConfiguration,JVMGCConfiguration>>
 * <<JVMMemoryConfiguration,JVMMemoryConfiguration>>
 * <<JetEngineConfiguration,JetEngineConfiguration>>
 * <<LoggingLevel,LoggingLevel>>
@@ -81,6 +84,8 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<MultiMapList,MultiMapList>>
 * <<MultiMapSpec,MultiMapSpec>>
 * <<MultiMapStatus,MultiMapStatus>>
+* <<NativeMemoryAllocatorType,NativeMemoryAllocatorType>>
+* <<NativeMemoryConfiguration,NativeMemoryConfiguration>>
 * <<NodeState,NodeState>>
 * <<PersistenceConfiguration,PersistenceConfiguration>>
 * <<PersistencePvcConfiguration,PersistencePvcConfiguration>>
@@ -136,7 +141,7 @@ m| timeout | Timeout represents the time in milliseconds the source cluster wait
 |===
 | Field | Description | Type | Required | Default
 m| repository | Repository to pull Hazelcast Platform Operator Agent(https://github.com/hazelcast/platform-operator-agent) m| string | false | "docker.io/hazelcast/platform-operator-agent"
-m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.14"
+m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.15"
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -175,7 +180,7 @@ m| uniqueKeyTransition | &#160; m| <<UniqueKeyTransition,UniqueKeyTransition>> |
 |===
 | Field | Description | Type | Required | Default
 m| secret | Name of the secret with credentials for cloud providers. m| string | true | -
-m| bucketURI | Full path to blob storage bucket. m| string | true | -
+m| bucketURI | URL of the bucket to download HotBackup folders. AWS S3, GCP Bucket and Azure Blob storage buckets are supported. Example bucket URIs: - AWS S3     -> s3://bucket-name/path/to/folder - GCP Bucket -> gs://bucket-name/path/to/folder - Azure Blob -> azblob://bucket-name/path/to/folder m| string | true | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -215,12 +220,13 @@ CacheSpec defines the desired state of Cache It cannot be updated after the Cach
 |===
 | Field | Description | Type | Required | Default
 m| name | Name of the data structure config to be created. If empty, CR name will be used. It cannot be updated after the config is created successfully. m| string | false | -
-m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource. m| string | true | -
+m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource that this resource is created for. m| string | true | -
 m| backupCount | Number of synchronous backups. m| &#42;int32 | false | 1
 m| asyncBackupCount | Number of asynchronous backups. m| int32 | false | 0
 m| keyType | Class name of the key type m| string | false | -
 m| valueType | Class name of the value type m| string | false | -
 m| persistenceEnabled | When enabled, cache data will be persisted. m| bool | false | false
+m| inMemoryFormat | InMemoryFormat specifies in which format data will be stored in your cache m| <<InMemoryFormatType,InMemoryFormatType>> | false | BINARY
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -232,9 +238,9 @@ CacheStatus defines the observed state of Cache
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| state | &#160; m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
-m| message | &#160; m| string | false | -
-m| memberStatuses | &#160; m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
+m| state | State of the data structure m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
+m| message | Message explaining the current state m| string | false | -
+m| memberStatuses | Holds status of data structure for each Hazelcast member m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -290,7 +296,7 @@ m| suspend | When true, CronHotBackup will stop creating HotBackup CRs until it 
 |===
 | Field | Description | Type | Required | Default
 m| name | Name of the data structure config to be created. If empty, CR name will be used. It cannot be updated after the config is created successfully. m| string | false | -
-m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource. m| string | true | -
+m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource that this resource is created for. m| string | true | -
 m| backupCount | Number of synchronous backups. m| &#42;int32 | false | 1
 m| asyncBackupCount | Number of asynchronous backups. m| int32 | false | 0
 |===
@@ -304,9 +310,9 @@ m| asyncBackupCount | Number of asynchronous backups. m| int32 | false | 0
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| state | &#160; m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
-m| message | &#160; m| string | false | -
-m| memberStatuses | &#160; m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
+m| state | State of the data structure m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
+m| message | Message explaining the current state m| string | false | -
+m| memberStatuses | Holds status of data structure for each Hazelcast member m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -390,6 +396,34 @@ ExternalConnectivityConfiguration defines how to expose Management Center pod.
 |===
 | Field | Description | Type | Required | Default
 m| type | How Management Center is exposed. Valid values are: - "ClusterIP" - "NodePort" - "LoadBalancer" (default) m| <<ExternalConnectivityType,ExternalConnectivityType>> | false | "LoadBalancer"
+m| ingress | Ingress configuration of Management Center m| &#42;<<ExternalConnectivityIngress,ExternalConnectivityIngress>> | false | -
+m| route | OpenShift Route configuration of Management Center m| &#42;<<ExternalConnectivityRoute,ExternalConnectivityRoute>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ExternalConnectivityIngress
+
+ExternalConnectivityIngress defines ingress configuration of Management Center
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| hostname | Hostname of Management Center exposed by Ingress. Ingress controller will use this hostname to route inbound traffic. m| string | true | -
+m| ingressClassName | IngressClassName of the ingress object. m| string | false | -
+m| annotations | Annotations added to the ingress object. m| map[string]string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ExternalConnectivityRoute
+
+ExternalConnectivityRoute defines OpenShift route configuration of Management Center
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| hostname | Hostname of Management Center exposed by route. Openshift routers will use this hostname to route inbound traffic. m| string | true | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -481,7 +515,6 @@ m| clusterDataRecoveryPolicy | Configuration of the cluster recovery strategy. m
 m| startupAction | StartupAction represents the action triggered when the cluster starts to force the cluster startup. m| <<PersistenceStartupAction,PersistenceStartupAction>> | false | -
 m| dataRecoveryTimeout | DataRecoveryTimeout is timeout for each step of data recovery in seconds. Maximum timeout is equal to DataRecoveryTimeout*2 (for each step: validation and data-load). m| int32 | false | -
 m| pvc | Configuration of PersistenceVolumeClaim. m| <<PersistencePvcConfiguration,PersistencePvcConfiguration>> | false | {}
-m| hostPath | Host Path directory. m| string | false | -
 m| restore | Restore configuration m| <<RestoreConfiguration,RestoreConfiguration>> | false | {}
 |===
 
@@ -505,16 +538,17 @@ m| clusterName | Name of the Hazelcast cluster. m| string | false | "dev"
 m| scheduling | Scheduling details m| <<SchedulingConfiguration,SchedulingConfiguration>> | false | {}
 m| resources | Compute Resources required by the Hazelcast container. m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | {}
 m| persistence | Persistence configuration m| &#42;<<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>> | false | {}
-m| agent | B&R Agent configurations m| <<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.14"}
+m| agent | B&R Agent configurations m| <<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.15"}
 m| jet | Jet Engine configuration m| <<JetEngineConfiguration,JetEngineConfiguration>> | false | {enabled: true, resourceUploadEnabled: false}
 m| userCodeDeployment | User Codes to Download into CLASSPATH m| <<UserCodeDeploymentConfig,UserCodeDeploymentConfig>> | false | {}
-m| executorServices | &#160; m| []<<ExecutorServiceConfiguration,ExecutorServiceConfiguration>> | false | -
-m| durableExecutorServices | &#160; m| []<<DurableExecutorServiceConfiguration,DurableExecutorServiceConfiguration>> | false | -
-m| scheduledExecutorServices | &#160; m| []<<ScheduledExecutorServiceConfiguration,ScheduledExecutorServiceConfiguration>> | false | -
-m| properties | &#160; m| map[string]string | false | -
-m| loggingLevel | &#160; m| <<LoggingLevel,LoggingLevel>> | false | "INFO"
+m| executorServices | Java Executor Service configurations, see https://docs.hazelcast.com/hazelcast/latest/computing/executor-service m| []<<ExecutorServiceConfiguration,ExecutorServiceConfiguration>> | false | -
+m| durableExecutorServices | Durable Executor Service configurations, see https://docs.hazelcast.com/hazelcast/latest/computing/durable-executor-service m| []<<DurableExecutorServiceConfiguration,DurableExecutorServiceConfiguration>> | false | -
+m| scheduledExecutorServices | Scheduled Executor Service configurations, see https://docs.hazelcast.com/hazelcast/latest/computing/scheduled-executor-service m| []<<ScheduledExecutorServiceConfiguration,ScheduledExecutorServiceConfiguration>> | false | -
+m| properties | Hazelcast system properties, see https://docs.hazelcast.com/hazelcast/latest/system-properties m| map[string]string | false | -
+m| loggingLevel | Logging level for Hazelcast members m| <<LoggingLevel,LoggingLevel>> | false | "INFO"
 m| highAvailabilityMode | Configuration to create clusters resilient to node and zone failures m| <<HighAvailabilityMode,HighAvailabilityMode>> | false | {}
 m| jvm | Hazelcast JVM configuration m| &#42;<<JVMConfiguration,JVMConfiguration>> | false | {}
+m| nativeMemory | Hazelcast Native Memory (HD Memory) configuration m| &#42;<<NativeMemoryConfiguration,NativeMemoryConfiguration>> | false | {}
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -571,7 +605,7 @@ HotBackupSpec defines the Spec of HotBackup
 |===
 | Field | Description | Type | Required | Default
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource m| string | true | -
-m| bucketURI | URL of the bucket to download HotBackup folders. m| string | false | -
+m| bucketURI | URL of the bucket to download HotBackup folders. AWS S3, GCP Bucket and Azure Blob storage buckets are supported. Example bucket URIs: - AWS S3     -> s3://bucket-name/path/to/folder - GCP Bucket -> gs://bucket-name/path/to/folder - Azure Blob -> azblob://bucket-name/path/to/folder m| string | false | -
 m| secret | Name of the secret with credentials for cloud providers. m| string | false | -
 |===
 
@@ -612,9 +646,9 @@ m| spec | Specification of the desired behavior of the hot backup. m| <<HotBacku
 |===
 | Field | Description | Type | Required | Default
 m| name | Name of the index config. m| string | false | -
-m| type | Type of the index. m| <<IndexType,IndexType>> | true | -
+m| type | Type of the index. See https://docs.hazelcast.com/hazelcast/latest/query/indexing-maps#index-types m| <<IndexType,IndexType>> | true | -
 m| attributes | Attributes of the index. m| []string | false | -
-m| bitMapIndexOptions | Options for "BITMAP" index type. m| &#42;<<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>> | false | {}
+m| bitMapIndexOptions | Options for "BITMAP" index type. See https://docs.hazelcast.com/hazelcast/latest/query/indexing-maps#configuring-bitmap-indexes m| &#42;<<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>> | false | {}
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -627,6 +661,21 @@ JVMConfiguration is a Hazelcast JVM configuration
 |===
 | Field | Description | Type | Required | Default
 m| memory | Memory is a JVM memory configuration m| &#42;<<JVMMemoryConfiguration,JVMMemoryConfiguration>> | false | -
+m| gc | GC is for configuring JVM Garbage Collector m| &#42;<<JVMGCConfiguration,JVMGCConfiguration>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== JVMGCConfiguration
+
+JVMGCConfiguration is for configuring JVM Garbage Collector
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| logging | Logging enables logging when set to true m| &#42;bool | false | -
+m| collector | Collector is the Garbage Collector type m| &#42;<<GCType,GCType>> | false | -
+m| args | Args is for arbitrary garbage collection arguments m| []string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -755,7 +804,7 @@ MapSpec defines the desired state of Hazelcast Map Config
 |===
 | Field | Description | Type | Required | Default
 m| name | Name of the data structure config to be created. If empty, CR name will be used. It cannot be updated after the config is created successfully. m| string | false | -
-m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource. m| string | true | -
+m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource that this resource is created for. m| string | true | -
 m| backupCount | Number of synchronous backups. m| &#42;int32 | false | 1
 m| asyncBackupCount | Number of asynchronous backups. m| int32 | false | 0
 m| timeToLiveSeconds | Maximum time in seconds for each entry to stay in the map. If it is not 0, entries that are older than this time and not updated for this time are evicted automatically. It can be updated. m| int32 | false | 0
@@ -836,10 +885,10 @@ MultiMapSpec defines the desired state of MultiMap
 |===
 | Field | Description | Type | Required | Default
 m| name | Name of the data structure config to be created. If empty, CR name will be used. It cannot be updated after the config is created successfully. m| string | false | -
-m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource. m| string | true | -
+m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource that this resource is created for. m| string | true | -
 m| backupCount | Number of synchronous backups. m| &#42;int32 | false | 1
 m| asyncBackupCount | Number of asynchronous backups. m| int32 | false | 0
-m| binary | Specifies in which format data will be stored in your multiMap. false: OBJECT true: BINARY m| bool | false | false
+m| binary | Specifies in which format data will be stored in your MultiMap. false: OBJECT true: BINARY m| bool | false | false
 m| collectionType | Type of the value collection m| <<CollectionType,CollectionType>> | false | SET
 |===
 
@@ -852,9 +901,25 @@ MultiMapStatus defines the observed state of MultiMap
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| state | &#160; m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
-m| message | &#160; m| string | false | -
-m| memberStatuses | &#160; m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
+m| state | State of the data structure m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
+m| message | Message explaining the current state m| string | false | -
+m| memberStatuses | Holds status of data structure for each Hazelcast member m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== NativeMemoryConfiguration
+
+NativeMemoryConfiguration is a Hazelcast HD memory configuration
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| allocatorType | AllocatorType specifies one of 2 types of mechanism for allocating memory to HD m| <<NativeMemoryAllocatorType,NativeMemoryAllocatorType>> | false | "STANDARD"
+m| size | Size of the total native memory to allocate m| resource.Quantity | false | "512M"
+m| minBlockSize | MinBlockSize is the size of smallest block that will be allocated. It is used only by the POOLED memory allocator. m| int32 | false | -
+m| pageSize | PageSize is the size of the page in bytes to allocate memory as a block. It is used only by the POOLED memory allocator. m| int32 | false | 4194304
+m| metadataSpacePercentage | MetadataSpacePercentage defines percentage of the allocated native memory that is used for the metadata of other map components such as index (for predicates), offset, etc. m| int32 | false | 12
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -936,7 +1001,7 @@ QueueSpec defines the desired state of Queue It cannot be updated after the Queu
 |===
 | Field | Description | Type | Required | Default
 m| name | Name of the data structure config to be created. If empty, CR name will be used. It cannot be updated after the config is created successfully. m| string | false | -
-m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource. m| string | true | -
+m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource that this resource is created for. m| string | true | -
 m| backupCount | Number of synchronous backups. m| &#42;int32 | false | 1
 m| asyncBackupCount | Number of asynchronous backups. m| int32 | false | 0
 m| maxSize | Max size of the queue. m| int32 | false | 0
@@ -953,9 +1018,9 @@ QueueStatus defines the observed state of Queue
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| state | &#160; m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
-m| message | &#160; m| string | false | -
-m| memberStatuses | &#160; m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
+m| state | State of the data structure m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
+m| message | Message explaining the current state m| string | false | -
+m| memberStatuses | Holds status of data structure for each Hazelcast member m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1009,9 +1074,9 @@ ReplicatedMapStatus defines the observed state of ReplicatedMap
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| state | &#160; m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
-m| message | &#160; m| string | false | -
-m| memberStatuses | &#160; m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
+m| state | State of the data structure m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
+m| message | Message explaining the current state m| string | false | -
+m| memberStatuses | Holds status of data structure for each Hazelcast member m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1122,8 +1187,8 @@ TopicSpec defines the desired state of Topic
 |===
 | Field | Description | Type | Required | Default
 m| name | Name of the topic config to be created. If empty, CR name will be used. m| string | false | -
-m| globalOrderingEnabled | When true all nodes listening to the same topic get their messages in the same order m| bool | false | false
-m| multiThreadingEnabled | When true enables multi-threaded processing of incoming messages, otherwise a single thread will handle all topic messages m| bool | false | false
+m| globalOrderingEnabled | globalOrderingEnabled allows all nodes listening to the same topic get their messages in the same order the same order m| bool | false | false
+m| multiThreadingEnabled | multiThreadingEnabled enables multi-threaded processing of incoming messages a single thread will handle all topic messages m| bool | false | false
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource for which topic config will be created m| string | true | -
 |===
 
@@ -1136,9 +1201,9 @@ TopicStatus defines the observed state of Topic
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| state | &#160; m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
-m| message | &#160; m| string | false | -
-m| memberStatuses | &#160; m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
+m| state | State of the data structure m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
+m| message | Message explaining the current state m| string | false | -
+m| memberStatuses | Holds status of data structure for each Hazelcast member m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1151,9 +1216,9 @@ UserCodeDeploymentConfig contains the configuration for User Code download opera
 |===
 | Field | Description | Type | Required | Default
 m| clientEnabled | When true, allows user code deployment from clients. m| &#42;bool | false | -
-m| bucketConfig | Jar files in the bucket will be put under CLASSPATH. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
+m| bucketConfig | Bucket config where JAR files will be downloaded into Java CLASSPATH. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
 m| triggerSequence | A string for triggering a rolling restart for re-downloading the user code. m| string | false | -
-m| configMaps | Files in the ConfigMaps will be put under CLASSPATH. m| []string | false | -
+m| configMaps | Names of the list of ConfigMaps. Files in each ConfigMap will be put under Java CLASSPATH. m| []string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1192,7 +1257,7 @@ m| items | &#160; m| []<<WanReplication,WanReplication>> | true | -
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| resourceName | ResourceName is the name of the Map CR m| string | false | -
+m| resourceName | ResourceName is the name of the Map Custom Resource. m| string | false | -
 m| publisherId | PublisherId is the ID used for WAN publisher ID m| string | false | -
 m| status | Status is the status of WAN replication m| <<WanStatus,WanStatus>> | false | -
 m| message | Message is the field to show detail information or error m| string | false | -
@@ -1209,7 +1274,7 @@ WanReplicationSpec defines the desired state of WanReplication
 | Field | Description | Type | Required | Default
 m| resources | Resources is the list of custom resources to which WAN replication applies. m| []<<ResourceSpec,ResourceSpec>> | true | -
 m| targetClusterName | ClusterName is the clusterName field of the target Hazelcast resource. m| string | true | -
-m| endpoints | Endpoints is the target cluster endpoints. m| string | true | -
+m| endpoints | Endpoints is the target cluster comma separated endpoint list . m| string | true | -
 m| queue | Queue is the configuration for WAN events queue. m| <<QueueSetting,QueueSetting>> | false | {capacity: 10000, fullBehavior: DISCARD_AFTER_MUTATION}
 m| batch | Batch is the configuration for WAN events batch. m| <<BatchSetting,BatchSetting>> | false | {size: 500, maximumDelay: 1000}
 m| acknowledgement | Acknowledgement is the configuration for the condition when the next batch of WAN events are sent. m| <<AcknowledgementSetting,AcknowledgementSetting>> | false | {type: ACK_ON_OPERATION_COMPLETE, timeout: 60000}
@@ -1226,7 +1291,7 @@ WanReplicationStatus defines the observed state of WanReplication
 | Field | Description | Type | Required | Default
 m| status | Status is the status of WAN replication m| <<WanStatus,WanStatus>> | false | -
 m| message | Message is the field to show detail information or error m| string | false | -
-m| wanReplicationMapsStatus | &#160; m| map[string]<<WanReplicationMapStatus,WanReplicationMapStatus>> | false | -
+m| wanReplicationMapsStatus | WanReplicationMapsStatus is the Wan Replication status of the Maps given in the spec directly or indirectly by Hazelcast resource. m| map[string]<<WanReplicationMapStatus,WanReplicationMapStatus>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1238,21 +1303,8 @@ m| wanReplicationMapsStatus | &#160; m| map[string]<<WanReplicationMapStatus,Wan
 [cols="5,10"options="header"]
 |===
 | Value | Description
-m| "ACK_ON_RECEIPT" | &#160;
-m| "ACK_ON_OPERATION_COMPLETE" | &#160;
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== BackupType
-
-BackupType represents the storage options for the HotBackup
-
-[cols="5,10"options="header"]
-|===
-| Value | Description
-m| "External" | External backups to the provided cloud provider storage
-m| "Local" | Local backups to local storage inside the cluster
+m| "ACK_ON_RECEIPT" | Replication event is considered successful as soon as it is received by target cluster.
+m| "ACK_ON_OPERATION_COMPLETE" | Replication event is considered successful when it is received and applied by the target cluster.
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1304,11 +1356,11 @@ m| "PartialRecoveryMostComplete" | MostComplete allow partial start with the mem
 [cols="5,10"options="header"]
 |===
 | Value | Description
-m| "Failed" | &#160;
-m| "Success" | &#160;
-m| "Pending" | &#160;
+m| "Failed" | Data structure is not successfully applied.
+m| "Success" | Data structure configuration is applied successfully.
+m| "Pending" | Data structure configuration is being applied
 m| "Persisting" | The config is added into all members but waiting for the config to be persisted into ConfigMap
-m| "Terminating" | &#160;
+m| "Terminating" | Data structure is marked to be deleted,
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1369,6 +1421,20 @@ m| "THROW_EXCEPTION_ONLY_IF_REPLICATION_ACTIVE" | &#160;
 
 <<Table of Contents,Back to TOC>>
 
+=== GCType
+
+GCType is Garbage Collector type
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "Serial" | &#160;
+m| "Parallel" | &#160;
+m| "G1" | &#160;
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === HighAvailabilityMode
 
 
@@ -1401,7 +1467,7 @@ m| "Success" | &#160;
 
 === InMemoryFormatType
 
-InMemoryFormatType represents the format options for storing the data in the map. For now, we are not exposing NATIVE format type since currently there is no support for High-Density Memory Store feature in the operator.
+InMemoryFormatType represents the format options for storing the data in the map/cache.
 
 [cols="5,10"options="header"]
 |===
@@ -1506,6 +1572,19 @@ MemberAccess describes how each Hazelcast member is accessed from the external c
 m| "NodePortExternalIP" | MemberAccessNodePortExternalIP lets the client access Hazelcast member with the NodePort service and the node external IP/hostname
 m| "NodePortNodeName" | MemberAccessNodePortNodeName lets the client access Hazelcast member with the NodePort service and the node name
 m| "LoadBalancer" | MemberAccessLoadBalancer lets the client access Hazelcast member with the LoadBalancer service
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== NativeMemoryAllocatorType
+
+NativeMemoryAllocatorType is one of 2 types of mechanism for allocating HD Memory
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "STANDARD" | NativeMemoryStandard allocate memory using default OS memory manager
+m| "POOLED" | NativeMemoryPooled is Hazelcast own pooling memory allocator
 |===
 
 <<Table of Contents,Back to TOC>>
