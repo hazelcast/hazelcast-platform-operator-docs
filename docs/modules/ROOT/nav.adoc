@@ -16,6 +16,7 @@
 * xref:high-availability-mode.adoc[High Availability Mode]
 * xref:native-memory.adoc[Native Memory]
 * xref:jvm-parameters.adoc[Configuring JVM Parameters]
+* xref:advanced-networking.adoc[Advanced Networking]
 
 .Reference
 // Configuration options/spec files/any other reference docs

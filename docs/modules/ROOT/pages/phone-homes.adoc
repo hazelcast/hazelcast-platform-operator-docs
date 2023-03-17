@@ -52,6 +52,7 @@ The following information is sent in a phone home:
 ** Number of external backups to AWS S3
 ** Number of external backups to Google Storage
 ** Number of external backups to Azure Blob Storage
+** Number of created WAN Sockets using Advanced Network
 * Management Center External Connectivity specific:
 ** Number of ClusterIP services exposing Management Center
 ** Number of NodePort services exposing Management Center

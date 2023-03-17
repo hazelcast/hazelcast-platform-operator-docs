@@ -1,0 +1,31 @@
+= Advanced Network Configuration
+
+In Hazelcast, you can configure the Hazelcast members with separate server sockets using a different network configuration for different protocols. It is called  link:https://docs.hazelcast.com/hazelcast/latest/clusters/network-configuration#advanced-network-configuration[ Advanced Network] and support Member, Client, REST, Memcache and WAN protocols.
+
+In the Hazelcast Platform Operator, advanced networking configuration is enabled by default and REST and Client protocols are already configured:
+
+- For Client protocol the port number is `5701`.
+- For REST, port number is `8081` and `Persistence`, `HealthCheck` and `ClusterWrite` endpoint groups enabled by default.
+- For WAN, default port number is `5710`.
+
+You can configure Member Protocol interfaces and WAN Protocol sockets using the Hazelcast Platform Operator.
+
+== Configuring Member Protocol Interfaces
+This is an example configuration for configuring interfaces using the Hazelcast Platform Operator:
+
+.Example Configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/advanced-networking-interfaces.yaml[]
+----
+
+== Configuring WAN Protocol Sockets
+The following example shows an example configuration for configuring WAN sockets using the Hazelcast Platform Operator:
+
+.Example Configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/advanced-networking-wan.yaml[]
+----
+
+Possible values for `serviceType` are: `ClusterIP`, `NodePort`, `LoadBalancer` and `ExternalName`. After applying this example configuration, there will be 1 service created with type of `NodePort` which exposes 5 ports: `5710`, `5711`, `5712`, `5713`, `5714`.
