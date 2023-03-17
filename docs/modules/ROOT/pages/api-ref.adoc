@@ -13,6 +13,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 === Table of Contents
 * <<AcknowledgementSetting,AcknowledgementSetting>>
 * <<AcknowledgementType,AcknowledgementType>>
+* <<AdvancedNetwork,AdvancedNetwork>>
 * <<AgentConfiguration,AgentConfiguration>>
 * <<BatchSetting,BatchSetting>>
 * <<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>>
@@ -22,6 +23,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<CacheSpec,CacheSpec>>
 * <<CacheStatus,CacheStatus>>
 * <<CapacityPolicyType,CapacityPolicyType>>
+* <<ClientServerSocketEndpointConfig,ClientServerSocketEndpointConfig>>
 * <<CollectionType,CollectionType>>
 * <<CronHotBackup,CronHotBackup>>
 * <<CronHotBackupList,CronHotBackupList>>
@@ -80,6 +82,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<MapStoreConfig,MapStoreConfig>>
 * <<MaxSizePolicyType,MaxSizePolicyType>>
 * <<MemberAccess,MemberAccess>>
+* <<MemberServerSocketEndpointConfig,MemberServerSocketEndpointConfig>>
 * <<MultiMap,MultiMap>>
 * <<MultiMapList,MultiMapList>>
 * <<MultiMapSpec,MultiMapSpec>>
@@ -113,6 +116,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<TopicStatus,TopicStatus>>
 * <<UniqueKeyTransition,UniqueKeyTransition>>
 * <<UserCodeDeploymentConfig,UserCodeDeploymentConfig>>
+* <<WANConfig,WANConfig>>
 * <<WanReplication,WanReplication>>
 * <<WanReplicationList,WanReplicationList>>
 * <<WanReplicationMapStatus,WanReplicationMapStatus>>
@@ -129,6 +133,19 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 | Field | Description | Type | Required | Default
 m| type | Type represents how a batch of replication events is considered successfully replicated. m| <<AcknowledgementType,AcknowledgementType>> | false | ACK_ON_OPERATION_COMPLETE
 m| timeout | Timeout represents the time in milliseconds the source cluster waits for the acknowledgement. After timeout, the events will be resent. m| int32 | false | 60000
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== AdvancedNetwork
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| memberServerSocketEndpointConfig | &#160; m| <<MemberServerSocketEndpointConfig,MemberServerSocketEndpointConfig>> | false | -
+m| wan | &#160; m| []<<WANConfig,WANConfig>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -241,6 +258,19 @@ CacheStatus defines the observed state of Cache
 m| state | State of the data structure m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
 m| message | Message explaining the current state m| string | false | -
 m| memberStatuses | Holds status of data structure for each Hazelcast member m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ClientServerSocketEndpointConfig
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| port | &#160; m| uint | false | -
+m| interfaces | &#160; m| []string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -529,7 +559,7 @@ HazelcastSpec defines the desired state of Hazelcast
 | Field | Description | Type | Required | Default
 m| clusterSize | Number of Hazelcast members in the cluster. m| &#42;int32 | false | 3
 m| repository | Repository to pull the Hazelcast Platform image from. m| string | false | "docker.io/hazelcast/hazelcast"
-m| version | Version of Hazelcast Platform. m| string | false | "5.2.1"
+m| version | Version of Hazelcast Platform. m| string | false | "latest-snapshot"
 m| imagePullPolicy | Pull policy for the Hazelcast Platform image m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#pullpolicy-v1-core[corev1.PullPolicy] | false | "IfNotPresent"
 m| imagePullSecrets | Image pull secrets for the Hazelcast Platform image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
 m| licenseKeySecret | Name of the secret with Hazelcast Enterprise License Key. m| string | false | -
@@ -549,6 +579,7 @@ m| loggingLevel | Logging level for Hazelcast members m| <<LoggingLevel,LoggingL
 m| highAvailabilityMode | Configuration to create clusters resilient to node and zone failures m| <<HighAvailabilityMode,HighAvailabilityMode>> | false | {}
 m| jvm | Hazelcast JVM configuration m| &#42;<<JVMConfiguration,JVMConfiguration>> | false | {}
 m| nativeMemory | Hazelcast Native Memory (HD Memory) configuration m| &#42;<<NativeMemoryConfiguration,NativeMemoryConfiguration>> | false | {}
+m| advancedNetwork | Hazelcast Advanced Network configuration m| <<AdvancedNetwork,AdvancedNetwork>> | false | {}
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -846,6 +877,18 @@ m| writeDelaySeconds | Number of seconds to delay the storing of entries. m| int
 m| writeBatchSize | Used to create batches when writing to map store. m| int32 | false | 1
 m| writeCoealescing | It is meaningful if you are using write behind in MapStore. When it is set to true, only the latest store operation on a key during the write-delay-seconds will be reflected to MapStore. m| &#42;bool | false | true
 m| propertiesSecretName | Properties can be used for giving information to the MapStore implementation m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== MemberServerSocketEndpointConfig
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| interfaces | &#160; m| []string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1223,6 +1266,21 @@ m| configMaps | Names of the list of ConfigMaps. Files in each ConfigMap will be
 
 <<Table of Contents,Back to TOC>>
 
+=== WANConfig
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| port | &#160; m| uint | false | -
+m| portCount | &#160; m| uint | false | -
+m| serviceType | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#servicetype-v1-core[corev1.ServiceType] | false | -
+m| name | &#160; m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === WanReplication
 
 WanReplication is the Schema for the wanreplications API
@@ -1291,7 +1349,7 @@ WanReplicationStatus defines the observed state of WanReplication
 | Field | Description | Type | Required | Default
 m| status | Status is the status of WAN replication m| <<WanStatus,WanStatus>> | false | -
 m| message | Message is the field to show detail information or error m| string | false | -
-m| wanReplicationMapsStatus | WanReplicationMapsStatus is the Wan Replication status of the Maps given in the spec directly or indirectly by Hazelcast resource. m| map[string]<<WanReplicationMapStatus,WanReplicationMapStatus>> | false | -
+m| wanReplicationMapsStatus | WanReplicationMapsStatus is the WAN Replication status of the Maps given in the spec directly or indirectly by Hazelcast resource. m| map[string]<<WanReplicationMapStatus,WanReplicationMapStatus>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
