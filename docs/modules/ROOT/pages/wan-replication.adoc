@@ -63,6 +63,7 @@ The following `WanReplication` resource creates the WAN replication configuratio
 include::ROOT:example$/wan-replication-example.yaml[]
 ----
 
+NOTE: If port number is not specified in the endpoints, the default Hazelcast port '5701' is joined to the endpoints.
 
 == Checking the Status of a WAN Replication
 
