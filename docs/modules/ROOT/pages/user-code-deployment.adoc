@@ -25,6 +25,8 @@ Below are the configuration options for the User Code Deployment feature.
 |`configMaps`
 |Files specified in the ConfigMaps are placed under the Java classpath.
 
+WARNING: The data stored in a ConfigMap cannot exceed 1 MiB. For more info, see link:https://kubernetes.io/docs/concepts/configuration/configmap/#motivation[Kubernetes Documentation for Config Map].
+
 |`triggerSequence`
 |Triggers a rolling restart to begin another download of the custom code.
 
