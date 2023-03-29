@@ -1,0 +1,6 @@
+hazelcast:
+  persistence:
+    restore:
+      bucketConfig:
+        bucketURI:
+        secret:

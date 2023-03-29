@@ -1,0 +1,52 @@
+= Migrating to 5.5
+
+- `backupType` field is removed:
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/migration_guide/backup_removed.yaml[]
+----
+If you are using this field in the version 5.4, you should not set it anymore in 5.5.
+
+- `bucketURI` and `secret` fields are wrapped under `bucketConfig` field.
+
+==== Before:
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/migration_guide/bucket_config_before.yaml[]
+----
+
+==== After:
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/migration_guide/bucket_config_after.yaml[]
+----
+
+- `schedule` field is removed from `HotBackup`. `CronHotBackup` must be used instead.
+
+==== Before:
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/migration_guide/schedule_before.yaml[]
+----
+
+==== After:
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/migration_guide/schedule_after.yaml[]
+----
+
+
+- `mapResourceName` field is removed and `resources` field is added to make it possible to specify multiple WAN Replication resources.
+
+==== Before:
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/migration_guide/resources_before.yaml[]
+----
+
+==== After:
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/migration_guide/resources_after.yaml[]
+----

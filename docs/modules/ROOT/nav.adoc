@@ -12,6 +12,7 @@
 // Configuration options/spec files/any other reference docs
 * xref:phone-homes.adoc[Phone Homes]
 * xref:api-ref.adoc[API References]
+* xref:migration-guide.adoc[Migration Guide for 5.5]
 
 .Release Notes
 
