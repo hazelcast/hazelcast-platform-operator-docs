@@ -1,0 +1,11 @@
+= Migrating to 5.4
+
+Minimum length is specified for the following fields:
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/migration-guide.yaml[]
+----
+
+- `bucketURI` must be at least 6 characters long.
+- `secret` must be at least 1 character long.
