@@ -1,0 +1,75 @@
+= Configuring the Jet Engine
+:description: This section describes Hazelcast’s Jet engine specific configuration using Hazelcast Platform Operator.
+
+{description}
+
+== Enabling Jet Engine
+When you run Hazelcast using Platform Operator, Jet Engine is enabled by default.
+
+== Enabling Resource Uploads
+You can enable resource uploads using the following configuration:
+
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/jet-engine-resource-upload-enabled-configuration.yaml[]
+----
+
+== Configuration Options
+
+[cols="20%m,20%a,60%a"]
+|===
+|Option|Default|Description
+
+|enabled
+|true
+|When false, disables Jet Engine.
+
+|resourceUploadEnabled
+|false
+|When true, enables resource uploading for Jet jobs.
+
+|resourceUploadEnabled
+|false
+|When true, enables resource uploading for Jet jobs.
+
+|instance/cooperativeThreadCount
+|
+|The number of threads Jet creates in its cooperative multithreading pool.
+
+|instance/flowControlPeriodMS
+|100
+|The duration of the interval between flow-control packets.
+
+|instance/backupCount
+|1
+|The number of synchronous backups to configure on the IMap that Jet needs internally to store job metadata and snapshots.
+
+|instance/scaleUpDelayMS
+|10000
+|The delay after which the auto-scaled jobs restart if a new member joins the cluster.
+
+|instance/losslessRestartEnabled
+|false
+|Specifies whether the Lossless Cluster Restart feature is enabled.
+
+|instance/maxProcessorAccumulatedRecords
+|
+|Specifies the maximum number of records that can be accumulated by any single processor instance.
+
+|edgeDefaults/queueSize
+|
+|Sets the capacity of processor-to-processor concurrent queues.
+
+|edgeDefaults/packetSizeLimit
+|
+|Limits the size of the packet in bytes.
+
+|edgeDefaults/receiveWindowMultiplier
+|
+|Sets the scaling factor used by the adaptive receive window sizing function.
+
+|===
+
+== Configuration Properties
+You can set configuration properties as Java system properties. See `Setting Arbitrary JVM Arguments` section in xref:jvm-parameters.adoc[Configuring JVM Parameters] document.
