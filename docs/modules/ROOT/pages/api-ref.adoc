@@ -90,6 +90,8 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<MultiMapStatus,MultiMapStatus>>
 * <<NativeMemoryAllocatorType,NativeMemoryAllocatorType>>
 * <<NativeMemoryConfiguration,NativeMemoryConfiguration>>
+* <<NearCache,NearCache>>
+* <<NearCacheEviction,NearCacheEviction>>
 * <<NodeState,NodeState>>
 * <<PersistenceConfiguration,PersistenceConfiguration>>
 * <<PersistencePvcConfiguration,PersistencePvcConfiguration>>
@@ -863,6 +865,7 @@ m| persistenceEnabled | When enabled, map data will be persisted. It cannot be u
 m| mapStore | Configuration options when you want to load/store the map entries from/to a persistent data store such as a relational database You can learn more at https://docs.hazelcast.com/hazelcast/latest/data-structures/working-with-external-data m| &#42;<<MapStoreConfig,MapStoreConfig>> | false | -
 m| inMemoryFormat | InMemoryFormat specifies in which format data will be stored in your map m| <<InMemoryFormatType,InMemoryFormatType>> | false | BINARY
 m| entryListeners | EntryListeners contains the configuration for the map-level or entry-based events listeners provided by the Hazelcast’s eventing framework. You can learn more at https://docs.hazelcast.com/hazelcast/latest/events/object-events. m| []<<EntryListenerConfiguration,EntryListenerConfiguration>> | false | -
+m| nearCache | InMemoryFormat specifies near cache configuration for map m| &#42;<<NearCache,NearCache>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -980,6 +983,38 @@ m| size | Size of the total native memory to allocate m| resource.Quantity | fal
 m| minBlockSize | MinBlockSize is the size of smallest block that will be allocated. It is used only by the POOLED memory allocator. m| int32 | false | -
 m| pageSize | PageSize is the size of the page in bytes to allocate memory as a block. It is used only by the POOLED memory allocator. m| int32 | false | 4194304
 m| metadataSpacePercentage | MetadataSpacePercentage defines percentage of the allocated native memory that is used for the metadata of other map components such as index (for predicates), offset, etc. m| int32 | false | 12
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== NearCache
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| name | Name is name of the near cache m| string | false | default
+m| inMemoryFormat | InMemoryFormat specifies in which format data will be stored in your near cache m| <<InMemoryFormatType,InMemoryFormatType>> | false | BINARY
+m| invalidateOnChange | InvalidateOnChange specifies whether the cached entries are evicted when the entries are updated or removed m| &#42;bool | false | true
+m| timeToLiveSeconds | TimeToLiveSeconds maximum number of seconds for each entry to stay in the Near Cache m| uint | false | 0
+m| maxIdleSeconds | MaxIdleSeconds Maximum number of seconds each entry can stay in the Near Cache as untouched (not read) m| uint | false | 0
+m| eviction | NearCacheEviction specifies the eviction behavior in Near Cache m| &#42;<<NearCacheEviction,NearCacheEviction>> | false | -
+m| cacheLocalEntries | CacheLocalEntries specifies whether the local entries are cached m| &#42;bool | false | true
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== NearCacheEviction
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| evictionPolicy | EvictionPolicy to be applied when near cache reaches its max size according to the max size policy. m| <<EvictionPolicyType,EvictionPolicyType>> | false | "NONE"
+m| maxSizePolicy | MaxSizePolicy for deciding if the maxSize is reached. m| <<MaxSizePolicyType,MaxSizePolicyType>> | false | "ENTRY_COUNT"
+m| size | Size is maximum size of the Near Cache used for max-size-policy m| uint32 | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1633,6 +1668,7 @@ m| "USED_NATIVE_MEMORY_SIZE" | Maximum used native memory size in megabytes per 
 m| "USED_NATIVE_MEMORY_PERCENTAGE" | Maximum used native memory size percentage per map for each Hazelcast instance. It is available only in Hazelcast Enterprise HD.
 m| "FREE_NATIVE_MEMORY_SIZE" | Minimum free native memory size in megabytes for each Hazelcast instance. It is available only in Hazelcast Enterprise HD.
 m| "FREE_NATIVE_MEMORY_PERCENTAGE" | Minimum free native memory size percentage for each Hazelcast instance. It is available only in Hazelcast Enterprise HD.
+m| "ENTRY_COUNT" | Maximum size based on the entry count in the Near Cache Warning: This policy is specific to near cache.
 |===
 
 <<Table of Contents,Back to TOC>>
