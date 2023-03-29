@@ -22,6 +22,15 @@ Use any of the following configuration options in the `Hazelcast` resource. For 
 
 |===
 
+=== Setting Arbitrary JVM Arguments
+You can provide a list of JVM arguments.
+
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/jvm_args.yaml[]
+----
+
 == Example Configuration
 
 The following `Hazelcast` custom resource creates a cluster that uses all three parameters.
@@ -71,12 +80,3 @@ include::ROOT:example$/jvm_gc_collector.yaml[]
 |`-XX:+UseG1GC`
 
 |===
-
-=== Setting Arbitrary JVM Arguments
-You can provide a list of JVM arguments.
-
-.Example configuration
-[source,yaml,subs="attributes+"]
-----
-include::ROOT:example$/jvm_gc_args.yaml[]
-----
