@@ -696,6 +696,7 @@ JVMConfiguration is a Hazelcast JVM configuration
 | Field | Description | Type | Required | Default
 m| memory | Memory is a JVM memory configuration m| &#42;<<JVMMemoryConfiguration,JVMMemoryConfiguration>> | false | -
 m| gc | GC is for configuring JVM Garbage Collector m| &#42;<<JVMGCConfiguration,JVMGCConfiguration>> | false | -
+m| args | Args is for arbitrary JVM arguments m| []string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -709,7 +710,6 @@ JVMGCConfiguration is for configuring JVM Garbage Collector
 | Field | Description | Type | Required | Default
 m| logging | Logging enables logging when set to true m| &#42;bool | false | -
 m| collector | Collector is the Garbage Collector type m| &#42;<<GCType,GCType>> | false | -
-m| args | Args is for arbitrary garbage collection arguments m| []string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
