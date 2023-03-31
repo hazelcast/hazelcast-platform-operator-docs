@@ -114,6 +114,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<RestoreStatus,RestoreStatus>>
 * <<ScheduledExecutorServiceConfiguration,ScheduledExecutorServiceConfiguration>>
 * <<SchedulingConfiguration,SchedulingConfiguration>>
+* <<TLS,TLS>>
 * <<Topic,Topic>>
 * <<TopicList,TopicList>>
 * <<TopicSpec,TopicSpec>>
@@ -485,6 +486,7 @@ m| status | &#160; m| <<HazelcastStatus,HazelcastStatus>> | false | -
 | Field | Description | Type | Required | Default
 m| name | Name of the Hazelcast cluster that Management Center will connect to, default is dev. m| string | false | "dev"
 m| address | IP address or DNS name of the Hazelcast cluster. If the cluster is exposed with a service name in a different namespace, use the following syntax "<service-name>.<service-namespace>". m| string | true | -
+m| tls | TLS client configuration. m| <<TLS,TLS>> | false | {}
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -585,6 +587,7 @@ m| jvm | Hazelcast JVM configuration m| &#42;<<JVMConfiguration,JVMConfiguration
 m| nativeMemory | Hazelcast Native Memory (HD Memory) configuration m| &#42;<<NativeMemoryConfiguration,NativeMemoryConfiguration>> | false | {}
 m| advancedNetwork | Hazelcast Advanced Network configuration m| <<AdvancedNetwork,AdvancedNetwork>> | false | {}
 m| managementCenter | Hazelcast Management Center Configuration m| <<ManagementCenterConfig,ManagementCenterConfig>> | false | {}
+m| tls | Hazelcast TLS configuration m| <<TLS,TLS>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1243,6 +1246,18 @@ m| affinity | Affinity m| &#42;https://kubernetes.io/docs/reference/generated/ku
 m| tolerations | Tolerations m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#toleration-v1-core[corev1.Toleration] | false | -
 m| nodeSelector | NodeSelector m| map[string]string | false | -
 m| topologySpreadConstraints | TopologySpreadConstraints m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#topologyspreadconstraint-v1-core[corev1.TopologySpreadConstraint] | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== TLS
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| secretName | Name of the secret with TLS certificate and key. m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
