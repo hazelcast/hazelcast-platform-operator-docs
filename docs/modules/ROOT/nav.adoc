@@ -17,6 +17,7 @@
 * xref:native-memory.adoc[Native Memory]
 * xref:jvm-parameters.adoc[Configuring JVM Parameters]
 * xref:advanced-networking.adoc[Advanced Networking]
+* xref:tls.adoc[Configuring TLS]
 
 .Reference
 // Configuration options/spec files/any other reference docs
