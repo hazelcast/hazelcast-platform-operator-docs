@@ -46,6 +46,8 @@ The example configuration does the following:
 include::ROOT:example$/hazelcast-user-code-deployment.yaml[]
 ----
 
+NOTE: Currently, locally mounted drives are NOT supported for `bucketURI`; only cloud provider external buckets are supported.
+
 == Configuring an External Data Store with Hazelcast Platform Operator
 
 The `MapLoader` and `MapStore` interfaces in Hazelcast allow you to load map entries from and save map entries to an external data store. See xref:hazelcast:data-structures:working-with-external-data.adoc[Working with an External Data Store] for implementation details.
