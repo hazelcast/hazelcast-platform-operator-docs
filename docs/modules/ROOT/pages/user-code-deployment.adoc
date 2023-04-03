@@ -74,7 +74,8 @@ include::ROOT:example$/hazelcast-user-code-deployment-azure.yaml[]
 ----
 --
 ====
-<1> As warned in the beginning of this section, you cannot provide a `bucketURI` which is locally mounted; you can only provide the mounted cloud directory.
+<1> The bucket URI where backup data will be stored in
+<2> Name of the secret with credentials for accessing the Bucket URI.
 
 == Configuring an External Data Store with Hazelcast Platform Operator
 
