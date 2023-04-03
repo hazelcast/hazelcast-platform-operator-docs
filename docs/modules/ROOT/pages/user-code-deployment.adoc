@@ -22,7 +22,7 @@ Below are the configuration options for the User Code Deployment feature.
   - `secret`: Name of the Secret object which holds the credentials for your cloud provider.
   - `bucketURI`: Full path for the external bucket. For example: `gs://your-bucket/path/to/jars`.
 
-WARNING: Currently, locally mounted drives are NOT supported for `bucketURI`; only cloud provider external buckets are supported.
+WARNING: Currently, mounted PVs are not supported; only cloud provider external buckets are supported.
 
 |`configMaps`
 |Files specified in the ConfigMaps are placed under the Java classpath.
