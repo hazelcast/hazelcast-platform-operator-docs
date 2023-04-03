@@ -6,8 +6,8 @@ spec:
   userCodeDeployment:
     clientEnabled: true
     bucketConfig:
-      secret: map-store-bucket-secret
-      bucketURI: azblob://map-store-bucket/path/to/jars <1>
+      secret: map-store-bucket-secret <1>
+      bucketURI: azblob://map-store-bucket/path/to/jars <2>
     configMaps:
       - domain-classes-cm
       - entryprocessor-cm
