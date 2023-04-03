@@ -7,7 +7,7 @@ spec:
     clientEnabled: true
     bucketConfig:
       secret: map-store-bucket-secret
-      bucketURI: gs://map-store-bucket/path/to/jars
+      bucketURI: azblob://map-store-bucket/path/to/jars <1>
     configMaps:
       - domain-classes-cm
       - entryprocessor-cm

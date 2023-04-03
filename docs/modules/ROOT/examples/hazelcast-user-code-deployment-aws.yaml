@@ -1,0 +1,14 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+  userCodeDeployment:
+    clientEnabled: true
+    bucketConfig:
+      secret: map-store-bucket-secret
+      bucketURI: s3://map-store-bucket/path/to/jars <1>
+    configMaps:
+      - domain-classes-cm
+      - entryprocessor-cm
+    triggerSequence: "001"
