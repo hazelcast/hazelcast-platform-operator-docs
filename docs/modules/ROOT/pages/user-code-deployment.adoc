@@ -22,8 +22,6 @@ Below are the configuration options for the User Code Deployment feature.
   - `secret`: Name of the Secret object which holds the credentials for your cloud provider.
   - `bucketURI`: Full path for the external bucket. For example: `gs://your-bucket/path/to/jars`.
 
-WARNING: Currently, mounted PVs are not supported; only cloud provider external buckets are supported.
-
 |`configMaps`
 |Files specified in the ConfigMaps are placed under the Java classpath.
 
@@ -40,6 +38,8 @@ The example configuration below:
 
 * downloads the JAR files from the specified external bucket and places them under the classpath of each of the Hazelcast members
 * puts all the files specified in the ConfigMap objects under the classpath of each of the Hazelcast members. 
+
+WARNING: Currently, mounted persistent volumes are not supported; only cloud provider external buckets are supported.
 
 [tabs]
 ====
