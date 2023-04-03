@@ -7,7 +7,8 @@ spec:
     clientEnabled: true
     bucketConfig:
       secret: map-store-bucket-secret
-      bucketURI: s3://map-store-bucket/path/to/jars <1>
+      secret: map-store-bucket-secret <1>
+      bucketURI: s3://map-store-bucket/path/to/jars <2>
     configMaps:
       - domain-classes-cm
       - entryprocessor-cm
