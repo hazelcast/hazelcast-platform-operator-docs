@@ -6,7 +6,6 @@ spec:
   userCodeDeployment:
     clientEnabled: true
     bucketConfig:
-      secret: map-store-bucket-secret
       secret: map-store-bucket-secret <1>
       bucketURI: s3://map-store-bucket/path/to/jars <2>
     configMaps:
