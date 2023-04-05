@@ -53,7 +53,6 @@ You can use the following configuration options in your `WanReplication` resourc
 
 |===
 
-+
 NOTE: WanRepliaction can be started for a Map created after the WanReplication resource which refers to it. This means that the creation order of Map and WanReplication resources doesn't matter.
 
 == Example Configuration
