@@ -1660,7 +1660,7 @@ m| "ALL" | &#160;
 m| "Failed" | &#160;
 m| "Success" | &#160;
 m| "Pending" | &#160;
-m| "Persisting" | Map config is added into all members but waiting for map to be persisten into ConfigMap
+m| "Persisting" | Map config is added into all members but waiting for map to be persistent into ConfigMap
 m| "Terminating" | &#160;
 |===
 
