@@ -25,7 +25,7 @@ You can use the following configuration options in your `WanReplication` resourc
 |The list of custom `Map` or `Hazelcast` resources to which WAN replication applies.
 
 - `name`: The name of custom resource to which WAN replication applies.
-- `kind`: The type of custom resource. Either `Map`(default) or `Hazelcast`. Use the  `Hazelcast` kind to apply WAN replication to all custom maps created under the given `Hazelcast` resource.
+- `kind`: The type of custom resource. Either `Map`(default) or `Hazelcast`. Use the `Hazelcast` kind to apply WAN replication to all custom maps created under the given `Hazelcast` resource. Wan Replication can be started for newly created Map resources as well. 
 
 |`targetClusterName`
 |The name of the Hazelcast cluster that is the target of replication.
@@ -52,8 +52,6 @@ You can use the following configuration options in your `WanReplication` resourc
 - `timeout`: The period of time the source cluster waits for the acknowledgement. If the confirmation is not received before the timeout, the replication events are resent.
 
 |===
-
-NOTE: WanRepliaction can be started for a Map created after the WanReplication resource which refers to it. This means that the creation order of Map and WanReplication resources doesn't matter.
 
 == Example Configuration
 
