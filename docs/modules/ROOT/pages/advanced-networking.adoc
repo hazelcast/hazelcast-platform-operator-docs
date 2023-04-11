@@ -28,6 +28,6 @@ The following example shows an example configuration for configuring WAN sockets
 include::ROOT:example$/advanced-networking-wan.yaml[]
 ----
 
-Possible values for `serviceType` are: `ClusterIP` and `LoadBalancer`. After applying this example configuration, there will be 1 service created with type of `NodePort` which exposes 5 ports: `5710`, `5711`, `5712`, `5713`, `5714`. If you don't provide a `serviceType`, it will be set to `LoadBalancer` by default.
+Possible values for `serviceType` are: `ClusterIP` and `LoadBalancer`. After applying this example configuration, there will be 1 service created with type of `LoadBalancer` which exposes 5 ports: `5710`, `5711`, `5712`, `5713`, `5714`. If you don't provide a `serviceType`, it will be set to `LoadBalancer` by default.
 
 NOTE: In case WAN Replication configuration is not provided in `advancedNetwork` configuration, port number `5710` will be configured for WAN Replication by default.
