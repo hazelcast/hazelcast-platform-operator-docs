@@ -1,0 +1,3 @@
+= Migrating to 5.7
+
+- `spec.persistence.hostPath` is removed
