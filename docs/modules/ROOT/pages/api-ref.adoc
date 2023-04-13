@@ -18,6 +18,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<BatchSetting,BatchSetting>>
 * <<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>>
 * <<BucketConfiguration,BucketConfiguration>>
+* <<CRLister,CRLister>>
 * <<Cache,Cache>>
 * <<CacheList,CacheList>>
 * <<CacheSpec,CacheSpec>>
@@ -30,6 +31,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<CronHotBackupSpec,CronHotBackupSpec>>
 * <<CronHotBackupStatus,CronHotBackupStatus>>
 * <<DataRecoveryPolicyType,DataRecoveryPolicyType>>
+* <<DataStructure,DataStructure>>
 * <<DataStructureConfigState,DataStructureConfigState>>
 * <<DataStructureSpec,DataStructureSpec>>
 * <<DataStructureStatus,DataStructureStatus>>
