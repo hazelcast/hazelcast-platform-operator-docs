@@ -18,7 +18,6 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<BatchSetting,BatchSetting>>
 * <<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>>
 * <<BucketConfiguration,BucketConfiguration>>
-* <<CRLister,CRLister>>
 * <<Cache,Cache>>
 * <<CacheList,CacheList>>
 * <<CacheSpec,CacheSpec>>
@@ -31,7 +30,6 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<CronHotBackupSpec,CronHotBackupSpec>>
 * <<CronHotBackupStatus,CronHotBackupStatus>>
 * <<DataRecoveryPolicyType,DataRecoveryPolicyType>>
-* <<DataStructure,DataStructure>>
 * <<DataStructureConfigState,DataStructureConfigState>>
 * <<DataStructureSpec,DataStructureSpec>>
 * <<DataStructureStatus,DataStructureStatus>>
@@ -72,7 +70,6 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<JVMMemoryConfiguration,JVMMemoryConfiguration>>
 * <<JetEngineConfiguration,JetEngineConfiguration>>
 * <<LoggingLevel,LoggingLevel>>
-* <<MCPersistenceConfiguration,MCPersistenceConfiguration>>
 * <<ManagementCenter,ManagementCenter>>
 * <<ManagementCenterConfig,ManagementCenterConfig>>
 * <<ManagementCenterList,ManagementCenterList>>
@@ -96,6 +93,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<NearCache,NearCache>>
 * <<NearCacheEviction,NearCacheEviction>>
 * <<NodeState,NodeState>>
+* <<PersistenceConfiguration,PersistenceConfiguration>>
 * <<PersistencePvcConfiguration,PersistencePvcConfiguration>>
 * <<PersistenceStartupAction,PersistenceStartupAction>>
 * <<Phase,Phase>>
@@ -749,21 +747,6 @@ m| resourceUploadEnabled | When true, enables resource uploading for Jet jobs. m
 
 <<Table of Contents,Back to TOC>>
 
-=== MCPersistenceConfiguration
-
-
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| enabled | When true, MC will use a PersistentVolumeClaim to store data. m| &#42;bool | false | true
-m| existingVolumeClaimName | Name of the PersistentVolumeClaim MC will use for persistence. If not empty, MC will use the existing claim instead of creating a new one. m| string | false | -
-m| storageClass | StorageClass from which PersistentVolumeClaim will be created. m| &#42;string | false | -
-m| size | Size of the created PersistentVolumeClaim. m| &#42;resource.Quantity | false | "10Gi"
-|===
-
-<<Table of Contents,Back to TOC>>
-
 === ManagementCenter
 
 ManagementCenter is the Schema for the managementcenters API
@@ -819,7 +802,7 @@ m| imagePullSecrets | Image pull secrets for the Management Center image m| []ht
 m| licenseKeySecret | Name of the secret with Hazelcast Enterprise License Key. m| string | false | -
 m| hazelcastClusters | Connection configuration for the Hazelcast clusters that Management Center will monitor. m| []<<HazelcastClusterConfig,HazelcastClusterConfig>> | false | -
 m| externalConnectivity | Configuration to expose Management Center to outside. m| <<ExternalConnectivityConfiguration,ExternalConnectivityConfiguration>> | false | {type: "LoadBalancer"}
-m| persistence | Configuration for Management Center persistence. m| <<MCPersistenceConfiguration,MCPersistenceConfiguration>> | false | {enabled: true, size: "10Gi"}
+m| persistence | Configuration for Management Center persistence. m| <<PersistenceConfiguration,PersistenceConfiguration>> | false | {enabled: true, size: "10Gi"}
 m| scheduling | Scheduling details m| <<SchedulingConfiguration,SchedulingConfiguration>> | false | {}
 m| resources | Compute Resources required by the MC container. m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | {}
 |===
@@ -1036,6 +1019,21 @@ m| cacheLocalEntries | CacheLocalEntries specifies whether the local entries are
 m| evictionPolicy | EvictionPolicy to be applied when near cache reaches its max size according to the max size policy. m| <<EvictionPolicyType,EvictionPolicyType>> | false | "NONE"
 m| maxSizePolicy | MaxSizePolicy for deciding if the maxSize is reached. m| <<MaxSizePolicyType,MaxSizePolicyType>> | false | "ENTRY_COUNT"
 m| size | Size is maximum size of the Near Cache used for max-size-policy m| uint32 | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== PersistenceConfiguration
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| enabled | When true, MC will use a PersistentVolumeClaim to store data. m| &#42;bool | false | true
+m| existingVolumeClaimName | Name of the PersistentVolumeClaim MC will use for persistence. If not empty, MC will use the existing claim instead of creating a new one. m| string | false | -
+m| storageClass | StorageClass from which PersistentVolumeClaim will be created. m| &#42;string | false | -
+m| size | Size of the created PersistentVolumeClaim. m| &#42;resource.Quantity | false | "10Gi"
 |===
 
 <<Table of Contents,Back to TOC>>
