@@ -1,36 +1,44 @@
-= 5.6 Release Notes
+= 5.7 Release Notes
 
-This release introduced the xref:high-availability-mode.adoc[High Availability Mode] configuration and custom resources (CRs) for xref:cache-configuration.adoc[Cache] and xref:queue-configuration.adoc[Queue] data structures. We also added persistence support for the Cache CR and introduced a new way to install the Hazelcast Platform Operator, using Helm.
+This release introduced the cluster-scoped operator, xref:tls.adoc[Custom TLS] and xref:native-memory.adoc[Native Memory] support, Near Cache support for Map CR. We also added xref:jvm-parameters.adoc[JVM Garbage Collector (GC) configuration], xref:advanced-networking.adoc[Advanced Network Configuration], Ingress & OCP Route support for Management Center external connectivity.
 
 == New Features
-
-* Introduced High Availability Mode configuration to create clusters that are resilient to node and zone failures (https://github.com/hazelcast/hazelcast-platform-operator/pull/538[#538])
-* Added support for the Queue CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/428[#428])
-* Added support for the Cache CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/430[#430])
-* Made persistence support for the Cache CR configurable (https://github.com/hazelcast/hazelcast-platform-operator/pull/474[#474])
-* Replaced the `autoForceStart` option with `startupAction`. When applied, `startupAction` allows you to trigger `Force Start` or `Partial Start` (https://github.com/hazelcast/hazelcast-platform-operator/pull/511[#511])
-* Introduced a new way to install the Hazelcast Platform Operator, using Helm
+- Supporting TLS connection between members using self-signed certificates (https://github.com/hazelcast/hazelcast-platform-operator/pull/677[#677])
+- Add multi-namespace support for the Hazelcast Platform Operator (https://github.com/hazelcast/hazelcast-platform-operator/pull/591[#591])
+- Off-Heap Memory (HD Memory, Native Memory) support for Map CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/582[#582])
+- Add Near Cache support for Map CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/661[#661])
+- Add the ability to set arbitrary JVM arguments (https://github.com/hazelcast/hazelcast-platform-operator/pull/653[#653])
+- Enables to set JVM Garbage Collector (GC) configuration using Hazelcast Platform Operator (https://github.com/hazelcast/hazelcast-platform-operator/pull/647[#647])
+- Support `-XX:{Initial,Max,Min} RAMPercentage` Java options (https://github.com/hazelcast/hazelcast-platform-operator/pull/567[#567])
+- Native memory support for Cache CR becomes available for the user (https://github.com/hazelcast/hazelcast-platform-operator/pull/645[#645])
+- Add support for creating route resources in OpenShift environments for Management Center (https://github.com/hazelcast/hazelcast-platform-operator/pull/631[#631])
+- Add Ingress support for Management Center external connectivity (https://github.com/hazelcast/hazelcast-platform-operator/pull/608[#608])
+- Add support for advanced networking configuration through the Hazelcast Platform Operator (https://github.com/hazelcast/hazelcast-platform-operator/pull/605[#605])
+- Enables Management Center configuration in the Hazelcast cluster monitoring (https://github.com/hazelcast/hazelcast-platform-operator/pull/675[#675])
 
 == Changes
-
-* Added a connectivity check to the WAN Replication CR. When creating a WAN Replication CR, you can now check that the target cluster is reachable (https://github.com/hazelcast/hazelcast-platform-operator/pull/541[#541])
-* Added persistence for WAN Replication configurations. WAN Replication configurations are now stored in the Hazelcast ConfigMap so that when member containers restart, replication continues (https://github.com/hazelcast/hazelcast-platform-operator/pull/513[#513])
-* Added logic for recreating a Hazelcast client when the client is unable to access a cluster. When the client is unable to connect, the Hazelcast Platform Operator restarts it (https://github.com/hazelcast/hazelcast-platform-operator/pull/500[#500])
-* Updated CR validation to use a webhook. The Hazelcast Platform Operator can now report issues with CRs before they are applied (https://github.com/hazelcast/hazelcast-platform-operator/pull/492[#492])
-* Improved the approach for exposing API fields. Exposed API fields are now more consistent  (https://github.com/hazelcast/hazelcast-platform-operator/pull/498[#498])
-* Removed the `h.Spec.Persistence.DataLoadTimeoutSec` parameter (https://github.com/hazelcast/hazelcast-platform-operator/pull/512[#512])
-* Split `restore` and `restore_local` commands (https://github.com/hazelcast/hazelcast-platform-operator/pull/471[#471])
-* Updated the cluster activation logic to use the Go client (https://github.com/hazelcast/hazelcast-platform-operator/pull/466[#466])
-* Added `tilt-debug` support for the remote debugging of local Kubernetes clusters  (https://github.com/hazelcast/hazelcast-platform-operator/pull/528[#528])
-* Added `ClusterIDs` to Phone Home data (https://github.com/hazelcast/hazelcast-platform-operator/pull/527[#527])
-* Updated capabilities of Cluster Service Version (CSV) from Seamless Upgrades to Full Lifecycle. Both options now appear on the OCP OperatorHub dashboard (https://github.com/hazelcast/hazelcast-platform-operator/pull/476[#476])
+- Remove support for `hostPath` in Hazelcast persistence (https://github.com/hazelcast/hazelcast-platform-operator/pull/607[#607])
+- Define the default port of endpoints when not declared by the user in WAN Replication (https://github.com/hazelcast/hazelcast-platform-operator/pull/662[#662])
+- Trigger WAN Replication for newly created Map CR in Hazelcast resource (https://github.com/hazelcast/hazelcast-platform-operator/pull/656[#656])
+- Add an external address for Ingress and Route in Management Center (https://github.com/hazelcast/hazelcast-platform-operator/pull/643[#643])
+- Improved map deletion from WAN status when publisher ID is empty and improved logs (https://github.com/hazelcast/hazelcast-platform-operator/pull/615[#615])
+- Update CSV file for multi-namespace and cluster-wide operator support (https://github.com/hazelcast/hazelcast-platform-operator/pull/599[#599])
+- Add option to create namespace-scoped cluster role for Hazelcast Platform Operator (https://github.com/hazelcast/hazelcast-platform-operator/pull/594[#594])
+- Add cluster-scoped operator support to Helm chart (https://github.com/hazelcast/hazelcast-platform-operator/pull/589[#589])
+- Add option for operator installation with namespace scoped roles in Helm chart (https://github.com/hazelcast/hazelcast-platform-operator/pull/- 588[#588])
+- Move WebHook CA bundle addition logic to Helm (https://github.com/hazelcast/hazelcast-platform-operator/pull/586[#586])
+- Add MTLS secret generation by namespace (https://github.com/hazelcast/hazelcast-platform-operator/pull/585[#585])
+- Remove `Security Context Constraints` from Operator and Management Center Permissions. The operator won't have support for hostPath persistence in OpenShift environments (https://github.com/hazelcast/hazelcast-platform-operator/pull/581[#581])
+- Add connectivity check to WAN replication CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/541[#541])
+- Change `podManagementPolicy` to `Parallel` to improve cluster setup time (https://github.com/hazelcast/hazelcast-platform-operator/pull/539[#539])
+- Support for the cluster-scoped operator is improved in the phone home package and Kubebuilder roles (https://github.com/hazelcast/hazelcast-platform-operator/pull/521[#521])
+- Update Hazelcast Go client to 1.4.0 (https://github.com/hazelcast/hazelcast-platform-operator/pull/663[#663])
+- Update default agent version to 0.1.16 (https://github.com/hazelcast/hazelcast-platform-operator/pull/690[#690])
+- Add phone home for watched namespace type becomes available (https://github.com/hazelcast/hazelcast-platform-operator/pull/616[#616])
 
 == Fixed Issues
-
-* A HotBackup can now be created before the Hazelcast cluster is ready (https://github.com/hazelcast/hazelcast-platform-operator/pull/503[#503])
-* Added webhook support for Operator Lifecycle Management (OLM) (https://github.com/hazelcast/hazelcast-platform-operator/pull/540[#540])
-* Sets a Hazelcast resource message when attempting to restore a hot backup that does not exist (https://github.com/hazelcast/hazelcast-platform-operator/pull/514[#514])
-* Multiple CRs for data structures can now be created and then stored correctly in the ConfigMap (https://github.com/hazelcast/hazelcast-platform-operator/pull/501[#501])
-* Added a security context to all containers for hostPath permissions (https://github.com/hazelcast/hazelcast-platform-operator/pull/485[#485])
-* Fixed the incorrect assignment of a variable in WanRep ConfigMap. After a restart, cluster members will now continue replicating map entries (https://github.com/hazelcast/hazelcast-platform-operator/pull/554[#554])
-* Hazelcast member status no longer contains an empty pod name field (https://github.com/hazelcast/hazelcast-platform-operator/pull/456[#456])
+- Default WAN Replication is available through Hazelcast service on port 5710, and if no serviceType is specified during configuration, it will be set to LoadBalancer (https://github.com/hazelcast/hazelcast-platform-operator/pull/706[#706])
+- Make Hazelcast container ports dynamically updatable and remove infinite triggers (https://github.com/hazelcast/hazelcast-platform-operator/pull/692[#692])
+- Fix `CreateOrUpdate` function usage to prevent Map CR from being deleted accidentally (https://github.com/hazelcast/hazelcast-platform-operator/pull/686[#686])
+- Make service ports and RBAC permissions updatable when upgrading operator version (https://github.com/hazelcast/hazelcast-platform-operator/pull/676[#676])
+- Validate admission WebHook to limit cluster size to 300 members (https://github.com/hazelcast/hazelcast-platform-operator/pull/558[#558])
