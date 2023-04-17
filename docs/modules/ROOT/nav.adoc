@@ -18,7 +18,7 @@
 * xref:jvm-parameters.adoc[Configuring JVM Parameters]
 * xref:advanced-networking.adoc[Advanced Networking]
 * xref:tls.adoc[Configuring TLS]
-* xref:jet-job-configuration.adoc[Data Pipelines]
+* xref:jet-job-configuration.adoc[Running Data Pipelines]
 
 .Reference
 // Configuration options/spec files/any other reference docs

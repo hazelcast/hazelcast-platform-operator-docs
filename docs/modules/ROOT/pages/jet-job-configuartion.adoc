@@ -16,7 +16,7 @@ Below are the configuration options for the Jet Engine in the `Hazelcast` resour
 |Enables the Jet Engine.
 
 |resourceUploadEnabled
-|Enables resource uploading for Jet engine.
+|Enables resource upload for Jet engine.
 
 |bucketConfig
 |JAR files from an external bucket are placed accessible for the member when the following parameter values are supplied:
