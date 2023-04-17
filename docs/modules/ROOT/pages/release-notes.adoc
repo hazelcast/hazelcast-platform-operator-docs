@@ -33,7 +33,7 @@ This release introduced the xref:get-started.adoc#step-1-deploy-hazelcast-platfo
 - Changed `podManagementPolicy` to `Parallel` to improve cluster setup time (https://github.com/hazelcast/hazelcast-platform-operator/pull/539[#539])
 - Improved support for the cluster-scoped operator in the phone home package and Kubebuilder roles  (https://github.com/hazelcast/hazelcast-platform-operator/pull/521[#521])
 - Updated the Hazelcast Go client to 1.4.0 (https://github.com/hazelcast/hazelcast-platform-operator/pull/663[#663])
-- Update default agent version to 0.1.16 (https://github.com/hazelcast/hazelcast-platform-operator/pull/690[#690])
+- Updated the default agent version to 0.1.16 (https://github.com/hazelcast/hazelcast-platform-operator/pull/690[#690])
 - Add phone home for watched namespace type becomes available (https://github.com/hazelcast/hazelcast-platform-operator/pull/616[#616])
 
 == Fixed Issues
