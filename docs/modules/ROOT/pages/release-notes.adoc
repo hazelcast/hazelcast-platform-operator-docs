@@ -41,4 +41,4 @@ This release introduced the xref:get-started.adoc#step-1-deploy-hazelcast-platfo
 - Added dynamic update functionality to Hazelcast container ports and removed infinite triggers (https://github.com/hazelcast/hazelcast-platform-operator/pull/692[#692])
 - Fixed `CreateOrUpdate` function usage to prevent the accidental deletion of the Map CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/686[#686])
 - Made service ports and RBAC permissions updateable when upgrading the Hazelcast Platform Operator version (https://github.com/hazelcast/hazelcast-platform-operator/pull/676[#676])
-- Validate admission WebHook to limit cluster size to 300 members (https://github.com/hazelcast/hazelcast-platform-operator/pull/558[#558])
+- Added validation to the admission WebHook to limit the cluster size to 300 members (https://github.com/hazelcast/hazelcast-platform-operator/pull/558[#558])
