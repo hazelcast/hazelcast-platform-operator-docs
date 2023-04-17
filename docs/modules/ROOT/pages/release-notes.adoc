@@ -14,7 +14,7 @@ This release introduced the xref:get-started.adoc#step-1-deploy-hazelcast-platfo
 - Introduced route resources for Management Center in OpenShift environments (https://github.com/hazelcast/hazelcast-platform-operator/pull/631[#631])
 - Added Ingress support for external connectivity to Management Center (https://github.com/hazelcast/hazelcast-platform-operator/pull/608[#608])
 - Enabled the configuration of advanced networking options through the Hazelcast Platform Operator (https://github.com/hazelcast/hazelcast-platform-operator/pull/605[#605])
-- Enables Management Center configuration in the Hazelcast cluster monitoring (https://github.com/hazelcast/hazelcast-platform-operator/pull/675[#675])
+- Enables the configuring of Management Center monitoring parameters (https://github.com/hazelcast/hazelcast-platform-operator/pull/675[#675])
 
 == Changes
 - Removed support for `hostPath` option for configuring persistent storage in Hazelcast (https://github.com/hazelcast/hazelcast-platform-operator/pull/607[#607])
