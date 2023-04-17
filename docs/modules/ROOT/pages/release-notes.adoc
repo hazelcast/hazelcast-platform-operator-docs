@@ -31,7 +31,7 @@ This release introduced the xref:get-started.adoc#step-1-deploy-hazelcast-platfo
 - Removed `Security Context Constraints` from permissions for the Hazelcast Platform Operator and Management Center. The Hazelcast Platform Operator no longer supports `hostPath` persistence in OpenShift environments (https://github.com/hazelcast/hazelcast-platform-operator/pull/581[#581])
 - Added a connectivity check to the WAN replication CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/541[#541])
 - Change `podManagementPolicy` to `Parallel` to improve cluster setup time (https://github.com/hazelcast/hazelcast-platform-operator/pull/539[#539])
-- Support for the cluster-scoped operator is improved in the phone home package and Kubebuilder roles (https://github.com/hazelcast/hazelcast-platform-operator/pull/521[#521])
+- Improved support for the cluster-scoped operator in the phone home package and Kubebuilder roles  (https://github.com/hazelcast/hazelcast-platform-operator/pull/521[#521])
 - Update Hazelcast Go client to 1.4.0 (https://github.com/hazelcast/hazelcast-platform-operator/pull/663[#663])
 - Update default agent version to 0.1.16 (https://github.com/hazelcast/hazelcast-platform-operator/pull/690[#690])
 - Add phone home for watched namespace type becomes available (https://github.com/hazelcast/hazelcast-platform-operator/pull/616[#616])
