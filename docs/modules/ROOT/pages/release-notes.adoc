@@ -24,7 +24,7 @@ This release introduced the xref:get-started.adoc#step-1-deploy-hazelcast-platfo
 - Improved map deletion from WAN status when publisher ID is empty and improved logs (https://github.com/hazelcast/hazelcast-platform-operator/pull/615[#615])
 - Update CSV file for multi-namespace and cluster-wide operator support (https://github.com/hazelcast/hazelcast-platform-operator/pull/599[#599])
 - Added the  option to create a namespace-scoped cluster role for the Hazelcast Platform Operator (https://github.com/hazelcast/hazelcast-platform-operator/pull/594[#594])
-- Add cluster-scoped operator support to Helm chart (https://github.com/hazelcast/hazelcast-platform-operator/pull/589[#589])
+- Added support for the cluster-scoped operator to Helm chart (https://github.com/hazelcast/hazelcast-platform-operator/pull/589[#589])
 - Added a new installation option for using the Hazelcast Platform Operator with namespace-scoped roles in Helm chart (https://github.com/hazelcast/hazelcast-platform-operator/pull/- 588[#588])
 - Move WebHook CA bundle addition logic to Helm (https://github.com/hazelcast/hazelcast-platform-operator/pull/586[#586])
 - Added MTLS secret generation by namespace (https://github.com/hazelcast/hazelcast-platform-operator/pull/585[#585])
