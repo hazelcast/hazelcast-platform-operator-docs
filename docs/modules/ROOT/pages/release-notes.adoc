@@ -37,7 +37,7 @@ This release introduced the xref:get-started.adoc#step-1-deploy-hazelcast-platfo
 - Add phone home for watched namespace type becomes available (https://github.com/hazelcast/hazelcast-platform-operator/pull/616[#616])
 
 == Fixed Issues
-- Default WAN Replication is available through Hazelcast service on port 5710, and if no serviceType is specified during configuration, it will be set to LoadBalancer (https://github.com/hazelcast/hazelcast-platform-operator/pull/706[#706])
+- Default WAN Replication is now available through the Hazelcast service on port 5710. If no `serviceType` is specified during configuration, the value is set to `LoadBalancer` (https://github.com/hazelcast/hazelcast-platform-operator/pull/706[#706])
 - Make Hazelcast container ports dynamically updatable and remove infinite triggers (https://github.com/hazelcast/hazelcast-platform-operator/pull/692[#692])
 - Fix `CreateOrUpdate` function usage to prevent Map CR from being deleted accidentally (https://github.com/hazelcast/hazelcast-platform-operator/pull/686[#686])
 - Make service ports and RBAC permissions updatable when upgrading operator version (https://github.com/hazelcast/hazelcast-platform-operator/pull/676[#676])
