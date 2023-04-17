@@ -34,7 +34,7 @@ This release introduced the xref:get-started.adoc#step-1-deploy-hazelcast-platfo
 - Improved support for the cluster-scoped operator in the phone home package and Kubebuilder roles  (https://github.com/hazelcast/hazelcast-platform-operator/pull/521[#521])
 - Updated the Hazelcast Go client to 1.4.0 (https://github.com/hazelcast/hazelcast-platform-operator/pull/663[#663])
 - Updated the default agent version to 0.1.16 (https://github.com/hazelcast/hazelcast-platform-operator/pull/690[#690])
-- Add phone home for watched namespace type becomes available (https://github.com/hazelcast/hazelcast-platform-operator/pull/616[#616])
+- Added the watched namespace to phone home data collection (https://github.com/hazelcast/hazelcast-platform-operator/pull/616[#616])
 
 == Fixed Issues
 - Default WAN Replication is now available through the Hazelcast service on port 5710. If no `serviceType` is specified during configuration, the value is set to `LoadBalancer` (https://github.com/hazelcast/hazelcast-platform-operator/pull/706[#706])
