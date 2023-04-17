@@ -22,7 +22,7 @@ This release introduced the xref:get-started.adoc#step-1-deploy-hazelcast-platfo
 - WAN Replication is now automatically triggered for newly created Map CRs in the Hazelcast resource (https://github.com/hazelcast/hazelcast-platform-operator/pull/656[#656])
 - Added external Ingress and Route addresses to Management Center (https://github.com/hazelcast/hazelcast-platform-operator/pull/643[#643])
 - Improved map deletion from WAN status when publisher ID is empty and improved logs (https://github.com/hazelcast/hazelcast-platform-operator/pull/615[#615])
-- Update CSV file for multi-namespace and cluster-wide operator support (https://github.com/hazelcast/hazelcast-platform-operator/pull/599[#599])
+- Updated the cluster service version (CSV) file for multi-namespace and cluster-wide operator support (https://github.com/hazelcast/hazelcast-platform-operator/pull/599[#599])
 - Added the  option to create a namespace-scoped cluster role for the Hazelcast Platform Operator (https://github.com/hazelcast/hazelcast-platform-operator/pull/594[#594])
 - Added support for the cluster-scoped operator to Helm chart (https://github.com/hazelcast/hazelcast-platform-operator/pull/589[#589])
 - Added a new installation option for using the Hazelcast Platform Operator with namespace-scoped roles in Helm chart (https://github.com/hazelcast/hazelcast-platform-operator/pull/- 588[#588])
