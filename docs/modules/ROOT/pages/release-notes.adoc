@@ -6,7 +6,7 @@ This release introduced the xref:get-started.adoc#step-1-deploy-hazelcast-platfo
 - Added support for TLS connections between members using self-signed certificates (https://github.com/hazelcast/hazelcast-platform-operator/pull/677[#677])
 - Added multi-namespace support for the Hazelcast Platform Operator (https://github.com/hazelcast/hazelcast-platform-operator/pull/591[#591])
 - Added off-heap memory (HD memory and native memory) support for the Map CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/582[#582])
-- Add Near Cache support for Map CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/661[#661])
+- Added Near Cache support for the Map CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/661[#661])
 - Add the ability to set arbitrary JVM arguments (https://github.com/hazelcast/hazelcast-platform-operator/pull/653[#653])
 - Enables to set JVM Garbage Collector (GC) configuration using Hazelcast Platform Operator (https://github.com/hazelcast/hazelcast-platform-operator/pull/647[#647])
 - Support `-XX:{Initial,Max,Min} RAMPercentage` Java options (https://github.com/hazelcast/hazelcast-platform-operator/pull/567[#567])
