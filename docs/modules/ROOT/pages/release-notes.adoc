@@ -28,7 +28,7 @@ This release introduced the xref:get-started.adoc#step-1-deploy-hazelcast-platfo
 - Added a new installation option for using the Hazelcast Platform Operator with namespace-scoped roles in Helm chart (https://github.com/hazelcast/hazelcast-platform-operator/pull/- 588[#588])
 - Move WebHook CA bundle addition logic to Helm (https://github.com/hazelcast/hazelcast-platform-operator/pull/586[#586])
 - Added MTLS secret generation by namespace (https://github.com/hazelcast/hazelcast-platform-operator/pull/585[#585])
-- Remove `Security Context Constraints` from Operator and Management Center Permissions. The operator won't have support for hostPath persistence in OpenShift environments (https://github.com/hazelcast/hazelcast-platform-operator/pull/581[#581])
+- Removed `Security Context Constraints` from permissions for the Hazelcast Platform Operator and Management Center. The Hazelcast Platform Operator no longer supports `hostPath` persistence in OpenShift environments (https://github.com/hazelcast/hazelcast-platform-operator/pull/581[#581])
 - Add connectivity check to WAN replication CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/541[#541])
 - Change `podManagementPolicy` to `Parallel` to improve cluster setup time (https://github.com/hazelcast/hazelcast-platform-operator/pull/539[#539])
 - Support for the cluster-scoped operator is improved in the phone home package and Kubebuilder roles (https://github.com/hazelcast/hazelcast-platform-operator/pull/521[#521])
