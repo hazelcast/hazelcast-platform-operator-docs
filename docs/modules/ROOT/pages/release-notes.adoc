@@ -9,7 +9,7 @@ This release introduced the xref:get-started.adoc#step-1-deploy-hazelcast-platfo
 - Added Near Cache support for the Map CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/661[#661])
 - Added the ability to set arbitrary JVM arguments (https://github.com/hazelcast/hazelcast-platform-operator/pull/653[#653])
 - Enabled the configuration of the JVM Garbage Collector (GC) using the Hazelcast Platform Operator (https://github.com/hazelcast/hazelcast-platform-operator/pull/647[#647])
-- Support `-XX:{Initial,Max,Min} RAMPercentage` Java options (https://github.com/hazelcast/hazelcast-platform-operator/pull/567[#567])
+- Added support for `-XX:{Initial,Max,Min} RAMPercentage` Java options (https://github.com/hazelcast/hazelcast-platform-operator/pull/567[#567])
 - Native memory support for Cache CR becomes available for the user (https://github.com/hazelcast/hazelcast-platform-operator/pull/645[#645])
 - Add support for creating route resources in OpenShift environments for Management Center (https://github.com/hazelcast/hazelcast-platform-operator/pull/631[#631])
 - Add Ingress support for Management Center external connectivity (https://github.com/hazelcast/hazelcast-platform-operator/pull/608[#608])
