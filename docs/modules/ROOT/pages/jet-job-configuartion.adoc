@@ -29,6 +29,8 @@ Below are the configuration options for the Jet Engine in the `Hazelcast` resour
 == Configuring the JetJob Resource
 
 Below are the configuration options for the `JetJob` resource. You can find more detailed information in xref:api-ref.adoc#jetjobspec[API Reference] page.
+
+[cols="20%m,80%a"]
 |===
 |Field|Description
 
