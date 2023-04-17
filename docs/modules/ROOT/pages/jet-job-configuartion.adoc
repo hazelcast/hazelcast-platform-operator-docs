@@ -52,6 +52,7 @@ Below are the configuration options for the `JetJob` resource. You can find more
 == JetJob state management
 Once the job is created, you can use `state` field to manage its lifecycle.
 The following `state` values are available:
+
 - `Running`. All the jobs must be created with the `Running` state. It will run the newly created job or will start the `Suspended` job.
 - `Suspended`. Gracefully suspends the `Running` job.
 - `Canceled`. Gracefully stops the job.
