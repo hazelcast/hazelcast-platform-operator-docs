@@ -1,0 +1,69 @@
+= Running Data Pipelines
+:description: Data Pipelines allow you to process data stored in one location and send the result to another, such as from a data lake to an analytics database or into a payment processing system. You can also use the same source and sink so the pipeline only processes data.
+
+With the Hazelcast Platform Operator, you can run Data Pipelines from existing JAR files for processing data. Data Pipelines, depending on the data source, can be used for stream or batch processing. To understand the Data Pipelines and the Jet Engine, refer to link:https://docs.hazelcast.com/hazelcast/latest/pipelines/overview[Data Pipeline documentation].
+
+== Configuring the Jet Engine
+
+To create a Data Pipeline using `JetJob` CR, the Jet Engine in the `Hazelcast` CR must be configured. It is required to set `enable` and `resourceUploadEnabled` to `true`. 
+Below are the configuration options for the Jet Engine in the `Hazelcast` resource. For more detailed information, see the xref:api-ref.adoc#jetengineconfiguration[API Reference].
+
+[cols="20%m,80%a"]
+|===
+|Field|Description
+
+|enabled
+|Enables the Jet Engine.
+
+|resourceUploadEnabled
+|Enables resource uploading for Jet engine.
+
+|bucketConfig
+|JAR files from an external bucket are placed accessible for the member when the following parameter values are supplied:
+
+  - `secret`: Name of the Secret object which holds the credentials for your cloud provider.
+  - `bucketURI`: Full path for the external bucket. For example: `gs://your-bucket/path/to/jars`.
+
+|===
+
+== Configuring the JetJob Resource
+
+Below are the configuration options for the `JetJob` resource. You can find more detailed information in xref:api-ref.adoc#jetjobspec[API Reference] page.
+|===
+|Field|Description
+
+|name
+|Name of the Jet Job to be created. If empty, the CR name will be used. It cannot be updated after the Jet Job is created successfully.
+
+|hazelcastResourceName
+|HazelcastResourceName defines the name of the Hazelcast resource.
+
+|state
+|State is used to manage the job state.
+
+|jarName
+|JarName specify the name of the Jar to run that is present on the member
+
+|mainClass
+|MainClass is the name of the main class that will be run on the submitted job
+
+|===
+
+== JetJob state management
+Once the job is created, you can use `state` field to manage its lifecycle.
+The following `state` values are available:
+- `Running`. All the jobs must be created with the `Running` state. It will run the newly created job or will start the `Suspended` job.
+- `Suspended`. Gracefully suspends the `Running` job.
+- `Canceled`. Gracefully stops the job.
+- `Restarted`. Suspends and resumes the job in one step.
+
+Deleting the `JetJob` resource will forcefully cancel the job.
+
+== Example Configuration
+
+The following `JetJob` resource runs the Data Pipeline for the `Hazelcast` resources on the source Hazelcast cluster from `my-data-pipeline.jar`.
+
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/jet-job-example.yaml[]

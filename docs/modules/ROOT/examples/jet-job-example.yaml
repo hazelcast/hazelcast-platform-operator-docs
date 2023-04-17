@@ -1,0 +1,24 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+  clusterSize: 3
+  repository: 'docker.io/hazelcast/hazelcast-enterprise'
+  jet:
+    enabled: true
+    resourceUploadEnabled: true
+    bucketConfig:
+      secret: br-secret-gcp
+      bucketURI: "gs://your-bucket/path/to/jars"
+  licenseKeySecret: hazelcast-license-key
+---
+apiVersion: hazelcast.com/v1alpha1
+kind: JetJob
+metadata:
+  name: jet-job-sample
+spec:
+  name: my-test-jet-job
+  hazelcastResourceName: hazelcast
+  state: Running
+  jarName: my-data-pipeline.jar
