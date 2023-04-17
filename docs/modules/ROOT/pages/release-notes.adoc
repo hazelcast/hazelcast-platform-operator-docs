@@ -1,6 +1,6 @@
 = 5.7 Release Notes
 
-This release introduced the cluster-scoped operator, xref:tls.adoc[Custom TLS] and xref:native-memory.adoc[Native Memory] support, Near Cache support for Map CR. We also added xref:jvm-parameters.adoc[JVM Garbage Collector (GC) configuration], xref:advanced-networking.adoc[Advanced Network Configuration], Ingress & OCP Route support for Management Center external connectivity.
+This release introduced the xref:get-started.adoc#step-1-deploy-hazelcast-platform-operator[cluster-scoped operator], xref:tls.adoc[custom TLS] and xref:native-memory.adoc[native memory] configuration options, and Near Cache support for the Map CR. The release also added configuration options for the xref:jvm-parameters.adoc[JVM Garbage Collector (GC)], and xref:advanced-networking.adoc[advanced networking], along with Ingress & OCP Route support for external connectivity to Management Center.
 
 == New Features
 - Supporting TLS connection between members using self-signed certificates (https://github.com/hazelcast/hazelcast-platform-operator/pull/677[#677])
