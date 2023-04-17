@@ -18,7 +18,7 @@ This release introduced the xref:get-started.adoc#step-1-deploy-hazelcast-platfo
 
 == Changes
 - Removed support for `hostPath` option for configuring persistent storage in Hazelcast (https://github.com/hazelcast/hazelcast-platform-operator/pull/607[#607])
-- Define the default port of endpoints when not declared by the user in WAN Replication (https://github.com/hazelcast/hazelcast-platform-operator/pull/662[#662])
+- Added the default port `5701` to endpoints used in WAN Replication (https://github.com/hazelcast/hazelcast-platform-operator/pull/662[#662])
 - Trigger WAN Replication for newly created Map CR in Hazelcast resource (https://github.com/hazelcast/hazelcast-platform-operator/pull/656[#656])
 - Add an external address for Ingress and Route in Management Center (https://github.com/hazelcast/hazelcast-platform-operator/pull/643[#643])
 - Improved map deletion from WAN status when publisher ID is empty and improved logs (https://github.com/hazelcast/hazelcast-platform-operator/pull/615[#615])
