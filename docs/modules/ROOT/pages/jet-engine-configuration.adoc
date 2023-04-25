@@ -6,15 +6,6 @@
 == Enabling Jet Engine
 When you run Hazelcast using Platform Operator, Jet Engine is enabled by default.
 
-== Enabling Resource Uploads
-You can enable resource uploads using the following configuration:
-
-.Example configuration
-[source,yaml,subs="attributes+"]
-----
-include::ROOT:example$/jet-engine-resource-upload-enabled-configuration.yaml[]
-----
-
 == Configuration Options
 
 [cols="20%m,20%a,60%a"]
@@ -24,10 +15,6 @@ include::ROOT:example$/jet-engine-resource-upload-enabled-configuration.yaml[]
 |enabled
 |true
 |When false, disables Jet Engine.
-
-|resourceUploadEnabled
-|false
-|When true, enables resource uploading for Jet jobs.
 
 |resourceUploadEnabled
 |false
@@ -71,5 +58,17 @@ include::ROOT:example$/jet-engine-resource-upload-enabled-configuration.yaml[]
 
 |===
 
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/jet-engine-configuration.yaml[]
+----
+
 == Configuration Properties
 You can set configuration properties as Java system properties. See `Setting Arbitrary JVM Arguments` section in xref:jvm-parameters.adoc[Configuring JVM Parameters] document.
+
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/jet-engine-properties.yaml[]
+----

@@ -21,6 +21,3 @@ spec:
       queueSize: 1024
       packetSizeLimit: 16384
       receiveWindowMultiplier: 3
-  jvm:
-    args:
-      - "-XX:MaxGCPauseMillis=200"

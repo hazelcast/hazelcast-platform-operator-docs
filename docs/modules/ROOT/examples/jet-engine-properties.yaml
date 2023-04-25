@@ -9,4 +9,6 @@ spec:
   licenseKeySecret: hazelcast-license-key
   jet:
     enabled: true
-    resourceUploadEnabled: true
+  jvm:
+    args:
+      - "-Djet.idle.cooperative.min.microseconds=50"
