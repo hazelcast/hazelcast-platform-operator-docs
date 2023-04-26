@@ -20,7 +20,7 @@ Below are the configuration options for the User Code Deployment feature.
 |JAR files from an external bucket are placed under the Java classpath when the following parameter values are supplied:
 
   - `secret`: Name of the Secret object which holds the credentials for your cloud provider.
-  - `bucketURI`: Full path for the external bucket. For example: `gs://your-bucket/path/to/jars`. 
+  - `bucketURI`: Full path for the external bucket. For example: `gs://your-bucket/path/to/jars`.
 
 |`configMaps`
 |Files specified in the ConfigMaps are placed under the Java classpath.
@@ -34,17 +34,48 @@ WARNING: The data stored in a ConfigMap cannot exceed 1 MiB. For more info, see 
 
 === Example Configuration
 
-The example configuration does the following:
+The example configuration below:
 
-- Downloads JAR files from the specified external bucket and places them under the classpath of each of the Hazelcast members. 
-- Puts all the files specified in the ConfigMap objects under the classpath of each of the Hazelcast members. 
+* downloads the JAR files from the specified external bucket and places them under the classpath of each of the Hazelcast members
+* puts all the files specified in the ConfigMap objects under the classpath of each of the Hazelcast members. 
 
+WARNING: Currently, mounted persistent volumes are not supported; only cloud provider external buckets are supported.
 
-.Example configuration
+[tabs]
+====
+
+AWS::
++
+--
+User Code Deployment in AWS S3:
 [source,yaml,subs="attributes+"]
 ----
-include::ROOT:example$/hazelcast-user-code-deployment.yaml[]
+include::ROOT:example$/hazelcast-user-code-deployment-aws.yaml[]
 ----
+--
+
+GCP::
++
+--
+User Code Deployment in GCP:
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-user-code-deployment-gcp.yaml[]
+----
+--
+
+Azure::
++
+--
+User Code Deployment in Azure Blob:
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-user-code-deployment-azure.yaml[]
+----
+--
+====
+<1> The bucket URI where backup data will be stored in
+<2> Name of the secret with credentials for accessing the Bucket URI.
 
 == Configuring an External Data Store with Hazelcast Platform Operator
 

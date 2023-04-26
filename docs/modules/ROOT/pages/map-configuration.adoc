@@ -57,6 +57,20 @@ NOTE: Persistence should be enabled for Hazelcast before enabling it for the map
 - className: Name of your class implementing a `MapListener` sub-interface.
 - includeValues: An optional attribute that indicates whether the map event should contains the map value.
 - local: An optional attribute that indicates whether you can listen to the map on the local member.
+
+|nearCache
+|Configuration options for server side `Near Cache`. You can learn more at link:https://docs.hazelcast.com/imdg/4.2/performance/near-cache[Near Cache].
+
+- name: name of the near cache.
+- inMemoryFormat: specifies in which format data will be stored in your near cache.
+- invalidateOnChange: specifies whether the cached entries are evicted when the entries are updated or removed.
+- timeToLiveSeconds: maximum number of seconds for each entry to stay in the Near Cache.
+- maxIdleSeconds: maximum number of seconds each entry can stay in the Near Cache as untouched (not read).
+- cacheLocalEntries: specifies whether the local entries are cached.
+- eviction: specifies the eviction behavior in Near Cache.
+* evictionPolicy: is the policy to be applied when near cache reaches its max size according to the max size policy.
+* maxSizePolicy: type of the policy for deciding if the maxSize is reached.
+* size: is the maximum size of the Near Cache used for maxSizePolicy.
 |===
 
 == Example Configuration

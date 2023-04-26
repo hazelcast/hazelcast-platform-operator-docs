@@ -17,6 +17,7 @@
 * xref:native-memory.adoc[Native Memory]
 * xref:jvm-parameters.adoc[Configuring JVM Parameters]
 * xref:advanced-networking.adoc[Advanced Networking]
+* xref:tls.adoc[Configuring TLS]
 * xref:jet-engine-configuration.adoc[Configuring the Jet Engine]
 
 .Reference

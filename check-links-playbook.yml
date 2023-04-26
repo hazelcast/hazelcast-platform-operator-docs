@@ -10,20 +10,14 @@ content:
     start_paths: [home,tutorials]
     branches: HEAD
   - url: https://github.com/hazelcast/hz-docs
-    branches: [main, v/*]
+    branches: [main]
     start_path: docs
   - url: https://github.com/hazelcast/imdg-docs
     branches: [v/*]
     start_path: docs
-  - url: https://github.com/hazelcast/imdg-docs
-    branches: [archived-versions]
-    start_paths: docs/*
   - url: https://github.com/hazelcast/management-center-docs
-    branches: [main, v/*]
+    branches: [main]
     start_path: docs
-  - url: https://github.com/hazelcast/management-center-docs
-    branches: [archived-versions]
-    start_paths: docs/*
   - url: https://github.com/hazelcast/cloud-docs
     branches: [main]
     start_paths: [docs, tutorials]
@@ -145,6 +139,9 @@ content:
     start_path: docs
   - url: https://github.com/hazelcast-guides/hazelcast-platform-operator-external-backup-restore
     branches: master
+    start_path: docs
+  - url: https://github.com/hazelcast/hazelcast-commandline-client
+    branches: main
     start_path: docs
 ui: 
   bundle:

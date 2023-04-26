@@ -25,7 +25,7 @@ You can use the following configuration options in your `WanReplication` resourc
 |The list of custom `Map` or `Hazelcast` resources to which WAN replication applies.
 
 - `name`: The name of custom resource to which WAN replication applies.
-- `kind`: The type of custom resource. Either `Map`(default) or `Hazelcast`. Use the  `Hazelcast` kind to apply WAN replication to all custom maps created under the given `Hazelcast` resource.
+- `kind`: The type of custom resource. Either `Map`(default) or `Hazelcast`. Use the `Hazelcast` kind to apply WAN replication to all custom maps created under the given `Hazelcast` resource. Wan Replication will be started automatically for newly created Map resources as well. 
 
 |`targetClusterName`
 |The name of the Hazelcast cluster that is the target of replication.
@@ -63,7 +63,7 @@ The following `WanReplication` resource creates the WAN replication configuratio
 include::ROOT:example$/wan-replication-example.yaml[]
 ----
 
-NOTE: If port number is not specified in the endpoints, the default Hazelcast port '5701' is joined to the endpoints.
+NOTE: If port number is not specified in the endpoints, the default Hazelcast port '5710' is joined to the endpoints.
 
 == Checking the Status of a WAN Replication
 
