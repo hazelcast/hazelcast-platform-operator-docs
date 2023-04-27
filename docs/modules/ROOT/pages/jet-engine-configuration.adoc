@@ -40,7 +40,7 @@ The Jet engine is enabled by default and has the following configuration options
 
 |instance/maxProcessorAccumulatedRecords
 |
-|Specifies the maximum number of records that can be accumulated by any single processor instance.
+|The maximum number of records that can be accumulated by any single processor instance.
 
 |edgeDefaults/queueSize
 |
