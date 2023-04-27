@@ -16,7 +16,7 @@ The Jet engine is enabled by default and has the following configuration options
 
 |resourceUploadEnabled
 |false
-|When true, enables resource uploading for Jet jobs.
+|Set to `true` to enable the uploading of resources for Jet jobs.
 
 |instance/cooperativeThreadCount
 |
