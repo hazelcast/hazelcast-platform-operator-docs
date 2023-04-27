@@ -4,7 +4,7 @@
 {description}
 
 == Configuring the Jet Engine
-When you run Hazelcast using Platform Operator, Jet Engine is enabled by default.
+The Jet engine is enabled by default and has the following configuration options.
 
 [cols="20%m,20%a,60%a"]
 |===
