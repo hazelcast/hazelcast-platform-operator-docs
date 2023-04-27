@@ -1,5 +1,5 @@
 = Configuring the Jet Engine
-:description: This section describes Hazelcast’s Jet engine specific configuration using Hazelcast Platform Operator.
+:description: You can configure Hazelcast’s Jet engine using the Hazelcast Platform Operator.
 
 {description}
 
