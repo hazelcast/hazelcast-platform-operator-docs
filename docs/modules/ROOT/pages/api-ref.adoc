@@ -70,7 +70,9 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<JVMConfiguration,JVMConfiguration>>
 * <<JVMGCConfiguration,JVMGCConfiguration>>
 * <<JVMMemoryConfiguration,JVMMemoryConfiguration>>
+* <<JetEdgeDefaults,JetEdgeDefaults>>
 * <<JetEngineConfiguration,JetEngineConfiguration>>
+* <<JetInstance,JetInstance>>
 * <<JetJob,JetJob>>
 * <<JetJobList,JetJobList>>
 * <<JetJobSpec,JetJobSpec>>
@@ -742,6 +744,20 @@ m| maxRAMPercentage | MaxRAMPercentage sets the maximum heap size for a JVM m| &
 
 <<Table of Contents,Back to TOC>>
 
+=== JetEdgeDefaults
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| queueSize | Sets the capacity of processor-to-processor concurrent queues. m| int32 | false | -
+m| packetSizeLimit | Limits the size of the packet in bytes. m| int32 | false | -
+m| receiveWindowMultiplier | Sets the scaling factor used by the adaptive receive window sizing function. m| int8 | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === JetEngineConfiguration
 
 
@@ -752,6 +768,25 @@ m| maxRAMPercentage | MaxRAMPercentage sets the maximum heap size for a JVM m| &
 m| enabled | When false, disables Jet Engine. m| &#42;bool | false | true
 m| resourceUploadEnabled | When true, enables resource uploading for Jet jobs. m| bool | false | false
 m| bucketConfig | Bucket Configuration from which the JAR files be downloaded and accessible for the member. These JAR files will not be placed in the CLASSPATH. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
+m| instance | Jet Instance Configuration m| &#42;<<JetInstance,JetInstance>> | false | {}
+m| edgeDefaults | Jet Edge Defaults Configuration m| &#42;<<JetEdgeDefaults,JetEdgeDefaults>> | false | {}
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== JetInstance
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| cooperativeThreadCount | The number of threads Jet creates in its cooperative multithreading pool. m| int32 | false | -
+m| flowControlPeriodMillis | The duration of the interval between flow-control packets. m| int32 | false | 100
+m| backupCount | The number of synchronous backups to configure on the IMap that Jet needs internally to store job metadata and snapshots. m| int32 | false | 1
+m| scaleUpDelayMillis | The delay after which the auto-scaled jobs restart if a new member joins the cluster. m| int32 | false | 10000
+m| losslessRestartEnabled | Specifies whether the Lossless Cluster Restart feature is enabled. m| bool | false | false
+m| maxProcessorAccumulatedRecords | Specifies the maximum number of records that can be accumulated by any single processor instance. m| int64 | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
