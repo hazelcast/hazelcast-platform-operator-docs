@@ -28,7 +28,7 @@ The Jet engine is enabled by default and has the following configuration options
 
 |instance/backupCount
 |1
-|The number of synchronous backups to configure on the IMap that Jet needs internally to store job metadata and snapshots.
+|The number of synchronous backups to configure on the IMap, which Jet needs internally to store job metadata and snapshots.
 
 |instance/scaleUpDelayMS
 |10000
