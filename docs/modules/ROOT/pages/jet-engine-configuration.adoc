@@ -1,0 +1,72 @@
+= Configuring the Jet Engine
+:description: You can configure Hazelcast’s Jet engine using the Hazelcast Platform Operator.
+
+{description}
+
+== Configuring the Jet Engine
+The Jet engine is enabled by default and has the following configuration options.
+
+[cols="20%m,20%a,60%a"]
+|===
+|Option|Default|Description
+
+|enabled
+|true
+|Set to `false` to disable the Jet engine.
+
+|resourceUploadEnabled
+|false
+|Set to `true` to enable the uploading of resources for Jet jobs.
+
+|instance/cooperativeThreadCount
+|
+|The number of threads Jet creates in its cooperative multithreading pool.
+
+|instance/flowControlPeriodMS
+|100
+|The duration of the interval between flow-control packets.
+
+|instance/backupCount
+|1
+|The number of synchronous backups to configure on the IMap, which Jet needs internally to store job metadata and snapshots.
+
+|instance/scaleUpDelayMS
+|10000
+|The delay after which the auto-scaled jobs restart if a new member joins the cluster.
+
+|instance/losslessRestartEnabled
+|false
+|Whether the Lossless Cluster Restart feature is enabled.
+
+|instance/maxProcessorAccumulatedRecords
+|
+|The maximum number of records that can be accumulated by any single processor instance.
+
+|edgeDefaults/queueSize
+|
+|Sets the capacity of processor-to-processor concurrent queues.
+
+|edgeDefaults/packetSizeLimit
+|
+|Limits the size of the packet in bytes.
+
+|edgeDefaults/receiveWindowMultiplier
+|
+|Sets the scaling factor used by the adaptive receive window sizing function.
+
+|===
+
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/jet-engine-configuration.yaml[]
+----
+
+== Configuration Properties
+You can set configuration properties as Java system properties. See xref:jvm-parameters.adoc#setting-arbitrary-jvm-arguments[Setting Arbitrary JVM Arguments] for more information.
+
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/jet-engine-properties.yaml[]
+----
