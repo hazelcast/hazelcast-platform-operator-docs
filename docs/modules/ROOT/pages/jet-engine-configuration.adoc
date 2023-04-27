@@ -63,7 +63,7 @@ include::ROOT:example$/jet-engine-configuration.yaml[]
 ----
 
 == Configuration Properties
-You can set configuration properties as Java system properties. See `Setting Arbitrary JVM Arguments` section in xref:jvm-parameters.adoc[Configuring JVM Parameters] document.
+You can set configuration properties as Java system properties. See xref:jvm-parameters.adoc#setting-arbitrary-jvm-arguments[Setting Arbitrary JVM Arguments] for more information.
 
 .Example configuration
 [source,yaml,subs="attributes+"]
