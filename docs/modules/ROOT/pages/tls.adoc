@@ -64,12 +64,9 @@ To be able to use `OpenSSL`, you need to add required Jar files into the classpa
 include::ROOT:example$/hazelcast-tls-openssl.yaml[]
 ----
 
-<1> Enable UserCodeDeployment to install required Jar files by OpenSSL
-
-Here is a sample list of Jars required by BoringSSL implementation:
-
-- netty-handler-4.1.91.Final.jar
-- netty-tcnative-boringssl-static-2.0.59.Final-linux-x86_64.jar
-- netty-tcnative-classes-2.0.59.Final.jar
-
+<1> Enable UserCodeDeployment to install required Jar files by OpenSSL.
+    Here is a sample list of Jars required by BoringSSL implementation:
+    - netty-handler-4.1.91.Final.jar
+    - netty-tcnative-boringssl-static-2.0.59.Final-linux-x86_64.jar
+    - netty-tcnative-classes-2.0.59.Final.jar
 <2> Set TLS type to OpenSSL
