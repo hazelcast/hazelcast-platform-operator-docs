@@ -27,6 +27,12 @@ Below are the configuration options for the TLS.
 |`secretName`
 | Specifies the name of Kubernetes TLS secret.
 
+|`type`
+| Type of SSL factory used in Hazelcast member and client network configuration.
+
+  - `BasicSSL`: It corresponds to `com.hazelcast.nio.ssl.BasicSSLContextFactory` factory class. It is default value.
+  - `OpenSSL`: It sets factory class to `com.hazelcast.nio.ssl.OpenSSLEngineFactory`. Be aware that it requires some external Jar files or even native libraries (OpenSSL/BoringSSL). See xref:hazelcast:security:integrating-openssl.adoc[Integrating OpenSSL] for more information.
+
 |===
 
 === Example Configuration
