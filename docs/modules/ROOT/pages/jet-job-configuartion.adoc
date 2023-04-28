@@ -1,30 +1,9 @@
 = Running Data Pipelines
 :description: Data Pipelines allow you to process data stored in one location and send the result to another, such as from a data lake to an analytics database or into a payment processing system. You can also use the same source and sink so the pipeline only processes data.
 
-With the Hazelcast Platform Operator, you can run Data Pipelines from existing JAR files for processing data. Data Pipelines, depending on the data source, can be used for stream or batch processing. To understand the Data Pipelines and the Jet Engine, refer to link:https://docs.hazelcast.com/hazelcast/latest/pipelines/overview[Data Pipeline documentation].
+{description}
 
-== Configuring the Jet Engine
-
-To create a Data Pipeline using `JetJob` CR, the Jet Engine in the `Hazelcast` CR must be configured. It is required to set `enable` and `resourceUploadEnabled` to `true`. 
-Below are the configuration options for the Jet Engine in the `Hazelcast` resource. For more detailed information, see the xref:api-ref.adoc#jetengineconfiguration[API Reference].
-
-[cols="20%m,80%a"]
-|===
-|Field|Description
-
-|enabled
-|Enables the Jet Engine.
-
-|resourceUploadEnabled
-|Enables resource upload for Jet engine.
-
-|bucketConfig
-|JAR files from an external bucket are placed accessible for the member when the following parameter values are supplied:
-
-  - `secret`: Name of the Secret object which holds the credentials for your cloud provider.
-  - `bucketURI`: Full path for the external bucket. For example: `gs://your-bucket/path/to/jars`.
-
-|===
+With the Hazelcast Platform Operator, you can run Data Pipelines from existing JAR files for processing data. Data Pipelines, depending on the data source, can be used for stream or batch processing. To create a Data Pipeline using `JetJob` CR, the Jet Engine in the `Hazelcast` CR must be configured. It is required to set `enable` and `resourceUploadEnabled` to `true`.  To understand the Data Pipelines and the Jet Engine, refer to xref:hazelcast:pipelines:overview.adoc[Platform documentation].
 
 == Configuring the JetJob Resource
 
@@ -49,7 +28,17 @@ Below are the configuration options for the `JetJob` resource. You can find more
 |mainClass
 |MainClass is the name of the main class that will be run on the submitted job
 
+|bucketConfig
+|JAR files from an external bucket are placed accessible for the member when the following parameter values are supplied:
+
+  - `secret`: Name of the Secret object which holds the credentials for your cloud provider.
+  - `bucketURI`: Full path for the external bucket. For example: `gs://your-bucket/path/to/jars`.
+
 |===
+
+== Providing the JAR file for Data Pipeline
+To run the Data Pipeline, you need to provide a JAR file that contains the Pipeline. The JAR file can be pre-downloaded before the cluster starts by configuring the `jet.bucketConfig` in the `Hazelcast`` CR. This way, all the files in the bucket will be accessible to the member when the cluster starts.
+Another option is to configure `bucketConfig` in the `JetJob` CR. This way, only the JAR file specified in the `jarName` parameter will be downloaded in the runtime before starting the Data Pipeline.
 
 == JetJob state management
 Once the job is created, you can use `state` field to manage its lifecycle.
