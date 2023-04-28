@@ -37,7 +37,7 @@ Below are the configuration options for the `JetJob` resource. You can find more
 |===
 
 == Providing the JAR file for Data Pipeline
-To run the Data Pipeline, you need to provide a JAR file that contains the Pipeline. The JAR file can be pre-downloaded before the cluster starts by configuring the `jet.bucketConfig` in the `Hazelcast`` CR. This way, all the files in the bucket will be accessible to the member when the cluster starts.
+To run the Data Pipeline, you need to provide a JAR file that contains the Pipeline. The JAR file can be pre-downloaded before the cluster starts by configuring the `jet.bucketConfig` in the `Hazelcast` CR. This way, all the files in the bucket will be accessible to the member when the cluster starts.
 Another option is to configure `bucketConfig` in the `JetJob` CR. This way, only the JAR file specified in the `jarName` parameter will be downloaded in the runtime before starting the Data Pipeline.
 
 == JetJob state management
