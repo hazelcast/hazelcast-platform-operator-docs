@@ -18,6 +18,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<BatchSetting,BatchSetting>>
 * <<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>>
 * <<BucketConfiguration,BucketConfiguration>>
+* <<CRLister,CRLister>>
 * <<Cache,Cache>>
 * <<CacheList,CacheList>>
 * <<CacheSpec,CacheSpec>>
@@ -30,6 +31,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<CronHotBackupSpec,CronHotBackupSpec>>
 * <<CronHotBackupStatus,CronHotBackupStatus>>
 * <<DataRecoveryPolicyType,DataRecoveryPolicyType>>
+* <<DataStructure,DataStructure>>
 * <<DataStructureConfigState,DataStructureConfigState>>
 * <<DataStructureSpec,DataStructureSpec>>
 * <<DataStructureStatus,DataStructureStatus>>
@@ -68,8 +70,17 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<JVMConfiguration,JVMConfiguration>>
 * <<JVMGCConfiguration,JVMGCConfiguration>>
 * <<JVMMemoryConfiguration,JVMMemoryConfiguration>>
+* <<JetEdgeDefaults,JetEdgeDefaults>>
 * <<JetEngineConfiguration,JetEngineConfiguration>>
+* <<JetInstance,JetInstance>>
+* <<JetJob,JetJob>>
+* <<JetJobList,JetJobList>>
+* <<JetJobSpec,JetJobSpec>>
+* <<JetJobState,JetJobState>>
+* <<JetJobStatus,JetJobStatus>>
+* <<JetJobStatusPhase,JetJobStatusPhase>>
 * <<LoggingLevel,LoggingLevel>>
+* <<MCPersistenceConfiguration,MCPersistenceConfiguration>>
 * <<ManagementCenter,ManagementCenter>>
 * <<ManagementCenterConfig,ManagementCenterConfig>>
 * <<ManagementCenterList,ManagementCenterList>>
@@ -93,7 +104,6 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<NearCache,NearCache>>
 * <<NearCacheEviction,NearCacheEviction>>
 * <<NodeState,NodeState>>
-* <<PersistenceConfiguration,PersistenceConfiguration>>
 * <<PersistencePvcConfiguration,PersistencePvcConfiguration>>
 * <<PersistenceStartupAction,PersistenceStartupAction>>
 * <<Phase,Phase>>
@@ -163,7 +173,7 @@ m| wan | &#160; m| []<<WANConfig,WANConfig>> | false | -
 |===
 | Field | Description | Type | Required | Default
 m| repository | Repository to pull Hazelcast Platform Operator Agent(https://github.com/hazelcast/platform-operator-agent) m| string | false | "docker.io/hazelcast/platform-operator-agent"
-m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.16"
+m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.17"
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -565,7 +575,7 @@ HazelcastSpec defines the desired state of Hazelcast
 | Field | Description | Type | Required | Default
 m| clusterSize | Number of Hazelcast members in the cluster. m| &#42;int32 | false | 3
 m| repository | Repository to pull the Hazelcast Platform image from. m| string | false | "docker.io/hazelcast/hazelcast"
-m| version | Version of Hazelcast Platform. m| string | false | "5.2.3"
+m| version | Version of Hazelcast Platform. m| string | false | "5.3.0-BETA-2"
 m| imagePullPolicy | Pull policy for the Hazelcast Platform image m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#pullpolicy-v1-core[corev1.PullPolicy] | false | "IfNotPresent"
 m| imagePullSecrets | Image pull secrets for the Hazelcast Platform image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
 m| licenseKeySecret | Name of the secret with Hazelcast Enterprise License Key. m| string | false | -
@@ -574,7 +584,7 @@ m| clusterName | Name of the Hazelcast cluster. m| string | false | "dev"
 m| scheduling | Scheduling details m| <<SchedulingConfiguration,SchedulingConfiguration>> | false | {}
 m| resources | Compute Resources required by the Hazelcast container. m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | {}
 m| persistence | Persistence configuration m| &#42;<<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>> | false | {}
-m| agent | B&R Agent configurations m| <<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.16"}
+m| agent | B&R Agent configurations m| <<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.17"}
 m| jet | Jet Engine configuration m| <<JetEngineConfiguration,JetEngineConfiguration>> | false | {enabled: true, resourceUploadEnabled: false}
 m| userCodeDeployment | User Codes to Download into CLASSPATH m| <<UserCodeDeploymentConfig,UserCodeDeploymentConfig>> | false | {}
 m| executorServices | Java Executor Service configurations, see https://docs.hazelcast.com/hazelcast/latest/computing/executor-service m| []<<ExecutorServiceConfiguration,ExecutorServiceConfiguration>> | false | -
@@ -603,6 +613,7 @@ m| phase | Phase of the Hazelcast cluster m| <<Phase,Phase>> | false | -
 m| hazelcastClusterStatus | Status of the Hazelcast cluster m| <<HazelcastClusterStatus,HazelcastClusterStatus>> | false | -
 m| message | Message about the Hazelcast cluster state m| string | false | -
 m| externalAddresses | External addresses of the Hazelcast cluster members m| string | false | -
+m| wanAddresses | WAN addresses of the Hazelcast cluster members m| string | false | -
 m| members | Status of Hazelcast members m| []<<HazelcastMemberStatus,HazelcastMemberStatus>> | false | -
 m| restore | Status of restore process of the Hazelcast cluster m| <<RestoreStatus,RestoreStatus>> | false | {}
 |===
@@ -733,6 +744,20 @@ m| maxRAMPercentage | MaxRAMPercentage sets the maximum heap size for a JVM m| &
 
 <<Table of Contents,Back to TOC>>
 
+=== JetEdgeDefaults
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| queueSize | Sets the capacity of processor-to-processor concurrent queues. m| int32 | false | -
+m| packetSizeLimit | Limits the size of the packet in bytes. m| int32 | false | -
+m| receiveWindowMultiplier | Sets the scaling factor used by the adaptive receive window sizing function. m| int8 | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === JetEngineConfiguration
 
 
@@ -742,6 +767,101 @@ m| maxRAMPercentage | MaxRAMPercentage sets the maximum heap size for a JVM m| &
 | Field | Description | Type | Required | Default
 m| enabled | When false, disables Jet Engine. m| &#42;bool | false | true
 m| resourceUploadEnabled | When true, enables resource uploading for Jet jobs. m| bool | false | false
+m| bucketConfig | Bucket Configuration from which the JAR files be downloaded and accessible for the member. These JAR files will not be placed in the CLASSPATH. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
+m| instance | Jet Instance Configuration m| &#42;<<JetInstance,JetInstance>> | false | {}
+m| edgeDefaults | Jet Edge Defaults Configuration m| &#42;<<JetEdgeDefaults,JetEdgeDefaults>> | false | {}
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== JetInstance
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| cooperativeThreadCount | The number of threads Jet creates in its cooperative multithreading pool. m| int32 | false | -
+m| flowControlPeriodMillis | The duration of the interval between flow-control packets. m| int32 | false | 100
+m| backupCount | The number of synchronous backups to configure on the IMap that Jet needs internally to store job metadata and snapshots. m| int32 | false | 1
+m| scaleUpDelayMillis | The delay after which the auto-scaled jobs restart if a new member joins the cluster. m| int32 | false | 10000
+m| losslessRestartEnabled | Specifies whether the Lossless Cluster Restart feature is enabled. m| bool | false | false
+m| maxProcessorAccumulatedRecords | Specifies the maximum number of records that can be accumulated by any single processor instance. m| int64 | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== JetJob
+
+JetJob is the Schema for the jetjobs API
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| spec | &#160; m| <<JetJobSpec,JetJobSpec>> | false | -
+m| status | &#160; m| <<JetJobStatus,JetJobStatus>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== JetJobList
+
+JetJobList contains a list of JetJob
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| items | &#160; m| []<<JetJob,JetJob>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== JetJobSpec
+
+JetJobSpec defines the desired state of JetJob
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| name | Name of the JetJob to be created. If empty, CR name will be used. It cannot be updated after the config is created successfully. m| string | false | -
+m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource that this resource is created for. m| string | true | -
+m| state | State is used to manage the job state. m| <<JetJobState,JetJobState>> | true | Running
+m| jarName | JarName specify the name of the Jar to run that is present on the member. m| string | true | -
+m| mainClass | MainClass is the name of the main class that will be run on the submitted job. m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== JetJobStatus
+
+JetJobStatus defines the observed state of JetJob
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| id | &#160; m| int64 | true | -
+m| phase | &#160; m| <<JetJobStatusPhase,JetJobStatusPhase>> | true | -
+m| submissionTime | &#160; m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#time-v1-meta[metav1.Time] | false | -
+m| completionTime | &#160; m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#time-v1-meta[metav1.Time] | false | -
+m| failureText | &#160; m| string | false | -
+m| suspensionCause | &#160; m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== MCPersistenceConfiguration
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| enabled | When true, MC will use a PersistentVolumeClaim to store data. m| &#42;bool | false | true
+m| existingVolumeClaimName | Name of the PersistentVolumeClaim MC will use for persistence. If not empty, MC will use the existing claim instead of creating a new one. m| string | false | -
+m| storageClass | StorageClass from which PersistentVolumeClaim will be created. m| &#42;string | false | -
+m| size | Size of the created PersistentVolumeClaim. m| &#42;resource.Quantity | false | "10Gi"
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -801,7 +921,7 @@ m| imagePullSecrets | Image pull secrets for the Management Center image m| []ht
 m| licenseKeySecret | Name of the secret with Hazelcast Enterprise License Key. m| string | false | -
 m| hazelcastClusters | Connection configuration for the Hazelcast clusters that Management Center will monitor. m| []<<HazelcastClusterConfig,HazelcastClusterConfig>> | false | -
 m| externalConnectivity | Configuration to expose Management Center to outside. m| <<ExternalConnectivityConfiguration,ExternalConnectivityConfiguration>> | false | {type: "LoadBalancer"}
-m| persistence | Configuration for Management Center persistence. m| <<PersistenceConfiguration,PersistenceConfiguration>> | false | {enabled: true, size: "10Gi"}
+m| persistence | Configuration for Management Center persistence. m| <<MCPersistenceConfiguration,MCPersistenceConfiguration>> | false | {enabled: true, size: "10Gi"}
 m| scheduling | Scheduling details m| <<SchedulingConfiguration,SchedulingConfiguration>> | false | {}
 m| resources | Compute Resources required by the MC container. m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | {}
 |===
@@ -1018,21 +1138,6 @@ m| cacheLocalEntries | CacheLocalEntries specifies whether the local entries are
 m| evictionPolicy | EvictionPolicy to be applied when near cache reaches its max size according to the max size policy. m| <<EvictionPolicyType,EvictionPolicyType>> | false | "NONE"
 m| maxSizePolicy | MaxSizePolicy for deciding if the maxSize is reached. m| <<MaxSizePolicyType,MaxSizePolicyType>> | false | "ENTRY_COUNT"
 m| size | Size is maximum size of the Near Cache used for max-size-policy m| uint32 | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== PersistenceConfiguration
-
-
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| enabled | When true, MC will use a PersistentVolumeClaim to store data. m| &#42;bool | false | true
-m| existingVolumeClaimName | Name of the PersistentVolumeClaim MC will use for persistence. If not empty, MC will use the existing claim instead of creating a new one. m| string | false | -
-m| storageClass | StorageClass from which PersistentVolumeClaim will be created. m| &#42;string | false | -
-m| size | Size of the created PersistentVolumeClaim. m| &#42;resource.Quantity | false | "10Gi"
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1329,6 +1434,7 @@ m| clientEnabled | When true, allows user code deployment from clients. m| &#42;
 m| bucketConfig | Bucket config where JAR files will be downloaded into Java CLASSPATH. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
 m| triggerSequence | A string for triggering a rolling restart for re-downloading the user code. m| string | false | -
 m| configMaps | Names of the list of ConfigMaps. Files in each ConfigMap will be put under Java CLASSPATH. m| []string | false | -
+m| remoteURLs | List of URLs. Files downloaded from the URLs will be put under Java CLASSPATH. m| []string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1627,6 +1733,40 @@ m| "BITMAP" | &#160;
 | Value | Description
 m| "LAZY" | Loading is asynchronous. It is the default mode.
 m| "EAGER" | Loading is blocked until all partitions are loaded.
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== JetJobState
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "Running" | &#160;
+m| "Suspended" | &#160;
+m| "Canceled" | &#160;
+m| "Restarted" | &#160;
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== JetJobStatusPhase
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "NotRunning" | &#160;
+m| "Starting" | &#160;
+m| "Running" | &#160;
+m| "Suspended" | &#160;
+m| "SuspendedExportingSnapshot" | &#160;
+m| "Completing" | &#160;
+m| "Failed" | &#160;
+m| "Completed" | &#160;
 |===
 
 <<Table of Contents,Back to TOC>>

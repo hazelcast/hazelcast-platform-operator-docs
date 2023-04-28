@@ -1,0 +1,23 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+  clusterSize: 3
+  repository: 'docker.io/hazelcast/hazelcast-enterprise'
+  version: '{page-latest-supported-hazelcast}-slim'
+  licenseKeySecret: hazelcast-license-key
+  jet:
+    enabled: true
+    resourceUploadEnabled: true
+    instance:
+      cooperativeThreadCount: 4
+      flowControlPeriodMS: 100
+      backupCount: 1
+      scaleUpDelayMS: 10000
+      losslessRestartEnabled: false
+      maxProcessorAccumulatedRecords: 1000000000
+    edgeDefaults:
+      queueSize: 1024
+      packetSizeLimit: 16384
+      receiveWindowMultiplier: 3
