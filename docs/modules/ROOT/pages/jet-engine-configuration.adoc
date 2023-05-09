@@ -38,6 +38,8 @@ The Jet engine is enabled by default and has the following configuration options
 |false
 |Whether the Lossless Cluster Restart feature is enabled.
 
+WARNING: Lossless Restart requires Persistence to be enabled. For more info about Persistence, see xref:backup-restore.adoc[Persistence, Backup, and Restore].
+
 |instance/maxProcessorAccumulatedRecords
 |
 |The maximum number of records that can be accumulated by any single processor instance.
