@@ -1,10 +1,10 @@
 = Configuring the Jet Engine
-:description: You can configure Hazelcast’s Jet engine using the Hazelcast Platform Operator.
+:description: Data Pipelines allow you to process data stored in one location and send the result to another, such as from a data lake to an analytics database or into a payment processing system. You can also use the same source and sink so the pipeline only processes data. You can configure Hazelcast’s Jet engine using the Hazelcast Platform Operator.
 
 {description}
 
 == Configuring the Jet Engine
-The Jet engine is enabled by default and has the following configuration options.
+The Jet engine is enabled by default and has the following configuration options. For more detailed information, see the xref:api-ref.adoc#jetengineconfiguration[API Reference].
 
 [cols="20%m,20%a,60%a"]
 |===
@@ -53,6 +53,12 @@ The Jet engine is enabled by default and has the following configuration options
 |edgeDefaults/receiveWindowMultiplier
 |
 |Sets the scaling factor used by the adaptive receive window sizing function.
+
+|bucketConfig
+|JAR files from an external bucket are placed accessible for the member when the following parameter values are supplied:
+
+  - `secret`: Name of the Secret object which holds the credentials for your cloud provider.
+  - `bucketURI`: Full path for the external bucket. For example: `gs://your-bucket/path/to/jars`.
 
 |===
 
