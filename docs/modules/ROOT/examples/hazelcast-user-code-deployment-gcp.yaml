@@ -11,4 +11,6 @@ spec:
     configMaps:
       - domain-classes-cm
       - entryprocessor-cm
+    remoteURLs:
+      - https://example.com/entry-processor.jar
     triggerSequence: "001"
