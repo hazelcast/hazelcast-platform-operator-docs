@@ -55,10 +55,19 @@ The Jet engine is enabled by default and has the following configuration options
 |Sets the scaling factor used by the adaptive receive window sizing function.
 
 |bucketConfig
+|
 |JAR files from an external bucket are placed accessible for the member when the following parameter values are supplied:
 
   - `secret`: Name of the Secret object which holds the credentials for your cloud provider.
   - `bucketURI`: Full path for the external bucket. For example: `gs://your-bucket/path/to/jars`.
+
+|configMaps
+|
+|List of names of ConfigMaps. Files in each ConfigMap will be downloaded.
+
+|remoteURLs
+|
+|List of URLs from where the files will be downloaded.
 
 |===
 
