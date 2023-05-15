@@ -29,7 +29,7 @@ Below are the configuration options for the `JetJob` resource. You can find more
 |MainClass is the name of the main class that will be run on the submitted job
 
 |bucketConfig
-|JAR files from an external bucket are placed accessible for the member when the following parameter values are supplied:
+|JAR file that is specified in the `jarName` from an external bucket are placed accessible for the member when the following parameter values are supplied:
 
   - `secret`: Name of the Secret object which holds the credentials for your cloud provider.
   - `bucketURI`: Full path for the external bucket. For example: `gs://your-bucket/path/to/jars`.
