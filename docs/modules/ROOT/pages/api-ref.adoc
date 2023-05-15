@@ -79,6 +79,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<JetJobState,JetJobState>>
 * <<JetJobStatus,JetJobStatus>>
 * <<JetJobStatusPhase,JetJobStatusPhase>>
+* <<JetRemoteFileConfiguration,JetRemoteFileConfiguration>>
 * <<LoggingLevel,LoggingLevel>>
 * <<MCPersistenceConfiguration,MCPersistenceConfiguration>>
 * <<ManagementCenter,ManagementCenter>>
@@ -113,6 +114,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<QueueSpec,QueueSpec>>
 * <<QueueStatus,QueueStatus>>
 * <<RMInMemoryFormatType,RMInMemoryFormatType>>
+* <<RemoteFileConfiguration,RemoteFileConfiguration>>
 * <<ReplicatedMap,ReplicatedMap>>
 * <<ReplicatedMapList,ReplicatedMapList>>
 * <<ReplicatedMapSpec,ReplicatedMapSpec>>
@@ -173,7 +175,7 @@ m| wan | &#160; m| []<<WANConfig,WANConfig>> | false | -
 |===
 | Field | Description | Type | Required | Default
 m| repository | Repository to pull Hazelcast Platform Operator Agent(https://github.com/hazelcast/platform-operator-agent) m| string | false | "docker.io/hazelcast/platform-operator-agent"
-m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.19"
+m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.20"
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -584,7 +586,7 @@ m| clusterName | Name of the Hazelcast cluster. m| string | false | "dev"
 m| scheduling | Scheduling details m| <<SchedulingConfiguration,SchedulingConfiguration>> | false | {}
 m| resources | Compute Resources required by the Hazelcast container. m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | {}
 m| persistence | Persistence configuration m| &#42;<<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>> | false | {}
-m| agent | B&R Agent configurations m| <<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.19"}
+m| agent | B&R Agent configurations m| <<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.20"}
 m| jet | Jet Engine configuration m| <<JetEngineConfiguration,JetEngineConfiguration>> | false | {enabled: true, resourceUploadEnabled: false}
 m| userCodeDeployment | User Codes to Download into CLASSPATH m| <<UserCodeDeploymentConfig,UserCodeDeploymentConfig>> | false | {}
 m| executorServices | Java Executor Service configurations, see https://docs.hazelcast.com/hazelcast/latest/computing/executor-service m| []<<ExecutorServiceConfiguration,ExecutorServiceConfiguration>> | false | -
@@ -767,7 +769,9 @@ m| receiveWindowMultiplier | Sets the scaling factor used by the adaptive receiv
 | Field | Description | Type | Required | Default
 m| enabled | When false, disables Jet Engine. m| &#42;bool | false | true
 m| resourceUploadEnabled | When true, enables resource uploading for Jet jobs. m| bool | false | false
-m| bucketConfig | Bucket Configuration from which the JAR files be downloaded and accessible for the member. These JAR files will not be placed in the CLASSPATH. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
+m| bucketConfig | Bucket config from where the JAR files will be downloaded. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
+m| configMaps | Names of the list of ConfigMaps. Files in each ConfigMap will be downloaded. m| []string | false | -
+m| remoteURLs | List of URLs from where the files will be downloaded. m| []string | false | -
 m| instance | Jet Instance Configuration m| &#42;<<JetInstance,JetInstance>> | false | {}
 m| edgeDefaults | Jet Edge Defaults Configuration m| &#42;<<JetEdgeDefaults,JetEdgeDefaults>> | false | {}
 |===
@@ -830,7 +834,8 @@ m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelca
 m| state | State is used to manage the job state. m| <<JetJobState,JetJobState>> | true | Running
 m| jarName | JarName specify the name of the Jar to run that is present on the member. m| string | true | -
 m| mainClass | MainClass is the name of the main class that will be run on the submitted job. m| string | false | -
-m| bucketConfig | Bucket Configuration from which the JAR files specified in JarName be downloaded and the jor will be run. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
+m| bucketConfig | Bucket config from where the JAR files will be downloaded. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
+m| remoteURL | URL from where the file will be downloaded. m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -848,6 +853,19 @@ m| submissionTime | &#160; m| &#42;https://kubernetes.io/docs/reference/generate
 m| completionTime | &#160; m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#time-v1-meta[metav1.Time] | false | -
 m| failureText | &#160; m| string | false | -
 m| suspensionCause | &#160; m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== JetRemoteFileConfiguration
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| bucketConfig | Bucket config from where the JAR files will be downloaded. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
+m| remoteURL | URL from where the file will be downloaded. m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1229,6 +1247,20 @@ m| memberStatuses | Holds status of data structure for each Hazelcast member m| 
 
 <<Table of Contents,Back to TOC>>
 
+=== RemoteFileConfiguration
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| bucketConfig | Bucket config from where the JAR files will be downloaded. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
+m| configMaps | Names of the list of ConfigMaps. Files in each ConfigMap will be downloaded. m| []string | false | -
+m| remoteURLs | List of URLs from where the files will be downloaded. m| []string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === ReplicatedMap
 
 ReplicatedMap is the Schema for the replicatedmaps API
@@ -1432,10 +1464,10 @@ UserCodeDeploymentConfig contains the configuration for User Code download opera
 |===
 | Field | Description | Type | Required | Default
 m| clientEnabled | When true, allows user code deployment from clients. m| &#42;bool | false | -
-m| bucketConfig | Bucket config where JAR files will be downloaded into Java CLASSPATH. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
 m| triggerSequence | A string for triggering a rolling restart for re-downloading the user code. m| string | false | -
-m| configMaps | Names of the list of ConfigMaps. Files in each ConfigMap will be put under Java CLASSPATH. m| []string | false | -
-m| remoteURLs | List of URLs. Files downloaded from the URLs will be put under Java CLASSPATH. m| []string | false | -
+m| bucketConfig | Bucket config from where the JAR files will be downloaded. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
+m| configMaps | Names of the list of ConfigMaps. Files in each ConfigMap will be downloaded. m| []string | false | -
+m| remoteURLs | List of URLs from where the files will be downloaded. m| []string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
