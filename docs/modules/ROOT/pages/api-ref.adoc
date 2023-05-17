@@ -100,6 +100,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<MultiMapList,MultiMapList>>
 * <<MultiMapSpec,MultiMapSpec>>
 * <<MultiMapStatus,MultiMapStatus>>
+* <<MutualAuthentication,MutualAuthentication>>
 * <<NativeMemoryAllocatorType,NativeMemoryAllocatorType>>
 * <<NativeMemoryConfiguration,NativeMemoryConfiguration>>
 * <<NearCache,NearCache>>
@@ -588,7 +589,7 @@ m| "Completed" | &#160;
 
 === LoggingLevel
 
-LoggingLevel controlls log verbosity for Hazelcast.
+LoggingLevel controls log verbosity for Hazelcast.
 
 [cols="5,10"options="header"]
 |===
@@ -653,6 +654,20 @@ MemberAccess describes how each Hazelcast member is accessed from the external c
 m| "NodePortExternalIP" | MemberAccessNodePortExternalIP lets the client access Hazelcast member with the NodePort service and the node external IP/hostname
 m| "NodePortNodeName" | MemberAccessNodePortNodeName lets the client access Hazelcast member with the NodePort service and the node name
 m| "LoadBalancer" | MemberAccessLoadBalancer lets the client access Hazelcast member with the LoadBalancer service
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== MutualAuthentication
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "None" | Client side of connection is not authenticated.
+m| "Required" | Server asks for client certificate. If the client does not provide a keystore or the provided keystore is not verified against member’s truststore, the client is not authenticated.
+m| "Optional" | Server asks for client certificate, but client is not required to provide any valid certificate.
 |===
 
 <<Table of Contents,Back to TOC>>
