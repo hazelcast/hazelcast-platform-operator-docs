@@ -27,6 +27,13 @@ Below are the configuration options for the TLS.
 |`secretName`
 | Specifies the name of Kubernetes TLS secret.
 
+|`mutualAuthentication`
+|  Mutual authentication configuration, available values are:
+
+- `None` (default): The client side of the connection is not authenticated.  
+- `Required`:  Server forces usage of a trusted client certificate
+- `Optional`: Server asks for a client certificate, but it doesn't require it
+
 |===
 
 === Example Configuration
