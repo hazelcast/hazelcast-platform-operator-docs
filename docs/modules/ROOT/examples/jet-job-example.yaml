@@ -9,9 +9,9 @@ spec:
     enabled: true
     resourceUploadEnabled: true
     bucketConfig:
-      secret: br-secret-gcp
+      secretName: br-secret-gcp
       bucketURI: "gs://your-bucket/path/to/jars"
-  licenseKeySecret: hazelcast-license-key
+  licenseKeySecretName: hazelcast-license-key
 ---
 apiVersion: hazelcast.com/v1alpha1
 kind: JetJob
