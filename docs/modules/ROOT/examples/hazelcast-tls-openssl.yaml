@@ -5,11 +5,11 @@ metadata:
 spec:
   clusterSize: 3
   repository: 'docker.io/hazelcast/hazelcast-enterprise'
-  licenseKeySecret: hazelcast-license-key
+  licenseKeySecretName: hazelcast-license-key
   userCodeDeployment: <1>
     clientEnabled: true 
     bucketConfig: 
-      secret: gcp-bucket-secret
+      secretName: gcp-bucket-secret
       bucketURI: gs://hazelcast-tls-openssl/path/to/jars
   tls:
     secretName: example
