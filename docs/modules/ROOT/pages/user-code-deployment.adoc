@@ -19,7 +19,7 @@ Below are the configuration options for the User Code Deployment feature. For mo
 |`bucketConfig`
 |JAR files from an external bucket are placed under the Java classpath when the following parameter values are supplied:
 
-  - `secret`: Name of the Secret object which holds the credentials for your cloud provider.
+  - `secretName`: Name of the Secret object which holds the credentials for your cloud provider.
   - `bucketURI`: Full path for the external bucket. For example: `gs://your-bucket/path/to/jars`.
 
 |`configMaps`

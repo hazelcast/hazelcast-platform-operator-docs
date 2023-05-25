@@ -6,11 +6,11 @@ spec:
   userCodeDeployment:
     clientEnabled: true
     bucketConfig:
-      secret: map-store-bucket-secret <1>
+      secretName: map-store-bucket-secret <1>
       bucketURI: s3://map-store-bucket/path/to/jars <2>
     configMaps:
-      - domain-classes-cm
-      - entryprocessor-cm
+    - domain-classes-cm
+    - entryprocessor-cm
     remoteURLs:
-      - https://example.com/entry-processor.jar
+    - https://example.com/entry-processor.jar
     triggerSequence: "001"

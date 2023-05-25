@@ -5,4 +5,4 @@ metadata:
 spec:
   hazelcastResourceName: hazelcast
   bucketURI: "gs://bucket-name/path/to/folder" <1>
-  secret: "secret-gcp-bucket" <2>
+  secretName: "secret-gcp-bucket" <2>

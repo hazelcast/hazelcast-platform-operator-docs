@@ -5,4 +5,4 @@ metadata:
 spec:
   hazelcastResourceName: hazelcast
   bucketURI: "azblob://bucket-name/path/to/folder" <1>
-  secret: "secret-azure-blob" <2>
+  secretName: "secret-azure-blob" <2>

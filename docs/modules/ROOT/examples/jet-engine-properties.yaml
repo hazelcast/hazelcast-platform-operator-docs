@@ -6,9 +6,9 @@ spec:
   clusterSize: 3
   repository: 'docker.io/hazelcast/hazelcast-enterprise'
   version: '{page-latest-supported-hazelcast}-slim'
-  licenseKeySecret: hazelcast-license-key
+  licenseKeySecretName: hazelcast-license-key
   jet:
     enabled: true
   jvm:
     args:
-      - "-Djet.idle.cooperative.min.microseconds=50"
+    - "-Djet.idle.cooperative.min.microseconds=50"

@@ -60,7 +60,7 @@ WARNING: Lossless Restart requires Persistence to be enabled. For more info abou
 |
 |JAR files from an external bucket are placed accessible for the member when the following parameter values are supplied:
 
-  - `secret`: Name of the Secret object which holds the credentials for your cloud provider.
+  - `secretName`: Name of the Secret object which holds the credentials for your cloud provider.
   - `bucketURI`: Full path for the external bucket. For example: `gs://your-bucket/path/to/jars`.
 
 |configMaps
