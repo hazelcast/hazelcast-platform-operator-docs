@@ -7,7 +7,7 @@ With the Hazlecast Platform Operator you can configure Hazelcast Serialization u
 
 You can find more detailed information on configuration of Serializartion in xref:api-ref.adoc#jetjobspec[API Reference] page.
 
-== Configuraing Custom Serialization
+== Configuring Custom Serialization
 
 To register custom serializers, you need to define the list of serizalizers and types in the  `serializers` section. The following configuration will register two custom serializers.
 
@@ -18,7 +18,7 @@ include::ROOT:example$/serialization-custom.yaml[]
 ----
 
 
-== Configuraing Compact Serialization
+== Configuring Compact Serialization
 
 To configure Compact serialization, you need to define the `compactSerialization` section. The following configuration will register an explicit serializer `com.example.FooSerializer` along with a zero-config serializer for `com.example.Bar` class.
 
