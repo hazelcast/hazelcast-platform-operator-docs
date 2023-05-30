@@ -1,0 +1,39 @@
+= Configuring the Hazelcast Serialization
+:description: For data to be sent over a network between cluster members and/or clients, it needs to be serialized into raw bytes. Hazelcast has many serialization options to choose from, depending on what you plan on doing with your data.
+
+{description}
+
+With the Hazlecast Platform Operator you can configure Hazelcast Serialization using the Hazelcast CR. To understand the Hazelcast Serialization, refer to xref:hazelcast:serialization:serialization.adoc[Platform documentation].
+
+You can find more detailed information on configuration of Serializartion in xref:api-ref.adoc#serializationconfig[API Reference] page.
+
+== Configuring Custom Serialization
+
+To register custom serializers, you need to define the list of serizalizers and types in the  `serializers` section. The following configuration will register two custom serializers.
+
+.Custom serializers example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/serialization-custom.yaml[]
+----
+
+
+== Configuring Compact Serialization
+
+To configure Compact serialization, you need to define the `compactSerialization` section. The following configuration will register an explicit serializer `com.example.FooSerializer` along with a zero-config serializer for `com.example.Bar` class.
+
+.Compact serialization example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/serialization-compact.yaml[]
+----
+
+== Disallowing Deserialization of Untrusted Java Classes
+
+To stop Hazelcast from deserializing arbitrary classes, you can allow or disallow deserialization of Java classes by class name or package name, using the `javaSerializationFilter` option.
+
+.Java serialization filter example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/serialization-filter.yaml[]
+----

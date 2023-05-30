@@ -25,6 +25,7 @@ The following information is sent in a phone home:
 * Number of created MultiMap resources
 * Number of created Topic resources
 * Number of created ReplicatedMap resources
+* Number of Serialization configuration declared
 * Expose Externally specific:
 ** Number of Hazelcast clusters where unisocket is used
 ** Number of Hazelcast clusters where smart client is used
