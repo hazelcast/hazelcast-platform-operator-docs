@@ -49,7 +49,7 @@ The example configuration does the following:
 include::ROOT:example$/hazelcast-tls.yaml[]
 ----
 
-.Example Managment Center configuration
+.Example Management Center configuration
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/management-center-tls.yaml[]
