@@ -18,6 +18,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<BatchSetting,BatchSetting>>
 * <<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>>
 * <<BucketConfiguration,BucketConfiguration>>
+* <<ByteOrder,ByteOrder>>
 * <<CRLister,CRLister>>
 * <<Cache,Cache>>
 * <<CacheList,CacheList>>
@@ -26,6 +27,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<CapacityPolicyType,CapacityPolicyType>>
 * <<ClientServerSocketEndpointConfig,ClientServerSocketEndpointConfig>>
 * <<CollectionType,CollectionType>>
+* <<CompactSerializationConfig,CompactSerializationConfig>>
 * <<CronHotBackup,CronHotBackup>>
 * <<CronHotBackupList,CronHotBackupList>>
 * <<CronHotBackupSpec,CronHotBackupSpec>>
@@ -48,6 +50,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<ExternalConnectivityType,ExternalConnectivityType>>
 * <<FullBehaviorSetting,FullBehaviorSetting>>
 * <<GCType,GCType>>
+* <<GlobalSerializer,GlobalSerializer>>
 * <<Hazelcast,Hazelcast>>
 * <<HazelcastClusterConfig,HazelcastClusterConfig>>
 * <<HazelcastClusterStatus,HazelcastClusterStatus>>
@@ -70,6 +73,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<JVMConfiguration,JVMConfiguration>>
 * <<JVMGCConfiguration,JVMGCConfiguration>>
 * <<JVMMemoryConfiguration,JVMMemoryConfiguration>>
+* <<JavaSerializationFilter,JavaSerializationFilter>>
 * <<JetEdgeDefaults,JetEdgeDefaults>>
 * <<JetEngineConfiguration,JetEngineConfiguration>>
 * <<JetInstance,JetInstance>>
@@ -127,6 +131,9 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<RestoreStatus,RestoreStatus>>
 * <<ScheduledExecutorServiceConfiguration,ScheduledExecutorServiceConfiguration>>
 * <<SchedulingConfiguration,SchedulingConfiguration>>
+* <<SerializationConfig,SerializationConfig>>
+* <<SerializationFilterList,SerializationFilterList>>
+* <<Serializer,Serializer>>
 * <<TLS,TLS>>
 * <<Topic,Topic>>
 * <<TopicList,TopicList>>
@@ -299,6 +306,19 @@ m| interfaces | &#160; m| []string | false | -
 
 <<Table of Contents,Back to TOC>>
 
+=== CompactSerializationConfig
+
+CompactSerializationConfig is the configuration for the Hazelcast Compact serialization.
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| serializers | Serializers is the list of explicit serializers to be registered. m| []string | false | -
+m| classes | Classes is the list of class names for which a zero-config serializer will be registered, without implementing an explicit serializer. m| []string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === CronHotBackup
 
 CronHotBackup is the Schema for the cronhotbackups API
@@ -351,6 +371,20 @@ m| suspend | When true, CronHotBackup will stop creating HotBackup CRs until it 
 | Value | Description
 m| "ACK_ON_RECEIPT" | Replication event is considered successful as soon as it is received by target cluster.
 m| "ACK_ON_OPERATION_COMPLETE" | Replication event is considered successful when it is received and applied by the target cluster.
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ByteOrder
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "Native" | NativeByteOrder uses the native byte order of the underlying platform.
+m| "BigEndian" | BigEndian uses the big-endian byte order.
+m| "LittleEndian" | LittleEndian uses the kittle-endian byte order.
 |===
 
 <<Table of Contents,Back to TOC>>
