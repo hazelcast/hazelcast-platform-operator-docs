@@ -1,4 +1,4 @@
-= Custom Hazelcast Configuration
+= Custom Configuration of Hazelcast cluster
 :description: pass:q[Hazelcast Platform Oprator's Custom Config allows users to provide a raw Hazelcast Configuration that can be directly utilized. It is perfect for those who want to take complete control over their configuration or to use new features that are not yet present in the Operator.]
 
 {description}
