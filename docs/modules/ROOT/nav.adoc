@@ -22,6 +22,7 @@
 * Data Pipelines
 ** xref:jet-engine-configuration.adoc[Configuring the Jet Engine]
 ** xref:jet-job-configuartion.adoc[Running Data Pipelines]
+* xref:custom-config.adoc[Custom Configuration of Hazelcast cluster]
 
 .Reference
 // Configuration options/spec files/any other reference docs

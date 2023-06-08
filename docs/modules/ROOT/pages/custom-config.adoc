@@ -1,0 +1,105 @@
+= Custom Hazelcast Configuration
+:description: pass:q[Hazelcast Platform Oprator's Custom Config allows users to provide a raw Hazelcast Configuration that can be directly utilized. It is perfect for those who want to take complete control over their configuration or to use new features that are not yet present in the Operator.]
+
+{description}
+
+== Configuring Hazelcast using Custom Config
+
+To use the Custom Config as a method of configuring the Hazelcast cluster, you need to create a `ConfigMap` with the member configuration. The configuration must be in YAML format and consist of valid xref:hazelcast:configuration:configuring-declaratively.adoc[Hazelcast configuration].
+
+[source,yaml]
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: custom-config-cm
+data:
+  hazelcast:
+    security:
+      enabled: false
+      realms:
+        - name: simpleRealm
+          authentication:
+            simple:
+              users:
+                - username: dev
+                  password: 'secret'
+                  roles:
+                    - root
+```
+
+The name of the `ConfigMap` should be set to the Hazlecast CR's `customConfigCmName` field.
+
+[source,yaml]
+```
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+  customConfigCmName: custom-config-cm
+```
+
+== Custom Config and Hazelcast CR
+
+The Custom Config is not designed as an alternative to the Hazelcast CR configuration, and it is not recommended to use it as the main source of the configuration. That said, Custom Config can and should be used together with the Hazelcast CR configuration.
+
+[source,yaml]
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: custom-config-cm
+data:
+  hazelcast:
+    security:
+      enabled: false
+      realms:
+        - name: simpleRealm
+          authentication:
+            simple:
+              users:
+                - username: dev
+                  password: 'secret'
+                  roles:
+                    - root
+```
+
+[source,yaml]
+```
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+  customConfigCmName: custom-config-cm
+  userCodeDeployment:
+    bucketConfig:
+      secretName: br-secret-gcp
+      bucketURI: "gs://operator-custom-class/executorService"
+  executorServices:
+    - name: service1
+  durableExecutorServices:
+    - name: service2
+  scheduledExecutorServices:
+    - name: service3
+```
+
+The configuration from the Hazelcat CR and the Custom Config will be merged into one structure that will be used as the Hazelcasat member configuration.
+If the same feature is configured with Custom Config `ConfigMap` and in the Hazelcast CR, the configuration from the Hazelcast CR will take precedence and will override the one from the Custom Config.
+
+== Cautions and limitations
+
+The Custom Config feature contains raw Hazelcast configuration that is not being managed by the Hazelcast Platform Operator. Thus its usage has some cautions and limitations.
+
+=== Combining Hazelcast CR and Custom Config
+
+It is not possible to combine the configuration of one feature in the Hazelcast CR and the Custom Cofnig. The configuration from the Hazelcast CR will override the partial configuration from the Custom Config.
+
+=== Operator-managed features
+
+Some Hazelcast features require the management of additional K8s resources (e.g., xref:hazelcast:storage:persistence.adoc[Persistence] requires PVCs). Custom Config does not allow configuring Kubernetes deployments, only the Hazelcast configuration. Therefore it is not possible to use Custom Config for such features; only the Hazelcast CR config is supported.
+
+=== Networking configuration
+
+The Hazelcast Platform Operator communicates with the Hazelcast cluster, requiring a specific networking configuration. Reconfiguring it using Custom Config might break communication between the Operator and the cluster. To avoid such cases, the Operator will always override the networking section of the Custom Config. If you require any specific networking setup, please use Hazelcast CR.
