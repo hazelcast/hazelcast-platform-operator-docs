@@ -615,7 +615,7 @@ m| "Running" | &#160;
 m| "Suspended" | &#160;
 m| "SuspendedExportingSnapshot" | &#160;
 m| "Completing" | &#160;
-m| "FailedDuringExecution" | &#160;
+m| "ExecutionFailed" | &#160;
 m| "Completed" | &#160;
 |===
 
