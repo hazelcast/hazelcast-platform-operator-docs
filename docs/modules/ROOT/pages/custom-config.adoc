@@ -1,5 +1,5 @@
 = Custom Configuration of Hazelcast cluster
-:description: pass:q[Hazelcast Platform Oprator's Custom Config allows users to provide a raw Hazelcast Configuration that can be directly utilized. It is perfect for those who want to take complete control over their configuration or to use new features that are not yet present in the Operator.]
+:description: pass:q[Hazelcast Platform Operator's Custom Config allows users to provide a raw Hazelcast Configuration that can be directly utilized. It is perfect for those who want to take complete control over their configuration or to use new features that are not yet present in the Operator.]
 
 {description}
 
@@ -94,7 +94,7 @@ The Custom Config feature contains raw Hazelcast configuration that is not being
 
 === Combining Hazelcast CR and Custom Config
 
-It is not possible to combine the configuration of one feature in the Hazelcast CR and the Custom Cofnig. The configuration from the Hazelcast CR will override the partial configuration from the Custom Config.
+It is not possible to combine the configuration of one feature in the Hazelcast CR and the Custom Config. The configuration from the Hazelcast CR will override the partial configuration from the Custom Config.
 
 === Operator-managed features
 
