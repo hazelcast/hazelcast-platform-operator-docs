@@ -3,7 +3,7 @@
 
 {description}
 
-With the Hazlecast Platform Operator you can configure Hazelcast Serialization using the Hazelcast CR. To understand the Hazelcast Serialization, refer to xref:hazelcast:serialization:serialization.adoc[Platform documentation].
+With the Hazelcast Platform Operator you can configure Hazelcast Serialization using the Hazelcast CR. To understand the Hazelcast Serialization, refer to xref:hazelcast:serialization:serialization.adoc[Platform documentation].
 
 You can find more detailed information on configuration of Serializartion in xref:api-ref.adoc#serializationconfig[API Reference] page.
 
