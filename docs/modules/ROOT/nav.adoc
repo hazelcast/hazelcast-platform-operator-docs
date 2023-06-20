@@ -21,7 +21,7 @@
 * xref:tls.adoc[Configuring TLS]
 * Data Pipelines
 ** xref:jet-engine-configuration.adoc[Configuring the Jet Engine]
-** xref:jet-job-configuartion.adoc[Running Data Pipelines]
+** xref:jet-job-configuration.adoc[Running Data Pipelines]
 * xref:custom-config.adoc[Custom Configuration of Hazelcast cluster]
 
 .Reference
