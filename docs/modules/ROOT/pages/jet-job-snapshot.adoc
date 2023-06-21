@@ -31,7 +31,7 @@ It is the list of configuration options of the JetJobSnapshot resource.
 
 == Exporting Snapshot
 
-To export a snapshot using the JetJobSnapshot custom resource
+It is the example of exporting a snapshot using the JetJobSnapshot custom resource.
 
 .Example of JetJobSnapshot configuration 
 [source,yaml,subs="attributes+"]
@@ -42,11 +42,11 @@ include::ROOT:example$/jetjobsnapshot-example.yaml[]
 <1> Sets the name the exported Snapshot.
 <2> Specifies the name of the JetJob CR object from which the Snapshot is exported.
 
-WARNING: The status of the JetJob, from which you want to export a Snapshot, must be equals to 'Running'.
+NOTE: The status of the JetJob, from which you want to export a Snapshot, must be equals to 'Running'.
 
 == Starting a JetJob initialized from the Snapshot
 
-To starting a new JetJob initialized from a Snapshot
+It is the example of starting a new JetJob initialized from a Snapshot.
 
 .Example of JetJob initialization from Snapshot
 [source,yaml,subs="attributes+"]
