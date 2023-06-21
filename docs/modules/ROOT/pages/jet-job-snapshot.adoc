@@ -1,0 +1,22 @@
+= Saving State of Data Pipelines
+:description: During the processing of data pipelines, the states of the computation process are saved and utilized by the pipelines. These states are crucial for ensuring the correctness and integrity of the data processing operations. Jet's Snapshot plays a role in this context by offering a mechanism to save and restore these processing states.
+:page-enterprise: true
+
+{description}
+
+During the processing of data pipelines, the states of the computation process are saved and utilized by the pipelines. These states are crucial for ensuring the correctness and integrity of the data processing operations. Jet's Snapshot plays a role in this context by offering a mechanism to save and restore these processing states.
+
+Snapshot allows you to capture the state of a running Jet job at a particular point in time. It enables you to take a consistent snapshot of the in-flight computations and the processed data, which can later be used for various purposes such as fault tolerance, job migration, or analysis.
+
+When a snapshot is taken, Jet ensures that all the data in transit and the internal state of the processing nodes are recorded. This means that if the job fails or needs to be restarted, it can be restored to the exact state it was in when the snapshot was taken. This helps in achieving fault-tolerant processing and ensuring data integrity.
+
+To export a Snapshot in Hazelcast Platform Operator, JetJobSnapshot CR can be used.
+
+== Configuring the JetJobSnapshot Resource
+
+
+== Exporting Snapshot
+
+
+== Starting JetJob Initialized From Snapshot
+
