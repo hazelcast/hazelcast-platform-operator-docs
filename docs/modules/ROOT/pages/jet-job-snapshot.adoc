@@ -10,13 +10,49 @@ Snapshot allows you to capture the state of a running Jet job at a particular po
 
 When a snapshot is taken, Jet ensures that all the data in transit and the internal state of the processing nodes are recorded. This means that if the job fails or needs to be restarted, it can be restored to the exact state it was in when the snapshot was taken. This helps in achieving fault-tolerant processing and ensuring data integrity.
 
-To export a Snapshot in Hazelcast Platform Operator, JetJobSnapshot CR can be used.
+To export a Snapshot in Hazelcast Platform Operator, JetJobSnapshot custom resource can be used.
 
 == Configuring the JetJobSnapshot Resource
 
+It is the list of configuration options of the JetJobSnapshot resource.
+
+[cols="20%m,20%a,60%a"]
+
+|===
+|Option|Description
+
+|name
+|Name of the exported snapshot. If empty, the CR name will be used. It cannot be modified after the object is created.
+
+|cancelName
+|Determines whether the job is canceled after exporting snapshot. Its default value is false.
+
+|jetJobResourceName
+|The name of the JetJob CR where the Snapshot is exported at
+
+|===
 
 == Exporting Snapshot
 
+To export snapshot using the JetJobSnapshot custom resource
+
+.Example of JetJobSnapshot configuration 
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/jetjobsnapshot-example.yaml[]
+----
+
+<1> Sets the name the exported Snapshot.
+<2> Specifies the name of the JetJob CR object where the Snapshot is exported at.
 
 == Starting JetJob Initialized From Snapshot
 
+To starting a new JetJob which is initialized from Snapshot
+
+.Example of JetJob initialization from Snapshot
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/jetjob-initial-snapshot-example.yaml[]
+----
+
+<1> Specifies the name of the JetJobSnapshot CR object where the JetJob is initialized from.
