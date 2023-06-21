@@ -16,7 +16,6 @@ It is the list of configuration options of the JetJobSnapshot resource.
 
 [cols="20%m,80%a"]
 |===
-
 |Field|Description
 
 |name
