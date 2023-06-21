@@ -14,7 +14,7 @@ To export a Snapshot in Hazelcast Platform Operator, JetJobSnapshot custom resou
 
 It is the list of configuration options of the JetJobSnapshot resource.
 
-[cols="20%m,20%a,60%a"]
+[cols="20%m,80%a"]
 |===
 
 |Field|Description
