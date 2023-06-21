@@ -6,7 +6,7 @@
 
 Snapshot allows you to capture the state of a running Jet job at a particular point in time. It enables you to take a consistent snapshot of the in-flight computations and the processed data, which can later be used for various purposes such as fault tolerance, job migration, or analysis.
 
-When a snapshot is taken, Jet ensures that all the data in transit and the internal state of the processing nodes are recorded. This means that if the job fails or needs to be restarted, it can be restored to the exact state it was in when the snapshot was taken. This helps in achieving fault-tolerant processing and ensuring data integrity.
+When a snapshot is taken, Jet ensures that all the data in transit and the internal state of the processing nodes are recorded. This means that if the job fails or needs to be restarted, it can be restored to its exact state when the snapshot was taken. This helps in achieving fault-tolerant processing and ensuring data integrity.
 
 To export a Snapshot in Hazelcast Platform Operator, JetJobSnapshot custom resource can be used.
 
@@ -25,13 +25,13 @@ It is the list of configuration options of the JetJobSnapshot resource.
 |Determines whether the job is canceled after exporting snapshot. Its default value is false.
 
 |jetJobResourceName
-|The name of the JetJob CR where the Snapshot is exported at
+|The name of the JetJob CR from which the Snapshot is exported.
 
 |===
 
 == Exporting Snapshot
 
-To export snapshot using the JetJobSnapshot custom resource
+To export a snapshot using the JetJobSnapshot custom resource
 
 .Example of JetJobSnapshot configuration 
 [source,yaml,subs="attributes+"]
@@ -40,11 +40,11 @@ include::ROOT:example$/jetjobsnapshot-example.yaml[]
 ----
 
 <1> Sets the name the exported Snapshot.
-<2> Specifies the name of the JetJob CR object which the Snapshot is exported from.
+<2> Specifies the name of the JetJob CR object from which the Snapshot is exported.
 
 WARNING: The status of the JetJob, from which you want to export a Snapshot, must be equals to 'Running'.
 
-== Starting JetJob Initialized From Snapshot
+== Starting a JetJob initialized from the Snapshot
 
 To starting a new JetJob initialized from a Snapshot
 
@@ -54,4 +54,4 @@ To starting a new JetJob initialized from a Snapshot
 include::ROOT:example$/jetjob-initial-snapshot-example.yaml[]
 ----
 
-<1> Specifies the name of the JetJobSnapshot CR object which the JetJob is initialized from.
+<1> Specifies the name of the JetJobSnapshot CR object from which the JetJob is initialized.
