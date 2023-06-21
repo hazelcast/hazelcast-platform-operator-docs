@@ -22,7 +22,7 @@ Below are the configuration options for the `JetJob` resource. You can find more
 |state
 |State is used to manage the job state. The default value is 'Running'.
 
-NOTE: The value of 'state' field must be 'Running' when the JetJob object is created for the first time.
+WARNING: The value of `state` field must be `Running` when the JetJob object is created for the first time.
 
 |jarName
 |JarName specify the name of the Jar to run that is present on the member
