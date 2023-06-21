@@ -28,7 +28,7 @@ data:
                     - root
 ```
 
-The name of the `ConfigMap` should be set to the Hazlecast CR's `customConfigCmName` field.
+The name of the `ConfigMap` should be set to the Hazelcast CR's `customConfigCmName` field.
 
 [source,yaml]
 ```
