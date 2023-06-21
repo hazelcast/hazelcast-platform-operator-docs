@@ -16,7 +16,8 @@ It is the list of configuration options of the JetJobSnapshot resource.
 
 [cols="20%m,20%a,60%a"]
 |===
-|Option|Description
+
+|Field|Description
 
 |name
 |Name of the exported snapshot. If empty, the CR name will be used. It cannot be modified after the object is created.
