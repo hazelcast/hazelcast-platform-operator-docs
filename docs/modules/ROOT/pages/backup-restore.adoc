@@ -2,7 +2,7 @@
 :description: Persistence allows individual members and whole clusters to recover data by persisting map entries, JCache data, and streaming job snapshots on disk. Members can use persisted data to recover from a planned shutdown (including rolling upgrades), a sudden cluster-wide crash, or a single member failure.
 :page-enterprise: true
 
-Persistence allows individual members and whole clusters to recover data by persisting map entries, JCache data, and streaming job snapshots on disk. Members can use persisted data to recover from a planned shutdown (including rolling upgrades), a sudden cluster-wide crash, or a single member failure.
+{description}
 
 This topic assumes that you know about Persistence in Hazelcast. To learn about Persistence, see the xref:hazelcast:storage:persistence.adoc[Platform documentation].
 
