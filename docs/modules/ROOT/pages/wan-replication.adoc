@@ -81,7 +81,7 @@ NAME                     STATUS    MESSAGE
 wanreplication-sample    Success
 ----
 
-You can also monitor the status of WAN replications in xref:get-started.adoc#step-4-start-management-center[Management Center].
+You can also monitor the status of WAN replications in xref:deploy-management-center.adoc[Management Center].
 
 
 == Deleting the WanReplication Custom Resource

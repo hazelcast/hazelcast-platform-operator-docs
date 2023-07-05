@@ -3,10 +3,12 @@ kind: ManagementCenter
 metadata:
   name: managementcenter
 spec:
-  repository: 'hazelcast/management-center'
+  repository: "hazelcast/management-center"
   licenseKeySecretName: hazelcast-license-key
+  externalConnectivity:
+    type: ClusterIP
+    route:
+      hostname: ""
   hazelcastClusters:
-  - address: hazelcast
-    name: dev
-    tls:
-      secretName: example
+    - address: hazelcast
+      name: dev

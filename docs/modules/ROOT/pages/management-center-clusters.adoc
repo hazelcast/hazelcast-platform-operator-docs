@@ -1,0 +1,61 @@
+= Connecting to a Hazelcast Cluster
+:description: You can connect Management Center to multiple clusters.
+
+To connect Management Center to a Hazelcast cluster, you need to configure at least the name of the cluster and the addresses of one or more members.
+
+You can connect Management Center to a cluster that is configured to use TLS.
+
+See xref:management-center:deploy-manage:cluster-connections.adoc[Management Center Documentation] for more detailed information.
+
+== Configuring Cluster Connections
+
+Connection configuration for the Hazelcast clusters that Management Center will monitor.
+
+[cols="30%m,70%a"]
+|===
+|Field|Description
+
+|`hazelcastClusters[].address`
+| IP address or DNS name of the Hazelcast cluster. If the cluster is exposed with a service name in a different namespace, use the following syntax `<service-name>.<service-namespace>`.
+
+|`hazelcastClusters[].name`
+| Name of the Hazelcast cluster that Management Center will connect to, default is `dev`.
+
+|`hazelcastClusters[].tls.secretName`
+| Specifies the name of Kubernetes TLS secret.
+
+|===
+
+WARNING: `hazelcastClusters` field does not support deleting clusters from the custom resource. If you want to remove a cluster from the Management Center, you can do it from the Management Center UI.
+
+=== Example Management Center configuration
+
+The example configuration below does the following:
+
+- Configuring connection to a Hazelcast cluster using `hazelcast` DNS name
+- Use `dev` Hazelcast cluster name
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/management-center-clusters.yaml[]
+----
+
+=== Example Management Center with TLS Configuration
+
+The example configuration below does the following:
+
+- Configuring connection to a Hazelcast cluster using `hazelcast` DNS name
+- Use `dev` Hazelcast cluster name
+- Connect to Hazelcast cluster with TLS certificate defined in `example` secret
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/management-center-tls.yaml[]
+----
+
+You can create TLS secret from existing PEM certificate:
+
+[source,shell]
+----
+kubectl create secret tls example --cert=example.crt --key=example.key
+----

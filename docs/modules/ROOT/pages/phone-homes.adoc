@@ -49,7 +49,7 @@ The following information is sent in a phone home:
 * HotHackup specific:
 ** Number of local backups
 ** Number of external backups
-** Number of backups using K8s Persistance Volume Claim
+** Number of backups using K8s persistence Volume Claim
 ** Number of clusters with enabled persistence restore feature
 ** Number of external backups to AWS S3
 ** Number of external backups to Google Storage

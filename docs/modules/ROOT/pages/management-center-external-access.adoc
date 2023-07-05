@@ -1,0 +1,60 @@
+= External Access to Management Center
+:description: Expose Management Center so that you can effortlessly monitor and manage your Hazelcast cluster.
+
+Sometimes you may want to expose a Management Center onto an external IP address, one that's accessible from outside of your cluster. Management Center supports multiple external access methods.
+
+== Configuring Hazelcast External Access
+
+External connectivity defines how to expose Management Center:
+
+[cols="30%m,70%a"]
+|===
+|Field|Description
+
+|`externalConnectivity.type`
+| Management Center external access methods:
+
+- `LoadBalancer` (default): On cloud providers which support external load balancers, setting the type field to LoadBalancer provisions a load balancer for your Management Center.
+- `NodePort`: If you set the type field to NodePort, the Kubernetes control plane allocates a port from a reserved range (default: 30000-32767). Each node proxies that port (the same port number on every Node) into your Service.
+- `ClusterIP`: Assigns an IP address from a pool of internal IP addresses that your cluster has reserved for that purpose.
+
+|`externalConnectivity.ingress`
+| Ingress exposes HTTP and HTTPS routes from outside the cluster to Management Center within the cluster. Traffic routing is controlled by rules defined on the https://kubernetes.io/docs/concepts/services-networking/ingress/[Ingress] resource.
+
+|`externalConnectivity.route`
+| An OpenShift Container Platform https://docs.openshift.com/container-platform/4.13/networking/routes/route-configuration.html[Route] exposes a service at a host name, so that external clients can reach it by name.
+
+|===
+
+=== Example Management Center Ingress Configuration
+
+The example configuration below does the following:
+
+- Expose Management Center using Ingress defined on the https://kubernetes.io/docs/concepts/services-networking/ingress/[Ingress].
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/management-center-ingress.yaml[]
+----
+
+=== Example Management Center LoadBalancer Configuration
+
+The example configuration below does the following:
+
+- Expose Management Center using a dedicated load balancer for your Management Center
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/management-center-loadbalancer.yaml[]
+----
+
+=== Example Management Center Route Configuration
+
+The example configuration below does the following:
+
+- Expose Management Center using default OpenShift Container Platform https://docs.openshift.com/container-platform/4.13/networking/routes/route-configuration.html[Route].
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/management-center-route.yaml[]
+----

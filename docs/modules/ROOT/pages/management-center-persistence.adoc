@@ -1,0 +1,44 @@
+= Management Center Persistence
+:description: Configure Management Center Persistence.
+
+Management Center collect and report metrics data for the connected Hazelcast Clusters. Metrics data includes various number of time series, such as CPU load, memory consumption, and operation counters. See the xref:imdg:management:metrics.adoc[Metrics section] for details about configuring metrics collection.
+
+By default, Management Center persists the collected metrics to a persistent volume. You can turn it off by disabling persistence.
+
+== Configuring Management Center Persistence
+
+Configuration for Management Center persistence.
+
+[cols="30%m,70%a"]
+|===
+|Field|Description
+
+|`persistence.enabled`
+| When true, Management Center will use a PersistentVolumeClaim to store data.
+
+|`persistence.size`
+| Size of the created PersistentVolumeClaim.
+
+|`persistence.existingVolumeClaimName`
+| Name of the PersistentVolumeClaim MC will use for persistence. If not empty, MC will use the existing claim instead of creating a new one.
+
+|`persistence.storageClass`
+| StorageClass from which PersistentVolumeClaim will be created.
+
+|===
+
+WARNING: StatefulSet does not support updates to `volumeClaimTemplates` field, so `persistence` field should be set only at the creation of the custom resource. Any update to the `persistence` field will not affect the Management Center.
+
+NOTE: By default, xref:management-center:deploy-manage:configuring.adoc#where-management-center-saves-data[Management Center data] is persisted to the `/data` directory. If you want to use an existing `PersistentVolumeClaim`, set its name in the `.spec.persistence.existingVolumeClaimName` field in the Management Center custom resource.
+
+=== Example Configuration
+
+The example configuration does the following:
+
+- Assigns Kubernetes Persistent Volume with size of 10Gi
+
+.Example Management Center with Persistence Configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/management-center-persistence.yaml[]
+----

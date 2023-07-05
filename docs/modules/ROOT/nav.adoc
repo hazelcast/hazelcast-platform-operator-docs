@@ -1,6 +1,7 @@
 .Get Started
 * xref:index.adoc[Overview]
 * xref:get-started.adoc[Deploy a Cluster]
+* xref:deploy-management-center.adoc[Deploy Management Center]
 * xref:connect-outside-kubernetes.adoc[]
 * xref:scheduling-configuration.adoc[Scheduling Hazelcast Pods]
 * xref:serialization-configuration.adoc[Serialization]
@@ -23,6 +24,10 @@
 ** xref:jet-engine-configuration.adoc[Configuring the Jet Engine]
 ** xref:jet-job-configuration.adoc[Running Data Pipelines]
 * xref:custom-config.adoc[Custom Configuration of Hazelcast cluster]
+* Management Center
+** xref:management-center-clusters.adoc[Hazelcast Clusters]
+** xref:management-center-external-access.adoc[External Access]
+** xref:management-center-persistence.adoc[Persistence]
 
 .Reference
 // Configuration options/spec files/any other reference docs
