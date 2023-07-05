@@ -3,7 +3,7 @@
 
 To connect Management Center to a Hazelcast cluster, you need to configure at least the name of the cluster and the addresses of one or more members.
 
-If a Hazelcast cluster is configured to use TLS, you need follow instructions at xref:management-center-tls.adoc[Connecting to Hazelcast Cluster over TLS].
+You can connect Management Center to a cluster that is configured to use TLS.
 
 See xref:management-center:deploy-manage:cluster-connections.adoc[Management Center Documentation] for more detailed information.
 
@@ -21,6 +21,9 @@ Connection configuration for the Hazelcast clusters that Management Center will 
 |`hazelcastClusters[].name`
 | Name of the Hazelcast cluster that Management Center will connect to, default is `dev`.
 
+|`hazelcastClusters[].tls.secretName`
+| Specifies the name of Kubernetes TLS secret.
+
 |===
 
 WARNING: `hazelcastClusters` field does not support deleting clusters from the custom resource. If you want to remove a cluster from the Management Center, you can do it from the Management Center UI.
@@ -36,4 +39,10 @@ The example configuration below does the following:
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/management-center-clusters.yaml[]
+----
+
+.Example Management Center with TLS Configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/management-center-tls.yaml[]
 ----
