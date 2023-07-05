@@ -10,6 +10,3 @@ spec:
   hazelcastClusters:
     - address: hazelcast-sample
       name: dev
-  persistence:
-    enabled: true
-    size: 10Gi
