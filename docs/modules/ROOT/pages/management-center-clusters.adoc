@@ -28,21 +28,34 @@ Connection configuration for the Hazelcast clusters that Management Center will 
 
 WARNING: `hazelcastClusters` field does not support deleting clusters from the custom resource. If you want to remove a cluster from the Management Center, you can do it from the Management Center UI.
 
-=== Example Configuration
+=== Example Management Center configuration
 
 The example configuration below does the following:
 
 - Configuring connection to a Hazelcast cluster using `hazelcast` DNS name
 - Use `dev` Hazelcast cluster name
 
-.Example Management Center configuration
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/management-center-clusters.yaml[]
 ----
 
-.Example Management Center with TLS Configuration
+=== Example Management Center with TLS Configuration
+
+The example configuration below does the following:
+
+- Configuring connection to a Hazelcast cluster using `hazelcast` DNS name
+- Use `dev` Hazelcast cluster name
+- Connect to Hazelcast cluster with TLS certificate defined in `example` secret
+
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/management-center-tls.yaml[]
+----
+
+You can create TLS secret from existing PEM certificate:
+
+[source,shell]
+----
+kubectl create secret tls example --cert=example.crt --key=example.key
 ----
