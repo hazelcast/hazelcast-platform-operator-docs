@@ -3,7 +3,7 @@
 
 Management Center collect and report metrics data for the connected Hazelcast Clusters. Metrics data includes various number of time series, such as CPU load, memory consumption, and operation counters. See the xref:imdg:management:metrics.adoc[Metrics section] for details about configuring metrics collection.
 
-By default, Management Center persists the collected metrics to a persistent volume. You can turn it off by disabling persistance.
+By default, Management Center persists the collected metrics to a persistent volume. You can turn it off by disabling persistence.
 
 == Configuring Management Center Persistence
 
@@ -40,5 +40,5 @@ The example configuration does the following:
 .Example Management Center with Persistence Configuration
 [source,yaml,subs="attributes+"]
 ----
-include::ROOT:example$/management-center-persistance.yaml[]
+include::ROOT:example$/management-center-persistence.yaml[]
 ----

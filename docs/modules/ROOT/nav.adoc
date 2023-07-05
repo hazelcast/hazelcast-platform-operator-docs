@@ -27,7 +27,7 @@
 * Management Center
 ** xref:management-center-clusters.adoc[Hazelcast Clusters]
 ** xref:management-center-external-access.adoc[External Access]
-** xref:management-center-persistance.adoc[Persistence]
+** xref:management-center-persistence.adoc[Persistence]
 ** xref:management-center-tls.adoc[Hazelcast TLS Cluster]
 
 .Reference
