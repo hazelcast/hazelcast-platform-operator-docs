@@ -39,6 +39,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<DataStructureStatus,DataStructureStatus>>
 * <<DurableExecutorServiceConfiguration,DurableExecutorServiceConfiguration>>
 * <<EntryListenerConfiguration,EntryListenerConfiguration>>
+* <<EventJournal,EventJournal>>
 * <<EvictionConfig,EvictionConfig>>
 * <<EvictionPolicyType,EvictionPolicyType>>
 * <<ExecutorServiceConfiguration,ExecutorServiceConfiguration>>
@@ -79,6 +80,11 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<JetInstance,JetInstance>>
 * <<JetJob,JetJob>>
 * <<JetJobList,JetJobList>>
+* <<JetJobSnapshot,JetJobSnapshot>>
+* <<JetJobSnapshotList,JetJobSnapshotList>>
+* <<JetJobSnapshotSpec,JetJobSnapshotSpec>>
+* <<JetJobSnapshotState,JetJobSnapshotState>>
+* <<JetJobSnapshotStatus,JetJobSnapshotStatus>>
 * <<JetJobSpec,JetJobSpec>>
 * <<JetJobState,JetJobState>>
 * <<JetJobStatus,JetJobStatus>>
@@ -275,6 +281,7 @@ m| keyType | Class name of the key type m| string | false | -
 m| valueType | Class name of the value type m| string | false | -
 m| persistenceEnabled | When enabled, cache data will be persisted. m| bool | false | false
 m| inMemoryFormat | InMemoryFormat specifies in which format data will be stored in your cache m| <<InMemoryFormatType,InMemoryFormatType>> | false | BINARY
+m| eventJournal | EventJournal specifies event journal configuration of the Cache m| &#42;<<EventJournal,EventJournal>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -582,6 +589,21 @@ m| "BITMAP" | &#160;
 | Value | Description
 m| "LAZY" | Loading is asynchronous. It is the default mode.
 m| "EAGER" | Loading is blocked until all partitions are loaded.
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== JetJobSnapshotState
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "Waiting" | &#160;
+m| "Exporting" | &#160;
+m| "Exported" | &#160;
+m| "Failed" | &#160;
 |===
 
 <<Table of Contents,Back to TOC>>
