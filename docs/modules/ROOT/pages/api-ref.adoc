@@ -91,6 +91,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<JetJobStatusPhase,JetJobStatusPhase>>
 * <<JetRemoteFileConfiguration,JetRemoteFileConfiguration>>
 * <<LoggingLevel,LoggingLevel>>
+* <<MCJVMConfiguration,MCJVMConfiguration>>
 * <<MCPersistenceConfiguration,MCPersistenceConfiguration>>
 * <<ManagementCenter,ManagementCenter>>
 * <<ManagementCenterConfig,ManagementCenterConfig>>
