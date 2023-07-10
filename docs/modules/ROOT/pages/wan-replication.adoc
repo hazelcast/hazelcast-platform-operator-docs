@@ -51,6 +51,9 @@ You can use the following configuration options in your `WanReplication` resourc
 - `type`: Whether an acknowledgement is sent as soon as the batch of events is received (`ACK_ON_RECEIPT`) or after each update is applied to the target cluster (`ACK_ON_OPERATION_COMPLETE`).
 - `timeout`: The period of time the source cluster waits for the acknowledgement. If the confirmation is not received before the timeout, the replication events are resent.
 
+|`tls.secretName`
+| Name of the TLS secret with target cluster client certificate. If specified WAN replication will encrypt traffic to target cluster with SSL/TLS.
+
 |===
 
 == Example Configuration
@@ -64,6 +67,14 @@ include::ROOT:example$/wan-replication-example.yaml[]
 ----
 
 NOTE: If port number is not specified in the endpoints, the default Hazelcast port '5710' is joined to the endpoints.
+
+The following `WanReplication` resource creates the WAN replication configuration with TLS enabled.
+
+.Example configuration with TLS enabled
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/wan-replication-tls-example.yaml[]
+----
 
 == Checking the Status of a WAN Replication
 

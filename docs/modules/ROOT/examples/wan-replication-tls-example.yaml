@@ -1,0 +1,10 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: WanReplication
+metadata:
+  name: wanreplication-sample
+spec:
+  resources:
+    - name: hz-sample
+      kind: Hazelcast
+      tls:
+        secretName: example
