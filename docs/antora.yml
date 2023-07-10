@@ -13,7 +13,7 @@ asciidoc:
     operator-chart-version: '5.9.0-snapshot'
     page-toclevels: 1@
     # page-latest-supported versions are used for sample YAML files.
-    page-latest-supported-mc: '5.2.0'
-    page-latest-supported-hazelcast: '5.2.1'
+    page-latest-supported-mc: '5.3.1'
+    page-latest-supported-hazelcast: '5.3.1'
 nav:
 - modules/ROOT/nav.adoc
