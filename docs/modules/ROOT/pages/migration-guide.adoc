@@ -1,3 +1,41 @@
 = Migrating to 5.7
 
-- `spec.persistence.hostPath` is removed. You can check link:https://kubernetes.io/docs/concepts/storage/volumes/#hostpath[the related section in Kubernetes documentation] for the rationale.
+== Changes
+
+- `spec.persistence.hostPath` is removed from Hazelcast Custom Resource. You can check link:https://kubernetes.io/docs/concepts/storage/volumes/#hostpath[the related section in Kubernetes documentation] for the rationale.
+
+== Required manual steps to finalize the migration
+
+After you upgrade the operator via `helm upgrade` command, you will see that a rolling restart will be triggered for Hazelcast cluster which should not happen. And then one of the pods' status will be `CrashLoopBackOff` after multiple restarts due to this unexpected restart and the issue will be described below:
+
+```
+NAME                                                    READY   STATUS    RESTARTS      AGE
+hazelcast-0                                             1/1     Running   0             13m
+hazelcast-1                                             1/1     Running   0             12m
+hazelcast-2                                             0/1     Running   2 (89s ago)   4m54s
+operator-hazelcast-platform-operator-57b45f7f96-9bztg   1/1     Running   0             5m5s
+```
+
+```
+NAME                                                    READY   STATUS             RESTARTS       AGE
+hazelcast-0                                             1/1     Running            0              21m
+hazelcast-1                                             1/1     Running            0              20m
+hazelcast-2                                             0/1     CrashLoopBackOff   7 (116s ago)   18m
+operator-hazelcast-platform-operator-57b45f7f96-9bztg   1/1     Running            0              18m
+```
+
+To make the steps below more understandable for you, some technical details might be helpful. With `5.7` release, in the Hazelcast Platform Operator, advanced networking configuration is enabled by default. Hazelcast members with Advanced Network configuration starts with separate server sockets that use different network configuration for different protocols. REST protocol which is used as Readiness and Liveness Probes is also affected by these internal configuration changes so its port become `8081` which was `5701` before the `5.7` release. As you can see from the outputs above, `hazelcast-2` pod can not reach `Ready` state due to the probe changes so the probes should be configured manually:
+
+```
+kubectl patch statefulset hazelcast --patch '{"spec":{"template":{"spec":{"containers":[{"name":"hazelcast","livenessProbe":{"httpGet":{"port":8081}},"readinessProbe":{"httpGet":{"port":8081}}}]}}}}'
+```
+
+Then you need to restart the problematic pod:
+
+```
+kubectl delete pod hazelcast-2
+```
+
+
+
+
