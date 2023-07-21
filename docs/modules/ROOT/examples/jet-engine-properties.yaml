@@ -11,4 +11,4 @@ spec:
     enabled: true
   jvm:
     args:
-    - "-Djet.idle.cooperative.min.microseconds=50"
+    - "-Dhazelcast.jet.idle.cooperative.min.microseconds=50"
