@@ -1201,7 +1201,7 @@ m| initialMode | Sets the initial entry loading mode. m| <<InitialModeType,Initi
 m| className | Name of your class implementing MapLoader and/or MapStore interface. m| string | true | -
 m| writeDelaySeconds | Number of seconds to delay the storing of entries. m| int32 | false | -
 m| writeBatchSize | Used to create batches when writing to map store. m| int32 | false | 1
-m| writeCoealescing | It is meaningful if you are using write behind in MapStore. When it is set to true, only the latest store operation on a key during the write-delay-seconds will be reflected to MapStore. m| &#42;bool | false | true
+m| writeCoalescing | It is meaningful if you are using write behind in MapStore. When it is set to true, only the latest store operation on a key during the write-delay-seconds will be reflected to MapStore. m| &#42;bool | false | true
 m| propertiesSecretName | Properties can be used for giving information to the MapStore implementation m| string | false | -
 |===
 
