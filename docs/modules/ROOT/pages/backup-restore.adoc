@@ -224,7 +224,7 @@ NOTE: For restore to be successful you have to give restore configuration at the
 
 === Data Recovery Timeout
 
-To choose a data recovery timeout, you can use dataRecoveryTimeout. The field takes an integer value representing the timeout in seconds and uses this value to set link:https://docs.hazelcast.com/hazelcast/5.1/storage/configuring-persistence#global-persistence-options[validation-timeout-seconds, data-load-timeout-seconds] Hazelcast Persistence options.
+To choose a data recovery timeout, you can use dataRecoveryTimeout. The field takes an integer value representing the timeout in seconds and uses this value to set link:https://docs.hazelcast.com/hazelcast/latest/storage/configuring-persistence#global-persistence-options[validation-timeout-seconds, data-load-timeout-seconds] Hazelcast Persistence options.
 
 [source,yaml,subs="attributes+"]
 ----
