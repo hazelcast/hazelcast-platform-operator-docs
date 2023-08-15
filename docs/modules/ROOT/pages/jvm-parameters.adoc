@@ -80,3 +80,12 @@ include::ROOT:example$/jvm_gc_collector.yaml[]
 |`-XX:+UseG1GC`
 
 |===
+
+== Enabling IPv6 Stack
+Hazelcast supports IPv6 addresses seamlessly, although IPv6 support is switched off by default. To enable IPv6 addressing in Hazelcast and set up a Hazelcast cluster on an IPv6-stack Kubernetes Cluster, you'll need extra configurations. These configurations can be passed through JVM arguments. The provided example below shows how to create an IPv6 Hazelcast cluster using the Hazelcast Platform Operator.
+
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-ipv6.yaml[]
+----
