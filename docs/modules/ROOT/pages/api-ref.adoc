@@ -136,6 +136,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<RestoreConfiguration,RestoreConfiguration>>
 * <<RestoreState,RestoreState>>
 * <<RestoreStatus,RestoreStatus>>
+* <<SQL,SQL>>
 * <<ScheduledExecutorServiceConfiguration,ScheduledExecutorServiceConfiguration>>
 * <<SchedulingConfiguration,SchedulingConfiguration>>
 * <<SerializationConfig,SerializationConfig>>
@@ -663,6 +664,7 @@ m| managementCenter | Hazelcast Management Center Configuration m| &#42;<<Manage
 m| tls | Hazelcast TLS configuration m| &#42;<<TLS,TLS>> | false | -
 m| serialization | Hazelcast serialization configuration m| &#42;<<SerializationConfig,SerializationConfig>> | false | -
 m| customConfigCmName | Name of the ConfigMap with the Hazelcast custom configuration. This configuration from the ConfigMap might be overridden by the Hazelcast CR configuration. m| string | false | -
+m| sql | Hazelcast SQL configuration m| &#42;<<SQL,SQL>> | false | -
 |===
 ==== Deprecated
 [cols="4,8,4,2,4"options="header"]
@@ -1517,6 +1519,19 @@ m| hotBackupResourceName | Name of the HotBackup resource from which backup will
 m| state | State shows the current phase of the restore process of the cluster. m| <<RestoreState,RestoreState>> | false | -
 m| remainingValidationTime | RemainingValidationTime show the time in seconds remained for the restore validation step. m| int64 | false | -
 m| remainingDataLoadTime | RemainingDataLoadTime show the time in seconds remained for the restore data load step. m| int64 | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== SQL
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| statementTimeout | StatementTimeout defines the timeout in milliseconds that is applied to queries without an explicit timeout. m| int32 | false | 0
+m| catalogPersistenceEnabled | CatalogPersistenceEnabled sets whether SQL Catalog persistence is enabled for the node. With SQL Catalog persistence enabled you can restart the whole cluster without losing schema definition objects (such as MAPPINGs, TYPEs, VIEWs and DATA CONNECTIONs). The feature is implemented on top of the Hot Restart feature of Hazelcast which persists the data to disk. If enabled, you have to also configure Hot Restart. Feature is disabled by default. m| bool | false | false
 |===
 
 <<Table of Contents,Back to TOC>>
