@@ -623,7 +623,7 @@ m| baseDir | Persistence base directory. m| string | true | -
 m| clusterDataRecoveryPolicy | Configuration of the cluster recovery strategy. m| <<DataRecoveryPolicyType,DataRecoveryPolicyType>> | false | "FullRecoveryOnly"
 m| startupAction | StartupAction represents the action triggered when the cluster starts to force the cluster startup. m| <<PersistenceStartupAction,PersistenceStartupAction>> | false | -
 m| dataRecoveryTimeout | DataRecoveryTimeout is timeout for each step of data recovery in seconds. Maximum timeout is equal to DataRecoveryTimeout*2 (for each step: validation and data-load). m| int32 | false | -
-m| pvc | Configuration of PersistenceVolumeClaim. m| <<PersistencePvcConfiguration,PersistencePvcConfiguration>> | false | {}
+m| pvc | Configuration of PersistenceVolumeClaim. m| &#42;<<PersistencePvcConfiguration,PersistencePvcConfiguration>> | false | -
 m| restore | Restore configuration m| <<RestoreConfiguration,RestoreConfiguration>> | false | {}
 |===
 
@@ -1333,7 +1333,7 @@ m| size | Size is maximum size of the Near Cache used for max-size-policy m| uin
 |===
 | Field | Description | Type | Required | Default
 m| accessModes | AccessModes contains the actual access modes of the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1 m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#persistentvolumeaccessmode-v1-core[corev1.PersistentVolumeAccessMode] | false | -
-m| requestStorage | A description of the PVC request capacity. m| &#42;resource.Quantity | false | -
+m| requestStorage | A description of the PVC request capacity. m| &#42;resource.Quantity | false | "8Gi"
 m| storageClassName | Name of StorageClass which this persistent volume belongs to. m| &#42;string | false | -
 |===
 
