@@ -1,0 +1,21 @@
+= Release notes
+
+This release introduced bug fixes and improvements to existing features and UX.
+
+== New Features
+- SQL configuration added to Hazelcast CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/831[#831])
+- Added ability to set arbitrary JVM options in Management Center CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/801[#801])
+
+== Changes
+- SQL configuration added to Hazelcast CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/831[#831])
+- Added ability to set arbitrary JVM options in Management Center CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/801[#801])
+- Management Center config change from XML to YAML format (https://github.com/hazelcast/hazelcast-platform-operator/pull/823[#823])
+- Updated the status of a failed JetJob associated with a Hazelcast cluster that is not in a running state. (https://github.com/hazelcast/hazelcast-platform-operator/pull/799[#799])
+- Added webhook validation for WanReplication updates and standardized error messages to ensure consistency with other validation (https://github.com/hazelcast/hazelcast-platform-operator/pull/803[#803])
+
+== Fixed Issues
+- The default value for `pvc.requestStorage` is now set and making `pvc.accessMode` required (https://github.com/hazelcast/hazelcast-platform-operator/pull/837[#837])
+- Hazelcast `exposeExternally.discoveryServiceType` is now limited to LoadBalancer or NodePort (https://github.com/hazelcast/hazelcast-platform-operator/pull/829[#829])
+- Reflect bucket connection errors to the Hazelcast Operator CRs (https://github.com/hazelcast/hazelcast-platform-operator/pull/828[#828])
+- Corrected a typo in the `writeCoalescing` property within the mapStore schema (https://github.com/hazelcast/hazelcast-platform-operator/pull/821[#821])
+- Fix subsequent WanReplication CR overwrite previous batch-publishers (https://github.com/hazelcast/hazelcast-platform-operator/pull/814[#814])
