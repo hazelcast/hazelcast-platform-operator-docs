@@ -1,0 +1,22 @@
+= Release notes
+
+This release introduced bug fixes and improvements to existing features and UX.
+
+== New Features
+- Added the ability to configure SQL in the Hazelcast CR. (https://github.com/hazelcast/hazelcast-platform-operator/pull/831[#831])
+- Added the ability to set arbitrary JVM options in the Management Center CR.(https://github.com/hazelcast/hazelcast-platform-operator/pull/801[#801])
+
+== Changes
+
+- Updated the status of a failed JetJob associated with a Hazelcast cluster that is not in a running state. (https://github.com/hazelcast/hazelcast-platform-operator/pull/831[#831])
+- Added webhook validation for WanReplication updates and standardized error messages to ensure consistency with other validation. (https://github.com/hazelcast/hazelcast-platform-operator/pull/803[#803])
+- Changed the Management Center configuration format from XML to YAML. (https://github.com/hazelcast/hazelcast-platform-operator/pull/823[#823])
+- Added IPv6 Support to connect members. (https://github.com/hazelcast/hazelcast-go-client#964[#964])
+- Removed `replicaCount` from the Helm chart. (https://github.com/hazelcast/hazelcast-platform-operator/pull/811[#811])
+
+== Fixed Issues
+- Assigned a default value for `pvc.requestStorage` (for PVC configuration), and made `pvc.accessMode` required. (https://github.com/hazelcast/hazelcast-platform-operator/pull/837[#837])
+- Hazelcast `exposeExternally.discoveryServiceType` is now limited to LoadBalancer or NodePort. (https://github.com/hazelcast/hazelcast-platform-operator/pull/829[#829])
+- The bucket connection errors now are reflected to the Hazelcast Operator CRs.(https://github.com/hazelcast/hazelcast-platform-operator/pull/828[#828])
+- Corrected a typo in the `writeCoalescing` property within the mapStore schema. (https://github.com/hazelcast/hazelcast-platform-operator/pull/821[#821])
+- Fixed an issue where the subsequent WAN Replication CR was overwriting the previous batch publishers.(https://github.com/hazelcast/hazelcast-platform-operator/pull/814[#814])
