@@ -15,7 +15,7 @@ This release introduced bug fixes and improvements to existing features and UX.
 - Added webhook validation for WanReplication updates and standardized error messages to ensure consistency with other validation (https://github.com/hazelcast/hazelcast-platform-operator/pull/803[#803])
 
 == Fixed Issues
-- The default value for `pvc.requestStorage` is now set and making `pvc.accessMode` required (https://github.com/hazelcast/hazelcast-platform-operator/pull/837[#837])
+- Assigned a default value for `pvc.requestStorage` (for PVC configuration), and made `pvc.accessMode` required. (https://github.com/hazelcast/hazelcast-platform-operator/pull/837[#837])
 - Hazelcast `exposeExternally.discoveryServiceType` is now limited to LoadBalancer or NodePort (https://github.com/hazelcast/hazelcast-platform-operator/pull/829[#829])
 - Reflect bucket connection errors to the Hazelcast Operator CRs (https://github.com/hazelcast/hazelcast-platform-operator/pull/828[#828])
 - Corrected a typo in the `writeCoalescing` property within the mapStore schema (https://github.com/hazelcast/hazelcast-platform-operator/pull/821[#821])
