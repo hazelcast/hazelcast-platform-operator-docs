@@ -35,3 +35,6 @@
 // Configuration options/spec files/any other reference docs
 * xref:phone-homes.adoc[Phone Homes]
 * xref:api-ref.adoc[API References]
+
+.Release Notes
+* xref:release-notes.adoc[5.9]

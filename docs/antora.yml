@@ -1,19 +1,17 @@
 name: operator
 title: Hazelcast Operator
 # Version in the URL
-version: 'latest-snapshot'
+version: '5.9'
 # Version in the version selector (we display only the latest major.minor version)
-display_version: 'latest-snapshot'
-# Displays a banner to inform users that this is a prerelease version
-prerelease: true
+display_version: '5.9'
 asciidoc:
   attributes:
     # The full major.minor.patch version, which is used as a variable in the docs for things like download links
-    full-version: 'latest-snapshot'
-    operator-chart-version: '5.9.0-snapshot'
+    full-version: '5.9'
+    operator-chart-version: '5.9.0'
     page-toclevels: 1@
     # page-latest-supported versions are used for sample YAML files.
-    page-latest-supported-mc: '5.3.1'
-    page-latest-supported-hazelcast: '5.3.1'
+    page-latest-supported-mc: '5.3.2'
+    page-latest-supported-hazelcast: '5.3.2'
 nav:
 - modules/ROOT/nav.adoc
