@@ -3,7 +3,7 @@
 This release introduced bug fixes and improvements to existing features and UX.
 
 == New Features
-- SQL configuration added to Hazelcast CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/831[#831])
+- Added the ability to configure SQL in the Hazelcast CR. (https://github.com/hazelcast/hazelcast-platform-operator/pull/831[#831])
 - Added ability to set arbitrary JVM options in Management Center CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/801[#801])
 
 == Changes
