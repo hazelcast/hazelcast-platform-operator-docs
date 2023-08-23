@@ -19,4 +19,4 @@ This release introduced bug fixes and improvements to existing features and UX.
 - Hazelcast `exposeExternally.discoveryServiceType` is now limited to LoadBalancer or NodePort. (https://github.com/hazelcast/hazelcast-platform-operator/pull/829[#829])
 - The bucket connection errors now are reflected to the Hazelcast Operator CRs.(https://github.com/hazelcast/hazelcast-platform-operator/pull/828[#828])
 - Corrected a typo in the `writeCoalescing` property within the mapStore schema. (https://github.com/hazelcast/hazelcast-platform-operator/pull/821[#821])
-- Fix subsequent WanReplication CR overwrite previous batch-publishers (https://github.com/hazelcast/hazelcast-platform-operator/pull/814[#814])
+- Fixed an issue where the subsequent WAN Replication CR was overwriting the previous batch publishers.(https://github.com/hazelcast/hazelcast-platform-operator/pull/814[#814])
