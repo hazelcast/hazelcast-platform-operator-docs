@@ -1,0 +1,13 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: ManagementCenter
+metadata:
+  name: mancenter
+spec:
+  hazelcastClusters:
+    - address: hazelcast
+      name: dev
+  jvm:
+    args:
+      - "-Dhazelcast.mc.log.level=debug"
+      - "-Djava.net.preferIPv6Addresses=true"
+      - "-Djava.net.preferIPv4Stack=false"
