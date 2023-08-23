@@ -7,6 +7,7 @@ This release introduced bug fixes and improvements to existing features and UX.
 - Added the ability to set arbitrary JVM options in the Management Center CR.(https://github.com/hazelcast/hazelcast-platform-operator/pull/801[#801])
 
 == Changes
+
 - SQL configuration added to Hazelcast CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/831[#831])
 - Added ability to set arbitrary JVM options in Management Center CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/801[#801])
 - Changed the Management Center configuration format from XML to YAML. (https://github.com/hazelcast/hazelcast-platform-operator/pull/823[#823])
