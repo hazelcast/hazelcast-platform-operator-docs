@@ -254,7 +254,7 @@ To recover a cluster that has Persistence enabled after a cluster-wide restart, 
 
 WARNING: The cluster loses all persisted data after a force-start.
 
-WARNING: The cluster loses some persistend data after a partial-start.
+WARNING: The cluster loses some persistent data after a partial-start.
 
 To trigger the cluster recover action set the `startupAction`:
 

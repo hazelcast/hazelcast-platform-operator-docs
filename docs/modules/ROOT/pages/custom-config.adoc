@@ -85,7 +85,7 @@ spec:
     - name: service3
 ```
 
-The configuration from the Hazelcat CR and the Custom Config will be merged into one structure that will be used as the Hazelcasat member configuration.
+The configuration from the Hazelcast CR and the Custom Config will be merged into one structure that will be used as the Hazelcast member configuration.
 If the same feature is configured with Custom Config `ConfigMap` and in the Hazelcast CR, the configuration from the Hazelcast CR will take precedence and will override the one from the Custom Config.
 
 == Cautions and limitations

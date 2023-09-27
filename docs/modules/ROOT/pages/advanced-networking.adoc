@@ -1,6 +1,6 @@
 = Advanced Network Configuration
 
-In Hazelcast, you can configure the Hazelcast members with separate server sockets using a different network configuration for different protocols. It is called  link:https://docs.hazelcast.com/hazelcast/latest/clusters/network-configuration#advanced-network-configuration[ Advanced Network] and support Member, Client, REST, Memcache and WAN protocols.
+In Hazelcast, you can configure the Hazelcast members with separate server sockets using a different network configuration for different protocols. It is called link:https://docs.hazelcast.com/hazelcast/latest/clusters/network-configuration#advanced-network-configuration[Advanced Network] and support Member, Client, REST, Memcache and WAN protocols.
 
 In the Hazelcast Platform Operator, advanced networking configuration is enabled by default and REST and Client protocols are already configured:
 
@@ -28,6 +28,6 @@ The following example shows an example configuration for configuring WAN sockets
 include::ROOT:example$/advanced-networking-wan.yaml[]
 ----
 
-Possible values for `serviceType` are: `ClusterIP` and `LoadBalancer`. After applying this example configuration, there will be 1 service created with type of `LoadBalancer` which exposes 5 ports: `5710`, `5711`, `5712`, `5713`, `5714`. If you don't provide a `serviceType`, it will be set to `LoadBalancer` by default.
+Possible values for `serviceType` are: `ClusterIP` and `LoadBalancer`. After applying this example configuration, there will be 1 service created with a type of `LoadBalancer` which exposes 5 ports: `5710`, `5711`, `5712`, `5713`, `5714`. If you don't provide a `serviceType`, it will be set to `LoadBalancer` by default.
 
 NOTE: In case WAN Replication configuration is not provided in `advancedNetwork` configuration, port number `5710` will be configured for WAN Replication by default.
