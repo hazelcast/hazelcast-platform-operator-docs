@@ -5,11 +5,11 @@
 
 With the Hazelcast Platform Operator you can configure Hazelcast Serialization using the Hazelcast CR. To understand the Hazelcast Serialization, refer to xref:hazelcast:serialization:serialization.adoc[Platform documentation].
 
-You can find more detailed information on configuration of Serializartion in xref:api-ref.adoc#serializationconfig[API Reference] page.
+You can find more detailed information on configuration of Serialization in xref:api-ref.adoc#serializationconfig[API Reference] page.
 
 == Configuring Custom Serialization
 
-To register custom serializers, you need to define the list of serizalizers and types in the  `serializers` section. The following configuration will register two custom serializers.
+To register custom serializers, you need to define the list of serializers and types in the  `serializers` section. The following configuration will register two custom serializers.
 
 .Custom serializers example configuration
 [source,yaml,subs="attributes+"]
