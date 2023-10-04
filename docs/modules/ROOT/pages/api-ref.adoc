@@ -55,6 +55,11 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<Hazelcast,Hazelcast>>
 * <<HazelcastClusterConfig,HazelcastClusterConfig>>
 * <<HazelcastClusterStatus,HazelcastClusterStatus>>
+* <<HazelcastEndpoint,HazelcastEndpoint>>
+* <<HazelcastEndpointList,HazelcastEndpointList>>
+* <<HazelcastEndpointSpec,HazelcastEndpointSpec>>
+* <<HazelcastEndpointStatus,HazelcastEndpointStatus>>
+* <<HazelcastEndpointType,HazelcastEndpointType>>
 * <<HazelcastList,HazelcastList>>
 * <<HazelcastMemberStatus,HazelcastMemberStatus>>
 * <<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>>
@@ -573,6 +578,59 @@ HazelcastClusterStatus defines the status of the Hazelcast cluster
 |===
 | Field | Description | Type | Required | Default
 m| readyMembers | ReadyMembers represents the number of members that are connected to cluster from the desired number of members in the format <ready>/<desired> m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== HazelcastEndpoint
+
+HazelcastEndpoint is the Schema for the hazelcastendpoints API
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| spec | &#160; m| <<HazelcastEndpointSpec,HazelcastEndpointSpec>> | false | -
+m| status | &#160; m| <<HazelcastEndpointStatus,HazelcastEndpointStatus>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== HazelcastEndpointList
+
+HazelcastEndpointList contains a list of HazelcastEndpoint
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| items | &#160; m| []<<HazelcastEndpoint,HazelcastEndpoint>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== HazelcastEndpointSpec
+
+HazelcastEndpointSpec defines the desired state of HazelcastEndpoint
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| type | Type defines the endpoint connection. It is used to identify the target of the endpoint. m| <<HazelcastEndpointType,HazelcastEndpointType>> | true | -
+m| port | Port of the endpoint. m| int32 | true | -
+m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource that this resource is created for. m| string | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== HazelcastEndpointStatus
+
+HazelcastEndpointStatus defines the observed state of HazelcastEndpoint
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| address | Address is the external address of the endpoint. It is taken from the corresponding service. m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1938,6 +1996,20 @@ GCType is Garbage Collector type
 m| "Serial" | &#160;
 m| "Parallel" | &#160;
 m| "G1" | &#160;
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== HazelcastEndpointType
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "Discovery" | &#160;
+m| "Member" | &#160;
+m| "WAN" | &#160;
 |===
 
 <<Table of Contents,Back to TOC>>
