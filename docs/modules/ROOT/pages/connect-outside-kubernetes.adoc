@@ -113,6 +113,18 @@ hazelcast-sample-2   NodePort       10.219.243.16    <none>          5701:32585/
 <1> Discovery service
 <2> Member access service
 
+The command below allows you to list the external addresses of the cluster.
+
+[source,shell]
+----
+kubectl get hazelcastendpoint --selector="app.kubernetes.io/instance=hazelcast-sample"
+----
+
+```
+NAME               TYPE        ADDRESS
+hazelcast-sample   Discovery   35.230.92.217:5701
+```
+
 Smart clients can use the external IP of the load balancer to connect to the cluster.
 
 [tabs]

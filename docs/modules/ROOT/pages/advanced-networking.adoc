@@ -31,3 +31,19 @@ include::ROOT:example$/advanced-networking-wan.yaml[]
 Possible values for `serviceType` are: `ClusterIP` and `LoadBalancer`. After applying this example configuration, there will be 1 service created with a type of `LoadBalancer` which exposes 5 ports: `5710`, `5711`, `5712`, `5713`, `5714`. If you don't provide a `serviceType`, it will be set to `LoadBalancer` by default.
 
 NOTE: In case WAN Replication configuration is not provided in `advancedNetwork` configuration, port number `5710` will be configured for WAN Replication by default.
+
+You can use the following command to list the external addresses of the WAN endpoints of the cluster.
+
+[source,shell]
+----
+kubectl get hazelcastendpoint --selector="app.kubernetes.io/instance=hazelcast-sample"
+----
+
+```
+NAME                          TYPE   ADDRESS
+hazelcast-sample-istanbul-0   WAN    34.72.248.220:5710
+hazelcast-sample-istanbul-1   WAN    34.72.248.220:5711
+hazelcast-sample-istanbul-2   WAN    34.72.248.220:5712
+hazelcast-sample-istanbul-3   WAN    34.72.248.220:5713
+hazelcast-sample-istanbul-4   WAN    34.72.248.220:5714
+```
