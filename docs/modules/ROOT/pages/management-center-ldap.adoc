@@ -51,3 +51,23 @@ Bellow is the example configuration for the LDAP Security Provider:
 ----
 include::ROOT:example$/management-center-ldap.yaml[]
 ----
+
+And the exmaple of how to create a `Secret` for the LDAP credentials:
+
+[source,shell]
+----
+$ kubectl create secret generic ldap-credentianls --from-literal=username="cn=admin,dc=example,dc=org" --from-literal=password="adminpassword"
+$ kubectl get secret ldap-credentianls -o=yaml
+apiVersion: v1
+data:
+  password: YWRtaW5wYXNzd29yZA==
+  username: Y249YWRtaW4sZGM9ZXhhbXBsZSxkYz1vcmc=
+kind: Secret
+metadata:
+  creationTimestamp: "2023-10-11T10:51:37Z"
+  name: ldap-cred
+  namespace: default
+  resourceVersion: "59391"
+  uid: 299e5d42-4c72-4877-9a99-c6ffa3c68d07
+type: Opaque
+----
