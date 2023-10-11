@@ -1,6 +1,8 @@
 = LDAP Security Provider
 :description: You can use your existing LDAP server for authentication/authorization on the Management Center.
 
+{description}
+
 See xref:management-center:deploy-manage:ldap.adoc[Management Center Documentation] for more detailed information.
 
 == Setting Up the LDAP Security Provider
@@ -43,7 +45,7 @@ The following are the required field to configure the LDAP Security provider.
 
 === Example Management Center LDAP configuration
 
-Bellow is the example configuration for the LDAP Security Provider
+Bellow is the example configuration for the LDAP Security Provider:
 
 [source,yaml,subs="attributes+"]
 ----
