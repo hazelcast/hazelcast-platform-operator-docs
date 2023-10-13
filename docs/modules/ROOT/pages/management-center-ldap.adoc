@@ -8,7 +8,7 @@ See xref:management-center:deploy-manage:ldap.adoc[Management Center Documentati
 == Setting Up the LDAP Security Provider
 
 To set up LDAP, you need to configure the `securityProvider.ldap` section in the Management Center CR.
-The following are the required field to configure the LDAP Security provider.
+The following are the required fields to configure the LDAP Security provider.
 
 [cols="30%m,70%a"]
 |===
@@ -43,16 +43,16 @@ The following are the required field to configure the LDAP Security provider.
 
 |===
 
-=== Example Management Center LDAP configuration
+=== Example Management Center LDAP Configuration
 
-Bellow is the example configuration for the LDAP Security Provider:
+The following is an example configuration for the LDAP Security Provider:
 
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/management-center-ldap.yaml[]
 ----
 
-And the exmaple of how to create a `Secret` for the LDAP credentials:
+The following example shows how to create a `Secret` for the LDAP credentials.
 
 [source,shell]
 ----
