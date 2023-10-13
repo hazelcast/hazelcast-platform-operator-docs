@@ -15,7 +15,7 @@ The following are the required fields to configure the LDAP Security provider.
 |Field|Description
 
 |`credentialsSecretName`
-| The name of the secret that contains `username` and `password` keys of a user that has admin privileges on the LDAP server. The `username` must be the DN of the user. It is used to connect to the server when authenticating users.
+| The name of the secret that contains `username` and `password` keys of a user that has admin privileges on the LDAP server. The `username` must be the must be the distinguished name (DN) of the user. It is used to connect to the server when authenticating users.
 
 |`userDn`
 | DN to be used for searching users.
