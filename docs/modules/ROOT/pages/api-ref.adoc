@@ -95,9 +95,11 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<JetJobStatus,JetJobStatus>>
 * <<JetJobStatusPhase,JetJobStatusPhase>>
 * <<JetRemoteFileConfiguration,JetRemoteFileConfiguration>>
+* <<LDAPProvider,LDAPProvider>>
 * <<LoggingLevel,LoggingLevel>>
 * <<MCJVMConfiguration,MCJVMConfiguration>>
 * <<MCPersistenceConfiguration,MCPersistenceConfiguration>>
+* <<MCPhase,MCPhase>>
 * <<ManagementCenter,ManagementCenter>>
 * <<ManagementCenterConfig,ManagementCenterConfig>>
 * <<ManagementCenterList,ManagementCenterList>>
@@ -144,6 +146,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<SQL,SQL>>
 * <<ScheduledExecutorServiceConfiguration,ScheduledExecutorServiceConfiguration>>
 * <<SchedulingConfiguration,SchedulingConfiguration>>
+* <<SecurityProviders,SecurityProviders>>
 * <<SerializationConfig,SerializationConfig>>
 * <<SerializationFilterList,SerializationFilterList>>
 * <<Serializer,Serializer>>
@@ -1074,6 +1077,28 @@ m| remoteURL | URL from where the file will be downloaded. m| string | false | -
 
 <<Table of Contents,Back to TOC>>
 
+=== LDAPProvider
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| url | URL of your LDAP server, including schema (ldap:// or ldaps://) and port. m| string | true | -
+m| credentialsSecretName | CredentialsSecretName is the name of the secret that contains username and password of a user that has admin privileges on the LDAP server. The username must be the DN of the user. It is used to connect to the server when authenticating users. m| string | true | -
+m| userDN | DN to be used for searching users. m| string | true | -
+m| groupDN | DN to be used for searching groups. m| string | true | -
+m| adminGroups | Members of these groups and its nested groups have admin privileges on the Management Center. m| []string | true | -
+m| userGroups | Members of these groups and its nested groups have read and write privileges on the Management Center. m| []string | true | -
+m| readonlyUserGroups | Members of these groups and its nested groups have only read privilege on the Management Center. m| []string | true | -
+m| metricsOnlyGroups | Members of these groups and its nested groups have the privilege to see only the metrics on the Management Center. m| []string | true | -
+m| userSearchFilter | LDAP search filter expression to search for the users. For example, uid={0} searches for a username that matches with the uid attribute. m| string | true | -
+m| groupSearchFilter | LDAP search filter expression to search for the groups. For example, uniquemember={0} searches for a group that matches with the uniquemember attribute. m| string | true | -
+m| nestedGroupSearch | NestedGroupSearch enables searching for nested LDAP groups. m| bool | true | false
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === MCJVMConfiguration
 
 MCJVMConfiguration is a ManagementCenter JVM configuration
@@ -1160,6 +1185,7 @@ m| persistence | Configuration for Management Center persistence. m| &#42;<<MCPe
 m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingConfiguration>> | false | {}
 m| resources | Compute Resources required by the MC container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | {}
 m| jvm | ManagementCenter JVM configuration m| &#42;<<MCJVMConfiguration,MCJVMConfiguration>> | false | -
+m| securityProvider | SecurityProviders to authenticate users in Management Center m| &#42;<<SecurityProviders,SecurityProviders>> | false | -
 |===
 ==== Deprecated
 [cols="4,8,4,2,4"options="header"]
@@ -1177,7 +1203,8 @@ ManagementCenterStatus defines the observed state of ManagementCenter.
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| phase | Phase of the Management Center m| <<Phase,Phase>> | false | -
+m| phase | Phase of the Management Center m| <<MCPhase,MCPhase>> | false | -
+m| configured | Configured is a flag that indicates if the configuration step has successfully passed m| bool | false | -
 m| message | Message about the Management Center state m| string | false | -
 m| externalAddresses | External addresses of the Management Center instance m| string | false | -
 |===
@@ -1621,6 +1648,18 @@ m| affinity | Affinity m| &#42;https://kubernetes.io/docs/reference/generated/ku
 m| tolerations | Tolerations m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#toleration-v1-core[corev1.Toleration] | false | -
 m| nodeSelector | NodeSelector m| map[string]string | false | -
 m| topologySpreadConstraints | TopologySpreadConstraints m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#topologyspreadconstraint-v1-core[corev1.TopologySpreadConstraint] | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== SecurityProviders
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| ldap | LDAP security provider m| &#42;<<LDAPProvider,LDAPProvider>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -2150,6 +2189,22 @@ m| "INFO" | &#160;
 m| "DEBUG" | &#160;
 m| "TRACE" | &#160;
 m| "ALL" | &#160;
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== MCPhase
+
+MCPhase represents the current state of the cluster
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "Running" | McRunning phase is the state when the ManagementCenter is successfully started
+m| "Failed" | McFailed phase is the state of error during the ManagementCenter startup
+m| "Configuring" | McConfiguring phase is the state of cofiguring the ManagementCenter and might be restated
+m| "Pending" | McPending phase is the state of starting the cluster when the ManagementCenter is not started yet
+m| "Terminating" | McTerminating phase is the state where deletion of ManagementCenter and dependent resources happen
 |===
 
 <<Table of Contents,Back to TOC>>
