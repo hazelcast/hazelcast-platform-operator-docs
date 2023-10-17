@@ -43,6 +43,6 @@ kubectl get replicatedmap replicatedmap-sample -o wide
 ----
 
 ```
-NAME                    STATUS    MESSAGE
-replicatedmap-sample    Success
+NAME                   STATUS    HAZELCAST-RESOURCE   MESSAGE
+replicatedmap-sample   Success   hazelcast
 ```

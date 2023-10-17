@@ -52,7 +52,6 @@ kubectl get queue queue-sample -o wide
 ----
 
 ```
-NAME            STATUS    MESSAGE
-queue-sample    Success   
+NAME           STATUS    HAZELCAST-RESOURCE   MESSAGE
+queue-sample   Success   hazelcast
 ```
-

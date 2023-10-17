@@ -45,7 +45,6 @@ kubectl get topic topic-sample -o wide
 ----
 
 ```
-NAME            STATUS    MESSAGE
-topic-sample    Success   
+NAME           STATUS    HAZELCAST-RESOURCE   MESSAGE
+topic-sample   Success   hazelcast-sample
 ```
-

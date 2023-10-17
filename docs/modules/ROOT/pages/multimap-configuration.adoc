@@ -47,6 +47,6 @@ kubectl get multimap multimap-sample -o wide
 ----
 
 ```
-NAME               STATUS    MESSAGE
-multimap-sample    Success
+NAME              STATUS    HAZELCAST-RESOURCE   MESSAGE
+multimap-sample   Success   hazelcast
 ```

@@ -91,7 +91,6 @@ kubectl get map map-sample -o wide
 ----
 
 ```
-NAME          STATUS    MESSAGE
-map-sample    Success   
+NAME         STATUS    HAZELCAST-RESOURCE   MESSAGE
+map-sample   Success   hazelcast-sample
 ```
-

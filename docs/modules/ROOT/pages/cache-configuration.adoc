@@ -55,7 +55,6 @@ kubectl get cache cache-sample -o wide
 ----
 
 ```
-NAME            STATUS    MESSAGE
-cache-sample    Success   
+NAME           STATUS    HAZELCAST-RESOURCE   MESSAGE
+cache-sample   Success   hazelcast
 ```
-
