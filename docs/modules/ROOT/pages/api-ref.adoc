@@ -746,8 +746,6 @@ HazelcastStatus defines the observed state of Hazelcast
 m| phase | Phase of the Hazelcast cluster m| <<Phase,Phase>> | false | -
 m| hazelcastClusterStatus | Status of the Hazelcast cluster m| <<HazelcastClusterStatus,HazelcastClusterStatus>> | false | -
 m| message | Message about the Hazelcast cluster state m| string | false | -
-m| externalAddresses | External addresses of the Hazelcast cluster members m| string | false | -
-m| wanAddresses | WAN addresses of the Hazelcast cluster members m| string | false | -
 m| members | Status of Hazelcast members m| []<<HazelcastMemberStatus,HazelcastMemberStatus>> | false | -
 m| restore | Status of restore process of the Hazelcast cluster m| <<RestoreStatus,RestoreStatus>> | false | {}
 |===
