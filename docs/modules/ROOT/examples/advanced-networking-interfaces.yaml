@@ -11,3 +11,6 @@ spec:
     memberServerSocketEndpointConfig:
       interfaces:
       - 10.10.1.*
+    clientServerSocketEndpointConfig:
+      interfaces:
+      - 10.10.3.*
