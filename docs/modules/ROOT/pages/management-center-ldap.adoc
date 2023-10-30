@@ -14,6 +14,9 @@ The following are the required fields to configure the LDAP Security provider.
 |===
 |Field|Description
 
+|`url`
+| URL of your LDAP server, including schema (ldap://) and port.
+
 |`credentialsSecretName`
 | The name of the secret that contains `username` and `password` keys of a user that has admin privileges on the LDAP server. The `username` must be the must be the distinguished name (DN) of the user. It is used to connect to the server when authenticating users.
 
@@ -40,6 +43,9 @@ The following are the required fields to configure the LDAP Security provider.
 
 |`groupSearchFilter`
 | LDAP search filter expression to search for the groups.
+
+|`nestedGroupSearch`
+| Set to `true` to enable searching for nested LDAP groups.
 
 |===
 
