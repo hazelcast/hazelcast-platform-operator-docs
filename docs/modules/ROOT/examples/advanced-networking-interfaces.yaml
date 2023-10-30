@@ -4,9 +4,8 @@ metadata:
   name: hazelcast-sample
 spec:
   clusterSize: 3
-  repository: 'docker.io/hazelcast/hazelcast-enterprise'
+  repository: 'docker.io/hazelcast/hazelcast'
   version: '{page-latest-supported-hazelcast}-slim'
-  licenseKeySecretName: hazelcast-license-key
   advancedNetwork:
     memberServerSocketEndpointConfig:
       interfaces:
