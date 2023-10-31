@@ -1082,7 +1082,7 @@ m| remoteURL | URL from where the file will be downloaded. m| string | false | -
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| url | URL of your LDAP server, including schema (ldap:// or ldaps://) and port. m| string | true | -
+m| url | URL of your LDAP server, including schema (ldap://) and port. m| string | true | -
 m| credentialsSecretName | CredentialsSecretName is the name of the secret that contains username and password of a user that has admin privileges on the LDAP server. The username must be the DN of the user. It is used to connect to the server when authenticating users. m| string | true | -
 m| userDN | DN to be used for searching users. m| string | true | -
 m| groupDN | DN to be used for searching groups. m| string | true | -
