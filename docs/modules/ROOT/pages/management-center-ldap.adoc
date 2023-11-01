@@ -44,9 +44,6 @@ The following are the required fields to configure the LDAP Security provider.
 |`groupSearchFilter`
 | LDAP search filter expression to search for the groups.
 
-|`nestedGroupSearch`
-| Set to `true` to enable searching for nested LDAP groups.
-
 |===
 
 === Example Management Center LDAP Configuration
