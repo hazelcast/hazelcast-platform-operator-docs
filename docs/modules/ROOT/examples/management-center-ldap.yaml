@@ -8,11 +8,11 @@ spec:
   securityProvider:
     ldap:
       credentialsSecretName: ldap-credentianls
-      groupDn: ou=users,dc=example,dc=org
+      groupDN: ou=users,dc=example,dc=org
       groupSearchFilter: member={0}
       nestedGroupSearch: false
       url: ldap://ldap-server-url:1389
-      userDn: ou=users,dc=example,dc=org
+      userDN: ou=users,dc=example,dc=org
       userGroups:
       - users
       metricsOnlyGroups:
