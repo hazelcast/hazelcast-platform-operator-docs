@@ -25,7 +25,6 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<CacheSpec,CacheSpec>>
 * <<CacheStatus,CacheStatus>>
 * <<CapacityPolicyType,CapacityPolicyType>>
-* <<ClientServerSocketEndpointConfig,ClientServerSocketEndpointConfig>>
 * <<CollectionType,CollectionType>>
 * <<CompactSerializationConfig,CompactSerializationConfig>>
 * <<CronHotBackup,CronHotBackup>>
@@ -113,7 +112,6 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<MapStoreConfig,MapStoreConfig>>
 * <<MaxSizePolicyType,MaxSizePolicyType>>
 * <<MemberAccess,MemberAccess>>
-* <<MemberServerSocketEndpointConfig,MemberServerSocketEndpointConfig>>
 * <<MultiMap,MultiMap>>
 * <<MultiMapList,MultiMapList>>
 * <<MultiMapSpec,MultiMapSpec>>
@@ -150,6 +148,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<SerializationConfig,SerializationConfig>>
 * <<SerializationFilterList,SerializationFilterList>>
 * <<Serializer,Serializer>>
+* <<ServerSocketEndpointConfig,ServerSocketEndpointConfig>>
 * <<TLS,TLS>>
 * <<Topic,Topic>>
 * <<TopicList,TopicList>>
@@ -185,7 +184,8 @@ m| timeout | Timeout represents the time in milliseconds the source cluster wait
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| memberServerSocketEndpointConfig | &#160; m| <<MemberServerSocketEndpointConfig,MemberServerSocketEndpointConfig>> | false | -
+m| memberServerSocketEndpointConfig | &#160; m| <<ServerSocketEndpointConfig,ServerSocketEndpointConfig>> | false | -
+m| clientServerSocketEndpointConfig | &#160; m| <<ServerSocketEndpointConfig,ServerSocketEndpointConfig>> | false | -
 m| wan | &#160; m| []<<WANConfig,WANConfig>> | false | -
 |===
 
@@ -306,19 +306,6 @@ CacheStatus defines the observed state of Cache
 m| state | State of the data structure m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
 m| message | Message explaining the current state m| string | false | -
 m| memberStatuses | Holds status of data structure for each Hazelcast member m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== ClientServerSocketEndpointConfig
-
-
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| port | &#160; m| uint | false | -
-m| interfaces | &#160; m| []string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1292,18 +1279,6 @@ m| propertiesSecretName | Properties can be used for giving information to the M
 
 <<Table of Contents,Back to TOC>>
 
-=== MemberServerSocketEndpointConfig
-
-
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| interfaces | &#160; m| []string | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
 === MultiMap
 
 MultiMap is the Schema for the multimaps API
@@ -1707,6 +1682,18 @@ Serializer allows to plug in a custom serializer for serializing objects.
 | Field | Description | Type | Required | Default
 m| typeClass | Name of the class that will be serialized via this implementation. m| string | true | -
 m| className | Class name of the implementation of the serializer class. m| string | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ServerSocketEndpointConfig
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| interfaces | &#160; m| []string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
