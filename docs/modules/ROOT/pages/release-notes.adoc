@@ -1,6 +1,6 @@
 = Release Notes
 
-This release introduced LDAP Security Provider support for Management Center CR.
+This release introduces LDAP Security Provider support for Management Center CR.
 
 == New Features
 
