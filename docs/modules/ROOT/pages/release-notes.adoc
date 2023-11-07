@@ -1,0 +1,28 @@
+= Release Notes
+
+This release introduces LDAP Security Provider support for Management Center CR.
+
+== New Features
+
+- Added LDAP Security Provider support for Management Center CR (https://github.com/example/repo/pull/892[#892])
+
+== Changes
+
+- Added the ability to configure Interfaces for ClientServer (https://github.com/example/repo/pull/920[#920])
+- The new `hazelcastendpoint` Custom Resource Definition (CRD) provides a better way to list the external addresses of your Hazelcast cluster (https://github.com/example/repo/pull/860[#860])
+- A `hazelcast-resource` column has been added to the `additionalPrinterColumns` for the wide output of CRDs referencing Hazelcast CR (https://github.com/example/repo/pull/899[#899])
+- Failed HotBackup upload to bucket now correctly handles partially uploaded files and tries to remove them (CN-480)
+- The `v.Err` function was moved to `fieldValidator` to remove duplication (https://github.com/example/repo/pull/886[#886])
+- Improved validations for HotBackup, WANReplication, JetJob, JetJobSnapshot, Map, Cache, and Topic (https://github.com/example/repo/pull/877[#877])(https://github.com/example/repo/pull/876[#876])(https://github.com/example/repo/pull/875[#875])(https://github.com/example/repo/pull/874[#874])(https://github.com/example/repo/pull/873[#873])(https://github.com/example/repo/pull/872[#872])(https://github.com/example/repo/pull/871[#871])(https://github.com/example/repo/pull/859[#859])
+
+== Fixed Issues
+
+- WAN Services are now deleted automatically when their corresponding Hazelcast resource is deleted (https://github.com/example/repo/pull/862[#862])
+- Skip validations on Management Center and Hazelcast deletion (https://github.com/example/repo/pull/923[#923])
+- Improved CronHotBackup controller behavior when deleting referenced backups (https://github.com/example/repo/pull/903[#903])
+- Fixed an error that occurred during Hazelcast cluster creation when an empty 'basedir' path was used for backup without '/' (https://github.com/example/repo/pull/841[#841])
+- Fixed the issue where SQL metadata persistence could change after being enabled (https://github.com/example/repo/pull/883[#883])
+- The name of a JetJobSnapshot is now taken through the `SnapshotName()` function (https://github.com/example/repo/pull/870[#870])
+- The misleading logs in the external address function have been removed (https://github.com/example/repo/pull/897[#897])
+- Fix HazelcastEndpoint discovery type issue in Management Center (https://github.com/example/repo/pull/895[#895])
+- Fixed the generation of compact serialization config (https://github.com/example/repo/pull/865[#865])
