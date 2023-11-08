@@ -4,7 +4,7 @@
 
 {description}
 
-Hazelcast Platform Operator allows your development and DevOps teams to automate common management tasks for your Hazelcast clusters on Kubernetes and Red Hat OpenShift. For example,  you can use Hazelcast Platform Operator to automate the following tasks:
+Hazelcast Platform Operator allows your development and DevOps teams to automate common management tasks for your Hazelcast clusters on Kubernetes and Red Hat OpenShift. For example, you can use Hazelcast Platform Operator to automate the following tasks:
 
 * Configuration
 * Creation
@@ -24,7 +24,12 @@ Known limitations
 
 == Support
 
-For support, find us in the https://slack.hazelcast.com/[Hazelcast Community Slack^].
+Community support is for every Hazelcast user. You can use the following channels to get community support:
+
+*  https://github.com/hazelcast/hazelcast[Hazelcast GitHub^] (for reporting issues through our GitHub repository)
+* https://slack.hazelcast.com/[Hazelcast Community Slack^]
+* https://groups.google.com/forum/#!forum/hazelcast[Mail Group^]
+* http://www.stackoverflow.com/[StackOverflow^]
 
 == Getting Started
 
