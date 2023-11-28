@@ -34,5 +34,6 @@
 
 .Reference
 // Configuration options/spec files/any other reference docs
+* xref:scaling-upgrading.adoc[Scaling & Upgrading]
 * xref:phone-homes.adoc[Phone Homes]
 * xref:api-ref.adoc[API References]
