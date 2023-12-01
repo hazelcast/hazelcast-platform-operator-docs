@@ -730,6 +730,8 @@ HazelcastStatus defines the observed state of Hazelcast
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
+m| clusterSize | Number of Hazelcast members in the cluster. m| int32 | false | -
+m| selector | Selector is a label selector used by HorizontalPodAutoscaler to autoscale Hazelcast resource. m| string | false | -
 m| phase | Phase of the Hazelcast cluster m| <<Phase,Phase>> | false | -
 m| hazelcastClusterStatus | Status of the Hazelcast cluster m| <<HazelcastClusterStatus,HazelcastClusterStatus>> | false | -
 m| message | Message about the Hazelcast cluster state m| string | false | -
