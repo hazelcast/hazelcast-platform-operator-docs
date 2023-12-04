@@ -1,4 +1,18 @@
-= Scaling a Hazelcast Deployment
+= Scaling and Upgrading a Hazelcast Deployment
+
+To scale an existing Hazelcast deployment, use the following command:
+
+[source,shell]
+----
+kubectl scale hazelcast <name> --replicas <replica-count>
+----
+
+Example:
+
+[source,shell]
+----
+kubectl scale hazelcast hazelcast-sample --replicas 5
+----
 
 == Upgrading
 
@@ -21,18 +35,3 @@ Assuming the following is the existing configuration:
 include::ROOT:example$/hazelcast.yaml[]
 ----
 
-== Scaling
-
-To scale an existing Hazelcast deployment, use the following command:
-
-[source,shell]
-----
-kubectl scale hazelcast <name> --replicas <replica-count>
-----
-
-Example:
-
-[source,shell]
-----
-kubectl scale hazelcast hazelcast-sample --replicas 5
-----
