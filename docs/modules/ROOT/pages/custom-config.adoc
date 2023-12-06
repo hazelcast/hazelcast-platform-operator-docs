@@ -51,7 +51,7 @@ kind: ConfigMap
 metadata:
   name: custom-config-cm
 data:
-  hazelcast:
+  hazelcast: |-
     security:
       enabled: false
       realms:
