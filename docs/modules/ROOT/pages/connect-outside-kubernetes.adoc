@@ -136,7 +136,6 @@ Java::
 ----
 ClientConfig config = new ClientConfig();
 config.getNetworkConfig().addAddress("35.230.92.217");
-config.getNetworkConfig().setSmartRouting(false);
 HazelcastInstance client = HazelcastClient.newHazelcastClient(config);
 ----
 --
