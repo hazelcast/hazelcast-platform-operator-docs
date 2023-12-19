@@ -1,0 +1,37 @@
+= Scaling and Upgrading a Hazelcast Deployment
+
+To scale an existing Hazelcast deployment, use the following command:
+
+[source,shell]
+----
+kubectl scale hazelcast <name> --replicas <replica-count>
+----
+
+Example:
+
+[source,shell]
+----
+kubectl scale hazelcast hazelcast-sample --replicas 5
+----
+
+== Upgrading
+
+To upgrade your existing deployment to a newer version, you need to update `spec.version` field and re-apply. For example:
+
+Assuming the following is the existing configuration:
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-5.2.4.yaml[]
+----
+
+and you want to upgrade your hazelcast version to {page-latest-supported-hazelcast}, you need to apply the following:
+
+
+Assuming the following is the existing configuration:
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast.yaml[]
+----
+

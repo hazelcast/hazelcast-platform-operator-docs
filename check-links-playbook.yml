@@ -27,6 +27,9 @@ content:
   - url: https://github.com/hazelcast-guides/spring-boot-sample
     branches: master
     start_paths: docs
+  - url: https://github.com/hazelcast-guides/sql_basics_on_viridian
+    branches: master
+    start_paths: docs   
   - url: https://github.com/hazelcast-guides/serverless-fraud-detection
     branches: master
     start_paths: docs
@@ -137,7 +140,7 @@ content:
   - url: https://github.com/hazelcast-guides/hazelcast-platform-operator-external-backup-restore
     branches: master
     start_path: docs
-  - url: https://github.com/hazelcast/hazelcast-commandline-client
+  - url: https://github.com/hazelcast/clc-docs
     branches: main
     start_path: docs
 ui: 
