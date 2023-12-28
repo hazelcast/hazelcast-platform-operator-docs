@@ -5,6 +5,7 @@
 * xref:connect-outside-kubernetes.adoc[]
 * xref:scheduling-configuration.adoc[Scheduling Hazelcast Pods]
 * xref:serialization-configuration.adoc[Serialization]
+* xref:scaling-upgrading.adoc[Scaling & Upgrading]
 * Configuring Data Structures
 ** xref:map-configuration.adoc[Map]
 ** xref:multimap-configuration.adoc[MultiMap]
@@ -34,6 +35,5 @@
 
 .Reference
 // Configuration options/spec files/any other reference docs
-* xref:scaling-upgrading.adoc[Scaling & Upgrading]
 * xref:phone-homes.adoc[Phone Homes]
 * xref:api-ref.adoc[API References]
