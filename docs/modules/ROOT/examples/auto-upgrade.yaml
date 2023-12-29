@@ -4,4 +4,4 @@ metadata:
   name: hazelcast-sample
 spec:
   properties:
-      hazelcast.cluster.version.auto.upgrade.enabled:false
+      hazelcast.cluster.version.auto.upgrade.enabled: false
