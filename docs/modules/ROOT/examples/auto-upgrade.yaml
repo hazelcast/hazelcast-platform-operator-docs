@@ -3,6 +3,5 @@ kind: Hazelcast
 metadata:
   name: hazelcast-sample
 spec:
-  jvm:
-    args:
-      - "-Dhazelcast.cluster.version.auto.upgrade.enabled=false"
+  properties:
+      hazelcast.cluster.version.auto.upgrade.enabled:false
