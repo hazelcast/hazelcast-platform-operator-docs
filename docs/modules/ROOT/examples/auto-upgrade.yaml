@@ -1,0 +1,8 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast-sample
+spec:
+  jvm:
+    args:
+      - "-Dhazelcast.cluster.version.auto.upgrade.enabled=false"

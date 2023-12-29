@@ -43,4 +43,12 @@ There are two system properties worth mentioning related to upgrade:
 
 - Last step of link:https://docs.hazelcast.com/hazelcast/5.3/maintain-cluster/rolling-upgrades#rolling-upgrade-procedure[rolling upgrade procedure] is to trigger a rolling upgrade on the cluster. Hazelcast Platform Operator sets `hazelcast.cluster.version.auto.upgrade.enabled` to true by default.
 
-NOTE: You can check xref:custom-config.adoc[custom config] documentation to learn how to configure system properties.
+NOTE: You can check xref:jvm-parameters.adoc[JVM Parameters] documentation to learn how to configure.
+
+Example Configuration:
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/auto-upgrade.yaml[]
+----
+
