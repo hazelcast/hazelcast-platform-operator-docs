@@ -41,14 +41,12 @@ It is worth highlighting the following system properties, which are related to u
 
 - During a rolling upgrade, the cluster is shutdown gracefully to prevent data loss. You can configure this using the link:https://docs.hazelcast.com/hazelcast/5.3/system-properties#hazelcast.graceful.shutdown.max.wait[hazelcast.graceful.shutdown.max.wait system property].
 
-- The final step in the link:https://docs.hazelcast.com/hazelcast/5.3/maintain-cluster/rolling-upgrades#rolling-upgrade-procedure[rolling upgrade procedure] is to trigger a rolling upgrade on the cluster. Hazelcast Platform Operator triggers it automatically by setting `hazelcast.cluster.version.auto.upgrade.enabled` to `true` by default.
-
-NOTE: For further information on the available configuration options, see the xref:jvm-parameters.adoc[] topic.
+- The final step in the link:https://docs.hazelcast.com/hazelcast/5.3/maintain-cluster/rolling-upgrades#rolling-upgrade-procedure[rolling upgrade procedure] is to trigger a rolling upgrade on the cluster. Hazelcast Platform Operator triggers it automatically by setting `hazelcast.cluster.version.auto.upgrade.enabled` to `true` by default, and it cannot be changed.
 
 Example Configuration:
 
 [source,yaml,subs="attributes+"]
 ----
-include::ROOT:example$/auto-upgrade.yaml[]
+include::ROOT:example$/properties.yaml[]
 ----
 
