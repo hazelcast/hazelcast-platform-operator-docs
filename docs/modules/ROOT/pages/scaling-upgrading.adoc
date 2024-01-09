@@ -16,7 +16,7 @@ kubectl scale hazelcast hazelcast-sample --replicas 5
 
 == Upgrading
 
-Before upgrade, we recommend you to check xref:{page-latest-supported-hazelcast}@hazelcast:maintain-cluster:rolling-upgrades.adoc#hazelcast-members-compatibility-guarantees[].
+Before upgrade, we recommend you to check xref:hazelcast:maintain-cluster:rolling-upgrades.adoc#hazelcast-members-compatibility-guarantees[].
 
 To upgrade your existing deployment to a newer version, you need to update `spec.version` field and re-apply. For example:
 
