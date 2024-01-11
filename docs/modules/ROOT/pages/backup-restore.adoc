@@ -12,7 +12,7 @@ TIP: For a working example, see link:https://docs.hazelcast.com/tutorials/hazelc
 
 == Enabling Persistence
 
-Enabling Hazelcast is done with the following configuration.
+Enabling Hazelcast persistence is done with the following configuration.
 
 
 [source,yaml,subs="attributes+"]
