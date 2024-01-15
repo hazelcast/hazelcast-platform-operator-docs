@@ -1,6 +1,8 @@
 = Scaling and Upgrading a Hazelcast Deployment
 
-To scale an existing Hazelcast deployment, modify the yaml definition you used to deploy Hazelcast cluster by updating `clusterSize` field and re-apply it again:
+To scale an existing Hazelcast deployment, modify the yaml definition you used to deploy Hazelcast cluster by updating `clusterSize` field and re-apply it again.
+
+Assuming the following is the existing configuration:
 
 [source,yaml]
 ----
@@ -9,10 +11,10 @@ kind: Hazelcast
 metadata:
   name: hazelcast-sample
 spec:
-  clusterSize: <desired-cluster-size>
+  clusterSize: 3
 ----
 
-Example:
+and you want to scale your deployment to 5 replicas, you need to apply the following:
 
 [source,yaml]
 ----
@@ -38,9 +40,6 @@ include::ROOT:example$/hazelcast-5.2.4.yaml[]
 ----
 
 and you want to upgrade your Hazelcast version to {page-latest-supported-hazelcast}, you need to apply the following:
-
-
-Assuming the following is the existing configuration:
 
 [source,yaml,subs="attributes+"]
 ----
