@@ -1,6 +1,8 @@
 = Scaling and Upgrading a Hazelcast Deployment
 
-To scale an existing Hazelcast deployment, modify the yaml definition you used to deploy Hazelcast cluster by updating `clusterSize` field and re-apply it again.
+To scale an existing Hazelcast deployment, there are two options:
+
+- Modify the yaml definition you used to deploy Hazelcast cluster by updating `clusterSize` field and re-apply it again:
 
 Assuming the following is the existing configuration:
 
@@ -24,6 +26,20 @@ metadata:
   name: hazelcast-sample
 spec:
   clusterSize: 5
+----
+
+- To scale an existing Hazelcast deployment, use the following command:
+
+[source,shell]
+----
+kubectl scale hazelcast <name> --replicas <replica-count>
+----
+
+Example:
+
+[source,shell]
+----
+kubectl scale hazelcast hazelcast-sample --replicas 5
 ----
 
 == Upgrading
