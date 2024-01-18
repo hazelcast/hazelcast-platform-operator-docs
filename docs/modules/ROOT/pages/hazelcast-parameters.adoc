@@ -1,4 +1,4 @@
-= Hazelcast System Properties
+= Configuring System Properties
 
 You can configure Hazelcast parameters using the `properties` field in the CRD spec. You can find all properties in link:https://docs.hazelcast.com/hazelcast/5.3/system-properties[System Properties] document.
 
