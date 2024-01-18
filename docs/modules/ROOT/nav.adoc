@@ -5,6 +5,7 @@
 * xref:connect-outside-kubernetes.adoc[]
 * xref:scheduling-configuration.adoc[Scheduling Hazelcast Pods]
 * xref:serialization-configuration.adoc[Serialization]
+* xref:scaling-upgrading.adoc[Scaling & Upgrading]
 * Configuring Data Structures
 ** xref:map-configuration.adoc[Map]
 ** xref:multimap-configuration.adoc[MultiMap]
@@ -18,6 +19,7 @@
 * xref:high-availability-mode.adoc[High Availability Mode]
 * xref:native-memory.adoc[Native Memory]
 * xref:jvm-parameters.adoc[Configuring JVM Parameters]
+* xref:hazelcast-parameters.adoc[Configuring System Properties]
 * xref:advanced-networking.adoc[Advanced Networking]
 * xref:tls.adoc[Configuring TLS]
 * Data Pipelines
@@ -34,6 +36,5 @@
 
 .Reference
 // Configuration options/spec files/any other reference docs
-* xref:scaling-upgrading.adoc[Scaling & Upgrading]
 * xref:phone-homes.adoc[Phone Homes]
 * xref:api-ref.adoc[API References]
