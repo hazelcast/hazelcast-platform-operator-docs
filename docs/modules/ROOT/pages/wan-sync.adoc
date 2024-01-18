@@ -1,0 +1,52 @@
+= Syncronizing WAN replicated data
+:description: pass:q[WAN Syncronization allows you to overcome this out-of-sync issues with the WAN replicated data. ]
+:page-enterprise: true
+
+{description}
+
+See xref:hazelcast:wan:advanced-features#synchronizing-wan-clusters.adoc[Synchronizing WAN Clusters] for more detailed information about the configuration and behavior of WAN replication in Hazelcast.
+
+== Prerequisites for WAN Sync
+
+Before you create and configure a `WanSync` resource, you need to create the following:
+
+- At least one `Hazelcast` resource and one `Map` resource for the source Hazelcast cluster.
+- A target Hazelcast cluster that is accessible from the source cluster.      
+
+== Configuring the WanSync Resource
+
+To configure WAN Syncronization, you need to create `WanSync` resource. For more detailed information, see the xref:api-ref.adoc#wansyncspec[API Reference].
+
+There are two ways to create a `WanSync` resource. The first one is by spcifying the existing `WanReplication` name. This way, the `WanSync` will reuse the existing and running WAN replication proccess.
+
+.Example of WanSync using the existing WanReplication
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/wan-sync-from-replication.yaml[]
+----
+
+NOTE: For using this appoach, you must make sure that the `WanReplication` resource is succesully created.
+
+Another apporach is to specify the WAN replication configuration directly in the `WanSync` resource. This way, the operator will create a new `WanReplication` resource before running the WAN syncronization procces. The created `WanReplication` will be deleter when the correspondig `WanSync` is deleted.
+
+.Example of WanSync with the new WanReplication configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/wan-sync-config.yaml[]
+----
+
+== Checking the Status of a WAN Sync
+
+After creating the `WanSync` resource, run the following command to find out the WAN syncronization status:
+
+[source,shell]
+----
+kubectl get wansync wansync-sample
+----
+
+You should see the following output:
+
+----
+NAME                     STATUS
+wansync-sample-sample    Completed
+----
