@@ -88,4 +88,3 @@ Hazelcast supports IPv6 addresses seamlessly, although IPv6 support is switched 
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hazelcast-ipv6.yaml[]
-----
