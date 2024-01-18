@@ -4,6 +4,9 @@ metadata:
   name: hazelcast-ipv6
 spec:
   properties:
-    - "java.net.preferIPv4Stack": "false"
-    - "java.net.preferIPv6Addresses": "true"
     - "hazelcast.prefer.ipv4.stack": "false"
+  jvm:
+    args:
+      - "-Djava.net.preferIPv4Stack=false"
+      - "-Djava.net.preferIPv6Addresses=true"
+

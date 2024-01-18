@@ -4,4 +4,4 @@ metadata:
   name: hazelcast-sample
 spec:
   properties:
-    "hazelcast.cluster.version.auto.upgrade.enabled": "300"
+    "hazelcast.graceful.shutdown.max.wait": "300"

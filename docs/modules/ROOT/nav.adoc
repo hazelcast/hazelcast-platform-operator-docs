@@ -18,9 +18,8 @@
 * xref:user-code-deployment.adoc[User Code Deployment]
 * xref:high-availability-mode.adoc[High Availability Mode]
 * xref:native-memory.adoc[Native Memory]
-* Configuration Parameters
-** xref:jvm-parameters.adoc[Configuring JVM Parameters]
-** xref:hazelcast-parameters.adoc[Configuring Hazelcast Parameters]
+* xref:jvm-parameters.adoc[Configuring JVM Parameters]
+* xref:hazelcast-parameters.adoc[Configuring Hazelcast Parameters]
 * xref:advanced-networking.adoc[Advanced Networking]
 * xref:tls.adoc[Configuring TLS]
 * Data Pipelines
