@@ -3,9 +3,9 @@
 To scale an existing Hazelcast deployment, there are two options:
 
 - Modify the yaml definition you used to deploy Hazelcast cluster by updating `clusterSize` field and re-apply it again:
-
++
 Assuming the following is the existing configuration:
-
++
 [source,yaml]
 ----
 apiVersion: hazelcast.com/v1alpha1
@@ -15,9 +15,9 @@ metadata:
 spec:
   clusterSize: 3
 ----
-
-and you want to scale your deployment to 5 replicas, you need to apply the following:
-
++
+and you want to scale your deployment to five replicas, you need to apply the following:
++
 [source,yaml]
 ----
 apiVersion: hazelcast.com/v1alpha1
@@ -27,16 +27,16 @@ metadata:
 spec:
   clusterSize: 5
 ----
-
++
 - To scale an existing Hazelcast deployment, use the following command:
-
++
 [source,shell]
 ----
 kubectl scale hazelcast <name> --replicas <replica-count>
 ----
-
++
 Example:
-
++
 [source,shell]
 ----
 kubectl scale hazelcast hazelcast-sample --replicas 5
@@ -44,7 +44,7 @@ kubectl scale hazelcast hazelcast-sample --replicas 5
 
 == Upgrading
 
-Before upgrade, we recommend you to check xref:hazelcast:maintain-cluster:rolling-upgrades.adoc#hazelcast-members-compatibility-guarantees[Rolling Upgrades].
+Before upgrading, we recommend that you to read xref:hazelcast:maintain-cluster:rolling-upgrades.adoc#hazelcast-members-compatibility-guarantees[Rolling Upgrades] information.
 
 To upgrade your existing deployment to a newer version, you need to update `spec.version` field and re-apply. For example:
 
