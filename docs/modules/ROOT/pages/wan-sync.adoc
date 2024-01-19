@@ -1,5 +1,5 @@
 = Syncronizing WAN replicated data
-:description: pass:q[WAN Syncronization allows you to overcome this out-of-sync issues with the WAN replicated data. ]
+:description: pass:q[WAN Syncronization allows you to overcome out-of-sync issues with the WAN replicated data. ]
 :page-enterprise: true
 
 {description}
@@ -8,16 +8,16 @@ See xref:hazelcast:wan:advanced-features#synchronizing-wan-clusters.adoc[Synchro
 
 == Prerequisites for WAN Sync
 
-Before you create and configure a `WanSync` resource, you need to create the following:
+Before you create and configure a `WanSync` resource, you must create the following:
 
 - At least one `Hazelcast` resource and one `Map` resource for the source Hazelcast cluster.
 - A target Hazelcast cluster that is accessible from the source cluster.      
 
 == Configuring the WanSync Resource
 
-To configure WAN Syncronization, you need to create `WanSync` resource. For more detailed information, see the xref:api-ref.adoc#wansyncspec[API Reference].
+To configure WAN Syncronization, you must create `WanSync` resource. For more detailed information, see the xref:api-ref.adoc#wansyncspec[API Reference].
 
-There are two ways to create a `WanSync` resource. The first one is by spcifying the existing `WanReplication` name. This way, the `WanSync` will reuse the existing and running WAN replication proccess.
+There are two ways to create a `WanSync` resource. The first one is by specifying the existing `WanReplication` name. This means that the `WanSync` reuses the existing and running WAN replication process.
 
 .Example of WanSync using the existing WanReplication
 [source,yaml,subs="attributes+"]
@@ -25,9 +25,9 @@ There are two ways to create a `WanSync` resource. The first one is by spcifying
 include::ROOT:example$/wan-sync-from-replication.yaml[]
 ----
 
-NOTE: For using this appoach, you must make sure that the `WanReplication` resource is succesully created.
+NOTE: For this approach, you must make sure that the `WanReplication` resource is successfully created.
 
-Another apporach is to specify the WAN replication configuration directly in the `WanSync` resource. This way, the operator will create a new `WanReplication` resource before running the WAN syncronization procces. The created `WanReplication` will be deleter when the correspondig `WanSync` is deleted.
+Another approach is to specify the WAN replication configuration directly in the `WanSync` resource. This means that the operator creates a new `WanReplication` resource before running the WAN syncronization process. The created `WanReplication` is deleted when the corresponding `WanSync` is deleted.
 
 .Example of WanSync with the new WanReplication configuration
 [source,yaml,subs="attributes+"]
@@ -37,14 +37,14 @@ include::ROOT:example$/wan-sync-config.yaml[]
 
 == Checking the Status of a WAN Sync
 
-After creating the `WanSync` resource, run the following command to find out the WAN syncronization status:
+After creating the `WanSync` resource, run the following command to see the WAN syncronization status:
 
 [source,shell]
 ----
 kubectl get wansync wansync-sample
 ----
 
-You should see the following output:
+The output is similar to the following:
 
 ----
 NAME                     STATUS
