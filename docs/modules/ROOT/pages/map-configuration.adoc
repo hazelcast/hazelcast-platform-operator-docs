@@ -36,6 +36,9 @@ Below are the configuration options for the `Map` resource. You can find more de
 |indexes
 |Indexes to be created for the map data.
 
+|attributes
+|custom attributes to use the Predicates API to query fields
+
 |persistenceEnabled
 |When enabled, map data will be persisted.
 

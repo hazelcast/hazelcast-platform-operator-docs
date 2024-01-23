@@ -23,6 +23,9 @@ spec:
       bitMapIndexOptions:
         uniqueKey: id
         uniqueKeyTransition: RAW
+  attributes:
+    - name: attribute1
+      extractorClassName: class1
   persistenceEnabled: true
   entryListeners:
     - className: com.example.MyListener
