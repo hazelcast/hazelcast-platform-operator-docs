@@ -19,6 +19,7 @@
 * xref:high-availability-mode.adoc[High Availability Mode]
 * xref:native-memory.adoc[Native Memory]
 * xref:jvm-parameters.adoc[Configuring JVM Parameters]
+* xref:resource-configuration.adoc[Configuring Resource Limits]
 * xref:hazelcast-parameters.adoc[Configuring System Properties]
 * xref:advanced-networking.adoc[Advanced Networking]
 * xref:tls.adoc[Configuring TLS]

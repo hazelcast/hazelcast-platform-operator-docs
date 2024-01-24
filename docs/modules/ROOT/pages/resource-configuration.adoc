@@ -1,0 +1,37 @@
+= Configuring Container Resources
+
+:description: pass:q[You can configure resources for Hazelcast, sidecar agent and management center containers.]
+
+{description}
+
+Detailed documentation about resources can be found link:https://kubernetes.io/docs/tasks/configure-pod-container/assign-cpu-resource/[in Resource Management for Pods and Containers documentation of Kubernetes].
+
+== Configuring Resources for Hazelcast
+
+You can configure resources for Hazelcast containers using the `resources` field of the CRD spec.
+
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-resources.yaml[]
+----
+
+== Configuring Resources for Sidecar
+
+You can configure resources for sidecar containers using the `agent.resources` field of the CRD spec.
+
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/sidecar-resources.yaml[]
+----
+
+== Configuring Resources for Management Center
+
+You can configure resources for Management Center containers using the `resources` field of the CRD spec.
+
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/management-center-resources.yaml[]
+----
