@@ -4,7 +4,7 @@
 
 {description}
 
-Detailed documentation about resources can be found link:https://kubernetes.io/docs/tasks/configure-pod-container/assign-cpu-resource/[in Resource Management for Pods and Containers documentation of Kubernetes].
+Detailed documentation about resources can be found in the link:https://kubernetes.io/docs/tasks/configure-pod-container/assign-cpu-resource/[Resource Management for Pods and Containers] Kubernetes documentation.
 
 == Configuring Resources for Hazelcast
 
