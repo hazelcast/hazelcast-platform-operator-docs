@@ -121,8 +121,12 @@ kubectl get hazelcastendpoint --selector="app.kubernetes.io/instance=hazelcast-s
 ----
 
 ```
-NAME               TYPE        ADDRESS
-hazelcast-sample   Discovery   35.230.92.217:5701
+NAME                   TYPE        ADDRESS
+hazelcast-sample       Discovery   35.238.20.134:5701
+hazelcast-sample-0     Member      34.122.120.18:30108
+hazelcast-sample-1     Member      34.27.85.200:32012
+hazelcast-sample-2     Member      34.173.81.209:30512
+hazelcast-sample-wan   WAN         35.238.20.134:5710
 ```
 
 Smart clients can use the external IP of the load balancer to connect to the cluster.
