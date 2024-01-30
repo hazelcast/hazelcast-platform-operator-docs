@@ -1,6 +1,6 @@
 = Configuring Container Resources
 
-:description: pass:q[You can configure resources for Hazelcast, sidecar agent and management center containers.]
+:description: pass:q[You can configure resources for Hazelcast, sidecar agent, and Management Center containers.]
 
 {description}
 
