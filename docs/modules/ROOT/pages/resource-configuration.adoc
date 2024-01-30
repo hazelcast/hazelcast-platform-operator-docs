@@ -8,7 +8,7 @@ Detailed documentation about resources can be found in the link:https://kubernet
 
 == Configuring Resources for Hazelcast
 
-You can configure resources for Hazelcast containers using the `resources` field of the CRD spec.
+You can configure resources for Hazelcast containers using the `resources` field of the CRD `spec`.
 
 .Example configuration
 [source,yaml,subs="attributes+"]
@@ -18,7 +18,7 @@ include::ROOT:example$/hazelcast-resources.yaml[]
 
 == Configuring Resources for Sidecar
 
-You can configure resources for sidecar containers using the `agent.resources` field of the CRD spec.
+You can configure resources for sidecar containers using the `agent.resources` field of the CRD `spec`.
 
 .Example configuration
 [source,yaml,subs="attributes+"]
@@ -28,7 +28,7 @@ include::ROOT:example$/sidecar-resources.yaml[]
 
 == Configuring Resources for Management Center
 
-You can configure resources for Management Center containers using the `resources` field of the CRD spec.
+You can configure resources for Management Center containers using the `resources` field of the CRD `spec`.
 
 .Example configuration
 [source,yaml,subs="attributes+"]
