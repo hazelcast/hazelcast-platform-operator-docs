@@ -113,6 +113,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<MapStoreConfig,MapStoreConfig>>
 * <<MaxSizePolicyType,MaxSizePolicyType>>
 * <<MemberAccess,MemberAccess>>
+* <<MerkleTreeConfig,MerkleTreeConfig>>
 * <<MultiMap,MultiMap>>
 * <<MultiMapList,MultiMapList>>
 * <<MultiMapSpec,MultiMapSpec>>
@@ -164,6 +165,12 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<WanReplicationSpec,WanReplicationSpec>>
 * <<WanReplicationStatus,WanReplicationStatus>>
 * <<WanStatus,WanStatus>>
+* <<WanSync,WanSync>>
+* <<WanSyncList,WanSyncList>>
+* <<WanSyncMapStatus,WanSyncMapStatus>>
+* <<WanSyncPhase,WanSyncPhase>>
+* <<WanSyncSpec,WanSyncSpec>>
+* <<WanSyncStatus,WanSyncStatus>>
 
 === AcknowledgementSetting
 
@@ -1266,6 +1273,7 @@ m| inMemoryFormat | InMemoryFormat specifies in which format data will be stored
 m| entryListeners | EntryListeners contains the configuration for the map-level or entry-based events listeners provided by the Hazelcast’s eventing framework. You can learn more at https://docs.hazelcast.com/hazelcast/latest/events/object-events. m| []<<EntryListenerConfiguration,EntryListenerConfiguration>> | false | -
 m| nearCache | InMemoryFormat specifies near cache configuration for map m| &#42;<<NearCache,NearCache>> | false | -
 m| eventJournal | EventJournal specifies event journal configuration of the Map m| &#42;<<EventJournal,EventJournal>> | false | -
+m| merkleTree | MerkleTree defines the configuration for the Merkle tree data structure. m| &#42;<<MerkleTreeConfig,MerkleTreeConfig>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1297,6 +1305,18 @@ m| writeDelaySeconds | Number of seconds to delay the storing of entries. m| int
 m| writeBatchSize | Used to create batches when writing to map store. m| int32 | false | 1
 m| writeCoalescing | It is meaningful if you are using write behind in MapStore. When it is set to true, only the latest store operation on a key during the write-delay-seconds will be reflected to MapStore. m| &#42;bool | false | true
 m| propertiesSecretName | Properties can be used for giving information to the MapStore implementation m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== MerkleTreeConfig
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| depth | Depth of the merkle tree. m| int32 | false | 10
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1893,6 +1913,74 @@ m| wanReplicationMapsStatus | WanReplicationMapsStatus is the WAN Replication st
 
 <<Table of Contents,Back to TOC>>
 
+=== WanSync
+
+WanSync is the Schema for the wansyncs API
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| spec | &#160; m| <<WanSyncSpec,WanSyncSpec>> | false | -
+m| status | &#160; m| <<WanSyncStatus,WanSyncStatus>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== WanSyncList
+
+WanSyncList contains a list of WanSync
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| items | &#160; m| []<<WanSync,WanSync>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== WanSyncMapStatus
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| resourceName | ResourceName is the name of the Map Custom Resource. m| string | false | -
+m| publisherId | PublisherId is the ID used for WAN publisher ID m| string | false | -
+m| phase | Status is the status of the resource WAN sync m| <<WanSyncPhase,WanSyncPhase>> | false | -
+m| message | Message is the field to show detail information or error m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== WanSyncSpec
+
+WanSyncSpec defines the desired state of WanSync
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| wanReplicationResourceName | WanReplicationResourceName is the name of WanReplication CR that contains the WAN publisher configuration. If specified the Sync operation will use existing WAN publisher. m| string | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== WanSyncStatus
+
+WanSyncStatus defines the observed state of WanSync
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| status | Status is the status of WAN Sync m| <<WanSyncPhase,WanSyncPhase>> | false | -
+m| message | Message is the field to show detail information or error m| string | false | -
+m| wanSyncMapsStatus | WanSyncMapStatus is the WAN Sync status of the Maps given in the spec directly or indirectly by Hazelcast resource. m| map[string]<<WanSyncMapStatus,WanSyncMapStatus>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === AcknowledgementType
 
 
@@ -2405,6 +2493,21 @@ m| "Pending" | &#160;
 m| "Success" | &#160;
 m| "Persisting" | The config is added into all members but waiting for the config to be persisted into ConfigMap
 m| "Terminating" | &#160;
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== WanSyncPhase
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "NotStarted" | &#160;
+m| "Failed" | &#160;
+m| "Pending" | &#160;
+m| "Completed" | &#160;
 |===
 
 <<Table of Contents,Back to TOC>>
