@@ -15,6 +15,7 @@
 ** xref:replicatedmap-configuration.adoc[ReplicatedMap]
 * xref:backup-restore.adoc[Persistence, Backup, and Restore]
 * xref:wan-replication.adoc[Configuring WAN Replication]
+* xref:wan-sync.adoc[Syncronizing WAN replicated data]
 * xref:user-code-deployment.adoc[User Code Deployment]
 * xref:high-availability-mode.adoc[High Availability Mode]
 * xref:native-memory.adoc[Native Memory]
