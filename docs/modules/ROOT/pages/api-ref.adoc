@@ -1921,7 +1921,7 @@ WanSync is the Schema for the wansyncs API
 |===
 | Field | Description | Type | Required | Default
 m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
-m| spec | &#160; m| <<WanSyncSpec,WanSyncSpec>> | false | -
+m| spec | &#160; m| <<WanSyncSpec,WanSyncSpec>> | true | -
 m| status | &#160; m| <<WanSyncStatus,WanSyncStatus>> | false | -
 |===
 
