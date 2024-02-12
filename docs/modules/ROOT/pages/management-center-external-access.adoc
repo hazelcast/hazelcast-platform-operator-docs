@@ -41,14 +41,14 @@ include::ROOT:example$/management-center-loadbalancer.yaml[]
 
 The example configuration below does the following:
 
-- Expose Management Center using Ingress defined on the https://kubernetes.io/docs/concepts/services-networking/ingress/[Ingress].
+- Expose Management Center using Ingress defined on https://kubernetes.io/docs/concepts/services-networking/ingress/[Ingress].
 
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/management-center-ingress.yaml[]
 ----
 
-WARNING: The paths, consisting of multiple segments (e.g., "/hazelcast/mancenter"), are supported as of Management Center version 5.4.0.
+WARNING: Paths that consist of multiple segments, such as _/hazelcast/mancenter_, are supported from Management Center version 5.4.0.
 
 === Example Management Center Route Configuration
 
