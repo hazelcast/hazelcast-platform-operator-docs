@@ -26,27 +26,29 @@ External connectivity defines how to expose Management Center:
 
 |===
 
+=== Example Management Center LoadBalancer Configuration
+
+The example configuration below does the following:
+
+- Expose Management Center using a dedicated load balancer
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/management-center-loadbalancer.yaml[]
+----
+
 === Example Management Center Ingress Configuration
 
 The example configuration below does the following:
 
-- Expose Management Center using Ingress defined on the https://kubernetes.io/docs/concepts/services-networking/ingress/[Ingress].
+- Expose Management Center using Ingress defined on https://kubernetes.io/docs/concepts/services-networking/ingress/[Ingress].
 
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/management-center-ingress.yaml[]
 ----
 
-=== Example Management Center LoadBalancer Configuration
-
-The example configuration below does the following:
-
-- Expose Management Center using a dedicated load balancer for your Management Center
-
-[source,yaml,subs="attributes+"]
-----
-include::ROOT:example$/management-center-loadbalancer.yaml[]
-----
+NOTE: Paths that consist of multiple segments, such as _/hazelcast/mancenter_, are supported from Management Center version 5.4.0.
 
 === Example Management Center Route Configuration
 
