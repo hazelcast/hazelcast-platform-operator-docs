@@ -525,6 +525,7 @@ ExternalConnectivityIngress defines ingress configuration of Management Center
 m| hostname | Hostname of Management Center exposed by Ingress. Ingress controller will use this hostname to route inbound traffic. m| string | true | -
 m| ingressClassName | IngressClassName of the ingress object. m| string | false | -
 m| annotations | Annotations added to the ingress object. m| map[string]string | false | -
+m| path | Path of the ingress rule. m| string | false | "/"
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -2297,7 +2298,7 @@ MCPhase represents the current state of the cluster
 | Value | Description
 m| "Running" | McRunning phase is the state when the ManagementCenter is successfully started
 m| "Failed" | McFailed phase is the state of error during the ManagementCenter startup
-m| "Configuring" | McConfiguring phase is the state of cofiguring the ManagementCenter and might be restated
+m| "Configuring" | McConfiguring phase is the state of configuring the ManagementCenter and might be restated
 m| "Pending" | McPending phase is the state of starting the cluster when the ManagementCenter is not started yet
 m| "Terminating" | McTerminating phase is the state where deletion of ManagementCenter and dependent resources happen
 |===
