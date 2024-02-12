@@ -30,7 +30,7 @@ External connectivity defines how to expose Management Center:
 
 The example configuration below does the following:
 
-- Expose Management Center using a dedicated load balancer for your Management Center
+- Expose Management Center using a dedicated load balancer
 
 [source,yaml,subs="attributes+"]
 ----
