@@ -26,6 +26,17 @@ External connectivity defines how to expose Management Center:
 
 |===
 
+=== Example Management Center LoadBalancer Configuration
+
+The example configuration below does the following:
+
+- Expose Management Center using a dedicated load balancer for your Management Center
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/management-center-loadbalancer.yaml[]
+----
+
 === Example Management Center Ingress Configuration
 
 The example configuration below does the following:
@@ -37,16 +48,7 @@ The example configuration below does the following:
 include::ROOT:example$/management-center-ingress.yaml[]
 ----
 
-=== Example Management Center LoadBalancer Configuration
-
-The example configuration below does the following:
-
-- Expose Management Center using a dedicated load balancer for your Management Center
-
-[source,yaml,subs="attributes+"]
-----
-include::ROOT:example$/management-center-loadbalancer.yaml[]
-----
+WARNING: The paths, consisting of multiple segments (e.g., "/hazelcast/mancenter"), are supported as of Management Center version 5.4.0.
 
 === Example Management Center Route Configuration
 

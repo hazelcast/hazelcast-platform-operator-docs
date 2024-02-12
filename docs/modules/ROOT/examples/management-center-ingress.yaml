@@ -10,8 +10,9 @@ spec:
     ingress:
       hostname: "example.hostname"
       ingressClassName: nginx
+      path: "/mancenter"
       annotations:
-        nginx.ingress.kubernetes.io/rewrite-target: /
+        nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
   hazelcastClusters:
     - address: hazelcast
       name: dev
