@@ -22,14 +22,40 @@ Short discussion of the difference between the Helm chart and the operator
 Known limitations
 ////
 
-== Support
+== Community Support
 
 Community support is for every Hazelcast user. You can use the following channels to get community support:
 
-*  https://github.com/hazelcast/hazelcast[Hazelcast GitHub^] (for reporting issues through our GitHub repository)
+* https://github.com/hazelcast/hazelcast-platform-operator[Hazelcast Platform Operator GitHub^] (for reporting issues through our GitHub repository)
 * https://slack.hazelcast.com/[Hazelcast Community Slack^]
-* https://groups.google.com/forum/#!forum/hazelcast[Mail Group^]
-* http://www.stackoverflow.com/[StackOverflow^]
+
+== Customer Support
+
+Customer support is for paying Hazelcast customers. For further information on Hazelcast's comprehensive 24/7 support offerings, refer to the https://hazelcast.com/services/support/[Hazelcast website^].
+
+A support subscription from Hazelcast allows you to get the most value from Hazelcast Platform Operator. Our rapid response times to technical
+support inquiries, access to critical software patches, and other services allow you to improve productivity and quality.
+
+When you have an account set up, you can https://support.hazelcast.com/s/[open a support request].
+
+When submitting a ticket to the team, provide the following information:
+
+* *A clear summary of the issue*. Add this in the title of your issue to help the team to direct the issue to the right expert.
+* *The steps to take to reproduce the issue*, if possible. If you aren't sure, describe the sequence of events that led to the problem. Your test case, or use case is also very helpful.
+* *A full description of the problem and any error* that was encountered. Your test and use cases can provide us with guidance on where we need to focus our investigations. Include the time at which you encountered the issue.
+* *Hazelcast Logs*. Ensure that all your environments capture Hazelcast diagnostics logs, which we will use to diagnose your issues. If your environments are not capturing diagnostics logs, update them and capture diagnostics logs before opening the ticket. Do not truncate the diagnostic logs. The process, health monitoring, and networking logs also contain useful information, and should be attached along with the diagnostic logs when you open a ticket. Ensure that system and environment details captured at system startup are included, even in truncated logs, and that the provided logs include entries for the time at which you encountered the issue. 
+* *Relevant screenshots and/or error messages*.
+* *Thread dumps for all members*.
+* *Heap dumps*.
+* *The severity of the issue*, as follows:
+
+** `PROD` issues affecting production: severity 1.
+
+** `DEV` issues: severity 3 and priority low.
+
+** Other issues, such as questions or documentation feedback: severity 2 or 3 depending on severity.
+
+The more information that you can provide, the faster Hazelcast Customer Support can respond to your issue. Hazelcast appreciates your help and timely response to any further communication. 
 
 == Getting Started
 
