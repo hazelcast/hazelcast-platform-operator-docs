@@ -20,7 +20,6 @@ Enabling Hazelcast persistence is done with the following configuration.
 include::ROOT:example$/hazelcast-persistence.yaml[]
 ----
 
-<1> Base directory of the backup data.
 <2> <<recovery-policy, Cluster recovery policy>>.
 <3> Size of the PersistentVolumeClaim (PVC) where Hazelcast data is persisted.
 <4> Agent responsible for moving data from the local storage to external buckets.
