@@ -17,4 +17,4 @@ Hazelcast Platform Operator sets the following system properties to the default 
 
 - The final step in the link:https://docs.hazelcast.com/hazelcast/5.3/maintain-cluster/rolling-upgrades#rolling-upgrade-procedure[rolling upgrade procedure] is to trigger a rolling upgrade on the cluster. Hazelcast Platform Operator triggers it automatically by setting `hazelcast.cluster.version.auto.upgrade.enabled` to `true` by default.
 
-- `hazelcast.persistence.auto.cluster.state` set to `true` by default and `hazelcast.persistence.auto.cluster.state.strategy` is set to `NO_MIGRATION` by default.
+- `hazelcast.persistence.auto.cluster.state` set to `true` by default.
