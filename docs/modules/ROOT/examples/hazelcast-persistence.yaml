@@ -7,10 +7,9 @@ spec:
   repository: 'docker.io/hazelcast/hazelcast-enterprise'
   licenseKeySecretName: hazelcast-license-key
   persistence:
-    baseDir: "/data/hot-restart/"  <1>
-    clusterDataRecoveryPolicy: "FullRecoveryOnly"  <2>
+    clusterDataRecoveryPolicy: "FullRecoveryOnly"  <1>
     pvc:
       accessModes: ["ReadWriteOnce"]
-      requestStorage: 20Gi  <3>
-  agent: <4>
+      requestStorage: 20Gi  <2>
+  agent: <3>
     repository: hazelcast/platform-operator-agent

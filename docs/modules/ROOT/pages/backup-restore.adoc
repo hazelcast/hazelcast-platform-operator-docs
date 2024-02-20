@@ -20,10 +20,9 @@ Enabling Hazelcast persistence is done with the following configuration.
 include::ROOT:example$/hazelcast-persistence.yaml[]
 ----
 
-<1> Base directory of the backup data.
-<2> <<recovery-policy, Cluster recovery policy>>.
-<3> Size of the PersistentVolumeClaim (PVC) where Hazelcast data is persisted.
-<4> Agent responsible for moving data from the local storage to external buckets.
+<1> <<recovery-policy, Cluster recovery policy>>.
+<2> Size of the PersistentVolumeClaim (PVC) where Hazelcast data is persisted.
+<3> Agent responsible for moving data from the local storage to external buckets.
     The agent configuration is optional. If you enable `persistence` and do not pass the agent configuration, Hazelcast Platform Operator
     uses the latest agent version that is compatible with its version.
 
