@@ -173,6 +173,7 @@ include::ROOT:example$/hazelcast-persistence-restore-cr-name.yaml[]
 
 NOTE: For restore to be successful you have to give restore configuration at the `Hazelcast` custom resource creation. Otherwise, triggering restore on currently running members will likely to fail. 
 
+NOTE: It is not allowed to override the existing restore data with a backup. This means that if there is a PersistentValue left from the previous Hazelcast cluster, you cannot restore a backup into this PersistentValue.
 
 == Restoring from External Backups
 
@@ -215,7 +216,9 @@ include::ROOT:example$/hazelcast-persistence-restore-cr-name.yaml[]
 
 ====
 
-NOTE: For restore to be successful you have to give restore configuration at the `Hazelcast` custom resource creation. Otherwise, triggering restore on currently running members will likely to fail. 
+NOTE: For restore to be successful you have to give restore configuration at the `Hazelcast` custom resource creation. Otherwise, triggering restore on currently running members will likely to fail.
+
+NOTE: It is not allowed to override the existing restore data with a backup. This means that if there is a PersistentValue left from the previous Hazelcast cluster, you cannot restore a backup into this PersistentValue.
 
 == Configuring Persistence
 
