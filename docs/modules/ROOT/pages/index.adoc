@@ -1,0 +1,26 @@
+= Hazelcast Platform Operator
+:!page-pagination:
+:description: Hazelcast Platform Operator automates common management tasks such as configuring, creating, scaling, and recovering Hazelcast clusters on Kubernetes and Red Hat OpenShift. By taking care of manual deployment and life-cycle management, Hazelcast Platform Operator makes it simpler to work with Hazelcast clusters.
+
+{description}
+
+////
+Content to consider for this page:
+
+Requirements (supported versions of Platform, Kubernetes, Openshift, supported managed services such as GKE)
+High-level architectural diagram of components, workflow
+Short discussion of the difference between the Helm chart and the operator
+Known limitations
+////
+
+== Support
+
+For support, find us in the https://slack.hazelcast.com/[Hazelcast Community Slack^].
+
+== Getting Started
+
+xref:get-started.adoc[].
+
+
+
+
