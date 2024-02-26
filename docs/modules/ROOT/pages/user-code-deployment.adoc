@@ -146,7 +146,7 @@ Configuration options for a `Hazelcast` resource to work with all three variants
 Executor Service::
 +
 --
-More information can be found in the xref:api-ref.adoc#executorserviceconfiguration[API Reference] page.
+See xref:api-ref.adoc#executorserviceconfiguration[API Reference] for more information.
 
 |===
 |Field|Description
@@ -166,7 +166,7 @@ More information can be found in the xref:api-ref.adoc#executorserviceconfigurat
 Durable Executor Service::
 +
 --
-More information can be found in the xref:api-ref.adoc#durableexecutorserviceconfiguration[API Reference] page.
+See xref:api-ref.adoc#durableexecutorserviceconfiguration[API Reference] for more information.
 
 |===
 |Field|Description
@@ -190,7 +190,7 @@ More information can be found in the xref:api-ref.adoc#durableexecutorservicecon
 Scheduled Executor Service::
 +
 --
-More information can be found in the xref:api-ref.adoc#scheduledexecutorserviceconfiguration[API Reference] page.
+See xref:api-ref.adoc#scheduledexecutorserviceconfiguration[API Reference] for more information.
 
 |===
 |Field|Description
