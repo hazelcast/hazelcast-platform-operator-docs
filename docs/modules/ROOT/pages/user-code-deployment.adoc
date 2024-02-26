@@ -116,8 +116,9 @@ Use the following configuration options in the `Map` resource for a MapStore. Th
 
 === Example MapStore Configuration
 
-The following is an example `Map` resource with MapStore configuration.
+An example `Map` resource with MapStore configuration. 
 
+.Example configuration
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/map-map-store.yaml[]
