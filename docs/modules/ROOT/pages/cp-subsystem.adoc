@@ -1,0 +1,25 @@
+= Enabling CP Subsystem
+:description: CP Subsystem is a component of a Hazelcast cluster that builds a strongly consistent layer for a set of distributed data structures. As well as network partitions, the CP Subsystem withstands server and client failures.
+
+{description}
+
+See xref:hazelcast:cp-subsystem:cp-subsystem.adoc[CP Subsystem] for more detailed information about the configuration and behavior of CP Subsystem component of Hazelcast.
+
+== Configuring CP Subsystem
+
+To enable CP Subsystem you need to configure the `cpSubsystem` section in the Hazelcast CR.
+
+.Example of CP Subsystem
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-cp-subsystem.yaml[]
+----
+
+When enableing CP subsystem, it will always enable the CP Subsystem Persistence. Therefore, CP Subsystem requires a PVC to be configured.
+When the the `pvc` section is configured in `cpSubsystem`, the new PVC will created and mounted for the CP Subsystem. However, the same PVC can be used for both xref:backup-restore.adoc[Persistence] and CP Subsytem. For this, you need to configure the Persistence and not provide the `pvc` configuration in for the CP Subsystem.
+
+.Example of CP Subsystem with Persistence
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-cp-subsystem-presistence.yaml[]
+----
