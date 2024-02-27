@@ -1,0 +1,17 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast <1>
+spec:
+  clusterSize: 3
+  repository: 'docker.io/hazelcast/hazelcast-enterprise'
+  licenseKeySecretName: hazelcast-license-key
+  persistence:
+    pvc:
+      accessModes: ["ReadWriteOnce"]
+      requestStorage: 20Gi
+    restore:
+      localConfig:
+        baseDir: "base" <2>
+        backupDir: "backup" <3>
+        backupFolder: "backup-1709045128548" <4>
