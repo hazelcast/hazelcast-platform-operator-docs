@@ -737,6 +737,7 @@ m| customConfigCmName | Name of the ConfigMap with the Hazelcast custom configur
 m| sql | Hazelcast SQL configuration m| &#42;<<SQL,SQL>> | false | -
 m| annotations | Hazelcast Kubernetes resource annotations m| map[string]string | false | -
 m| labels | Hazelcast Kubernetes resource labels m| map[string]string | false | -
+m| serviceAccountName | ServiceAccountName is the name of the ServiceAccount to use to run Hazelcast cluster. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/ m| string | false | -
 |===
 ==== Deprecated
 [cols="4,8,4,2,4"options="header"]
