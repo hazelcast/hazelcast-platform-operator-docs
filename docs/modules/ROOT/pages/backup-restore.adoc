@@ -179,9 +179,9 @@ include::ROOT:example$/hazelcast-persistence-restore-local.yaml[]
 ----
 
 <1> The name of the cluster for both backup and restore must be the same. If the cluster name is different, the restore fails.
-<2> `baseDir` is the root directory of persistence.
-<3> `backupDir` is the directory for backups.
-<4> `backupFolder` is the folder for a specific backup.
+<2> `baseDir` is the root directory for persistence.
+<3> `backupDir` is the directory that contains a backupFolder for each available backup.
+<4> `backupFolder` is the directory containing the specific backup for the restore.
 
 NOTE: Agent copies backup to be restored from `baseDir` + `backupDir` + `backupFolder` to `/data/hot-restart` path.
 
