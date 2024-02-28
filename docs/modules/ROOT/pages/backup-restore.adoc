@@ -173,7 +173,7 @@ uses the latest agent version that is compatible with its version.
 
 NOTE: For restore to be successful you must configure restore when creating the `Hazelcast` custom resource. Otherwise, triggering restore on currently running members is likely to fail.
 
-To restore from local backups that is not taken by HotBackup resource, configure `localConfig`.
+To restore from local backups that were not created by the HotBackup resource, configure `localConfig`.
 
 [source,yaml,subs="attributes+"]
 ----
