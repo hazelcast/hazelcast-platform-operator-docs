@@ -171,8 +171,6 @@ include::ROOT:example$/hazelcast-persistence-restore-cr-name.yaml[]
 The agent configuration is optional. If you give `restore` under `persistence` and do not pass the agent configuration, Hazelcast Platform Operator
 uses the latest agent version that is compatible with its version.
 
-NOTE: For restore to be successful you must configure restore when creating the `Hazelcast` custom resource. Otherwise, triggering restore on currently running members is likely to fail.
-
 To restore from local backups that were not created by the HotBackup resource, configure `localConfig`.
 
 [source,yaml,subs="attributes+"]
@@ -227,8 +225,6 @@ uses the latest agent version that is compatible with its version.
 --
 
 ====
-
-NOTE: For restore to be successful you have to give restore configuration at the `Hazelcast` custom resource creation. Otherwise, triggering restore on currently running members will likely to fail.
 
 == Configuring Persistence
 
