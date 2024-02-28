@@ -183,7 +183,7 @@ include::ROOT:example$/hazelcast-persistence-restore-local.yaml[]
 <3> `backupDir` is the directory that contains a backupFolder for each available backup.
 <4> `backupFolder` is the directory containing the specific backup for the restore.
 
-NOTE: Agent copies backup to be restored from `baseDir` + `backupDir` + `backupFolder` to `/data/hot-restart` path.
+NOTE: Agent copies backup to be restored from `{baseDir}/{backupDir}/{backupFolder}` to `/data/hot-restart` path.
 
 == Restoring from External Backups
 
