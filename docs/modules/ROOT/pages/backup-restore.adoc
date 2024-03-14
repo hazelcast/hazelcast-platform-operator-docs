@@ -171,7 +171,7 @@ include::ROOT:example$/hazelcast-persistence-restore-cr-name.yaml[]
     The agent configuration is optional. If you give `restore` under `persistence` and do not pass the agent configuration, Hazelcast Platform Operator
     uses the latest agent version that is compatible with its version.
 
-WARNING: Local backups are supported to be restored only once.
+Note: You can only use a local backup once to restore a cluster.
 
 == Restoring from External Backups
 
