@@ -244,9 +244,7 @@ To decide how a cluster should behave when one or more members cannot rejoin aft
 
 To recover a cluster that has Persistence enabled after a cluster-wide restart, you can force a cluster to delete their persistence stores when one or more members fail to restart by triggering Force Start. Or you can force a cluster to start without some members by triggering Partial Start
 
-WARNING: The cluster loses all persisted data after a force-start.
-
-WARNING: The cluster loses some persistent data after a partial-start.
+WARNING: Performing a force-start may result in the loss of all persistent data in the cluster. Additionally, executing a partial-start may lead to the loss of some persistent data.
 
 To trigger the cluster recover action set the `startupAction`:
 
