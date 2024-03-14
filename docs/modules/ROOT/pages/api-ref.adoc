@@ -20,6 +20,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>>
 * <<BucketConfiguration,BucketConfiguration>>
 * <<ByteOrder,ByteOrder>>
+* <<CPSubsystem,CPSubsystem>>
 * <<CRLister,CRLister>>
 * <<Cache,Cache>>
 * <<CacheList,CacheList>>
@@ -269,6 +270,25 @@ m| bucketURI | URL of the bucket to download HotBackup folders. AWS S3, GCP Buck
 |===
 | Field | Description | Type | Required | Default
 m| secret | secret is a deprecated alias for secretName. m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== CPSubsystem
+
+CPSubsystem contains the configuration of a component of a Hazelcast that builds a strongly consistent layer for a set of distributed data structures
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| memberCount | MemberCount is the number of CP members to initialize the CP Subsystem. m| int32 | true | -
+m| groupSize | GroupSize is the number of CP members to participate in each CP group. Allowed values are 3, 5, and 7. m| &#42;int32 | false | -
+m| sessionTTLSeconds | SessionTTLSeconds is the duration for a CP session to be kept alive after the last received heartbeat. Must be greater than or equal to SessionTTLSeconds. m| &#42;int32 | false | -
+m| sessionHeartbeatIntervalSeconds | SessionHeartbeatIntervalSeconds Interval in seconds for the periodically committed CP session heartbeats. Must be greater than or equal to SessionTTLSeconds. m| &#42;int32 | false | -
+m| missingCpMemberAutoRemovalSeconds | MissingCpMemberAutoRemovalSeconds is the duration in seconds to wait before automatically removing a missing CP member from the CP Subsystem. m| &#42;int32 | false | -
+m| failOnIndeterminateOperationState | FailOnIndeterminateOperationState indicated whether CP Subsystem operations use at-least-once and at-most-once execution guarantees. m| &#42;bool | false | -
+m| dataLoadTimeoutSeconds | DataLoadTimeoutSeconds is the timeout duration in seconds for CP members to restore their persisted data from disk m| &#42;int32 | false | -
+m| pvc | PVC is the configuration of PersistenceVolumeClaim. m| &#42;<<PvcConfiguration,PvcConfiguration>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -741,6 +761,7 @@ m| localDevices | Hazelcast LocalDevice configuration m| []<<LocalDeviceConfig,L
 m| annotations | Hazelcast Kubernetes resource annotations m| map[string]string | false | -
 m| labels | Hazelcast Kubernetes resource labels m| map[string]string | false | -
 m| serviceAccountName | ServiceAccountName is the name of the ServiceAccount to use to run Hazelcast cluster. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/ m| string | false | -
+m| cpSubsystem | CPSubsystem is the configuration of the Hazelcast CP Subsystem. m| &#42;<<CPSubsystem,CPSubsystem>> | false | -
 |===
 ==== Deprecated
 [cols="4,8,4,2,4"options="header"]
