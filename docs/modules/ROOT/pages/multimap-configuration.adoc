@@ -1,37 +1,41 @@
-= Configuring MultiMaps
-:description: pass:q[Hazelcast MultiMap, also known as IMultiMap, is a specialized map where you can store multiple values under a single key. Just like any other distributed data structure implementation in Hazelcast, MultiMap is distributed and thread-safe. You can create and configure MultiMaps using the `MultiMap` custom resource.]
+= Configure MultiMaps
+:description: pass:q[Hazelcast MultiMap, also known as IMultiMap, is a specialized map where you can store multiple values under a single key. Just like any other distributed data structure implementation in Hazelcast, MultiMap is distributed and thread-safe. You can create and configure MultiMaps using the MultiMap custom resource.]
 
 {description}
 
-== Configuring a MultiMap Resource
+== Configure a MultiMap Resource
 
-You can use any of the following configuration options in the `MultiMap` resource. For more information, see the xref:api-ref.adoc#multimapspec[API Reference].
+The MultiMap custom resource is configured using the following fields: 
 
 [cols="20%m,80%a"]
 |===
 |Field|Description
 
 |name
-|Name of the MultiMap configuration that you're creating. If empty, the custom resource (CR) name is used.
+|The name of the MultiMap configuration being created. If this field is empty, the custom resource name is used to create the name of the MultiMap.
 
 |hazelcastResourceName
-|Defines the name of the Hazelcast resource.
+|The name of the Hazelcast resource for which the MultiMap configuration is created.
 
 |backupCount
-|Count of synchronous backups.
+|The count of synchronous backups.
 
 |binary
-|When true, stores all MultiMap values in BINARY format, otherwise stores these values in OBJECT format.
+|The format in which to store all MultiMap values. If set to `true` all values are stored in BINARY format, otherwise values are stored in OBJECT format.
 
 |collectionType
-|The type of the value collection. Use either SET or LIST.
+|The type of the value collection. The type can be either `SET` or `LIST`. Use `SET` if ordering is unimportant, and you do not want to allow duplicate or null values. Use `LIST` if ordering is important and you want to allow duplicate, but not null, values.
 
 
 |===
 
+For further information on the fields used to configure MultiMaps, see xref:api-ref.adoc#multimapspec[MultiMapSpec] in the Hazelcast Operator API Reference.
+
 == Example Configuration
 
-The following `MultiMap` custom resource creates a MultiMap configuration for the `Hazelcast` resource that is defined in the `hazelcastResourceName` field.
+In this example, we configure a MultiMap for the Hazelcast custom resource defined in the `hazelcastResourceName` field.
+
+The configuration is as follows:
 
 .Example configuration
 [source,yaml,subs="attributes+"]
@@ -39,12 +43,14 @@ The following `MultiMap` custom resource creates a MultiMap configuration for th
 include::ROOT:example$/multimap.yaml[]
 ----
 
-After creating the `MultiMap` resource, use the following command to check its status:
+Once created, you can use the following command to check the status of the MultiMap resource:
 
 [source,shell]
 ----
 kubectl get multimap multimap-sample -o wide
 ----
+
+The result is similar to the following:
 
 ```
 NAME              STATUS    HAZELCAST-RESOURCE   MESSAGE

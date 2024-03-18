@@ -1,93 +1,107 @@
-= Connecting to Hazelcast from Outside Kubernetes
-:description: Hazelcast supports connections from both smart and unisocket clients that are outside your Kubernetes cluster. To allow these clients to connect to Hazelcast, you need to configure the `exposeExternally` field of the Hazelcast custom resource.
+= Connect to Hazelcast from Outside Kubernetes
+:description: Hazelcast supports connections from both smart and unisocket clients that are outside your Kubernetes cluster. To allow these clients to connect to Hazelcast, you must configure the Hazelcast custom resource.
 
 {description}
 
-TIP: For a working example, see link:https://docs.hazelcast.com/tutorials/hazelcast-platform-operator-expose-externally/[this tutorial].
+TIP: Follow the link:https://docs.hazelcast.com/tutorials/hazelcast-platform-operator-expose-externally/[Connect to Hazelcast from Outside Kubernetes] tutorial if you prefer a working example.
 
 == Environmental Constraints
 
 The `kubectl` command-line tool must be configured to communicate with your cluster.
 
+If you use a Kubernetes service to run Kubernetes, there might be further constraints. Examples of such constraints for common Kubernetes services include the following:
+
 .Google Kubernetes Engine (GKE)
 [%collapsible]
 ====
-If you use GKE, consider the following:
-
-- Make sure the Kubernetes cluster is public.
-- If you plan on using NodePorts, (`discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), set up a firewall rule for each Hazelcast member to allow TCP traffic on node ports.
+- The Kubernetes cluster must be public.
+- If you want to use NodePorts (that is, you have set `discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), a firewall rule must exist for each Hazelcast member to allow TCP traffic on node ports.
 ====
 
 .Amazon Elastic Kubernetes Service (EKS)
 [%collapsible]
 ====
-If you use EKS, consider the following:
+- Configuring the Virtual Private Cloud (VPC) of the EKS cluster with private subnets only is not recommended.
+- If you want to use NodePorts (that is, you have set `discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`):
 
-- Having the VPC of the EKS cluster configured only with private subnets is not recommended.
-- If you plan on using NodePorts, (`discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), the VPC of the EKS cluster should be configured only with public subnets. Additionally, inbound rules for the node ports should be added to the nodes' security groups.
+** The VPC of the EKS cluster must be configured with public subnets only.
+** Inbound rules for the node ports must be added to the nodes' security groups.
 ====
 
 .Azure Kubernetes Service (AKS)
 [%collapsible]
 ====
-If you use AKS, consider the following:
+- The Kubernetes cluster must be public.
 
-- Make sure the Kubernetes cluster is public.
+- If you want to use NodePorts (that is, you have set `discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`):
 
-- If you plan on using NodePorts, (`discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), the node pools should be created by using the `--enable-node-public-ip` flag. Additionally, the required inbound rules should be added for network security groups (NSGs) to allow access to node IPs and ports.
+** The node pools must be created using the `--enable-node-public-ip` flag.
+** The required inbound rules must be added. If these are not added, network security groups (NSGs) do not allow access to node IPs and ports.
 ====
 
-== Configuring `exposeExternally`
+== Configure the Hazelcast Custom Resource
 
-To allow connections from clients, you need to configure the `exposeExternally` field, of the Hazelcast custom resource. This field has the following properties:
+To allow connections from clients, you must configure the `exposeExternally` field of the Hazelcast custom resource. 
+
+The `exposeExternally` field has the following properties:
 
 [cols="20%m,80%a"]
 |===
 |Property|Description
 
 |type
-|The way in which Hazelcast members are exposed to clients:
+|The operation mode used to expose Hazelcast members to clients. Valid values are as follows:
 
-- `Unisocket`: Members are exposed through one Kubernetes service that automatically load balances the traffic to Hazelcast members. Use this property if your clients use the unisocket operation mode.
-- `Smart`: Each member is exposed through a separate Kubernetes service that allows clients to send requests directly to the members that own a particular partition. Use this property if your clients use the smart operation mode.
+- `Unisocket`. Members are exposed through one Kubernetes service that automatically load balances the traffic to Hazelcast members. Use this property if your clients communicate with a single member in the cluster only.
+- `Smart`. Each member is exposed through a separate Kubernetes service that allows clients to send requests directly to the members that own a particular partition. Use this property if your clients communicate with all members in the cluster.
 
 |discoveryServiceType
-|Type of Kubernetes service used for discovering members in a Hazelcast cluster:
+|The type of Kubernetes service used to discover members in a Hazelcast cluster. Valid values are as follows:
 
-- `LoadBalancer` (default): Hazelcast client configuration `<load-balancer-external-ip>:5701`.
+- `LoadBalancer`. Default. Hazelcast client configuration: `<load-balancer-external-ip>:5701`.
 +
-WARNING: Your Kubernetes cluster should be able to assign public IPs to LoadBalancer services.
-- `NodePort`: Hazelcast client configuration `<node-address>:<node-port>`.
+NOTE: If you configure the `discoveryServiceType` to `LoadBalancer`, your Kubernetes cluster must be able to assign public IPs to LoadBalancer services.
+
+- `NodePort`. Hazelcast client configuration: `<node-address>:<node-port>`.
+
 |memberAccess
-|The way in which clients access Hazelcast members:
+|The method used by clients to access Hazelcast members. Valid values are as follows:
 
-- `LoadBalancer`: Hazelcast clients are outside the Kubernetes network and can access members, using the external IP that is assigned to the `LoadBalancer` service.
-- `NodePortExternalIP` (default): Hazelcast clients are outside the Kubernetes network, so a client can access members only via the public IP address that's assigned to their Kubernetes nodes.
-- `NodePortNodeName`: Hazelcast clients are inside the same network as the Kubernetes nodes, so clients can access a member by the hostname of its Kubernetes node.
-
+- `LoadBalancer`. Hazelcast clients are outside the Kubernetes network. Clients can access members using the external IP that is assigned to the `LoadBalancer` service.
+- `NodePortExternalIP`. Default. Hazelcast clients are outside the Kubernetes network. Clients can access members using the public IP address assigned to their Kubernetes nodes only.
+- `NodePortNodeName`. Hazelcast clients are inside the same network as the Kubernetes nodes. Clients can access a member using the hostname of its Kubernetes node.
 |===
 
-WARNING: If NodePorts are used (`discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), the Kubernetes nodes must allow external TCP traffic on node IPs and ports.
+NOTE: If you use NodePorts (that is, you have set `discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), the Kubernetes nodes must allow external TCP traffic on node IPs and ports.
 
-== Exposing Hazelcast to Smart Clients
+== Expose Hazelcast to Smart Clients
+
+A smart client is one that can communicate with all members in the cluster, or with a single member.
 
 Smart clients access partitioned data in a cluster by communicating with the partition owner. This operation mode increases the overall throughput and efficiency of client-cluster communication.
 
-NOTE: For non-partitioned data, smart clients can communicate with any cluster member.
+If data is not partitioned, smart clients can communicate with any cluster member.
 
-To support smart clients, you should configure the `type` property as `smart`.
+To allow smart clients to connect to the Hazelcast cluster, you must set the `type` property of the `exposeExternally` field to `smart`.
 
-In this configuration, the standard Kubernetes mechanism routes client traffic to the correct member. Or, if the client is not accessing partitioned data, the traffic is automatically load balanced.
+Kubernetes routes client traffic as follows:
 
-== Exposing Hazelcast to Unisocket Clients
+* If the client accesses partitioned data, traffic is routed to the correct member.
+* If the client does not access partitioned data, traffic is automatically load balanced.
 
-Unisocket clients communicate with a single member in the cluster. To enable these clients to connect to the Hazelcast cluster, you should configure the `type` property as `unisocket`.
+== Expose Hazelcast to Unisocket Clients
 
-In this configuration, the standard Kubernetes mechanism automatically load balances client traffic across the Hazelcast cluster.
+A unisocket client is one that communicates with a single member in the cluster only. 
+
+To allow unisocket clients to connect to the Hazelcast cluster, you must set the `type` property of the `exposeExternally` field to `unisocket`.
+
+Kubernetes automatically load balances client traffic across the Hazelcast cluster.
 
 == Example Configuration
 
-In this example, the Hazelcast cluster is configured to load balance connections from smart clients.
+In this example, we configure the connections from smart clients that are to be load balanced for our Hazelcast cluster.
+
+The configuration is as follows:
 
 .Example configuration
 [source,yaml,subs="attributes+"]
@@ -95,12 +109,16 @@ In this example, the Hazelcast cluster is configured to load balance connections
 include::ROOT:example$/hazelcast_expose_externally.yaml[]
 ----
 
-This configuration creates a load balancer for the discovery service and one service for each member.
+This configuration creates a load balancer for the discovery service, and a single service for each member. 
+
+With the cluster running, we can use the following command to see created connections:
 
 [source,shell]
 ----
 kubectl get service
 ----
+
+The result is similar to the following:
 
 ```
 NAME                 TYPE           CLUSTER-IP       EXTERNAL-IP     PORT(S)          AGE
@@ -111,14 +129,16 @@ hazelcast-sample-2   NodePort       10.219.243.16    <none>          5701:32585/
 ```
 
 <1> Discovery service
-<2> Member access service
+<2> Individual member access services
 
-The command below allows you to list the external addresses of the cluster.
+To list the external addresses used by the cluster, use the following command:
 
 [source,shell]
 ----
 kubectl get hazelcastendpoint --selector="app.kubernetes.io/instance=hazelcast-sample"
 ----
+
+The result is similar to the following:
 
 ```
 NAME                   TYPE        ADDRESS
@@ -129,7 +149,7 @@ hazelcast-sample-2     Member      34.173.81.209:30512
 hazelcast-sample-wan   WAN         35.238.20.134:5710
 ```
 
-Smart clients can use the external IP of the load balancer to connect to the cluster.
+Smart clients can be configured to connect to the cluster using the external IP address assigned to the load balancer as follows:
 
 [tabs]
 ====

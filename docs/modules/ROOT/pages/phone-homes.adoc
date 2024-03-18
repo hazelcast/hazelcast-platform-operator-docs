@@ -1,70 +1,98 @@
 = Phone Homes
-:description: Each instance of Hazelcast Platform Operator reports usage data to the Hazelcast phone home server when a Custom Resource is successfully deployed and every 24 hours after that. Hazelcast uses this data to learn about the usage of Hazelcast Platform Operator.
+:description: Each instance of Hazelcast Operator reports usage data to the Hazelcast phone home server. Hazelcast uses this data to learn about the usage of Hazelcast Operator.
 
 {description}
+
+The data is reported at the following times:
+
+* On deployment of a custom resource
+* Every 24 hours following deployment
 
 == Usage Data
 
 The following information is sent in a phone home:
 
 * Operator version
-* K8s distribution such as EKS, GKE, AKS
+* K8s distribution; for example, EKS, GKE, AKS
 * K8s version
 * Operator uptime
-* UID of the operator
-* Operator installation origin such as Dockerhub or Red Hat Connect
-* Type of watched namespace scope such as single, all, multi, own etc.
+* Operator UID
+* Operator installation origin; for example, Dockerhub or Red Hat Connect
+* Type of watched namespace scope; for example, single, all, multi, own
 * Number of created Hazelcast Open Source clusters
 * Number of created Hazelcast Enterprise clusters
 * List of created Hazelcast cluster UUIDs
-* List of High Availability Modes of Hazelcast clusters
-* Number of created Management Center instances
+* List of Highly Available Hazelcast clusters
+* Number of created Hazelcast Management Center instances
 * Number of created Hazelcast members
 * Number of created Wan Replications
 * Number of created CronHotBackup resources
 * Number of created MultiMap resources
 * Number of created Topic resources
 * Number of created ReplicatedMap resources
-* Number of Serialization configuration declared
-* Expose Externally specific:
-** Number of Hazelcast clusters where unisocket is used
-** Number of Hazelcast clusters where smart client is used
-** Number of Hazelcast clusters where LoadBalancer discovery is used
-** Number of Hazelcast clusters where NodePort discovery is used
-** Number of Hazelcast clusters where LoadBalancer member access is used
-** Number of Hazelcast clusters where node external IP member access is used
-** Number of Hazelcast clusters where node name member access is used
-* User Code Deployment specific:
-** Number of times clientEnabled field is given true
-** Number of times configMaps field is configured
-** Number of times bucketConfig field is configured
-** Number of times remoteURLs field is configured
+* Number of declared Serialization configurations
+* Information on the number of Hazelcast clusters using connections from outside K8s as follows:
+
+** Unisocket
+** Smart client
+** LoadBalancer discovery
+** NodePort discovery
+** LoadBalancer member access
+** Node external IP member access
+** Node name member access
+
 * Aggregated number of all types of configured Executor Services
-* Map specific:
-** Number of Map configurations created
-** Number of Map configurations with persistence enabled
-** Number of Map configurations with map store configured
-* Cache specific:
-** Number of Cache configurations created
-* HotHackup specific:
-** Number of local backups
-** Number of external backups
-** Number of backups using K8s persistence Volume Claim
-** Number of clusters with enabled persistence restore feature
-** Number of external backups to AWS S3
-** Number of external backups to Google Storage
-** Number of external backups to Azure Blob Storage
-** Number of created WAN Sockets using Advanced Network
-* Management Center External Connectivity specific:
-** Number of ClusterIP services exposing Management Center
-** Number of NodePort services exposing Management Center
-** Number of LoadBalancer services exposing Management Center
-** Number of Ingresses routing to Management Center
-** Number of OpenShift routes created for Management Center resources
+
+=== User Code Deployment Specific
+
+The following information is sent in a phone home for user code deployments:
+
+* Number of times `clientEnabled` is `true`
+* Number of times `configMaps` is configured
+* Number of times `bucketConfig` is configured
+* Number of times `remoteURLs` is configured
+
+
+=== Map Specific
+
+The following information is sent in a phone home for maps:
+
+* Number of Map configurations created
+* Number of Map configurations with persistence enabled
+* Number of Map configurations with map store configured
+
+=== Cache Specific
+
+The following information is sent in a phone home for Cache:
+
+* Number of Cache configurations created
+
+=== HotBackup Specific
+
+The following information is sent in a phone home for HotBackup:
+
+* Number of local backups
+* Number of external backups
+* Number of backups using K8s persistence Volume Claim
+* Number of clusters with persistence restore enabled
+* Number of external backups to AWS S3
+* Number of external backups to Google Storage
+* Number of external backups to Azure Blob Storage
+* Number of WAN Sockets created using Advanced Network
+
+=== Management Center External Connectivity Specific
+
+The following information is sent in a phone home for Hazelcast Management Center external connectivity:
+
+* Number of ClusterIP services exposing Management Center
+* Number of NodePort services exposing Management Center
+* Number of LoadBalancer services exposing Management Center
+* Number of Ingresses routing to Management Center
+* Number of OpenShift routes created for Management Center resources
 
 == Disabling Phone Homes
 
-To disable phone homes, set `phoneHomeEnabled` value to `false` with your helm release:
+To disable phone homes, set `phoneHomeEnabled` to `false` using Helm as follows:
 
 
 [source,shell]
@@ -74,4 +102,4 @@ helm install operator hazelcast/hazelcast-platform-operator --set phoneHomeEnabl
 
 == Phone Home URL
 
-Usage data is sent to the following URL: http://phonehome.hazelcast.com/pingOp.
+The URL used by the phone home server is exposed at \http://phonehome.hazelcast.com/pingOp.

@@ -1,18 +1,29 @@
-= Deploy a Cluster with the Hazelcast Platform Operator for Kubernetes
-:description: In this tutorial, you'll deploy a Hazelcast cluster using Hazelcast Platform Operator for Kubernetes.
+= Deploy a Cluster with Hazelcast Operator
+:description: In this tutorial, we deploy a Hazelcast cluster on either Kubernetes or Red Hat OpenShift using Hazelcast Operator.
 
 {description}
 
 == Before you Begin
 
-You need a Kubernetes or Openshift cluster, and the `kubectl` or `oc` command-line tool must be configured to communicate with your cluster.
+You need one of the following:
 
+* A Kubernetes cluster, with the `kubectl` command-line tool configured to communicate with your cluster. For further information on getting started with Kubernetes and configuring `kubectl`, refer to the link:https://kubernetes.io/docs/home/[Kubernetes documentation,window=_blank].
+* An OpenShift cluster with the `oc` command-line tool configured to communicate with your cluster. For further information on getting started with OpenShift configuring `oc`, refer to the link:https://docs.openshift.com/[OpenShift documentation,window=_blank].
 
-== Step 1. Deploy Hazelcast Platform Operator
+You also need the Helm package manager for Kubernetes. For further information on installing and using Helm, refer to the link:https://helm.sh/docs/[Helm documentation,window=_blank]. You can check the version of Helm you have installed using the following command:
 
-From release 5.6.0 onwards, you can use a Helm chart to install the Hazelcast Platform Operator.
+[source,shell]
+----
+helm list
+----
 
-. Add the link:https://github.com/hazelcast/charts[Hazelcast Helm Charts repository] to your Helm repository list by running the following command:
+NOTE: Remove all custom resource definitions (CRDs) before continuing.
+
+== Step 1. Deploy Hazelcast Operator
+
+From release 5.6.0, you can use a Helm chart to install the Hazelcast Operator as follows:
+
+. Add the link:https://github.com/hazelcast/charts[Hazelcast Helm Charts repository] to your Helm repository list using the following command:
 
 +
 [source,shell]
@@ -21,18 +32,20 @@ helm repo add hazelcast https://hazelcast-charts.s3.amazonaws.com/
 helm repo update
 ----
 
-. You can either deploy the Hazelcast Platform Operator at the same time as CRDs or separately.
+. Deploy Hazelcast Operator and CRDs. You can deploy these simultaneously (cluster-wide installation) or separately (restricted installation), as follows:
 
 +
-NOTE: Since CRDs are global resources, they may need to be installed by an administrator.
+NOTE: CRDs are global resources. This means that administrator rights might be required to install them.
 
 +
 [tabs]
 ====
-Cluster Wide Installation::
+Cluster-wide Installation::
 +
 --
-Run the following command to *deploy the Operator and the CRDs together*. By default, the Hazelcast Platform Operator watches all namespaces. Use the `watchedNamespaces` variable to update this configuration.
+By default, Hazelcast Operator watches all namespaces. To specify namespaces to watch, configure the `watchedNamespaces` variable.
+
+To deploy the Hazelcast Operator and the CRDs simultaneously, use the following command: 
 
 [source,shell,subs="attributes"]
 ----
@@ -44,18 +57,26 @@ helm install operator hazelcast/hazelcast-platform-operator --version={operator-
 Restricted Installation::
 +
 --
-Run the following commands to *deploy the Operator and the CRDs separately*. An administrator may need to do this.
+You might require administrator rights to deploy the CRDs. You only require namespace-scoped permissions for the `hz-system`, `ns-1`, and `ns-2` namespaces to install Hazelcast Operator. 
 
+NOTE: You must have added these namespaces to your cluster configuration. If this has not been done, the installation fails. 
+
+The CRDs must be successfully installed before installing Hazelcast Operator.
+
+To deploy Hazelcast Operator and the CRDs separately, complete the following steps:
+
+. Deploy the CRDs using the following command: 
++
 [source,shell,subs="attributes"]
 ----
 helm install operator-crds hazelcast/hazelcast-platform-operator-crds --version={operator-chart-version}
 ----
 
-After installing CRDs, install the Operator by running the following command. This operation requires only namespace-scoped permissions for `hz-system`, `ns-1` and `ns-2` namespaces and they already exist.
+. Install Hazelcast Operator in the namespaces using the following command:
 
 [source,shell,subs="attributes"]
 ----
-helm install operator hazelcast/hazelcast-platform-operator --version={operator-chart-version} -n hz-system \
+helm install operator hazelcast/hazelcast-platform-operator --version={operator-chart-version} -n hz-system\
     --set=createClusterScopedResources=false \
     --set=webhook.enabled=false \
     --set=enableHazelcastNodeDiscovery=false \
@@ -66,10 +87,10 @@ helm install operator hazelcast/hazelcast-platform-operator --version={operator-
 ====
 
 +
-NOTE: You can view all configuration options by running the following command: `helm show values hazelcast/hazelcast-platform-operator`
+TIP: You can view all configuration options using the `helm show values hazelcast/hazelcast-platform-operator` command.
 
 +
-. Monitor the operator logs. At this point, the Hazelcast Platform Operator should be up and running. You can check it with the command below.
+. Monitor the operator logs. With Hazelcast Operator running, you can monitor the logs as follows:
 
 +
 [tabs]
@@ -94,22 +115,94 @@ oc logs deployment.apps/operator-hazelcast-platform-operator
 
 == Step 2. Start the Hazelcast Cluster
 
-After installing and running the Hazelcast Platform Operator, you can create a Hazelcast cluster. First, create the `Hazelcast` custom resource file as `hazelcast.yaml`.
+After installing and starting Hazelcast Operator, you can create and start a Hazelcast cluster as follows:
 
 [tabs]
 ====
-Open Source::
+Enterprise Edition::
++
+--
+Hazelcast Platform (Enterprise Edition) requires a license key. 
+
+If you don't have a license key, you can request a trial license from the link:http://trialrequest.hazelcast.com/[Hazelcast website].
+
+. Create a Kubernetes secret to hold your license key as follows:
++
+.For Kubernetes
+[source,shell]
+----
+kubectl create secret generic hazelcast-license-key --from-literal=license-key=<YOUR LICENSE KEY>
+----
++
+.For Openshift
+[source,shell]
+----
+oc create secret generic hazelcast-license-key --from-literal=license-key=<YOUR LICENSE KEY>
+----
+
+. Create the Hazelcast custom resource file with the following content, and save it in your repository as _hazelcast-enterprise.yaml_:
++
+TIP: This is the Hazelcast custom resource referred to throughout this documentation.
++
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-enterprise.yaml[]
+----
+
+. Apply the custom resource file to start the Hazelcast cluster as follows:
++
+.For Kubernetes
+[source,shell]
+----
+kubectl apply -f hazelcast-enterprise.yaml
+----
++
+.For Openshift
+[source,shell]
+----
+oc apply -f hazelcast-enterprise.yaml
+----
+
+. Verify that Hazelcast cluster is running by viewing the Hazelcast member logs as follows:
++
+.For Kubernetes
+[source,shell]
+----
+kubectl logs pod/hazelcast-sample-0
+----
++
+.For Openshift
+[source,shell]
+----
+oc logs pod/hazelcast-sample-0
+----
+
+If the cluster is running, the result is similar to the following:
+
+```
+Members {size:3, ver:3} [
+        Member [10.36.8.3]:5701 - ccf31703-de3b-4094-9faf-7b5d0dc145b2 this
+        Member [10.36.7.2]:5701 - e75bd6e2-de4b-4360-8113-040773d858b7
+        Member [10.36.6.2]:5701 - c3d105d2-0bca-4a66-8519-1cacffc05c98
+]
+```
+
+--
+
+Community Edition::
 +
 --
 
-. Create the `Hazelcast` custom resource file and name it `hazelcast.yaml`.
+. Create the Hazelcast custom resource file with the following content, and save it in your repository as _hazelcast.yaml_:
++
+TIP: This is the Hazelcast custom resource referred to throughout this documentation.
 +
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hazelcast.yaml[]
 ----
 
-. Apply the custom resource to start the Hazelcast cluster.
+. Apply the custom resource to start the Hazelcast cluster as follows:
 +
 
 .For Kubernetes
@@ -126,7 +219,7 @@ oc apply -f hazelcast.yaml
 ----
 
 
-. Verify that the cluster is up and running by checking the Hazelcast member logs.
+. Verify that the cluster is running using the Hazelcast member logs as follows:
 +
 
 .For Kubernetes
@@ -141,7 +234,7 @@ kubectl logs pod/hazelcast-sample-0
 oc logs pod/hazelcast-sample-0
 ----
 
-You should see the following:
+If the cluster is running, the result is similar to the following:
 
 ```
 Members {size:3, ver:3} [
@@ -150,78 +243,12 @@ Members {size:3, ver:3} [
         Member [10.36.6.2]:5701 - c3d105d2-0bca-4a66-8519-1cacffc05c98
 ]
 ```
---
-Enterprise::
-+
---
-Hazelcast Enterprise requires a license key. If you don't have a license key, you can request one from the link:http://trialrequest.hazelcast.com/[Hazelcast website].
-
-. Create a Kubernetes secret to hold your license key.
-+
-.For Kubernetes
-[source,shell]
-----
-kubectl create secret generic hazelcast-license-key --from-literal=license-key=<YOUR LICENSE KEY>
-----
-+
-.For Openshift
-[source,shell]
-----
-oc create secret generic hazelcast-license-key --from-literal=license-key=<YOUR LICENSE KEY>
-----
-
-. Create the `Hazelcast` custom resource file and name it `hazelcast-enterprise.yaml`.
-+
-[source,yaml,subs="attributes+"]
-----
-include::ROOT:example$/hazelcast-enterprise.yaml[]
-----
-
-. Apply the custom resource to start the Hazelcast cluster.
-+
-.For Kubernetes
-[source,shell]
-----
-kubectl apply -f hazelcast-enterprise.yaml
-----
-+
-.For Openshift
-[source,shell]
-----
-oc apply -f hazelcast-enterprise.yaml
-----
-
-. Verify that Hazelcast cluster is up and running by checking the Hazelcast member logs.
-+
-.For Kubernetes
-[source,shell]
-----
-kubectl logs pod/hazelcast-sample-0
-----
-+
-.For Openshift
-[source,shell]
-----
-oc logs pod/hazelcast-sample-0
-----
-You should see the following:
-
-```
-Members {size:3, ver:3} [
-        Member [10.36.8.3]:5701 - ccf31703-de3b-4094-9faf-7b5d0dc145b2 this
-        Member [10.36.7.2]:5701 - e75bd6e2-de4b-4360-8113-040773d858b7
-        Member [10.36.6.2]:5701 - c3d105d2-0bca-4a66-8519-1cacffc05c98
-]
-```
-
 --
 ====
 
 == Step 3. Check that the Hazelcast Cluster is Running
 
-To check if a cluster is running, see the `status` field of the Hazelcast resource.
-
-The status can be checked using the `get hazelcast` command.
+You can use the `status` field of the Hazelcast custom resource to check if a cluster is running as follows:
 
 [tabs]
 ====
@@ -243,12 +270,14 @@ oc get hazelcast
 --
 ====
 
+If the custom resource is running, the result is similar to the following:
+
 ```
 NAME               STATUS    MEMBERS
 hazelcast-sample   Running   3/3
 ```
 
-You can use the following command for the long format.
+You can get more detailed information on the status as follows:
 
 
 [tabs]
@@ -271,6 +300,8 @@ oc get hazelcast hazelcast-sample -o=yaml
 --
 ====
 
+The result is similar to the following:
+
 [source,yaml,subs="attributes+"]
 ----
 status:
@@ -279,22 +310,22 @@ status:
   phase: Running
 ----
 
-The `phase` field represents the current status of the cluster, and can contain any of the following values:
+In the detailed information, the `phase` field provides the current status of the cluster, and can contain any of the following values:
 
 * `Running`: The cluster is up and running.
 * `Pending`: The cluster is in the process of starting.
 * `Failed`: An error occurred while starting the cluster.
 
-Any additional information such as validation errors will be provided in the `message` field.
+If additional information is available, such as validation errors, this is provided in the `message` field.
 
-The `readyMembers` field represents the number of Hazelcast members that are connected to the cluster.
+The number of Hazelcast members that are connected to the cluster is provided in the `readyMembers` field.
 
-WARNING: Use the `readyMembers` field only for informational purposes. This field is not always accurate. Some members may have joined or left the cluster since this field was last updated.
+NOTE: The `readyMembers` field is for informational purposes only. This field is not always accurate, as some members might have joined or left the cluster since this field was last updated.
 
 
 == Step 4. Clean up
 
-You can run the commands below to remove the Hazelcast cluster.
+You can remove the Hazelcast cluster as follows:
 
 [tabs]
 ====
@@ -316,7 +347,7 @@ oc delete -f hazelcast.yaml
 --
 ====
 
-If you installed Hazelcast Enterprise, run the following commands to remove Hazelcast Enterprise cluster and Hazelcast License Key Secret.
+If you installed Hazelcast Platform Enterprise Edition, you can remove the Hazelcast cluster and license key secret as follows:
 
 [tabs]
 ====
@@ -340,15 +371,19 @@ oc delete secret hazelcast-license-key
 --
 ====
 
-Finally, run the command below to delete the Hazelcast Platform Operator deployment.
+Remove the CRDs and Hazelcast Operator as follows:
 
+* If you installed the CRDs and Hazelcast Operator simultaneously, use the following command:
+
++
 [source,shell]
 ----
 helm uninstall operator
 ----
 
-If you installed the CRDs separately from the operator, you need to remove them by running the following command:
+* If you installed the CRDs and Hazelcast Operator separately, use the following command to remove the CRDs:
 
++
 [source,shell]
 ----
 helm uninstall operator-crds
@@ -356,4 +391,4 @@ helm uninstall operator-crds
 
 == Next Steps
 
-Learn how to xref:connect-outside-kubernetes.adoc[expose Hazelcast clusters outside Kubernetes] so you can connect external clients to them.
+Learn how to xref:connect-outside-kubernetes.adoc[expose Hazelcast clusters outside Kubernetes], so that you can connect external clients to them.

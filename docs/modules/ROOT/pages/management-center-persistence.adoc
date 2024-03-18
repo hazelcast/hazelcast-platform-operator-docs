@@ -1,41 +1,54 @@
 = Management Center Persistence
-:description: Configure Management Center Persistence.
+:description: Hazelcast Management Center persists metrics data for connected Hazelcast Clusters in a persistent volume, or on disk depending on the configuration.
 
-Management Center collect and report metrics data for the connected Hazelcast Clusters. Metrics data includes various number of time series, such as CPU load, memory consumption, and operation counters. See the xref:hazelcast:ROOT:list-of-metrics.adoc[Metrics section] for details about configuring metrics collection.
+{description}
 
-By default, Management Center persists the collected metrics to a persistent volume. You can turn it off by disabling persistence.
+The time series metrics collected for each connected Hazelcast cluster include the following:
 
-== Configuring Management Center Persistence
+* CPU load
+* Memory consumption
+* Operation counters
 
-Configuration for Management Center persistence.
+For further information on collected metrics and their configuration, refer to xref:hazelcast:ROOT:list-of-metrics.adoc[List of Hazelcast Metrics,window=_blank] in the Platform documentation.
+
+By default, Management Center persists the collected metrics to a persistent volume. If you want to use disk instead of the persistent volume, disable persistence as described below.
+
+== Configure Management Center Persistence
+
+Set the `persistence` fields described below on creation of the custom resource only. Management Center is unaffected by any update to the `persistence` fields.
+
+You can use the following fields to configure persistence in Management Center:
 
 [cols="30%m,70%a"]
 |===
 |Field|Description
 
 |`persistence.enabled`
-| When true, Management Center will use a PersistentVolumeClaim to store data.
+|Whether to use a persistent volume or disk to store data.
+By default, set to `true`, Management Center uses the defined `PersistentVolumeClaim` to store data.
+If you want to store data on disk, set to `false`.
 
 |`persistence.size`
-| Size of the created PersistentVolumeClaim.
+|The requested storage size of the `PersistentVolumeClaim`.
 
 |`persistence.existingVolumeClaimName`
-| Name of the PersistentVolumeClaim MC will use for persistence. If not empty, MC will use the existing claim instead of creating a new one.
+|The `PersistentVolumeClaim` name used by Management Center for persistence. 
+If this field is not empty, Management Center uses the existing claim instead of creating one.
 
 |`persistence.storageClass`
-| StorageClass from which PersistentVolumeClaim will be created.
+|The `StorageClass` from which `PersistentVolumeClaim` is created.
 
 |===
 
-WARNING: StatefulSet does not support updates to `volumeClaimTemplates` field, so `persistence` field should be set only at the creation of the custom resource. Any update to the `persistence` field will not affect the Management Center.
+NOTE: StatefulSets do not support updates to the `volumeClaimTemplates` field. 
 
-NOTE: By default, xref:management-center:deploy-manage:configuring.adoc#where-management-center-saves-data[Management Center data] is persisted to the `/data` directory. If you want to use an existing `PersistentVolumeClaim`, set its name in the `.spec.persistence.existingVolumeClaimName` field in the Management Center custom resource.
+By default, Management Center persists metric data in the _hazelcast-mc_ directory of your home directory. If you want to use an existing `PersistentVolumeClaim` instead, set the name in the `.spec.persistence.existingVolumeClaimName` field of the Management Center custom resource. For further information on configuring where Management Center persists metrics, refer to xref:management-center:deploy-manage:configuring.adoc#where-management-center-saves-data[Where Management Center Saves Data,window=_blank] in the Management Center documentation.
 
 === Example Configuration
 
-The example configuration does the following:
+In this example, we assigns a Kubernetes Persistent Volume with a size of 10Gi.
 
-- Assigns Kubernetes Persistent Volume with size of 10Gi
+The configuration is as follows:
 
 .Example Management Center with Persistence Configuration
 [source,yaml,subs="attributes+"]

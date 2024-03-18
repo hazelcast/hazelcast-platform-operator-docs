@@ -1,37 +1,39 @@
 = Persistence, Backup and Restore
-:description: Persistence allows individual members and whole clusters to recover data by persisting map entries, JCache data, and streaming job snapshots on disk. Members can use persisted data to recover from a planned shutdown (including rolling upgrades), a sudden cluster-wide crash, or a single member failure.
+:description: Persistence allows individual members and whole clusters to recover data using persisted map entries, JCache data, and streaming job snapshots on disk. Members can use persisted data to recover from a planned shutdown (including rolling upgrades), a sudden cluster-wide crash, or a single member failure.
 :page-enterprise: true
 
 {description}
 
-This topic assumes that you know about Persistence in Hazelcast. To learn about Persistence, see the xref:hazelcast:storage:persistence.adoc[Platform documentation].
+For further information on Persistence and how it is used in Hazelcast, refer to xref:hazelcast:storage:persistence.adoc[Persisting Data on Disk,window=_blank] in the Platform documentation. For further information on automating the Hazelcast state management to ensure optimal cluster behavior during shutdown and restart, refer to xref:hazelcast:kubernetes:kubernetes-persistence.adoc[Running Hazelcast Enterprise with Persistence under Kubernetes,window=_blank] in the Platform documentation.
 
-There are two options for a backup: local and external. Local backups are kept in volume and never moved anywhere whereas external backups are moved into buckets provided by the user. 
+You can create backups in either of the following places:
 
-TIP: For a working example, see link:https://docs.hazelcast.com/tutorials/hazelcast-platform-operator-external-backup-restore[this tutorial].
+* Locally. Local backups are kept in-volume and never moved anywhere, which means that the data is constrained to the cluster.
+* Externally. External backups are moved to buckets that you provide, which allows the data to be used in different clusters. For example, you might want to move data between two clusters.
 
-== Enabling Persistence
+TIP: Follow the link:https://docs.hazelcast.com/tutorials/hazelcast-platform-operator-external-backup-restore[Restore a Cluster from Cloud Storage with Hazelcast Platform Operator] tutorial if you prefer a working example.
 
-Enabling Hazelcast persistence is done with the following configuration.
+[enabling-persistence]
+== Enable Persistence
 
+Hazelcast persistence is configured as follows:
 
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hazelcast-persistence.yaml[]
 ----
 
-<1> <<recovery-policy, Cluster recovery policy>>.
-<2> Size of the PersistentVolumeClaim (PVC) where Hazelcast data is persisted.
-<3> Agent responsible for moving data from the local storage to external buckets.
-    The agent configuration is optional. If you enable `persistence` and do not pass the agent configuration, Hazelcast Platform Operator
-    uses the latest agent version that is compatible with its version.
+<1> Cluster recovery policy. For further information on selecting a cluster recovery policy, see <<recovery-policy, Choosing a Cluster Recovery Policy>>.
+<2> Requested size of the PersistentVolumeClaim (PVC) for Hazelcast data persistence. You must calculate the total amount of disk space that you will require.
+    Remember that the total amount of used disk space might be larger than the size of your in-memory data, depending on the number of local backups you make.
+<3> Optional. This is always `hazelcast/platform-operator-agent`. 
+    Agent responsible for moving data between storage locations and cleaning up after the move.
+    If you enable `persistence`, but do not configure the agent, Hazelcast Operator uses the latest compatible version of agent.
 
-NOTE: Make sure to calculate the total disk space that you will use. The total used disk space may be larger than the size of in-memory data, depending on how many <<local-backup, backups>> you take.
+[trigger-backup]
+== Trigger Local Backups
 
-[[trigger-backup]]
-== Triggering Local Backups
-
-You can take local backups using the `HotBackup` custom resource. Local backups are kept in volume and are not moved anywhere.
+Local backups can be triggered using the `HotBackup` custom resource as follows:
 
 --
 [source,yaml,subs="attributes+"]
@@ -40,15 +42,22 @@ include::ROOT:example$/hot-backup-local.yaml[]
 ----
 --
 
-== Triggering External Backups
+Local backups are always kept in volume.
 
-In some cases, keeping the data only at PVC and restoring the data from it is not enough.
-For example, moving data between two Kubernetes clusters. You can use external storages so they
-will become portable.
+[triggering-external-backups]
+== Trigger External Backups
 
-When persistence is enabled Hazelcast pod will start with a sidecar agent which will upload the backups into an external bucket provided by the user. For external storage, AWS S3, GCP Bucket and Azure Blob storage options are supported.
+In some cases, keeping the data only in volume and restoring the data to a single Kubernetes cluster is not enough. You can use external storage to support portablility. For example, when you want to move data between two Kubernetes clusters. 
 
-To trigger an external backup, you need to configure a bucket URI and a secret to tell Hazelcast where to store backup data and how to authenticate.
+When persistence is enabled, your Hazelcast pod starts with `platform-operator-agent`. Agent uploads backups to the external bucket that you have configured. 
+
+Hazelcast supports the following external storage:
+
+* AWS S3
+* GCP Bucket
+* Azure Blob
+
+To trigger an external backup, configure a bucket URI and a secret to tell Hazelcast where to store backup data and how to authenticate as follows:
 
 [tabs]
 ====
@@ -56,13 +65,17 @@ To trigger an external backup, you need to configure a bucket URI and a secret t
 AWS::
 +
 --
-External backup in AWS S3:
+The following configuration stores an external backup in AWS S3:
+
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hot-backup-external-aws.yaml[]
 ----
 
-See https://docs.aws.amazon.com/sdk-for-go/api/aws/session/[AWS Session] to learn about authentication procedure.
+For further information on the AWS Session authentication process, refer to the link:https://docs.aws.amazon.com/sdk-for-go/api/aws/session/[AWS documentation,window=_blank].
+
+You can pass your credentials when creating a Kubernetes Secret using the following command:
+
 [source,bash]
 ----
 kubectl create secret generic <secret-name> \
@@ -75,13 +88,17 @@ kubectl create secret generic <secret-name> \
 GCP::
 +
 --
-External backup in GCP Bucket:
+The following configuration stores an external backup in GCP Bucket:
+
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hot-backup-external-gcp.yaml[]
 ----
 
-See https://cloud.google.com/docs/authentication/production/[Application Default Credentials] to learn about authentication procedure.
+For further information on the GCP principal authentication process, refer to link:https://cloud.google.com/docs/authentication/production/[Authentication at Google,window=_blank] in the Google Cloud documentation.
+
+You can pass the file path to your credentials when creating a Kubernetes Secret using the following command:
+
 [source,bash]
 ----
 kubectl create secret generic <secret-name> \
@@ -92,13 +109,17 @@ kubectl create secret generic <secret-name> \
 Azure::
 +
 --
-External backup in Azure Blob:
+The following configuration stores an external backup in Azure Blob:
+
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hot-backup-external-azure.yaml[]
 ----
 
-See https://docs.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage?tabs=azure-portal/[Azure Storage Account Keys] to learn about authentication procedure.
+For further information on the Azure Blob authentication process, refer to link:https://docs.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage?tabs=azure-portal/[Manage storage account access keys,window=_blank] in the Azure documentation.
+
+You can pass your credentials when creating a Kubernetes Secret using the following command:
+
 [source,bash]
 ----
 kubectl create secret generic <secret-name> \
@@ -107,77 +128,100 @@ kubectl create secret generic <secret-name> \
 ----
 --
 ====
-<1> The bucket URI where backup data will be stored in
-<2> Name of the secret with credentials for accessing the given Bucket URI.
+<1> The Bucket URI in which to store backup data.
+<2> Name of the secret with credentials for accessing the Bucket URI.
 
-== Scheduling Backups
+[scheduling-backups]
+== Schedule Backups
 
-You can schedule backups using the `schedule` and `hotBackupTemplate` fields of the `CronHotBackup` resource. For more information about the `CronHotBackup` resource, see the xref:api-ref.adoc#cronhotbackupspec[API Reference].
+You can schedule backups using the `schedule` and `hotBackupTemplate` fields of the `CronHotBackup` resource as follows:
 
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/cron-hot-backup.yaml[]
 ----
 
+For further information on the `CronHotBackup` resource, see xref:api-ref.adoc#cronhotbackupspec[CronHotBackupSpec] in the Hazelcast Operator API Reference.
+
 The `schedule` field takes a valid cron expression. For example, you can configure the following scheduled backups:
 
 [cols="1,1"]
 |===
+|`schedule` Value|Description
+
 | ```30 10 * * *```
-| At 10:30 AM every day
+| Take a backup at 10:30 AM every day
 
 | ```0, 0, 1,15,25 * *```
-| On 1st, 15th, and 25th of each month at midnight
+| Take a backup at midnight on the 1st, 15th, and 25th of each month
 
 | ```@monthly```
-| On the first day of each month at midnight
+| Take a backup at midnight on the first day of each month
 |===
 
+For a full list of supported expressions, refer to link:https://pkg.go.dev/github.com/robfig/cron/v3@v3.0.1#hdr-CRON_Expression_Format[CRON Expression Format,window=_blank] in the library documentation.
 
-For a full list of supported expressions, see the link:https://pkg.go.dev/github.com/robfig/cron/v3@v3.0.1#hdr-CRON_Expression_Format[library documentation].
+[checking-the-status-of-a-backup]
+== Check the Status of a Backup
 
-== Checking the Status of a Backup
+To check the status of a local backup, use the following command:
 
-To check the status of a local backup, run the following command:
 [source,bash]
 ----
 kubectl get hotbackup hot-backup
 ----
 
-The status of the backup is displayed in the output.
+The result is similar to the following:
+
 [source,bash]
 ----
 NAME         STATUS
 hot-backup   Success
 ----
 
-== Restoring from Local Backups
+[restoring-from-local-backup]
+== Restore from Local Backups
 
-To restore a cluster from local backups, you can directly reapply the `Hazelcast` resource, which gives the cluster access to the PVCs that contain the persisted data. This will restore the Hazelcast cluster from existing `hot-restart` folders.
+You can only use a local backup once to restore a cluster.
 
-Or, to restore from local backups that you have taken using the `HotBackup` resource, give the `HotBackup` resource name in the restore configuration. For the restore to work correctly, make sure the status of the `HotBackup` resource is `Success`. 
+To restore a cluster from a local backup, you can choose from the following approaches:
 
-When this restore mechanism is used, the Restore Agent container is
-deployed with the Hazelcast container in the same Pod. The agent starts as an initContainer before the Hazelcast container.
+* Reapply the Hazelcast custom resource directly. 
++
+This approach gives the cluster access to the PVCs that contain the persisted data. The Hazelcast cluster is restored from the existing `hot-restart` folders.
 
-
+* Restore from a local backup, which was created using the HotBackup resource. 
++
+To use this approach, you must have configured `hotBackupResource Name` in the `restore` section of your Hazelcast custom resource configuration. For the restore to work correctly, the specified `HotBackup` resource must have been created successfully. You can check the status of your local backup as described in <<scheduling-backups,Scheduling Backups>>
++
+For this approach, the `platform-operator-agent` container, also known as the sidecar agent and Agent, is
+deployed with the Hazelcast container in the same Pod. Agent starts as an init container, which is a specialized container that runs before the Hazelcast container.
++
+The configuration is as follows:
++
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hazelcast-persistence-restore-cr-name.yaml[]
 ----
 
-<1> `HotBackup` resource name used for restore. The backup folder name will be taken from the `HotBackup` resource.
-<2> Agent responsible for restoring data from the local storage.
-    The agent configuration is optional. If you give `restore` under `persistence` and do not pass the agent configuration, Hazelcast Platform Operator
-    uses the latest agent version that is compatible with its version.
+<1> `HotBackup` resource name used for restore. The backup folder name is taken from the `HotBackup` resource.
+<2> Optional. This is always `hazelcast/platform-operator-agent`. 
+Agent responsible for restoring data from local storage and cleaning up after the move. 
+If you enable `persistence` and do not pass the agent configuration, Hazelcast Operator uses the latest compatible version of agent.
 
-== Restoring from External Backups
+[restoring-from-external-backups]
+== Restore from External Backups
 
-To restore a cluster from external backups, you can either set up the bucket configuration or give the `HotBackup` resource name that you used to trigger the external backup. In either case, the backup is restored from the external bucket.
+To restore a backed-up cluster from an external bucket, you can configure either:
 
-When this restore mechanism is used, the Restore Agent container is deployed with the Hazelcast container in the same Pod. The agent starts as an initContainer before the Hazelcast container.
+* The URI and secret of the bucket.
+* The name of the HotBackup resource that was used to trigger the external backup.
 
-NOTE: If you have not created the secret, you must do so in the same way as in <<create-secret, Triggering External Backups>>.
+The `platorm-operator-agent` container is deployed with the Hazelcast container in the same Pod. The agent starts as an init container, also known as the sidecar agent and Agent, which is a specialized container that runs before the Hazelcast container.
+
+NOTE: You must have created the secret. If you have not done so, follow the instructions in <<create-secret, Trigger External Backups>> for your external storage provider.
+
+The configuration is as follows:
 
 [tabs]
 ====
@@ -189,11 +233,11 @@ Bucket Configuration::
 ----
 include::ROOT:example$/hazelcast-persistence-restore-external.yaml[]
 ----
-<1> Bucket URI where backup data will be restored from.
-<2> Name of the secret with credentials for accessing the given bucket URI.
-<3> Agent which is responsible for restoring data from the external storage.
-    The agent configuration is optional. If you provide `restore` under `persistence` and do not pass the agent configuration, Hazelcast Platform Operator
-    uses the latest agent version that is compatible with its version.
+<1> Bucket URI from which backup data is restored.
+<2> Name of the secret with credentials for accessing the specified bucket URI.
+<3> Optional. This is always `hazelcast/platform-operator-agent`. 
+    Agent responsible for restoring data from external storage and cleaning up after the move. 
+    If you enable `persistence` and do not pass the agent configuration, Hazelcast Operator uses the latest compatible version of agent.
 --
 
 HotBackup resource name::
@@ -204,9 +248,9 @@ HotBackup resource name::
 include::ROOT:example$/hazelcast-persistence-restore-cr-name.yaml[]
 ----
 
-<1> `HotBackup` resource name used for the restore. The bucket URI and secret are taken from the `HotBackup` resource.
-<2> Agent responsible for restoring data from external storage.
-    The agent configuration is optional. If you provide `restore` under `persistence` and do not pass the agent configuration, Hazelcast Platform Operator
+<1> Name of the `HotBackup` resource used for the restore. The bucket URI and secret are taken from the `HotBackup` resource.
+<2> Optional. Agent responsible for restoring data from external storage.
+    If you provide `restore` under `persistence` and do not pass the agent configuration, Hazelcast Platform Operator
     uses the latest agent version that is compatible with its version.
 --
 
@@ -214,9 +258,28 @@ include::ROOT:example$/hazelcast-persistence-restore-cr-name.yaml[]
 
 == Configuring Persistence
 
+You can configure the following:
+
+* <<drt,Data recovery timeout>>
+* <<recovery-policy,Cluster recovery policy>>
+* <<configuring-forcepartial-start,Force or Partial Start>>
+
+
+[drt]
 === Data Recovery Timeout
 
-To choose a data recovery timeout, you can use dataRecoveryTimeout. The field takes an integer value representing the timeout in seconds and uses this value to set link:https://docs.hazelcast.com/hazelcast/latest/storage/configuring-persistence#global-persistence-options[validation-timeout-seconds, data-load-timeout-seconds] Hazelcast Persistence options.
+The data recovery timeout defines the length of time for which the Hazelcast Operator waits for the recovery of your data to complete. If the recovery takes longer than the configured time, it fails.
+
+The data recovery timeout is set in the `dataRecoveryTimeout` field. The timeout is defined in seconds, and must be an integer. This field is used to set the following Hazelcast persistence options:
+
+* `validation-timeout-seconds`
+* `data-load-timeout-seconds`
+
+For further information on these options, refer to xref:hazelcast:storage:configuring-persistence.adoc#global-persistence-options[Global Persistence Options,window=_blank] in the Platform documentation.
+
+In this example, we set the `dataRecoveryTimeout` field to 600 seconds, or 10 minutes.
+
+The configuration is as follows:
 
 [source,yaml,subs="attributes+"]
 ----
@@ -224,35 +287,54 @@ include::ROOT:example$/hazelcast-persistence-datarecoverytimeout.yaml[]
 ----
 
 [[recovery-policy]]
-=== Choosing a Cluster Recovery Policy
+=== Cluster Recovery Policy
 
-To decide how a cluster should behave when one or more members cannot rejoin after a cluster-wide restart, you can define one of the following cluster recovery policies. The Operator supports all the policies in the Hazelcast Platform `cluster-data-recovery-policy configuration` options. For complete descriptions and advice on choosing a policy, see the xref:hazelcast:storage:configuring-persistence.adoc#policy[Platform documentation].
+The cluster recovery policy automates the behavior when one or more members cannot rejoin following a cluster-wide restart. 
+
+The policies that can be applied are described in the following table:
 
 [cols="1,1"]
 |===
+|Policy|Description
+
 | ```FullRecoveryOnly```
-| Does not allow partial start of the cluster.
+| Default. Do not allow partial start of the cluster.
+This policy forces the cluster to wait until all members have restarted. If one or more members do not start, a manual force start is required to ensure that all running members delete their persistence stores and generate new universally unique identifiers (UUIDs). 
 
 | ```PartialRecoveryMostRecent```
-| Allows partial start with the members that have most recent partition table.
+| Allow partial start with the members that have most recent partition table.
 
 | ```PartialRecoveryMostComplete```
-| Allows partial start with the member that have most complete partition table.
+| Allows partial start with the member that has most complete partition table.
 |===
 
-=== Configuring Force/Partial Start
 
-To recover a cluster that has Persistence enabled after a cluster-wide restart, you can force a cluster to delete their persistence stores when one or more members fail to restart by triggering Force Start. Or you can force a cluster to start without some members by triggering Partial Start
+[configuring-forcepartial-start]
+=== Configure Force/Partial Start
 
-WARNING: The cluster loses all persisted data after a force-start.
+To recover a cluster that has Persistence enabled after a cluster-wide restart, you can do one of the following:
 
-WARNING: The cluster loses some persistent data after a partial-start.
+* Force a cluster to delete their persistence stores when one or more members fail to restart. To do this, you must trigger Force Start.
+* Force a cluster to start without some members. To do this, you must trigger Partial Start.
 
-To trigger the cluster recover action set the `startupAction`:
+[WARNING]
+====
+* The cluster can lose all persisted data after a force-start.
+* The cluster can lose some persistent data after a partial-start.
+====
 
+To trigger the cluster recovery action, configure the `startupAction` as follows:
+
+* Force Start:
++
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hazelcast-forcestart.yaml[]
 ----
 
-The `PartialStart` can be triggered only when `clusterDataRecoveryPolicy` is set to `PartialRecoveryMostRecent` or `PartialRecoveryMostComplete`.
+* Partial Start:
++
+Amend the `clusterDataRecoveryPolicy` value in the above example as follows:
+
+** `PartialRecoveryMostRecent`. Use this value when you want to trigger partial start with the members that have most recent partition table.
+** `PartialRecoveryMostComplete`. Use this value when you want to trigger partial start with the member that has most complete partition table.

@@ -1,13 +1,17 @@
 = Management Center JVM Arguments
-:description: Configure Management Center JVM Arguments.
+:description: You can use custom JVM arguments in Hazelcast Management Center configure Java runtime parameters. This can help administrators to optimize resource use and enhance the overall management of Hazelcast clusters. 
 
-Custom JVM arguments in Hazelcast Management Center allow for the precise configuration of Java runtime parameters, enabling administrators to optimize resource utilization and enhance the overall performance of their Hazelcast cluster management. In some cases, it would be highly useful to pass JVM arguments, such as configuring log levels or supporting the IPv6 stack.
+{description}
 
-The structure of configuring JVM arguments in ManagementCenter CR is same as Hazelcast CR.
+For example, you can pass JVM arguments to configure log levels or support IPv6.
+
+JVM arguments are configured in the Management Center custom resource using the same is same way as for Hazelcast custom resources. For further information on the fields used to configure JVM arguments, see xref:jvm-parameters.adoc[].
 
 == Example Configuration
 
-The example configuration adds some JVM arguments to setting log levels to debug level and enabling IPv6 addressing in JVM.
+In this example, we configure JVM arguments to set the log levels to debug and enable IPv6 addressing in JVM.
+
+The configuration is as follows:
 
 .Example Management Center with JVM args Configuration
 [source,yaml,subs="attributes+"]

@@ -1,17 +1,22 @@
-= Hazelcast Platform Operator
+= Hazelcast Operator
 :!page-pagination:
-:description: By eliminating the need for manual deployment and life-cycle management, Hazelcast Platform Operator simplifies working with Hazelcast clusters on Kubernetes and Red Hat OpenShift.
+:description: Hazelcast Operator extends cluster behaviour without the need to modify Kubernetes code directly. This simplifies working with Hazelcast clusters on Kubernetes and Red Hat OpenShift. 
 
 {description}
 
-Hazelcast Platform Operator allows your development and DevOps teams to automate common management tasks for your Hazelcast clusters on Kubernetes and Red Hat OpenShift. For example, you can use Hazelcast Platform Operator to automate the following tasks:
+By eliminating the need for manual deployment and life-cycle management, Hazelcast Operator helps your development and DevOps teams to automate common Kubernetes management tasks for your Hazelcast clusters. For example, you can use Hazelcast Operator to automate the following tasks:
 
 * Configuration
 * Creation
 * Scaling
 * Recovery
 
-This documentation assumes an intermediate knowledge of Kubernetes.
+To get the most from this documentation, we recommend that you have completed the following Kubernetes tutorials, or have experience using Kubenetes:
+
+* link:https://kubernetes.io/docs/tutorials/kubernetes-basics[Kubernetes Basics,window=_blank]
+* link:https://kubernetes.io/docs/tutorials/stateful-application/basic-stateful-set/[StatefulSet Basics,window=_blank]
+
+Hazelcast also recommends that you understand how Kubernetes works. For further information on the concepts used by Kubernetes, refer to the link:https://kubernetes.io/docs/concepts/[Kubernetes documentation,window=_blank]. 
 
 ////
 Content to consider for this page:
@@ -26,14 +31,14 @@ Known limitations
 
 Community support is for every Hazelcast user. You can use the following channels to get community support:
 
-* https://github.com/hazelcast/hazelcast-platform-operator[Hazelcast Platform Operator GitHub^] (for reporting issues through our GitHub repository)
+* https://github.com/hazelcast/hazelcast-platform-operator[Hazelcast Operator GitHub^] (for reporting issues through our GitHub repository)
 * https://slack.hazelcast.com/[Hazelcast Community Slack^]
 
 == Customer Support
 
 Customer support is for paying Hazelcast customers. For further information on Hazelcast's comprehensive 24/7 support offerings, refer to the https://hazelcast.com/services/support/[Hazelcast website^].
 
-A support subscription from Hazelcast allows you to get the most value from Hazelcast Platform Operator. Our rapid response times to technical
+A support subscription from Hazelcast allows you to get the most value from Hazelcast Operator. Our rapid response times to technical
 support inquiries, access to critical software patches, and other services allow you to improve productivity and quality.
 
 When you have an account set up, you can https://support.hazelcast.com/s/[open a support request].
