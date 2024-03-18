@@ -3,7 +3,7 @@
 
 {description}
 
-Hazelcast Operator supports various serialization options; the one you choose depends on what you want to do with your data. For further information on the serialization options supported by Hazelcast, refer to the xref:ROOT:hazelcast:serialization:serialization.adoc#serialization-options[Hazelcast Platform documentation,widow=_blank].
+Hazelcast Operator supports various serialization options; the one you choose depends on what you want to do with your data. For further information on the serialization options supported by Hazelcast, refer to the xref:hazelcast:serialization:serialization.adoc#serialization-options[Hazelcast Platform documentation,window=_blank].
 
 For details of the fields used to configure serialization, see xref:api-ref.adoc#serializationconfig[SerializationConfig] in the Hazelcast Operator API Reference.
 

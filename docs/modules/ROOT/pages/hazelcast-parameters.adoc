@@ -9,7 +9,7 @@ It is worth highlighting the following:
 
 - During a rolling upgrade, the cluster is shutdown gracefully to prevent data loss. 
 +
-You can configure this using the xref:hazelcast:system-properties.adoc#hazelcast.graceful.shutdown.max.wait[hazelcast.graceful.shutdown.max.wait system property,window=_blank].
+You can configure this using the `hazelcast.graceful.shutdown.max.wait` property as shown in the example below.
 +
 For example, in the following configuration we set the maximum wait during a graceful shutdown to 300 seconds, or five minutes:
 +

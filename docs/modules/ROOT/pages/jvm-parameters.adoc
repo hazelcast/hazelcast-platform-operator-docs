@@ -50,14 +50,15 @@ The configuration is as follows:
 include::ROOT:example$/jvm.yaml[]
 ----
 
+[garbage-collectors-parameters]
 == Garbage Collector Parameters
 
 You can configure the following for the Garbage Collector:
 
-* <<enabling-logging,Whether or not to produce logs>>.
-* <<setting-the-garbage-collector,Which Garbage Collector to use>>.
+* <<enable-logging,Whether or not to produce logs>>.
+* <<set-the-garbage-collector,Which Garbage Collector to use>>.
 
-[enabling-loggin]
+[enabling-logging]
 === Enable Logging
 
 You can use the Garbage Collector (GC) log to tune and debug your development by analysing the log to understand your application's behavior.
