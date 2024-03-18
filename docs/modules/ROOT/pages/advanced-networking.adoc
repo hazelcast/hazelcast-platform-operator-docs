@@ -1,19 +1,30 @@
 = Advanced Network Configuration
+:description: With the default configuration, Hazelcast members use a single server socket for connections. With advanced network configuration, you can configure the use of separate server sockets. Hazelcast Operator enables advanced networking configuration by default with pre-configured networks for client, member, REST, and WAN protocols. 
 
-In Hazelcast, you can configure Hazelcast members with separate server sockets, applying distinct network configurations for various protocols. This feature is known as the  link:https://docs.hazelcast.com/hazelcast/latest/clusters/network-configuration#advanced-network-configuration[Advanced Network] and it supports Member, Client, REST, Memcache, and WAN protocols.
+{description}
 
-In the Hazelcast Platform Operator, advanced networking configuration is enabled by default, and certain protocol properties are pre-configured:
+When you configure Hazelcast members with separate server sockets, you can apply distinct network configurations for various protocols through the advanced network. For further information on the advanced network, refer to xref:hazelcast:clusters:network-configuration.adoc#advanced-network-configuration[Advanced Network Configuration,window=_blank] in the Platform documentation.
 
-- For Client protocol the port number is `5701`.
-- For Member protocol the port number is `5702`.
-- For REST, port number is `8081` and `Persistence`, `HealthCheck` and `ClusterWrite` endpoint groups enabled by default.
-- For WAN, default port number is `5710`.
+Hazelcast Operator enables advanced networking by default, and pre-configures the following protocol properties:
 
-You can configure Member and Client Protocol interfaces as well as WAN Protocol socket ports using the Hazelcast Platform Operator.
+- Client protocol. Pre-configures the port number to `5701`.
+- Member protocol. Pre-configures the port number to `5702`.
+- REST. Pre-configures the following:
 
-== Configuring Member and Client Protocol Interfaces
+** The port number to `8081`.
+** Enables the `Persistence` endpoint group.
+** Enables the `HealthCheck` endpoint group.
+** Enables the `ClusterWrite` endpoint group.
 
-This is an example configuration for setting up interfaces using the Hazelcast Platform Operator:
+- WAN. Pre-configures the port number to `5710`.
+
+You can configure Member and Client Protocol interfaces as well as WAN Protocol socket ports using Hazelcast Operator as shown below.
+
+== Configure Member and Client Protocol Interfaces
+
+This example configures member and client server socket endpoints for the WAN protocol.
+
+The configuration is as follows:
 
 .Example Configuration
 [source,yaml,subs="attributes+"]
@@ -23,7 +34,9 @@ include::ROOT:example$/advanced-networking-interfaces.yaml[]
 
 == Configuring WAN Protocol Sockets
 
-The following example shows a configuration for setting up WAN sockets using the Hazelcast Platform Operator:
+This example configures WAN sockets.
+
+The configuration is as follows:
 
 .Example Configuration
 [source,yaml,subs="attributes+"]
@@ -31,16 +44,27 @@ The following example shows a configuration for setting up WAN sockets using the
 include::ROOT:example$/advanced-networking-wan.yaml[]
 ----
 
-Possible values for `serviceType` are: `ClusterIP` and `LoadBalancer`. After applying this example configuration, there will be 1 service created with a type of `LoadBalancer` which exposes 5 ports: `5710`, `5711`, `5712`, `5713`, `5714`. If you don't provide a `serviceType`, it will be set to `LoadBalancer` by default.
+The valid values for the `serviceType` field are as follows: 
 
-NOTE: In case WAN Replication configuration is not provided in `advancedNetwork` configuration, port number `5710` will be configured for WAN Replication by default.
+* `ClusterIP`
+* `LoadBalancer`. If you don't provide a `serviceType`, this is set by default.
 
-You can use the following command to list the external addresses of the WAN endpoints of the cluster.
+After this configuration has been applied, a single service is created with a type of `LoadBalancer`. This service exposes the following ports: 
+
+* `5710`. If you don't provide WAN Replication configuration in the `advancedNetwork` configuration, port number `5710` is set by default.
+* `5711`
+* `5712`
+* `5713`
+* `5714`
+
+To list the external addresses of the WAN endpoints of the cluster, use the following command:
 
 [source,shell]
 ----
 kubectl get hazelcastendpoint --selector="app.kubernetes.io/instance=hazelcast-sample"
 ----
+
+The result is similar to the following:
 
 ```
 NAME                          TYPE   ADDRESS

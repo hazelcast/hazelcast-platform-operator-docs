@@ -1,35 +1,37 @@
-= Configuring Topics
-:description: pass:q[Hazelcast provides a distribution mechanism for publishing messages that are delivered to multiple subscribers. This is known as a publish/subscribe (pub/sub) messaging model. Publishing and subscription operations are cluster wide. When a member subscribes to a topic, it is registered to receive messages published by any member in the cluster, including any new members that joined after you added the listener. You can create and configure topics using the `Topic` custom resource.]
+= Configure Topics
+:description: pass:q[Hazelcast provides a distribution mechanism for publishing messages that are delivered to multiple subscribers. This is known as a publish/subscribe (pub/sub) messaging model. Publishing and subscription operations are cluster wide. When a member subscribes to a topic, it is registered to receive messages published to that topic by any member in the cluster, including members that joined after it subscribed. You can create and configure topics using the Topic custom resource.]
 
 {description}
 
 == Configuring a Topic Resource
 
-You can use any of the following configuration options in the `Topic` resource. For more information, see the xref:api-ref.adoc#topicspec[API Reference].
+The Topic resource is configured using the following fields: 
 
 [cols="20%m,80%a"]
 |===
 |Field|Description
 
 |name
-|Name of the topic configuration that you're creating. If empty, the custom resource (CR) name is used.
+|The name of the topic configuration to create. If this field is empty, the custom resource name is used to create the name of the topic.
 
 |hazelcastResourceName
-|Defines the name of the Hazelcast resource for which the topic configuration is created.
+|The name of the Hazelcast resource for which the topic configuration is created.
 
 |globalOrderingEnabled
-|When true, all nodes listening to the same topic get their messages in the same order.
+|Specifies whether to maintain the order of the messages. If set to `true`, all nodes listening to the same topic get their messages in the same order, otherwise the order of the messages can differ. This field cannot be set to `true` if the `multiThreadingEnabled` field is also set to `true`.
 
 |multiThreadingEnabled
-|When true, enables multi-threaded processing of incoming messages. Otherwise, a single thread handles all topic messages.
-
-NOTE: You cannot enable multi-threading when global ordering is in use.
+|Specifies whether to use multi- or single threaded processing. If set to `true`, multi-threaded processing of incoming messages is used, otherwise a single thread handles all topic messages. This field cannot be set to `true` if the `globalOrderingEnabled` field is also set to `true`.
 
 |===
 
+For further information on the fields used to configure Topics, see xref:api-ref.adoc#topicspec[TopicSpec] in the Hazelcast Operator APi Reference.
+
 == Example Configuration
 
-The following `Topic` custom resource creates a topic configuration for the `Hazelcast` custom resource that is defined in the `hazelcastResourceName` field.
+In this example, we configure a Topic for the Hazelcast custom resource defined in the `hazelcastResourceName` field.
+
+The configuration is as follows:
 
 .Example configuration
 [source,yaml,subs="attributes+"]
@@ -37,12 +39,14 @@ The following `Topic` custom resource creates a topic configuration for the `Haz
 include::ROOT:example$/topic.yaml[]
 ----
 
-After creating the `Topic` resource, use the following command to check its status:
+Once created, you can use the following command to check the status of the Topic resource:
 
 [source,shell]
 ----
 kubectl get topic topic-sample -o wide
 ----
+
+The result is similar to the following:
 
 ```
 NAME           STATUS    HAZELCAST-RESOURCE   MESSAGE

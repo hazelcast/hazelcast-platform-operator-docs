@@ -1,29 +1,32 @@
-= Configuring JVM Parameters
-:description: pass:q[You can configure the JVM in the `hazelcast` container using the `jvm` field of the CRD spec.]
+= Configure JVM Parameters
+:description: pass:q[You can configure a Java Virtual Machine (JVM) in the custom resource definition (CRD) for the `hazelcast` container.]
 
 {description}
 
-== Configuring a JVM Parameter
+== Configure a JVM Parameter
 
-Use any of the following configuration options in the `Hazelcast` resource. For more information, see the xref:api-ref.adoc#jvmconfiguration[API Reference].
+The JVM is configured using the following fields in the `Hazelcast` resource. 
 
 [cols="25%m,75%a"]
 |===
 |Field|Description
 
 |initialRAMPercentage
-|Configures the initial heap size of the Hazelcast process as a percentage of the total memory of a container.
+|The initial heap size of the Hazelcast process as a percentage of the total memory of a container.
 
 |maxRAMPercentage
-|Sets the maximum heap size for a JVM running with a large amount of memory.
+|The maximum heap size for a JVM that runs with a large amount of memory.
 
 |minRAMPercentage
-|Unlike its name, this parameter sets the maximum heap size for a JVM running with a small amount of memory.
+|The maximum heap size for a JVM that runs with a small amount of memory.
 
 |===
 
-=== Setting Arbitrary JVM Arguments
-You can provide a list of JVM arguments.
+For further information on the fields used to configure a JVM, refer to xref:api-ref.adoc#jvmmemoryconfiguration[JVMMemoryConfiguration] in the Hazelcast Operator API Reference.
+
+=== Set Arbitrary JVM Arguments
+
+In the following configuration, we list arguments to be passed to the JVM at start up:
 
 .Example configuration
 [source,yaml,subs="attributes+"]
@@ -33,7 +36,13 @@ include::ROOT:example$/jvm_args.yaml[]
 
 == Example Configuration
 
-The following `Hazelcast` custom resource creates a cluster that uses all three parameters.
+In this example, we configure a JVM parameter for the `Hazelcast` custom resource as follows:
+
+* Initial heap size of 10%.
+* Maximum heap size for a JVM running with a large amount of memory of 20%
+* Maximum heap size for a JVM running with a small amount of memory of 20%
+
+The configuration is as follows:
 
 .Example configuration
 [source,yaml,subs="attributes+"]
@@ -41,9 +50,21 @@ The following `Hazelcast` custom resource creates a cluster that uses all three 
 include::ROOT:example$/jvm.yaml[]
 ----
 
-== GC Parameters
-=== Enabling Logging
-To enable Garbage Collector Logging, you can use the following configuration:
+== Garbage Collector Parameters
+
+You can configure the following for the Garbage Collector:
+
+* <<enabling-logging,Whether or not to produce logs>>.
+* <<setting-the-garbage-collector,Which Garbage Collector to use>>.
+
+[enabling-loggin]
+=== Enable Logging
+
+You can use the Garbage Collector (GC) log to tune and debug your development by analysing the log to understand your application's behavior.
+
+The GC log is particularly useful when you are investigating issues with heap memory and your configuration, as it provides precise data on results and durations.
+
+To create logs for the Garbage Collector, you must enable it as follows:
 
 .Example configuration
 [source,yaml,subs="attributes+"]
@@ -51,12 +72,20 @@ To enable Garbage Collector Logging, you can use the following configuration:
 include::ROOT:example$/jvm_gc_logging.yaml[]
 ----
 
-It is going to set the following JVM argument: `-verbose:gc`
+This configuration sets the `-verbose:gc` JVM argument.
 
-=== Setting the Garbage Collector
-WARNING: Before making Garbage Collector related changes using the Hazelcast Platform Operator, it is highly recommended to read link:https://docs.hazelcast.com/hazelcast/latest/capacity-planning#garbage-collection-considerations[Garbage Collector Considerations section of Capacity Planning Document] to decide which Garbage Collector to use.
+[setting-the-garbage-collector]
+=== Set the Garbage Collector
 
-To set the Garbage Collector, following configuration can be used:
+You can use any of the following Garbage Collector implementations:
+
+* Serial. This is the simplest implementation. However, it is only suitable for use with single thread applications as it freezes all application threads when running. 
+* Parallel. This uses multiple threads to manage heap space, but freezes other application threads when running.
+* G1. This is designed for applications that run on multi-procesor machines with large memory space.
+
+Before you decide which Garbage Collector implementation is most suitable for your needs, refer to xref:hazelcast:capacity-planning.adoc#garbage-collection-considerations[Garbage Collector Considerations,window=_blank] in the Platform documentation.
+
+The Garbage Collector is configured as follows:
 
 .Example configuration
 [source,yaml,subs="attributes+"]
@@ -64,7 +93,7 @@ To set the Garbage Collector, following configuration can be used:
 include::ROOT:example$/jvm_gc_collector.yaml[]
 ----
 
-`<collector>` can be replaced with the following options:
+Replace `<collector>` in the example configuration with the implementation you want to use. The valid values, and their JVM equivalents are as follows:
 
 [cols="25%m,75%a"]
 |===
@@ -81,8 +110,24 @@ include::ROOT:example$/jvm_gc_collector.yaml[]
 
 |===
 
-== Enabling IPv6 Stack
-Hazelcast supports IPv6 addresses seamlessly, although IPv6 support is switched off by default. To enable IPv6 addressing in Hazelcast and set up a Hazelcast cluster on an IPv6-stack Kubernetes Cluster, you'll need extra configurations. These configurations can be passed through JVM arguments. The provided example below shows how to create an IPv6 Hazelcast cluster using the Hazelcast Platform Operator.
+[enabling-ipv6-stack]
+== Enable IPv6
+
+Internet Protocol version 6 (IPv6) addresses are comprised of eight groups of four hexidecimal digits. IPv6 provides more unique IP addresses than IPv4, and removes the need to use port forwarding.
+
+By default, IPv6 is disabled in Hazelcast. When enabled, Hazelcast provides seamless support for IPv6 addresses. 
+
+To enable IPv6 addressing and set up a Hazelcast cluster on an IPv6-stack Kubernetes Cluster, you must configure the following:
+
+* The preferred version of the Internet Protocol.
+* The preferred address format. These are passed through JVM arguments. 
+
+In the following configuration, we do the following to create an IPv6 Hazelcast cluster:
+
+* Set the preferred version to IPv6 in the `properties` field.
+* Define JVM arguments to prefer IPv6 addresses.
+
+The configuration is as follows:
 
 .IPv6 Example configuration
 [source,yaml,subs="attributes+"]

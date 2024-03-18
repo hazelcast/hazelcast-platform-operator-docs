@@ -1,57 +1,67 @@
-= Saving State of Data Pipelines
-:description: During the processing of data pipelines, the states of the computation process are saved and used by the pipelines. These states are crucial for ensuring the accuracy and integrity of the data processing operations. Jet's snapshot allows you to save and restore these processing states.
+= Save the State of Data Pipelines
+:description: When processing data pipelines, the states are saved and used by the pipelines. These states ensure the accuracy and integrity of the data processing operations. You can use Hazelcast Operator to export a Jet snapshot to save the processing states, and to restore them.
 :page-enterprise: true
 
 {description}
 
-A snapshot captures the state of a running Jet job at a particular point in time. It allows you to take a consistent record of the in-flight computations and processed data, which you can use for various purposes, such as fault tolerance, job migration, or analysis.
+A snapshot captures the state of a running Jet job at a particular point in time. This provides a consistent record of in-flight computations and processed data, which you can use for various purposes including fault tolerance, job migration, or analysis.
 
-When the Jet engine takes a snapshot, all data in transit, and the internal state of the members processing the job, are recorded. This means that if the job fails or is restarted, it is restored to the state when the snapshot was taken. This helps to achieve fault-tolerant processing and ensuring data integrity.
+A snapshot records the following:
 
-To export a snapshot in Hazelcast Platform Operator, use the `JetJobSnapshot` custom resource.
+* All data in transit.
+* The internal state of the members processing the job.
 
-== Configuring the JetJobSnapshot Resource
+This means that if the job fails or is restarted, it is restored to the state captured by the snapshot. This supports fault-tolerant processing and helps to ensure data integrity.
 
-Configuration options for the `JetJobSnapshot` custom resource.
+== Configure the JetJobSnapshot Resource
+
+Jet job snapshots are configured using the following fields:
 
 [cols="20%m,80%a"]
 |===
 |Field|Description
 
 |name
-|Name of the exported snapshot. If empty, the name of the custom resource is used. You cannot modify this value after the object is created.
+|The name of the exported snapshot. If this field is empty, the custom resource name is used to create the name of the snapshot. You cannot update the name after the object has been created.
 
 |cancelName
-|Determines whether the job is canceled after exporting a snapshot. The default value is false.
+|Whether to cancel the job after exporting a snapshot. 
+By default, set to `false`, which does not cancel the job after exporting the snapshot. If you want to cancel the job after exporting a snapshot, set to `true`.
 
 |jetJobResourceName
-|Name of the `JetJob` CR from which the snapshot is exported.
+|The name of the `JetJob` custom resource from which the snapshot is exported.
 
 |===
 
-== Exporting a Snapshot
+For further information on the fields used to configure Jet snapshots, see xref::api-ref.adoc#jetjobsnapshotspec[JetJobSnapshotSpec] in the Hazelcast Operator API Reference
 
-Use the following example configuration to export a snapshot using the `JetJobSnapshot` custom resource.
+== Export a Snapshot
 
-.Example of JetJobSnapshot configuration 
+The Jet job you want to export must have a status of `Running`.
+
+In this example, we configure `JetJobSnapshot` to export the snapshot from the `jet-job-sample` `JetJob` custom resource to `snapshot-example`.
+
+The configuration is as follows:
+
+.Example JetJobSnapshot configuration 
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/jetjobsnapshot-example.yaml[]
 ----
 
-<1> Sets the name the exported snapshot.
-<2> Specifies the name of the `JetJob` CR object from which the snapshot is exported.
+<1> The name of the exported snapshot.
+<2> The name of the JetJob custom resource from which the snapshot is exported.
 
-NOTE: You can only export a snapshot from a Jet job that has a status of `Running`.
+== Start a Jet Job with the Snapshot
 
-== Starting a Jet Job Initialized from the Snapshot
+In this example, we start a Jet job that uses the snapshot exported in the previous example for initialization.
 
-Use the following example to start a new Jet Job that is initialized from a snapshot.
+The configuration is as follows:
 
-.Example of JetJob initialization from Snapshot
+.Example JetJob initialization from Snapshot
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/jetjob-initial-snapshot-example.yaml[]
 ----
 
-<1> Specifies the name of the `JetJobSnapshot` CR object from which the Jet job is initialized.
+<1> The name of the JetJobSnapshot custom resource from which the Jet job is initialized.

@@ -1,84 +1,74 @@
-= Configuring Maps
-:description: pass:q[Hazelcast maps are used to distribute data across a cluster and make it easy to scale your applications while protecting data against member failures. You can create and configure maps using the `Map` resource.]
+= Configure Maps
+:description: pass:q[Hazelcast maps are used to distribute data across a cluster and help to scale your applications while protecting data against member failures. You can create and configure maps using the Map custom resource.]
 
 {description}
 
-== Configuring the `Map` Resource
+== Configure the `Map` Resource
 
-Below are the configuration options for the `Map` resource. You can find more detailed information in xref:api-ref.adoc#mapspec[API Reference] page.
+The Map custom resource is configured using the following fields:
 
 [cols="20%m,80%a"]
 |===
 |Field|Description
 
 |name
-|Name of the map config to be created. If empty, the CR name will be used. It cannot be updated after the map config is created successfully.
+|The name of the map configuration to create. If this field is empty, the custom resource name is used to create the name of the map. You cannot update the name after the map configuration has been created.
 
 |hazelcastResourceName
-|HazelcastResourceName defines the name of the Hazelcast resource.
+|The name of the Hazelcast resource for which the map configuration is created.
 
 |backupCount
-|Count of synchronous backups.
+|The count of synchronous backups.
 
 |timeToLiveSeconds
-|Maximum time in seconds for each entry to stay in the map.
+|The maximum time in seconds that each entry remains in the map.
 
 |maxIdleSeconds
-|Maximum time in seconds for each entry to stay idle in the map.
+|The maximum time in seconds that each entry can stay idle in the map.
 
 |eviction
-|Configuration for removing data from the map when it reaches its max size.
-
-- evictionPolicy: Eviction policy to be applied when map reaches its max size according to the max size policy.
-- maxSize: Max size of the map.
-- maxSizePolicy: Policy for deciding if the maxSize is reached.
+|When to remove data from the map based on the specified maximum size of the map. 
+For information on the attributes used by this field, see xref:api-ref.adoc#evictionconfig[`EvictionConfig`] in the Hazelcast Operator API Reference.
 
 |indexes
-|Indexes to be created for the map data.
+|The indexes to create for the map data.
+For information on the attributes used by this field, see xref:api-ref.adoc#indexconfig[`IndexConfig`] in the Hazelcast Operator API Reference.
+For further information on indexing maps, refer to :xref:hazelcast:query:indexing-maps.adoc[Indexing Maps,window=_blank] in the Platform documentation.
 
 |attributes
-|Custom attributes for field queries when using the Predicates API
+|The custom attributes for field queries that use the Predicates API.
+For information on the attributes used by this field, see xref:api-ref.adoc#attributeconfig[`AttributeConfig`] in the Hazelcast Operator API Reference.
+For further information on using custom attributes for field queries, refer to xref:hazelcast:query:predicate-overview.adoc#creating-custom-query-attributes[Creating Custom Query Attributes, window=_blank] in the Platform documentation.
 
 |persistenceEnabled
-|When enabled, map data will be persisted.
+|Whether to enable map data persistence.
+Deafult is `false`, which means that map data is not persisted. If you want to persist map data, set to `true`.
 
-NOTE: Persistence should be enabled for Hazelcast before enabling it for the map. You can learn about enabling persistence for Hazelcast in xref:backup-restore.adoc#enabling-persistence[Persistence, Backup and Restore].
+NOTE: Ensure that you enable persistence for Hazelcast before you enable persistence for the map. For further information on enabling persistence for Hazelcast, see  xref:backup-restore.adoc#enabling-persistence[Persistence, Backup and Restore].
 
 |mapStore
-|Configuration options when you want to load/store the map entries from/to a persistent data store such as a relational database. You can learn more at link:https://docs.hazelcast.com/hazelcast/latest/data-structures/working-with-external-data[Working With External Data].
-
-- className: Name of your class implementing MapLoader and/or MapStore interface.
-- initialMode: Sets the initial entry loading mode.
-- writeDelaySeconds: Policy for deciding if the maxSize is reached.
-- writeBatchSize: Used to create batches when writing to map store.
-- writeCoealescing: It is meaningful if you are using write behind in MapStore. When it is set to true, only the latest store operation on a key during the write-delay-seconds will be reflected to MapStore.
-- propertiesSecretName: Name of the secret holding the properties for the MapStore classes implementing the `MapLoaderLifecycleSupport` interface.
+|The configuration options for use when the map entries load from, or store to, a persistent data store such as a relational database using MapLoader or MapStore. 
+For information on the attributes used by this field, see xref:api-ref.adoc#mapstoreconfig[`MapStoreConfig`] in the Hazelcast Operator API Reference.
+For further information on using MapLoader and MapStore to connect to an external system, refer to xref:hazelcast:mapstore:working-with-external-data.adoc[Building a Cache with MapStore,window=_blank] in the Platform documentation.
 
 |entryListeners
-|Configuration options for listening for the map-level or entry-based events using the listeners provided by the Hazelcast’s eventing framework. You can learn more at link:https://docs.hazelcast.com/imdg/latest/events/object-events[Distributed Object Events].
-
-- className: Name of your class implementing a `MapListener` sub-interface.
-- includeValues: An optional attribute that indicates whether the map event should contains the map value.
-- local: An optional attribute that indicates whether you can listen to the map on the local member.
+|The configuration options for use when listening for map-level or entry-based events using the listeners provided by the Hazelcast’s eventing framework. 
+For information on the attributes used by this field, see xref:api-ref.adoc#entrylistenerconfiguration[`EntryListenerConfigurationConfig`] in the Hazelcast Operator API Reference.
+For more information on listening for map-level and entry-based events, refer to xref:hazelcast:pipelines:object-events.adoc[Distributed Object Events,window=_blank] in the Platform documentation.
 
 |nearCache
-|Configuration options for server side `Near Cache`. You can learn more at link:https://docs.hazelcast.com/imdg/4.2/performance/near-cache[Near Cache].
-
-- name: name of the near cache.
-- inMemoryFormat: specifies in which format data will be stored in your near cache.
-- invalidateOnChange: specifies whether the cached entries are evicted when the entries are updated or removed.
-- timeToLiveSeconds: maximum number of seconds for each entry to stay in the Near Cache.
-- maxIdleSeconds: maximum number of seconds each entry can stay in the Near Cache as untouched (not read).
-- cacheLocalEntries: specifies whether the local entries are cached.
-- eviction: specifies the eviction behavior in Near Cache.
-* evictionPolicy: is the policy to be applied when near cache reaches its max size according to the max size policy.
-* maxSizePolicy: type of the policy for deciding if the maxSize is reached.
-* size: is the maximum size of the Near Cache used for maxSizePolicy.
+|The configuration options for server-side `Near Cache`. 
+For information on the attributes used by this field, see xref:api-ref.adoc#nearcache[`NearCache`] in the Hazelcast Operator API Reference.
+For further information on Near Cache, refer to xref:hazelcast:cluster-performance:best-practices.adoc#near-cache[Near Cache] in the Platform documentation.
 |===
+
+For further details on the fields used to configure Maps, see xref:api-ref.adoc#mapspec[MapSpec] in the Hazelcast Operator API Reference.
 
 == Example Configuration
 
-The following `Map` resource creates a map configuration for the `Hazelcast` custom resource that is defined in the `hazelcastResourceName` field.
+In this example, we configure a Map for the Hazelcast custom resource defined in the `hazelcastResourceName` field.
+
+The configuration is as follows:
 
 .Example configuration
 [source,yaml,subs="attributes+"]
@@ -86,12 +76,14 @@ The following `Map` resource creates a map configuration for the `Hazelcast` cus
 include::ROOT:example$/map.yaml[]
 ----
 
-After creating the `Map` resource, you can learn about its status with the following command
+Once created, you can use the following command to check the status of the Map resource:
 
 [source,shell]
 ----
 kubectl get map map-sample -o wide
 ----
+
+The result is similar to the following:
 
 ```
 NAME         STATUS    HAZELCAST-RESOURCE   MESSAGE

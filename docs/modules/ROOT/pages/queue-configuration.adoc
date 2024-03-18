@@ -1,42 +1,46 @@
-= Configuring Queues
-:description: pass:q[Hazelcast distributed queue is an implementation of java.util.concurrent.BlockingQueue. Being distributed, Hazelcast distributed queue enables all cluster members to interact with it. Using Hazelcast distributed queue, you can add an item in one cluster member and remove it from another one. You can create and configure queue using the `Queue` custom resource.]
+= Configure Queues
+:description: pass:q[Hazelcast distributed queue is an implementation of the thread-safe `java.util.concurrent.BlockingQueue` construct. All cluster members can interact with Hazelcast distributed queue. For example, Hazelcast distributed queue allows you to add an item in one cluster member and remove it from another one. You can create and configure the queue using the Queue custom resource.]
 
 {description}
 
-== Configuring a Queue Resource
+== Configure a Queue Resource
 
-You can use any of the following configuration options in the `Queue` resource. For more information, see the xref:api-ref.adoc#queuespec[API Reference].
+The Queue resource is configured using the following fields: 
 
 [cols="20%m,80%a"]
 |===
 |Field|Description
 
 |name
-|Name of the queue configuration that you're creating. If empty, the custom resource (CR) name is used.
+|The name of the queue configuration being created. If this field is empty, the custom resource name is used to create the name of the queue.
 
 |hazelcastResourceName
-|Defines the name of the Hazelcast resource for which the queue configuration is created.
+|The name of the Hazelcast resource for which the queue configuration is created.
 
 |backupCount
-|Count of synchronous backups.
+|The count of synchronous backups.
 
 |asyncBackupCount
-|Count of asynchronous backups.
+|The count of asynchronous backups.
 
 |maxSize
-|Max size of the queue.
+|The maximum size of the queue.
 
 |emptyQueueTTLSeconds
-|Time in seconds after which the Queue will be destroyed if it stays empty or unused. If the values is not provided the Queue will never be destroyed.
+|The time in seconds to wait before destroying the Queue if it remains empty or unused. If no value is provided, the Queue is never destroyed.
 
 |priorityComparatorClassName
 |The name of the comparator class. If the class name is provided, the Queue becomes Priority Queue.
 
 |===
 
+For further information on the fields used to configure queues, see xref:api-ref.adoc#queuespec[TopicSpec] in the Hazelcast Operator APi Reference.
+
 == Example Configuration
 
-The following `Queue` custom resource creates a queue configuration for the `Hazelcast` custom resource that is defined in the `hazelcastResourceName` field.
+In this example, we configure a queue for the Hazelcast custom resource defined in the `hazelcastResourceName` field.
+
+The configuration is as follows:
 
 .Example configuration
 [source,yaml,subs="attributes+"]
@@ -44,12 +48,14 @@ The following `Queue` custom resource creates a queue configuration for the `Haz
 include::ROOT:example$/queue.yaml[]
 ----
 
-After creating the `Queue` resource, use the following command to check its status:
+Once created, you can use the following command to check the status of the Queue resource:
 
 [source,shell]
 ----
 kubectl get queue queue-sample -o wide
 ----
+
+The result is similar to the following:
 
 ```
 NAME           STATUS    HAZELCAST-RESOURCE   MESSAGE

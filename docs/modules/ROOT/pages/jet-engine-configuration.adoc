@@ -1,77 +1,101 @@
-= Configuring the Jet Engine
-:description: Data Pipelines allow you to process data stored in one location and send the result to another, such as from a data lake to an analytics database or into a payment processing system. You can also use the same source and sink so the pipeline only processes data. You can configure Hazelcast’s Jet engine using the Hazelcast Platform Operator.
+= Configure the Jet Engine
+:description: You can use Hazelcast Operator to configure Hazelcast’s Jet engine, which provides batch and stream processing for your data pipelines. 
 
 {description}
 
-== Configuring the Jet Engine
-The Jet engine is enabled by default and has the following configuration options. For more detailed information, see the xref:api-ref.adoc#jetengineconfiguration[API Reference].
+You can use data pipelines as follows:
 
-[cols="20%m,20%a,60%a"]
+* To process data using the same data, which is read from the required platform (source) and written to the same platform (sink). 
++
+For example, to modify the data to suggest related offers when a customer moves an item to their basket.
+
+* To process data that is stored in one location (source) and written to a different location (sink). 
++
+For example, you can send data from a data lake to your analytics database or to a payment processing system. 
+
+== Configuring the Jet Engine
+
+Jet engine is configured using the following fields: 
+
+[cols="35%m,65%a"]
 |===
-|Option|Default|Description
+|Field|Description
 
 |enabled
-|true
-|Set to `false` to disable the Jet engine.
+|Whether Jet engine is enabled.
+By default, set to `true` (enabled). If you want to disable Jet engine, set to `false`.
 
 |resourceUploadEnabled
-|false
-|Set to `true` to enable the uploading of resources for Jet jobs.
+|Whether to allow the upload of Jet job resources.
+By default, set to `true` (enabled). If you want to disable the upload of Jet job resources, set to `false`.
 
 |instance/cooperativeThreadCount
-|
-|The number of threads Jet creates in its cooperative multithreading pool.
+|The number of threads created in the Jet cooperative multi-threading pool.
 
 |instance/flowControlPeriodMS
-|100
-|The duration of the interval between flow-control packets.
+|The length of time to leave between flow-control packets in milliseconds.
 
 |instance/backupCount
-|1
-|The number of synchronous backups to configure on the IMap, which Jet needs internally to store job metadata and snapshots.
+|The number of synchronous backups to configure on the IMap. 
+Jet uses these backups to store job metadata and snapshots.
 
 |instance/scaleUpDelayMS
-|10000
-|The delay after which the auto-scaled jobs restart if a new member joins the cluster.
+|The length of time to wait after a member joins the cluster before restarting auto-scaled jobs in milliseconds.
 
 |instance/losslessRestartEnabled
-|false
-|Whether the Lossless Cluster Restart feature is enabled.
+|Whether Lossless Cluster Restart is enabled.
+If Lossless Cluster Restart is enabled, you can restart the whole cluster without losing the jobs and their state.
+By default, set to `false` (disabled). If you want to enable Lossless Cluster Restart, set to `true`.
 
-WARNING: Lossless Restart requires Persistence to be enabled. For more info about Persistence, see xref:backup-restore.adoc[Persistence, Backup, and Restore].
+NOTE: Persistence must be enabled if using Lossless Cluster Restart. For further information on Persistence, see xref:backup-restore.adoc[Persistence, Backup, and Restore].
 
 |instance/maxProcessorAccumulatedRecords
-|
-|The maximum number of records that can be accumulated by any single processor instance.
+|The maximum number of records that can be accumulated by a single processor instance.
 
 |edgeDefaults/queueSize
-|
-|Sets the capacity of processor-to-processor concurrent queues.
+|The number of units allowed in processor-to-processor concurrent queues.
+If the provided value is not a power of 2, it is rounded up.
 
 |edgeDefaults/packetSizeLimit
-|
-|Limits the size of the packet in bytes.
+|The maximum size of a packet in bytes.
 
 |edgeDefaults/receiveWindowMultiplier
-|
-|Sets the scaling factor used by the adaptive receive window sizing function.
+|The scaling factor used for adaptive receive window sizing.
 
 |bucketConfig
-|
-|JAR files from an external bucket are placed accessible for the member when the following parameter values are supplied:
+|The credentials and URI for the JAR file defined in `jarName`.
+The sub-fields are as follows:
 
-  - `secretName`: Name of the Secret object which holds the credentials for your cloud provider.
-  - `bucketURI`: Full path for the external bucket. For example: `gs://your-bucket/path/to/jars`.
+  - `secretName`. The name of the Secret object providing the credentials for your cloud provider.
+  - `bucketURI`. The full path to the external bucket. For example, `gs://your-bucket/path/to/jars`.
 
 |configMaps
-|
-|List of names of ConfigMaps. Files in each ConfigMap will be downloaded.
+|A list of ConfigMap names. 
+Files from each listed ConfigMap are downloaded.
 
 |remoteURLs
-|
-|List of URLs from where the files will be downloaded.
+|A list of the URLs from which files are downloaded.
 
 |===
+
+For further information on the fields used to configure Jet engine, see xref:api-ref.adoc#jetengineconfiguration[JetEngineConfiguration] in the Hazelcast Operator API Reference.
+
+=== Example Configuration
+
+In this example, we configure the following behavior for Jet engine:
+
+* Upload Jet job resources.
+* Create four threads in the Jet cooperative multi-threading pool.
+* Wait 100 millisections between flow-control packets.
+* Create one synchronous backup on the IMap.
+* Wait 10000 milliseconds after a member joins the cluster before restarting auto-scaled jobs.
+* Do not use Lossless Cluster Restart
+* Allow a single processor instance to accumulate up to 1000000000 records.
+* Allow up to 1024 units in a processor-to-processor concurrent queue.
+* Allow a maximum of 16384 bytes in a single packet.
+* Scale adaptive window size by a factor of three.
+
+The configuration is as follows:
 
 .Example configuration
 [source,yaml,subs="attributes+"]
@@ -80,10 +104,17 @@ include::ROOT:example$/jet-engine-configuration.yaml[]
 ----
 
 == Configuration Properties
-You can set configuration properties as Java system properties. See xref:jvm-parameters.adoc#setting-arbitrary-jvm-arguments[Setting Arbitrary JVM Arguments] for more information.
+
+You can set configuration properties as arbitrary JVM arguments. 
+
+In this example, we list arguments to be passed to the JVM at start up.
+
+The configuration is as follows:
 
 .Example configuration
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/jet-engine-properties.yaml[]
 ----
+
+For further information on passing arguments to the JVM at start up, see xref:jvm-parameters.adoc#setting-arbitrary-jvm-arguments[Set Arbitrary JVM Arguments].

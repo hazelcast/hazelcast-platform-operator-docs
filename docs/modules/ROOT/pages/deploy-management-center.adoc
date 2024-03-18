@@ -1,75 +1,31 @@
-= Deploy Management Center with the Hazelcast Platform Operator for Kubernetes
-:description: In this tutorial, you'll deploy an instance of Management Center using Hazelcast Platform Operator for Kubernetes.
+= Deploy Management Center with Hazelcast Operator
+:description: In this tutorial, we deploy an instance of Hazelcast Management Center using Hazelcast Operator. You can use Hazelcast Management Center to monitor the Hazelcast cluster.
 
 {description}
 
 == Before you Begin
 
-You need a Kubernetes or Openshift cluster, and the `kubectl` or `oc` command-line tool must be configured to communicate with your cluster.
+You need one of the following:
 
-Please make sure xref:get-started.adoc[Hazelcast Platform Operator for Kubernetes] is up and running.
+* A Kubernetes cluster, with the `kubectl` command-line tool configured to communicate with your cluster. For further information on configuring `kubectl`, refer to the link:https://kubernetes.io/docs/home/[Kubernetes documentation,window=_blank].
+* An Openshift cluster with the `oc` command-line tool configured to communicate with your cluster. For further information on configuring `oc`, refer to the link:https://docs.openshift.com/[OpenShift documentation,window=_blank].
 
-== Deploy Management Center
+Hazelcast Operator must be running. For further information on deploying Hazelcast Operator, see xref:get-started.adoc[].
 
-You can monitor the Hazelcast cluster by starting Management Center.
+== Deploy Hazelcast Management Center
+
+To deploy Hazelcast Management Center, complete the following steps:
 
 [tabs]
 ====
-Open Source::
+Enterprise Edition::
 +
 --
+Some Hazelcast Management Center functionality requires a license key. 
 
-. Create the `ManagementCenter` custom resource file and name it `management-center.yaml`.
-+
-[source,yaml,subs="attributes+"]
-----
-include::ROOT:example$/management-center.yaml[]
-----
+If you don't have a license key, you can request a trial license from the link:http://trialrequest.hazelcast.com/[Hazelcast website].
 
-. Apply it with the following command to start Management Center.
-+
-.For Kubernetes
-[source,shell]
-----
-kubectl apply -f management-center.yaml
-----
-+
-.For Openshift
-[source,shell]
-----
-oc apply -f management-center.yaml
-----
-
-
-. After a moment, you can verify that Management Center is up and running by checking the Management Center logs.
-+
-.For Kubernetes
-[source,shell]
-----
-kubectl logs pod/managementcenter-sample-0
-----
-+
-.For Openshift
-[source,shell]
-----
-oc logs pod/managementcenter-sample-0
-----
-
-```
-2021-08-26 15:21:04,842 [ INFO] [MC-Client-dev.lifecycle-1] [c.h.w.s.MCClientManager]: MC Client connected to cluster dev.
-2021-08-26 15:21:05,241 [ INFO] [MC-Client-dev.event-1] [c.h.w.s.MCClientManager]: Started communication with member: Member [10.36.8.3]:5701 - ccf31703-de3b-4094-9faf-7b5d0dc145b2
-2021-08-26 15:21:05,245 [ INFO] [MC-Client-dev.event-1] [c.h.w.s.MCClientManager]: Started communication with member: Member [10.36.7.2]:5701 - e75bd6e2-de4b-4360-8113-040773d858b7
-2021-08-26 15:21:05,251 [ INFO] [MC-Client-dev.event-1] [c.h.w.s.MCClientManager]: Started communication with member: Member [10.36.6.2]:5701 - c3d105d2-0bca-4a66-8519-1cacffc05c98
-2021-08-26 15:21:07,234 [ INFO] [main] [c.h.w.Launcher]: Hazelcast Management Center successfully started at http://localhost:8080/
-```
-
---
-Enterprise::
-+
---
-To enable some features or dashboard at Management Center, you need a license key. If you don't have a license key, you can request one from the link:http://trialrequest.hazelcast.com/[Hazelcast website].
-
-. Create a Kubernetes secret to hold your license key.
+. Create a Kubernetes secret to hold your license key as follows:
 +
 .For Kubernetes
 [source,shell]
@@ -83,14 +39,14 @@ kubectl create secret generic hazelcast-license-key --from-literal=license-key=<
 oc create secret generic hazelcast-license-key --from-literal=license-key=<YOUR LICENSE KEY>
 ----
 
-. Create the `ManagementCenter` custom resource file and name it `management-center.yaml`.
+. Create the ManagementCenter custom resource with the following content, and save it in your repository as _management-center.yaml_.
 +
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/management-center-with-license-key.yaml[]
 ----
 
-. Apply it with the following command to start Management Center.
+. Apply the custom resource file to start Hazelcast Management Center as follows:
 +
 .For Kubernetes
 [source,shell]
@@ -105,7 +61,7 @@ oc apply -f management-center.yaml
 ----
 
 
-. After a moment, you can verify that Management Center is up and running by checking the Management Center logs.
+. Verify that Hazelcast Management Center is running by viewing the Hazelcast Management Center logs as follows:
 +
 .For Kubernetes
 [source,shell]
@@ -119,6 +75,59 @@ kubectl logs pod/managementcenter-sample-0
 oc logs pod/managementcenter-sample-0
 ----
 
+If Hazelcast Management Center is running, the result is similar to the following:
+
+```
+2021-08-26 15:21:04,842 [ INFO] [MC-Client-dev.lifecycle-1] [c.h.w.s.MCClientManager]: MC Client connected to cluster dev.
+2021-08-26 15:21:05,241 [ INFO] [MC-Client-dev.event-1] [c.h.w.s.MCClientManager]: Started communication with member: Member [10.36.8.3]:5701 - ccf31703-de3b-4094-9faf-7b5d0dc145b2
+2021-08-26 15:21:05,245 [ INFO] [MC-Client-dev.event-1] [c.h.w.s.MCClientManager]: Started communication with member: Member [10.36.7.2]:5701 - e75bd6e2-de4b-4360-8113-040773d858b7
+2021-08-26 15:21:05,251 [ INFO] [MC-Client-dev.event-1] [c.h.w.s.MCClientManager]: Started communication with member: Member [10.36.6.2]:5701 - c3d105d2-0bca-4a66-8519-1cacffc05c98
+2021-08-26 15:21:07,234 [ INFO] [main] [c.h.w.Launcher]: Hazelcast Management Center successfully started at http://localhost:8080/
+```
+
+--
+Community Edition::
++
+--
+
+. Create the ManagementCenter custom resource file with the following content, and save it as _management-center.yaml_:
++
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/management-center.yaml[]
+----
+
+. Start Hazelcast Management Center by applying the custom resource file as follows:
++
+.For Kubernetes
+[source,shell]
+----
+kubectl apply -f management-center.yaml
+----
++
+.For Openshift
+[source,shell]
+----
+oc apply -f management-center.yaml
+----
+
+
+. Verify that Hazelcast Management Center is running by viewing the Hazelcast Management Center logs as follows:
++
+.For Kubernetes
+[source,shell]
+----
+kubectl logs pod/managementcenter-sample-0
+----
++
+.For Openshift
+[source,shell]
+----
+oc logs pod/managementcenter-sample-0
+----
+
+If Hazelcast Management Center is running, the result is similar to the following:
+
 ```
 2021-08-26 15:21:04,842 [ INFO] [MC-Client-dev.lifecycle-1] [c.h.w.s.MCClientManager]: MC Client connected to cluster dev.
 2021-08-26 15:21:05,241 [ INFO] [MC-Client-dev.event-1] [c.h.w.s.MCClientManager]: Started communication with member: Member [10.36.8.3]:5701 - ccf31703-de3b-4094-9faf-7b5d0dc145b2
@@ -130,7 +139,11 @@ oc logs pod/managementcenter-sample-0
 --
 ====
 
-To access the Management Center dashboard, open the browser at address `http://$MANCENTER_IP:8080`.
+Open the Hazelcast Management Center dashboard in your browser using the \http://$MANCENTER_IP:8080 URL, where `$MANCENTER_IP` is the IP address or host name. 
+
+You can find the IP address by viewing the Hazelcast Management Center logs. For example, based on the log shown above, we would navigate to \http://localhost:8080. 
+
+Alternatively, you can find the IP address using your command-line tool as follows:
 
 [tabs]
 ====
@@ -152,7 +165,7 @@ MANCENTER_IP=$( oc get service managementcenter-sample -o jsonpath='{.status.loa
 --
 ====
 
-If EXTERNAL-IP of the service is hostname, not IP, you can run command below:
+If the public IP address resolves to a hostname instead of an IP address, you can find the hostname using your command-line tool as follows:
 
 [tabs]
 ====
@@ -176,7 +189,7 @@ MANCENTER_IP=$( oc get service managementcenter-sample -o jsonpath='{.status.loa
 
 == Clean up
 
-You can run the commands below to remove the Management Center.
+You can remove Hazelcast Management Center as follows:
 
 [tabs]
 ====
@@ -200,4 +213,4 @@ oc delete -f management-center.yaml
 
 == Next Steps
 
-Learn how to xref:connect-outside-kubernetes.adoc[expose Hazelcast clusters outside Kubernetes] so you can connect external clients to them.
+Learn how to xref:connect-outside-kubernetes.adoc[expose Hazelcast clusters outside Kubernetes], so that you can connect external clients to them.

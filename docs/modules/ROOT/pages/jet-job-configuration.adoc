@@ -1,64 +1,93 @@
-= Running Data Pipelines
-:description: Data Pipelines allow you to process data stored in one location and send the result to another, such as from a data lake to an analytics database or into a payment processing system. You can also use the same source and sink so the pipeline only processes data.
+= Run Data Pipelines
+:description: With Hazelcast Operator, you can run data pipelines from existing JAR files for data processing. You can use data pipelines for stream or batch processing.
 
 {description}
 
-With the Hazelcast Platform Operator, you can run Data Pipelines from existing JAR files for processing data. Data Pipelines, depending on the data source, can be used for stream or batch processing. To create a Data Pipeline using `JetJob` CR, the Jet Engine in the `Hazelcast` CR must be configured. It is required to set `enable` and `resourceUploadEnabled` to `true`.  To understand the Data Pipelines and the Jet Engine, refer to xref:hazelcast:pipelines:overview.adoc[Platform documentation].
+To create a data pipeline using the JetJob custom resource, you must configure Jet engine in the Hazelcast custom resource as follows: 
 
-== Configuring the JetJob Resource
+* Enable Jet engine. To do this, set `enable` to `true`.
+* Allow the upload of Jet job resources. To do this, set `resourceUploadEnabled` to `true`.
 
-Below are the configuration options for the `JetJob` resource. You can find more detailed information in xref:api-ref.adoc#jetjobspec[API Reference] page.
+For further information on configuring Jet engine, see xref:jet-engine-configuration.adoc[Configure the Jet Engine].
+
+To learn more about data pipelines and Jet engine, refer to xref:hazelcast:pipelines:overview.adoc[About Data Pipelines,window=_blank] in the Platform documentation.
+
+== Configure the JetJob Resource
+
+The JetJob resource is configured using the following fields: 
 
 [cols="20%m,80%a"]
 |===
 |Field|Description
 
 |name
-|Name of the Jet Job to be created. If empty, the CR name will be used. It cannot be updated after the Jet Job is created successfully.
+|The name of the Jet job to create. If this field is empty, the custom resource name is used. 
+You cannot update the name after the Jet job has been created.
 
 |hazelcastResourceName
-|HazelcastResourceName defines the name of the Hazelcast resource.
+|The name of the Hazelcast resource for which the Jet job configuration is created.
 
 |state
-|State is used to manage the job state. The default value is 'Running' and its value must be `Running` when the JetJob object is created for the first time.
+|The job state.
+Default is `Running`. Must be set to `Running` when the JetJob object is created for the first time.
+For further information on state management, see <<jetjob-state-management,JetJob State Management>>. 
 
 |jarName
-|JarName specify the name of the Jar to run that is present on the member
+|The name of the JAR to run.
+The JAR is located in an external bucket, and placed on the member using `bucketConfig`.
 
 |mainClass
-|MainClass is the name of the main class that will be run on the submitted job
+|The name of the main class to be run on the submitted job.
 
 |bucketConfig
-|JAR file that is specified in the `jarName` from an external bucket are placed accessible for the member when the following parameter values are supplied:
+|The credentials and URI for the JAR file defined in `jarName`.
+The attribtes are as follows:
 
-  - `secretName`: Name of the Secret object which holds the credentials for your cloud provider.
-  - `bucketURI`: Full path for the external bucket. For example: `gs://your-bucket/path/to/jars`.
+  - `secretName`. The name of the Secret object holding the credentials for your cloud provider.
+  - `bucketURI`. The full path to the external bucket. For example, `gs://your-bucket/path/to/jars`.
 
 |remoteURL
-|URL from where the file will be downloaded.
+|The URL from which the file is downloaded.
 
 |===
 
-== Providing the JAR file for Data Pipeline
-To run the Data Pipeline, you need to provide a JAR file that contains the Pipeline. The JAR file can be pre-downloaded before the cluster starts by configuring the `jet.bucketConfig`, `jet.remoteURLs`, or `jet.configMaps` in the `Hazelcast` CR. This way, all the files in the bucket will be accessible to the member when the cluster starts.
-Another option is to configure `bucketConfig` or `remoteURL` in the `JetJob` CR. This way, only the JAR file specified in the `jarName` parameter will be downloaded in the runtime before starting the Data Pipeline.
+For further information on the fields used to configure Jet jobs, see xref:api-ref.adoc#jetjobspec[JetJobSpec] in the Hazelcast Operator API Reference.
 
-== JetJob state management
+== Provide the JAR for Data Pipeline
+
+To run the Data Pipeline, you must provide a JAR file containing the pipeline. 
+
+You can provide the JAR in either of the following ways:
+
+* Download the JAR before the cluster starts by configuring the `jet.bucketConfig`, `jet.remoteURLs`, or `jet.configMaps` in the Hazelcast custom resource. 
++
+This approach ensures that the files in the bucket are accessible to the member when the cluster starts.
+
+* Configure `bucketConfig` or `remoteURL` in the JetJob custom resource. 
++
+This approach downloads only the JAR specified in `jarName` before starting the data pipeline.
+
+[jetjob-state-management]
+== JetJob State Management
 Once the job is created, you can use `state` field to manage its lifecycle.
-The following `state` values are available:
 
-- `Running`. All the jobs must be created with the `Running` state. It will run the newly created job or will start the `Suspended` job.
+The valid values are as follows:
+
+- `Running`. All jobs must be created with the `Running` state. Either runs the created job, or starts the `Suspended` job.
 - `Suspended`. Gracefully suspends the `Running` job.
-- `Canceled`. Gracefully stops the job.
-- `Restarted`. Suspends and resumes the job in one step.
+- `Canceled`. Gracefully stops the `Running` job.
+- `Restarted`. Suspends and resumes the `Running` job in one step.
 
-Deleting the `JetJob` resource will forcefully cancel the job.
+If you delete the `JetJob` resource, the job is forcefully canceled.
 
 == Example Configuration
 
-The following `JetJob` resource runs the Data Pipeline for the `Hazelcast` resources on the source Hazelcast cluster from `my-data-pipeline.jar`.
+In this example, we configure the JetJob resource to run the data pipeline for Hazelcast resources on the source Hazelcast cluster from _my-data-pipeline.jar_.
+
+The configuration is as follows:
 
 .Example configuration
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/jet-job-example.yaml[]
+----

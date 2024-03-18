@@ -1,60 +1,67 @@
 = External Access to Management Center
-:description: Expose Management Center so that you can effortlessly monitor and manage your Hazelcast cluster.
+:description: You can expose Management Center to an external IP address, which is accessible from outside the cluster, to monitor and manage your Hazelcast cluster.
 
-Sometimes you may want to expose a Management Center onto an external IP address, one that's accessible from outside of your cluster. Management Center supports multiple external access methods.
+{description}
+
+Hazelcast Management Center supports multiple external access methods.
 
 == Configuring Hazelcast External Access
 
-External connectivity defines how to expose Management Center:
+You can use the following fields to expose Management Center to an external IP address:
 
 [cols="30%m,70%a"]
 |===
 |Field|Description
 
 |`externalConnectivity.type`
-| Management Center external access methods:
+|The method used by Hazelcast Management Center for external access.
+Valid values are as follows:
 
-- `LoadBalancer` (default): On cloud providers which support external load balancers, setting the type field to LoadBalancer provisions a load balancer for your Management Center.
-- `NodePort`: If you set the type field to NodePort, the Kubernetes control plane allocates a port from a reserved range (default: 30000-32767). Each node proxies that port (the same port number on every Node) into your Service.
+- `LoadBalancer` (default). Use this on cloud providers that support external load balancers, to provision a load balancer for Management Center.
+- `NodePort`. Use this to allow the Kubernetes control plane to allocate a port from the range specified by the Kubernetes `--service-node-port-range` flag. By default the port range is `30000-32767`. Each node proxies the same port number on every Node to your Service.
 - `ClusterIP`: Assigns an IP address from a pool of internal IP addresses that your cluster has reserved for that purpose.
 
 |`externalConnectivity.ingress`
-| Ingress exposes HTTP and HTTPS routes from outside the cluster to Management Center within the cluster. Traffic routing is controlled by rules defined on the https://kubernetes.io/docs/concepts/services-networking/ingress/[Ingress] resource.
+|The HTTP and HTTPS routes exposed from outside the cluster to Management Center in the cluster. For further information on the rules that control traffic routing, refer to the https://kubernetes.io/docs/concepts/services-networking/ingress/[Kubernetes documentation,window=_blank].
 
 |`externalConnectivity.route`
-| An OpenShift Container Platform https://docs.openshift.com/container-platform/4.13/networking/routes/route-configuration.html[Route] exposes a service at a host name, so that external clients can reach it by name.
+|Only used if using RedHat OpenShift. A route that allows access at a public URL to allow external clients to connect using the hostname.  For further information on route configuration in OpenShift, refer to the https://docs.openshift.com/container-platform/4.13/networking/routes/route-configuration.html[OpenShift documentation,windo=_blank].
 
 |===
 
-=== Example Management Center LoadBalancer Configuration
+=== Example LoadBalancer Configuration
 
-The example configuration below does the following:
+In this example, we expose Management Center using a dedicated load balancer.
 
-- Expose Management Center using a dedicated load balancer
+The configuration is as follows:
 
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/management-center-loadbalancer.yaml[]
 ----
 
-=== Example Management Center Ingress Configuration
+=== Example Ingress Configuration
 
-The example configuration below does the following:
+In this example, we expose Management Center using Ingress.
 
-- Expose Management Center using Ingress defined on https://kubernetes.io/docs/concepts/services-networking/ingress/[Ingress].
+For further information on Ingress, refer to the https://kubernetes.io/docs/concepts/services-networking/ingress/[Kubernetes documentation,window=_blank].
+
+The configuration is as follows:
 
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/management-center-ingress.yaml[]
 ----
 
-NOTE: Paths that consist of multiple segments, such as _/hazelcast/mancenter_, are supported from Management Center version 5.4.0.
+NOTE: You must use Hazelcast Management Center version 5.4.0 or later if the path to your repository consists of multiple segments, such as _/hazelcast/management-center_.
 
-=== Example Management Center Route Configuration
+=== Example Route Configuration
 
-The example configuration below does the following:
+In this example, we expose Management Center using the default OpenShift Container Platform.
 
-- Expose Management Center using default OpenShift Container Platform https://docs.openshift.com/container-platform/4.13/networking/routes/route-configuration.html[Route].
+For further information on the OpenShift Container Platform, refer to the https://docs.openshift.com/container-platform/4.13/networking/routes/route-configuration.html[OpenShift documentation,window=_blank].
+
+The configuration is as follows:
 
 [source,yaml,subs="attributes+"]
 ----

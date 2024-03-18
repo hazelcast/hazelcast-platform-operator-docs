@@ -1,20 +1,29 @@
-= Configuring System Properties
+= Configure System Properties
+:description: Hazelcast parameters can be configured using system properties through Hazelcast Operator.
 
-You can configure Hazelcast parameters using the `properties` field in the CRD spec. You can find all properties in link:https://docs.hazelcast.com/hazelcast/5.3/system-properties[System Properties] document.
+{description}
 
-It is worth highlighting the following system properties:
+You can configure Hazelcast parameters using the `properties` field of the CRD spec. For further information on the properties that can be used to configure Hazelcast, refer to xref:hazelcast:system-properties.adoc[System Properties,window=_blank] in the Platform documentation.
 
-- During a rolling upgrade, the cluster is shutdown gracefully to prevent data loss. You can configure this using the link:https://docs.hazelcast.com/hazelcast/5.3/system-properties#hazelcast.graceful.shutdown.max.wait[hazelcast.graceful.shutdown.max.wait system property].
+It is worth highlighting the following:
+
+- During a rolling upgrade, the cluster is shutdown gracefully to prevent data loss. 
 +
-Example Configuration:
+You can configure this using the xref:hazelcast:system-properties.adoc#hazelcast.graceful.shutdown.max.wait[hazelcast.graceful.shutdown.max.wait system property,window=_blank].
++
+For example, in the following configuration we set the maximum wait during a graceful shutdown to 300 seconds, or five minutes:
 +
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/properties.yaml[]
 ----
 
-Hazelcast Platform Operator sets the following system properties to the default values, which cannot be changed:
+Hazelcast Operator sets the following system properties to the default values, which cannot be changed:
 
-- The final step in the link:https://docs.hazelcast.com/hazelcast/5.3/maintain-cluster/rolling-upgrades#rolling-upgrade-procedure[rolling upgrade procedure] is to trigger a rolling upgrade on the cluster. Hazelcast Platform Operator triggers it automatically by setting `hazelcast.cluster.version.auto.upgrade.enabled` to `true` by default.
+- The final step in a rolling upgrade is to trigger a rolling upgrade on the cluster. Hazelcast Platform Operator triggers this step automatically by setting `hazelcast.cluster.version.auto.upgrade.enabled` to `true`. 
++
+For further information on the steps taken in a rolling update, refer to xref:hazelcast:maintain-cluster:rolling-upgrades.adoc#rolling-upgrade-procedure[Performing a Rolling Updgrade,window=_blank] in the Platform documentation.
 
-- `hazelcast.persistence.auto.cluster.state` set to `true` by default.
+- Hazelcast Enterprise members with persistence enabled can monitor the Kubernetes context and automate Hazelcast cluster state management to optimize cluster behavior during shutdown and restart. Hazelcast Operator enables automatic state management by setting `hazelcast.persistence.auto.cluster.state` set to `true`.
++
+For further information on running members with persistence with Kubernetes, refer to xref:hazelcast:kubernetes:kubernetes-persistence.adoc[Running Hazelcast Enterprise with Persistence under Kubernetes,window=_blank] in the Platform documentation.

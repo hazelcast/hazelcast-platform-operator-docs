@@ -1,11 +1,17 @@
-= Custom Configuration of Hazelcast cluster
-:description: pass:q[Hazelcast Platform Operator's Custom Config allows users to provide a raw Hazelcast Configuration that can be directly utilized. It is perfect for those who want to take complete control over their configuration or to use new features that are not yet present in the Operator.]
+= Custom Configuration of Hazelcast Cluster
+:description: pass:q[With Hazelcast Operator, you can provide a raw Hazelcast configuration for direct use. This approach is ideal if you want complete control over your configuration or to extend the available Hazelcast Operator configuration.]
 
 {description}
 
-== Configuring Hazelcast using Custom Config
+== Configure Hazelcast using Custom Configuration
 
-To use the Custom Config as a method of configuring the Hazelcast cluster, you need to create a `ConfigMap` with the member configuration. The configuration must be in YAML format and consist of valid xref:hazelcast:configuration:configuring-declaratively.adoc[Hazelcast configuration].
+Your custom configuration must be created as a `ConfigMap` that contains the member configuration.
+
+The configuration must be available in a valid YAML configuration file. For further information on declaring settings for Hazelcast members using a YAML configuration file, refer to xref:hazelcast:configuration:configuring-declaratively.adoc[Member Configuration Files,window=_blank] in the Platform documentation.
+
+In this example, we define custom configuration in a `ConfigMap`.
+
+The configuration is as follows:
 
 [source,yaml]
 ```
@@ -28,7 +34,8 @@ data:
                     - root
 ```
 
-The name of the `ConfigMap` should be set to the Hazelcast CR's `customConfigCmName` field.
+To use the custom configuration, ensure that the name of the `ConfigMap` matches the `customConfigCmName` defined in the Hazelcast custom resource. 
+You can find the `customConfigCmName` in the `spec` section of your Hazelcast custom resource, as follows:
 
 [source,yaml]
 ```
@@ -40,9 +47,13 @@ spec:
   customConfigCmName: custom-config-cm
 ```
 
-== Custom Config and Hazelcast CR
+== Custom Configuration and Hazelcast Custom Resource
 
-The Custom Config is not designed as an alternative to the Hazelcast CR configuration, and it is not recommended to use it as the main source of the configuration. That said, Custom Config can and should be used together with the Hazelcast CR configuration.
+The Hazelcast custom resource configuration and your custom configuration are merged and used to configure the Hazelcast member. 
+
+Custom configuration is designed to work with the Hazelcast custom resource configuration and we recommend that it is not the main source of the your configuration. If you have configured the same feature using both the Hazelcast custom resource and your custom configuration, the Hazelcast custom resource configuration overrides your custom configuration.
+
+For example, we can provide custom configuration to provide access to our `simpleRealm` realm as follows:
 
 [source,yaml]
 ```
@@ -64,6 +75,8 @@ data:
                   roles:
                     - root
 ```
+
+While we define our user code deployment, which uses the realm, in the Hazelcast custom resource as follows:
 
 [source,yaml]
 ```
@@ -85,21 +98,21 @@ spec:
     - name: service3
 ```
 
-The configuration from the Hazelcast CR and the Custom Config will be merged into one structure that will be used as the Hazelcast member configuration.
-If the same feature is configured with Custom Config `ConfigMap` and in the Hazelcast CR, the configuration from the Hazelcast CR will take precedence and will override the one from the Custom Config.
+== Limitations
 
-== Cautions and limitations
+As the custom configuration contains raw Hazelcast configuration, which is not managed by Hazelcast Operator, the following limitations apply:
 
-The Custom Config feature contains raw Hazelcast configuration that is not being managed by the Hazelcast Platform Operator. Thus its usage has some cautions and limitations.
+* You cannot configure a single feature in both the Hazelcast custom resource and the custom configuration. 
++
+Any configuration in the Hazelcast custom resouce overrides the configuration in the custom configuration.
 
-=== Combining Hazelcast CR and Custom Config
+* Some Hazelcast features need additional Kubernetes resources to be configured; for example, Persistence requires PVCs. 
++
+Custom configuration cannot be used to configure Kubernetes deployments. Therefore, you cannot use custom configuration for these features, which must be configured using only the Hazelcast custom resource.
 
-It is not possible to combine the configuration of one feature in the Hazelcast CR and the Custom Config. The configuration from the Hazelcast CR will override the partial configuration from the Custom Config.
-
-=== Operator-managed features
-
-Some Hazelcast features require the management of additional K8s resources (e.g., xref:hazelcast:storage:persistence.adoc[Persistence] requires PVCs). Custom Config does not allow configuring Kubernetes deployments, only the Hazelcast configuration. Therefore it is not possible to use Custom Config for such features; only the Hazelcast CR config is supported.
-
-=== Networking configuration
-
-The Hazelcast Platform Operator communicates with the Hazelcast cluster, requiring a specific networking configuration. Reconfiguring it using Custom Config might break communication between the Operator and the cluster. To avoid such cases, the Operator will always override the networking section of the Custom Config. If you require any specific networking setup, please use Hazelcast CR.
+* Hazelcast Operator communicates with the Hazelcast cluster, therefore the network communication must be configured. 
++
+The network must be configured in the Hazelcast custom resource.
++
+If you configure network communication in your custom configuration, this can break communication between Hazelcast Operator and the cluster. 
+To avoid this, Hazelcast Operator always overrides the networking section in your custom configuration. 
