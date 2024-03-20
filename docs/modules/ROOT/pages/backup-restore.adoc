@@ -182,11 +182,22 @@ include::ROOT:example$/hazelcast-persistence-restore-local.yaml[]
 ----
 
 <1> The name of the cluster for both backup and restore must be the same. If the cluster name is different, the restore fails.
-<2> `baseDir` is the root directory for persistence.
-<3> `backupDir` is the directory that contains a backupFolder for each available backup.
-<4> `backupFolder` is the directory containing the specific backup for the restore.
+<2> `pvcNamePrefix` is the prefix of the existing PVCs. It can be `persistence` or `hot-restart-persistence` depending on the installation method (in different versions of Hazelcast Helm Chart and Hazelcast Platform Operators these two values are used by default) of the old cluster. You can decide this value by running `kubect get pvc` command.
+<3> `baseDir` is the root directory for persistence.
+<4> `backupDir` is the directory that contains a backupFolder for each available backup.
+<5> `backupFolder` is the directory containing the specific backup for the restore.
 
-NOTE: Agent copies backup to be restored from `{baseDir}/{backupDir}/{backupFolder}` to `/data/persistence` path.
+TIP: To find the `backupFolder` value, you can run a simple pod that lists the contents of the PVC and check its logs, it will print the folder structure of the specified PVC. For example:
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/pod-local-pvc-content.yaml[]
+----
+<1>  Replace `/data/persistence` with the path where your PV is mounted inside the container.
+<2> Replace `/data/persistence` with the correct mountPath specified in PV.
+<3> Replace with the name of the one of the PVCs mounted to the cluster that the backup is taken.
+
+NOTE: Agent copies backup to be restored from `{baseDir}/{backupDir}/{backupFolder}` to `/data/persistence/base-dir` path.
 
 == Restoring from External Backups
 

@@ -12,6 +12,7 @@ spec:
       requestStorage: 20Gi
     restore:
       localConfig:
-        baseDir: "base" <2>
-        backupDir: "backup" <3>
-        backupFolder: "backup-1709045128548" <4>
+        pvcNamePrefix: "hot-restart-persistence" <2>
+        baseDir: "base" <3>
+        backupDir: "backup" <4>
+        backupFolder: "backup-1709045128548" <5>
