@@ -6,6 +6,7 @@
 * xref:scheduling-configuration.adoc[Scheduling Hazelcast Pods]
 * xref:serialization-configuration.adoc[Serialization]
 * xref:scaling-upgrading.adoc[Scaling & Upgrading]
+* xref:cp-subsystem.adoc[Enabling CP Subsystem]
 * Configuring Data Structures
 ** xref:map-configuration.adoc[Map]
 ** xref:multimap-configuration.adoc[MultiMap]
