@@ -26,6 +26,17 @@ To create `WanSync` resource you must use the existing `WanReplication` CR. This
 include::ROOT:example$/wan-sync-full.yaml[]
 ----
 
+== Configuring Delta WanSync
+
+To configure xref:hazelcast:wan:advanced-features#delta-wan-synchronization.adoc[Delta WAN Sync] for the Hazelcast cluster, you must configure Merkle Tree for the `Map` and set the `synConsistencyCheckStrategy` to `MERKLE_TREES` in the `WanReplication`. The created `WanSync` will automatically use Delta WAN Synchronization.
+
+.Example of Delta WanSync
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/wan-sync-delta.yaml[]
+----
+
+
 == Checking the Status of a WAN Sync
 
 After creating the `WanSync` resource, run the following command to see the WAN syncronization status:

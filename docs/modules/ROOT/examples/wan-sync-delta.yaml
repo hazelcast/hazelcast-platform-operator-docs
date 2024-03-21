@@ -1,0 +1,27 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: Map
+metadata:
+  name: map-sample
+spec:
+  hazelcastResourceName: hazelcast
+  merkleTree:
+    depth: 10
+---
+apiVersion: hazelcast.com/v1alpha1
+kind: WanReplication
+metadata:
+  name: wan-replication-sample
+spec:
+  resources:
+  - name: map-sample
+    kind: Map
+  targetClusterName: dev
+  endpoints: "35.192.33.252"
+  synConsistencyCheckStrategy: "MERKLE_TREES"
+---
+apiVersion: hazelcast.com/v1alpha1
+kind: WanSync
+metadata:
+  name: wansync-sample
+spec:
+  wanReplicationResourceName: wan-replication-sample
