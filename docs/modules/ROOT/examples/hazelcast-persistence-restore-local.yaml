@@ -6,13 +6,14 @@ spec:
   clusterSize: 3
   repository: 'docker.io/hazelcast/hazelcast-enterprise'
   licenseKeySecretName: hazelcast-license-key
+  customConfigCmName: mapCustomConfig <2>
   persistence:
     pvc:
       accessModes: ["ReadWriteOnce"]
       requestStorage: 20Gi
     restore:
       localConfig:
-        pvcNamePrefix: "hot-restart-persistence" <2>
-        baseDir: "base" <3>
-        backupDir: "backup" <4>
-        backupFolder: "backup-1709045128548" <5>
+        pvcNamePrefix: "hot-restart-persistence" <3>
+        baseDir: "base" <4>
+        backupDir: "backup" <5>
+        backupFolder: "backup-1709045128548" <6>

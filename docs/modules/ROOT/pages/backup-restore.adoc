@@ -182,10 +182,11 @@ include::ROOT:example$/hazelcast-persistence-restore-local.yaml[]
 ----
 
 <1> The name of the cluster for both backup and restore must be the same. If the cluster name is different, the restore fails.
-<2> `pvcNamePrefix` is the prefix of the existing PVCs. It can be `persistence` or `hot-restart-persistence` depending on the installation method (in different versions of Hazelcast Helm Chart and Hazelcast Platform Operators these two values are used by default) of the old cluster. You can decide this value by running `kubect get pvc` command.
-<3> `baseDir` is the root directory for persistence.
-<4> `backupDir` is the directory that contains a backupFolder for each available backup.
-<5> `backupFolder` is the directory containing the specific backup for the restore.
+<2> If you configured maps with persistence, you need to create them while creating Hazelcast CR  as well. To be able to create them while creating Hazelcast CR, you need to use xref:custom-config.adoc[Custom Config]. If you try to apply Hazelcast CR and then Map CRs, it will not work.
+<3> `pvcNamePrefix` is the prefix of the existing PVCs. It can be `persistence` or `hot-restart-persistence` depending on the installation method (in different versions of Hazelcast Helm Chart and Hazelcast Platform Operators these two values are used by default) of the old cluster. You can decide this value by running `kubect get pvc` command.
+<4> `baseDir` is the root directory for persistence.
+<5> `backupDir` is the directory that contains a backupFolder for each available backup.
+<6> `backupFolder` is the directory containing the specific backup for the restore.
 
 TIP: To find the `backupFolder` value, you can run a simple pod that lists the contents of the PVC and check its logs, it will print the folder structure of the specified PVC. For example:
 
