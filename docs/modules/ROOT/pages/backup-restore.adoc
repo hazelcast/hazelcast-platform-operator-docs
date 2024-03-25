@@ -183,7 +183,7 @@ include::ROOT:example$/hazelcast-persistence-restore-local.yaml[]
 
 <1> The name of the cluster for both backup and restore must be the same. If the cluster name is different, the restore fails.
 <2> If you configured maps with persistence, you must create them while creating the Hazelcast CR. To create them while creating the Hazelcast CR, you must use xref:custom-config.adoc[Custom Config]. You cannot apply the Hazelcast CR and then the Map CRs.
-<3> `pvcNamePrefix` is the prefix of the existing PVCs. It can be `persistence` or `hot-restart-persistence` depending on the installation method (in different versions of Hazelcast Helm Chart and Hazelcast Platform Operators these two values are used by default) of the old cluster. You can decide this value by running `kubect get pvc` command.
+<3> `pvcNamePrefix` is the prefix of the existing PVCs. It can be set to `persistence` or `hot-restart-persistence` depending on the installation method of the old cluster. In different versions of Hazelcast Helm Chart and Hazelcast Platform Operator, these values are used by default. Run the `kubect get pvc` command to decide which setting best suits your requirements.
 <4> `baseDir` is the root directory for persistence.
 <5> `backupDir` is the directory that contains a backupFolder for each available backup.
 <6> `backupFolder` is the directory containing the specific backup for the restore.
