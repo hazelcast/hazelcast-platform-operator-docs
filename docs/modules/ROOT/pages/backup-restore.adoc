@@ -194,7 +194,7 @@ TIP: To find the `backupFolder` value, you can run a simple pod that lists the c
 ----
 include::ROOT:example$/pod-local-pvc-content.yaml[]
 ----
-<1>  Replace `/data/persistence` with the path where your PV is mounted inside the container.
+<1>  Replace `/data/persistence` with the path to your PV, which is mounted inside the container.
 <2> Replace `/data/persistence` with the correct mountPath specified in PV.
 <3> Replace with the name of the one of the PVCs mounted to the cluster that the backup is taken.
 
