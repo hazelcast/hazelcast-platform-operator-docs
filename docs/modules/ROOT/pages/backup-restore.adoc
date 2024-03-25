@@ -198,7 +198,7 @@ include::ROOT:example$/pod-local-pvc-content.yaml[]
 <2> Replace `/data/persistence` with the correct mountPath specified in PV.
 <3> Replace with the name of the one of the PVCs mounted to the cluster that the backup is taken.
 
-NOTE: Agent copies backup to be restored from `{baseDir}/{backupDir}/{backupFolder}` to `/data/persistence/base-dir` path.
+NOTE: Agent copies the backup to be restored from `{baseDir}/{backupDir}/{backupFolder}` to `/data/persistence/base-dir`.
 
 == Restoring from External Backups
 
