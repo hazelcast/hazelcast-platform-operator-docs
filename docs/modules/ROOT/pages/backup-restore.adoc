@@ -188,7 +188,7 @@ include::ROOT:example$/hazelcast-persistence-restore-local.yaml[]
 <5> `backupDir` is the directory that contains a backupFolder for each available backup.
 <6> `backupFolder` is the directory containing the specific backup for the restore.
 
-TIP: To find the `backupFolder` value, you can run a simple pod that lists the contents of the PVC and check its logs, it will print the folder structure of the specified PVC. For example:
+TIP: To find the `backupFolder` value, you can run a simple pod that lists the contents of the PVC and checks its logs. This lists the folder structure of the specified PVC. For example:
 
 [source,yaml,subs="attributes+"]
 ----
