@@ -283,7 +283,6 @@ CPSubsystem contains the configuration of a component of a Hazelcast that builds
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| memberCount | MemberCount is the number of CP members to initialize the CP Subsystem. m| int32 | true | -
 m| groupSize | GroupSize is the number of CP members to participate in each CP group. Allowed values are 3, 5, and 7. m| &#42;int32 | false | -
 m| sessionTTLSeconds | SessionTTLSeconds is the duration for a CP session to be kept alive after the last received heartbeat. Must be greater than or equal to SessionTTLSeconds. m| &#42;int32 | false | -
 m| sessionHeartbeatIntervalSeconds | SessionHeartbeatIntervalSeconds Interval in seconds for the periodically committed CP session heartbeats. Must be greater than or equal to SessionTTLSeconds. m| &#42;int32 | false | -
