@@ -198,7 +198,7 @@ TIP: To find the `backupFolder` value, you can run `kubectl exec -it <hazelcast-
 ----
 include::ROOT:example$/pod-local-pvc-content.yaml[]
 ----
-<1>  Replace `/data/persistence` with the path to your PV, which is mounted inside the container.
+<1> Replace `/data/persistence` with the path to your PV, which is mounted inside the container.
 <2> Replace `/data/persistence` with the correct mountPath specified in PV.
 <3> Replace with the name of the one of the PVCs, which is mounted to the cluster from which the backup is taken.
 
