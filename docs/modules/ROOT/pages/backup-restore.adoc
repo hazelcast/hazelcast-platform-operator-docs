@@ -156,6 +156,8 @@ hot-backup   Success
 
 == Restoring from Local Backups
 
+=== Restoring from Local Backups Created by Hot Backup Custom Resource
+
 To restore a cluster from local backups, you can directly reapply the `Hazelcast` resource, which gives the cluster access to the PVCs that contain the persisted data. This will restore the Hazelcast cluster from existing `hot-restart` folders.
 
 Or, to restore from local backups that you have taken using the `HotBackup` resource, give the `HotBackup` resource name in the restore configuration. For the restore to work correctly, make sure the status of the `HotBackup` resource is `Success`.
@@ -174,6 +176,8 @@ include::ROOT:example$/hazelcast-persistence-restore-cr-name.yaml[]
 The agent configuration is optional. If you give `restore` under `persistence` and do not pass the agent configuration, Hazelcast Platform Operator
 uses the latest agent version that is compatible with its version.
 
+=== Restoring from Local Backups Created with other Methods
+
 To restore from local backups that were not created by the HotBackup resource, configure `localConfig`.
 
 [source,yaml,subs="attributes+"]
@@ -188,7 +192,7 @@ include::ROOT:example$/hazelcast-persistence-restore-local.yaml[]
 <5> `backupDir` is the directory that contains a backupFolder for each available backup.
 <6> `backupFolder` is the directory containing the specific backup for the restore.
 
-TIP: To find the `backupFolder` value, you can run a simple pod that lists the contents of the PVC and checks its logs. This lists the folder structure of the specified PVC. For example:
+TIP: To find the `backupFolder` value, you can run `kubectl exec -it <hazelcast-custom-resource-name> -c hazelcast -- /bin/bash` and list the contents of your in your existing installation. If you already deleted your installation, you can run a simple pod that lists the contents of the PVC and checks its logs. This lists the folder structure of the specified PVC. For example:
 
 [source,yaml,subs="attributes+"]
 ----
