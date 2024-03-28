@@ -7,7 +7,7 @@ See xref:hazelcast:cp-subsystem:cp-subsystem.adoc[CP Subsystem] for more detaile
 
 == Configuring CP Subsystem
 
-To enable CP Subsystem you must configure the `cpSubsystem` section in the Hazelcast custom resource. All the members of the Hazelcast cluster will configured as CP Members.
+To enable CP Subsystem you must configure the `cpSubsystem` section in the Hazelcast custom resource. All the cluster members will be configured as CP Members.
 
 .Example of CP Subsystem
 [source,yaml,subs="attributes+"]
