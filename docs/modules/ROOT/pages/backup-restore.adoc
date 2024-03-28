@@ -6,7 +6,10 @@
 
 This topic assumes that you know about Persistence in Hazelcast. To learn about Persistence, see the xref:hazelcast:storage:persistence.adoc[Platform documentation].
 
-There are two options for a backup: local and external. Local backups are kept in volume and never moved anywhere whereas external backups are moved into buckets provided by the user. 
+Backups can be either of the following:
+
+- Local: Local backups are kept in volume and never moved anywhere.
+- External: External backups are moved into buckets provided by the user.
 
 TIP: For a working example, see link:https://docs.hazelcast.com/tutorials/hazelcast-platform-operator-external-backup-restore[this tutorial].
 
@@ -23,8 +26,8 @@ include::ROOT:example$/hazelcast-persistence.yaml[]
 <1> <<recovery-policy, Cluster recovery policy>>.
 <2> Size of the PersistentVolumeClaim (PVC) where Hazelcast data is persisted.
 <3> Agent responsible for moving data from the local storage to external buckets.
-    The agent configuration is optional. If you enable `persistence` and do not pass the agent configuration, Hazelcast Platform Operator
-    uses the latest agent version that is compatible with its version.
+The agent configuration is optional. If you enable `persistence` and do not pass the agent configuration, Hazelcast Platform Operator
+uses the latest agent version that is compatible with its version.
 
 NOTE: Make sure to calculate the total disk space that you will use. The total used disk space may be larger than the size of in-memory data, depending on how many <<local-backup, backups>> you take.
 
@@ -153,9 +156,11 @@ hot-backup   Success
 
 == Restoring from Local Backups
 
+=== Restoring from Local Backups Created by Hot Backup Custom Resource
+
 To restore a cluster from local backups, you can directly reapply the `Hazelcast` resource, which gives the cluster access to the PVCs that contain the persisted data. This will restore the Hazelcast cluster from existing `hot-restart` folders.
 
-Or, to restore from local backups that you have taken using the `HotBackup` resource, give the `HotBackup` resource name in the restore configuration. For the restore to work correctly, make sure the status of the `HotBackup` resource is `Success`. 
+Or, to restore from local backups that you have taken using the `HotBackup` resource, give the `HotBackup` resource name in the restore configuration. For the restore to work correctly, make sure the status of the `HotBackup` resource is `Success`.
 
 When this restore mechanism is used, the Restore Agent container is
 deployed with the Hazelcast container in the same Pod. The agent starts as an initContainer before the Hazelcast container.
@@ -168,8 +173,36 @@ include::ROOT:example$/hazelcast-persistence-restore-cr-name.yaml[]
 
 <1> `HotBackup` resource name used for restore. The backup folder name will be taken from the `HotBackup` resource.
 <2> Agent responsible for restoring data from the local storage.
-    The agent configuration is optional. If you give `restore` under `persistence` and do not pass the agent configuration, Hazelcast Platform Operator
-    uses the latest agent version that is compatible with its version.
+The agent configuration is optional. If you give `restore` under `persistence` and do not pass the agent configuration, Hazelcast Platform Operator
+uses the latest agent version that is compatible with its version.
+
+=== Restoring from Local Backups Created with other Methods
+
+To restore from local backups that were not created by the HotBackup resource, configure `localConfig`.
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-persistence-restore-local.yaml[]
+----
+
+<1> The name of the Hazelcast custom resource for both backup and restore must be the same. If the Hazelcast custom resource name is different, the restore fails.
+<2> If you configured maps with persistence, you must create them while creating the Hazelcast CR. To create them while creating the Hazelcast CR, you must use xref:custom-config.adoc[Custom Config]. You cannot apply the Hazelcast CR and then the Map CRs.
+<3> `pvcNamePrefix` is the prefix of the existing PVCs. It can be set to `persistence` or `hot-restart-persistence` depending on the installation method of the old cluster. In different versions of Hazelcast Helm Chart and Hazelcast Platform Operator, these values are used by default. Run the `kubect get pvc` command to decide which setting best suits your requirements.
+<4> `baseDir` is the root directory for persistence.
+<5> `backupDir` is the directory that contains a backupFolder for each available backup.
+<6> `backupFolder` is the directory containing the specific backup for the restore.
+
+TIP: To find the `backupFolder` value, you can run `kubectl exec -it <hazelcast-custom-resource-name> -c hazelcast -- /bin/bash` and list the contents of your in your existing installation. If you already deleted your installation, you can run a simple pod that lists the contents of the PVC and checks its logs. This lists the folder structure of the specified PVC. For example:
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/pod-local-pvc-content.yaml[]
+----
+<1> Replace `/data/persistence` with the path to your PV, which is mounted inside the container.
+<2> Replace `/data/persistence` with the correct mountPath specified in PV.
+<3> Replace with the name of the one of the PVCs, which is mounted to the cluster from which the backup is taken.
+
+NOTE: Agent copies the backup to be restored from `{baseDir}/{backupDir}/{backupFolder}` to `/data/persistence/base-dir`.
 
 Note: You can only use a local backup once to restore a cluster. It is recommended to backup externally if you need to persistently restore a backup across clusters.
 
@@ -194,8 +227,8 @@ include::ROOT:example$/hazelcast-persistence-restore-external.yaml[]
 <1> Bucket URI where backup data will be restored from.
 <2> Name of the secret with credentials for accessing the given bucket URI.
 <3> Agent which is responsible for restoring data from the external storage.
-    The agent configuration is optional. If you provide `restore` under `persistence` and do not pass the agent configuration, Hazelcast Platform Operator
-    uses the latest agent version that is compatible with its version.
+The agent configuration is optional. If you provide `restore` under `persistence` and do not pass the agent configuration, Hazelcast Platform Operator
+uses the latest agent version that is compatible with its version.
 --
 
 HotBackup resource name::
@@ -208,8 +241,8 @@ include::ROOT:example$/hazelcast-persistence-restore-cr-name.yaml[]
 
 <1> `HotBackup` resource name used for the restore. The bucket URI and secret are taken from the `HotBackup` resource.
 <2> Agent responsible for restoring data from external storage.
-    The agent configuration is optional. If you provide `restore` under `persistence` and do not pass the agent configuration, Hazelcast Platform Operator
-    uses the latest agent version that is compatible with its version.
+The agent configuration is optional. If you provide `restore` under `persistence` and do not pass the agent configuration, Hazelcast Platform Operator
+uses the latest agent version that is compatible with its version.
 --
 
 ====
