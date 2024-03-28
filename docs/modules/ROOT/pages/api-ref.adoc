@@ -126,6 +126,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<NearCache,NearCache>>
 * <<NearCacheEviction,NearCacheEviction>>
 * <<NodeState,NodeState>>
+* <<PVCNamePrefix,PVCNamePrefix>>
 * <<PersistenceStartupAction,PersistenceStartupAction>>
 * <<Phase,Phase>>
 * <<PvcConfiguration,PvcConfiguration>>
@@ -143,6 +144,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<ResourceKind,ResourceKind>>
 * <<ResourceSpec,ResourceSpec>>
 * <<RestoreConfiguration,RestoreConfiguration>>
+* <<RestoreFromLocalConfiguration,RestoreFromLocalConfiguration>>
 * <<RestoreState,RestoreState>>
 * <<RestoreStatus,RestoreStatus>>
 * <<SQL,SQL>>
@@ -210,7 +212,7 @@ m| wan | &#160; m| []<<WANConfig,WANConfig>> | false | -
 |===
 | Field | Description | Type | Required | Default
 m| repository | Repository to pull Hazelcast Platform Operator Agent(https://github.com/hazelcast/platform-operator-agent) m| string | false | "docker.io/hazelcast/platform-operator-agent"
-m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.23"
+m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.24"
 m| resources | Compute Resources required by the Agent container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | -
 |===
 
@@ -281,7 +283,6 @@ CPSubsystem contains the configuration of a component of a Hazelcast that builds
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| memberCount | MemberCount is the number of CP members to initialize the CP Subsystem. m| int32 | true | -
 m| groupSize | GroupSize is the number of CP members to participate in each CP group. Allowed values are 3, 5, and 7. m| &#42;int32 | false | -
 m| sessionTTLSeconds | SessionTTLSeconds is the duration for a CP session to be kept alive after the last received heartbeat. Must be greater than or equal to SessionTTLSeconds. m| &#42;int32 | false | -
 m| sessionHeartbeatIntervalSeconds | SessionHeartbeatIntervalSeconds Interval in seconds for the periodically committed CP session heartbeats. Must be greater than or equal to SessionTTLSeconds. m| &#42;int32 | false | -
@@ -600,7 +601,7 @@ m| status | &#160; m| <<HazelcastStatus,HazelcastStatus>> | false | -
 | Field | Description | Type | Required | Default
 m| name | Name of the Hazelcast cluster that Management Center will connect to, default is dev. m| string | false | "dev"
 m| address | IP address or DNS name of the Hazelcast cluster. If the cluster is exposed with a service name in a different namespace, use the following syntax "<service-name>.<service-namespace>". m| string | true | -
-m| tls | TLS client configuration. m| &#42;<<TLS,TLS>> | false | {}
+m| tls | TLS client configuration. m| &#42;<<TLS,TLS>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -717,7 +718,13 @@ m| clusterDataRecoveryPolicy | Configuration of the cluster recovery strategy. m
 m| startupAction | StartupAction represents the action triggered when the cluster starts to force the cluster startup. m| <<PersistenceStartupAction,PersistenceStartupAction>> | false | -
 m| dataRecoveryTimeout | DataRecoveryTimeout is timeout for each step of data recovery in seconds. Maximum timeout is equal to DataRecoveryTimeout*2 (for each step: validation and data-load). m| int32 | false | -
 m| pvc | Configuration of PersistenceVolumeClaim. m| &#42;<<PvcConfiguration,PvcConfiguration>> | false | -
-m| restore | Restore configuration m| <<RestoreConfiguration,RestoreConfiguration>> | false | {}
+m| restore | Restore configuration m| &#42;<<RestoreConfiguration,RestoreConfiguration>> | false | {}
+|===
+==== Deprecated
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| baseDir | BaseDir is deprecated. Use restore.localConfig to restore from a local backup. m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -740,7 +747,7 @@ m| clusterName | Name of the Hazelcast cluster. m| string | false | "dev"
 m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingConfiguration>> | false | -
 m| resources | Compute Resources required by the Hazelcast container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | -
 m| persistence | Persistence configuration m| &#42;<<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>> | false | -
-m| agent | B&R Agent configurations m| <<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.23"}
+m| agent | B&R Agent configurations m| <<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.24"}
 m| jet | Jet Engine configuration m| &#42;<<JetEngineConfiguration,JetEngineConfiguration>> | false | {enabled: true, resourceUploadEnabled: false}
 m| userCodeDeployment | User Codes to Download into CLASSPATH m| &#42;<<UserCodeDeploymentConfig,UserCodeDeploymentConfig>> | false | -
 m| executorServices | Java Executor Service configurations, see https://docs.hazelcast.com/hazelcast/latest/computing/executor-service m| []<<ExecutorServiceConfiguration,ExecutorServiceConfiguration>> | false | -
@@ -1647,6 +1654,22 @@ RestoreConfiguration contains the configuration for Restore operation
 | Field | Description | Type | Required | Default
 m| bucketConfig | Bucket Configuration from which the backup will be downloaded. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
 m| hotBackupResourceName | Name of the HotBackup resource from which backup will be fetched. m| string | false | -
+m| localConfig | Configuration to restore from local backup m| &#42;<<RestoreFromLocalConfiguration,RestoreFromLocalConfiguration>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== RestoreFromLocalConfiguration
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| pvcNamePrefix | PVC name prefix used in existing PVCs m| <<PVCNamePrefix,PVCNamePrefix>> | false | "persistence"
+m| baseDir | Persistence base directory m| string | false | -
+m| backupDir | Local backup base directory m| string | false | -
+m| backupFolder | Backup directory m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -2449,6 +2472,19 @@ m| "PASSIVE" | &#160;
 m| "ACTIVE" | &#160;
 m| "SHUT_DOWN" | &#160;
 m| "STARTING" | &#160;
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== PVCNamePrefix
+
+PVCNamePrefix specifies the prefix of existing PVCs
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "persistence" | Persistence format is persistence.
+m| "hot-restart-persistence" | HotRestartPersistence format is hot-restart-persistence.
 |===
 
 <<Table of Contents,Back to TOC>>
