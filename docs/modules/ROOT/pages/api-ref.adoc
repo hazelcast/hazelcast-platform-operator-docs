@@ -601,7 +601,7 @@ m| status | &#160; m| <<HazelcastStatus,HazelcastStatus>> | false | -
 | Field | Description | Type | Required | Default
 m| name | Name of the Hazelcast cluster that Management Center will connect to, default is dev. m| string | false | "dev"
 m| address | IP address or DNS name of the Hazelcast cluster. If the cluster is exposed with a service name in a different namespace, use the following syntax "<service-name>.<service-namespace>". m| string | true | -
-m| tls | TLS client configuration. m| &#42;<<TLS,TLS>> | false | {}
+m| tls | TLS client configuration. m| &#42;<<TLS,TLS>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
