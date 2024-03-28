@@ -1,11 +1,11 @@
 = Tiered Storage
-:description: Tiered Storage offers an extension to Hazelcast map, which allows you to store a larger data set than available memory.
+:description: Tiered Storage offers an extension to Hazelcast map, which allows you to store a larger data set than can be accommodated by available memory.
 :page-enterprise: true
 :page-beta: true
 
 {description}
 
-See xref:hazelcast:tiered-storage:overview.adoc[Tiered Storage] for more detailed information about the configuration and behavior of Tiered Storage in Hazelcast.
+For further information on the configuration and behavior of Tiered Storage in Hazelcast, refer to xref:hazelcast:tiered-storage:overview.adoc[Tiered Storage,window=_blank] in the Platform documentation.
 
 Configuration for Tiered Storage includes setting the local device (local disk) parameters for the Hazelcast CR and providing Tiered Storage details for the Map CR.
 
@@ -13,9 +13,18 @@ Configuration for Tiered Storage includes setting the local device (local disk) 
 
 Native Memory must be enabled for Tiered Storage. You can learn about enabling Native Memory for Hazelcast in xref:native-memory.adoc#example-configuration[Native Memory]
 
-WARNING: Native Memory size(*NativeMemory.Size*) must be at least 1084 MB * Number of Tiered Store Map. For example if you are planning to have 3 Tiered Store Map, you need at least 3 * 1084 MB Native Memory size.
+WARNING: Native Memory size(*NativeMemory.Size*) must be at least 1084 MB * Number of Tiered Store Maps. For example, if you plan to have three Tiered Store Maps, you need at least 3 * 1084 MB (3,252 MB) of Native Memory.
 
-For each given local device configuration, *clusterSize*(3) PVCs will be created and used as local disk.
+You can configure one or more local devices in a single Hazelcast CR. A separate PVC is created for each local device and is used as the local disk for that device. Therefore, the number of created PVCs matches the cluster size for each configured local device.
+
+For example, if we create two local devices, called `device1` and `device2`, for a Hazelcast CR, called `hazelcast`, and we have a cluster size of 3, a total of six PVCs are created as follows:
+
+- device1-hazelcast-0
+- device1-hazelcast-1
+- device1-hazelcast-2
+- device2-hazelcast-0
+- device2-hazelcast-1
+- device2-hazelcast-2
 
 .Example of Hazelcast CR
 [source,yaml,subs="attributes+"]
@@ -33,10 +42,10 @@ In-memory-format must be *NATIVE* for the tiered-store maps.
 include::ROOT:example$/map-tiered-store.yaml[]
 ----
 
-== Configuration Based Validations
+== Configuration-based Validation
 
-- Native Memory must be enabled on Hazelcast CR and *InMemoryFormat* must be *NATIVE* on Map CR.
-- Data Persistence and Tiered Storage are mutually exclusive features. Both can not be enabled simultaneously. *PersistenceEnabled* must be false.
+- Native Memory must be enabled on the Hazelcast CR and *InMemoryFormat* must be *NATIVE* on the Map CR.
+- Data Persistence and Tiered Storage are mutually exclusive features; you cannot enable both simultaneously on the Map configuration. *PersistenceEnabled* must be false when using Tiered Storage.
 - *Indexes*, *Eviction*, *TimeToLiveSeconds*, and *MaxIdleSeconds* are not supported for tiered-store maps.
 - Configured local device size (*LocalDevice.PVC.RequestStorage*) must be higher than *MemoryCapacity*.
 - Native Memory size(*NativeMemory.Size*) must be higher than sum of all *MemoryCapacity*
