@@ -1,7 +1,6 @@
 = Tiered Storage
 :description: Tiered Storage offers an extension to Hazelcast map, which allows you to store a larger data set than can be accommodated by available memory.
 :page-enterprise: true
-:page-beta: true
 
 {description}
 
@@ -13,7 +12,7 @@ Configuration for Tiered Storage includes setting the local device (local disk) 
 
 Native Memory must be enabled for Tiered Storage. You can learn about enabling Native Memory for Hazelcast in xref:native-memory.adoc#example-configuration[Native Memory]
 
-WARNING: Native Memory size(*NativeMemory.Size*) must be at least 1084 MB * Number of Tiered Store Maps. For example, if you plan to have three Tiered Store Maps, you need at least 3 * 1084 MB (3,252 MB) of Native Memory.
+WARNING: Before configuring Native Memory and Local Devices for the Hazelcast, see xref:hazelcast:tiered-storage:capacity-planning.adoc[Tiered Storage Capacity Planning,window=_blank]
 
 You can configure one or more local devices in a single Hazelcast CR. A separate PVC is created for each local device and is used as the local disk for that device. Therefore, the number of created PVCs matches the cluster size for each configured local device.
 
