@@ -155,6 +155,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<SerializationFilterList,SerializationFilterList>>
 * <<Serializer,Serializer>>
 * <<ServerSocketEndpointConfig,ServerSocketEndpointConfig>>
+* <<SyncConsistencyCheckStrategy,SyncConsistencyCheckStrategy>>
 * <<TLS,TLS>>
 * <<TieredStore,TieredStore>>
 * <<Topic,Topic>>
@@ -1973,6 +1974,7 @@ m| endpoints | Endpoints is the target cluster comma separated endpoint list . m
 m| queue | Queue is the configuration for WAN events queue. m| <<QueueSetting,QueueSetting>> | false | {capacity: 10000, fullBehavior: DISCARD_AFTER_MUTATION}
 m| batch | Batch is the configuration for WAN events batch. m| <<BatchSetting,BatchSetting>> | false | {size: 500, maximumDelay: 1000}
 m| acknowledgement | Acknowledgement is the configuration for the condition when the next batch of WAN events are sent. m| <<AcknowledgementSetting,AcknowledgementSetting>> | false | {type: ACK_ON_OPERATION_COMPLETE, timeout: 60000}
+m| syncConsistencyCheckStrategy | SyncConsistencyCheckStrategy is the strategy for checking the consistency of data between replicas. m| <<SyncConsistencyCheckStrategy,SyncConsistencyCheckStrategy>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -2554,6 +2556,17 @@ m| "Unknown" | &#160;
 m| "Failed" | &#160;
 m| "InProgress" | &#160;
 m| "Succeeded" | &#160;
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== SyncConsistencyCheckStrategy
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
 |===
 
 <<Table of Contents,Back to TOC>>
