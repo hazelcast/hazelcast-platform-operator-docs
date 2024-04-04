@@ -1,7 +1,7 @@
 apiVersion: hazelcast.com/v1alpha1
 kind: Hazelcast
 metadata:
-  name: hazelcast
+  name: hazelcast <1>
 spec:
   clusterSize: 3
   repository: 'docker.io/hazelcast/hazelcast-enterprise'
@@ -12,6 +12,6 @@ spec:
       accessModes: ["ReadWriteOnce"]
       requestStorage: 20Gi
     restore:
-      hotBackupResourceName: hot-backup <1>
-  agent: <2>
+      hotBackupResourceName: hot-backup <2>
+  agent: <3>
     repository: hazelcast/platform-operator-agent

@@ -51,7 +51,7 @@ Run the following commands to *deploy the Operator and the CRDs separately*. An 
 helm install operator-crds hazelcast/hazelcast-platform-operator-crds --version={operator-chart-version}
 ----
 
-After installing CRDs, install the Operator by running the following command. This operation requires only namespace-scoped permissions for `hz-system`, `ns-1` and `ns-2` namespaces and they already exist.
+After installing CRDs, install the Operator by running the following command. This operation requires only namespace-scoped permissions for `hz-system`, `ns-1` and `ns-2` namespaces which should already exist.
 
 [source,shell,subs="attributes"]
 ----
