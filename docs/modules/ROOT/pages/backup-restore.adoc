@@ -171,7 +171,7 @@ deployed with the Hazelcast container in the same Pod. The agent starts as an in
 include::ROOT:example$/hazelcast-persistence-restore-cr-name.yaml[]
 ----
 
-<1> The name of the Hazelcast custom resource for both backup and restore must be the same. If the Hazelcast custom resource name is different, the restore fails.
+<1> Hazelcast custom resource name for both backup and restore CRs must be the same, otherwise, the restore fails.
 <2> `HotBackup` resource name used for restore. The backup folder name will be taken from the `HotBackup` resource.
 <3> Agent responsible for restoring data from the local storage.
 The agent configuration is optional. If you give `restore` under `persistence` and do not pass the agent configuration, Hazelcast Platform Operator
