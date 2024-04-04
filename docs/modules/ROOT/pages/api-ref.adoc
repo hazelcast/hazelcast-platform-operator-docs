@@ -719,7 +719,7 @@ m| clusterDataRecoveryPolicy | Configuration of the cluster recovery strategy. m
 m| startupAction | StartupAction represents the action triggered when the cluster starts to force the cluster startup. m| <<PersistenceStartupAction,PersistenceStartupAction>> | false | -
 m| dataRecoveryTimeout | DataRecoveryTimeout is timeout for each step of data recovery in seconds. Maximum timeout is equal to DataRecoveryTimeout*2 (for each step: validation and data-load). m| int32 | false | -
 m| pvc | Configuration of PersistenceVolumeClaim. m| &#42;<<PvcConfiguration,PvcConfiguration>> | false | -
-m| restore | Restore configuration m| &#42;<<RestoreConfiguration,RestoreConfiguration>> | false | {}
+m| restore | Restore configuration m| <<RestoreConfiguration,RestoreConfiguration>> | false | {}
 |===
 ==== Deprecated
 [cols="4,8,4,2,4"options="header"]
