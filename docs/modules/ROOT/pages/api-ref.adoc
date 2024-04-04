@@ -285,8 +285,8 @@ CPSubsystem contains the configuration of a component of a Hazelcast that builds
 |===
 | Field | Description | Type | Required | Default
 m| groupSize | GroupSize is the number of CP members to participate in each CP group. Allowed values are 3, 5, and 7. m| &#42;int32 | false | -
-m| sessionTTLSeconds | SessionTTLSeconds is the duration for a CP session to be kept alive after the last received heartbeat. Must be greater than or equal to SessionTTLSeconds. m| &#42;int32 | false | -
-m| sessionHeartbeatIntervalSeconds | SessionHeartbeatIntervalSeconds Interval in seconds for the periodically committed CP session heartbeats. Must be greater than or equal to SessionTTLSeconds. m| &#42;int32 | false | -
+m| sessionTTLSeconds | SessionTTLSeconds is the duration for a CP session to be kept alive after the last received heartbeat. Must be greater than or equal to SessionHeartbeatIntervalSeconds and smaller than or equal to MissingCpMemberAutoRemovalSeconds. m| &#42;int32 | false | -
+m| sessionHeartbeatIntervalSeconds | SessionHeartbeatIntervalSeconds Interval in seconds for the periodically committed CP session heartbeats. Must be smaller than SessionTTLSeconds. m| &#42;int32 | false | -
 m| missingCpMemberAutoRemovalSeconds | MissingCpMemberAutoRemovalSeconds is the duration in seconds to wait before automatically removing a missing CP member from the CP Subsystem. m| &#42;int32 | false | -
 m| failOnIndeterminateOperationState | FailOnIndeterminateOperationState indicated whether CP Subsystem operations use at-least-once and at-most-once execution guarantees. m| &#42;bool | false | -
 m| dataLoadTimeoutSeconds | DataLoadTimeoutSeconds is the timeout duration in seconds for CP members to restore their persisted data from disk m| &#42;int32 | false | -
