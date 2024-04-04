@@ -172,7 +172,7 @@ include::ROOT:example$/hazelcast-persistence-restore-cr-name.yaml[]
 ----
 
 <1> Hazelcast custom resource name for both backup and restore CRs must be the same, otherwise, the restore fails.
-<2> `HotBackup` resource name used for restore. The backup folder name will be taken from the `HotBackup` resource.
+<2> `HotBackup` resource name used for the restore. The backup folder name will be the name you provide here.
 <3> Agent responsible for restoring data from the local storage.
 The agent configuration is optional. If you give `restore` under `persistence` and do not pass the agent configuration, Hazelcast Platform Operator
 uses the latest agent version that is compatible with its version.
