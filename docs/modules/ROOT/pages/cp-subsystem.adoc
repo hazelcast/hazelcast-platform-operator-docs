@@ -21,5 +21,5 @@ When the `pvc` section is configured in `cpSubsystem`, a PVC is created and moun
 .Example of CP Subsystem with Persistence
 [source,yaml,subs="attributes+"]
 ----
-include::ROOT:example$/hazelcast-cp-subsystem-presistence.yaml[]
+include::ROOT:example$/hazelcast-cp-subsystem-persistence.yaml[]
 ----
