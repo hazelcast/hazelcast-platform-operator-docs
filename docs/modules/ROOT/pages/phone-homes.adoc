@@ -58,17 +58,17 @@ The following information is sent in a phone home:
 * List of allocated resources:
 ** Limit of memory
 ** Limit of CPU
-* TieredStorage specific:
-** Number of maps with tiered storage enabled
-* Number of Hazelcast cluster where SQL is configured
+* Tiered Storage specific:
+** Number of maps with Tiered Storage enabled
+* Number of Hazelcast clusters where SQL is configured
 * Number of CustomConfig declared
 * Jet specific:
-** Number of Hazelcast cluster where Jet engine is enabled
-** Number of Hazelcast cluster where LosslessRestart is enabled
+** Number of Hazelcast clusters where Jet engine is enabled
+** Number of Hazelcast clusters where LosslessRestart is enabled
 * Number of created JetJobSnapshot resources
 * TLS specific:
-** Number of Hazelcast cluster where TLS is enabled
-** Number of Hazelcast cluster where MTLS is enabled
+** Number of Hazelcast clusters where TLS is enabled
+** Number of Hazelcast clusters where MTLS is enabled
 * Management Center External Connectivity specific:
 ** Number of ClusterIP services exposing Management Center
 ** Number of NodePort services exposing Management Center
