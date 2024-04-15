@@ -8,7 +8,6 @@ spec:
   version: '{page-latest-supported-hazelcast}-slim'
   licenseKeySecretName: hazelcast-license-key
   persistence:
-    baseDir: "/data/hot-restart/"
     clusterDataRecoveryPolicy: "FullRecoveryOnly"
     pvc:
       accessModes: ["ReadWriteOnce"]

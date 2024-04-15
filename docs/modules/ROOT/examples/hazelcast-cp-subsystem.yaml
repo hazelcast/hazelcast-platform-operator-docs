@@ -6,10 +6,9 @@ spec:
   clusterSize: 3
   repository: 'docker.io/hazelcast/hazelcast-enterprise'
   licenseKeySecretName: hazelcast-license-key
-  persistence:
-    clusterDataRecoveryPolicy: "FullRecoveryOnly"  <1>
+  cpSubsystem:
+    groupSize: 3
+    sessionTTLSeconds: 30
     pvc:
       accessModes: ["ReadWriteOnce"]
-      requestStorage: 20Gi  <2>
-  agent: <3>
-    repository: hazelcast/platform-operator-agent
+      requestStorage: 8Gi

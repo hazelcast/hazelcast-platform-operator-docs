@@ -20,6 +20,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>>
 * <<BucketConfiguration,BucketConfiguration>>
 * <<ByteOrder,ByteOrder>>
+* <<CPSubsystem,CPSubsystem>>
 * <<CRLister,CRLister>>
 * <<Cache,Cache>>
 * <<CacheList,CacheList>>
@@ -96,6 +97,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<JetJobStatusPhase,JetJobStatusPhase>>
 * <<JetRemoteFileConfiguration,JetRemoteFileConfiguration>>
 * <<LDAPProvider,LDAPProvider>>
+* <<LocalDeviceConfig,LocalDeviceConfig>>
 * <<LoggingLevel,LoggingLevel>>
 * <<MCJVMConfiguration,MCJVMConfiguration>>
 * <<MCPersistenceConfiguration,MCPersistenceConfiguration>>
@@ -124,9 +126,10 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<NearCache,NearCache>>
 * <<NearCacheEviction,NearCacheEviction>>
 * <<NodeState,NodeState>>
-* <<PersistencePvcConfiguration,PersistencePvcConfiguration>>
+* <<PVCNamePrefix,PVCNamePrefix>>
 * <<PersistenceStartupAction,PersistenceStartupAction>>
 * <<Phase,Phase>>
+* <<PvcConfiguration,PvcConfiguration>>
 * <<Queue,Queue>>
 * <<QueueList,QueueList>>
 * <<QueueSetting,QueueSetting>>
@@ -141,6 +144,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<ResourceKind,ResourceKind>>
 * <<ResourceSpec,ResourceSpec>>
 * <<RestoreConfiguration,RestoreConfiguration>>
+* <<RestoreFromLocalConfiguration,RestoreFromLocalConfiguration>>
 * <<RestoreState,RestoreState>>
 * <<RestoreStatus,RestoreStatus>>
 * <<SQL,SQL>>
@@ -151,7 +155,9 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<SerializationFilterList,SerializationFilterList>>
 * <<Serializer,Serializer>>
 * <<ServerSocketEndpointConfig,ServerSocketEndpointConfig>>
+* <<SyncConsistencyCheckStrategy,SyncConsistencyCheckStrategy>>
 * <<TLS,TLS>>
+* <<TieredStore,TieredStore>>
 * <<Topic,Topic>>
 * <<TopicList,TopicList>>
 * <<TopicSpec,TopicSpec>>
@@ -207,7 +213,7 @@ m| wan | &#160; m| []<<WANConfig,WANConfig>> | false | -
 |===
 | Field | Description | Type | Required | Default
 m| repository | Repository to pull Hazelcast Platform Operator Agent(https://github.com/hazelcast/platform-operator-agent) m| string | false | "docker.io/hazelcast/platform-operator-agent"
-m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.23"
+m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.24"
 m| resources | Compute Resources required by the Agent container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | -
 |===
 
@@ -267,6 +273,24 @@ m| bucketURI | URL of the bucket to download HotBackup folders. AWS S3, GCP Buck
 |===
 | Field | Description | Type | Required | Default
 m| secret | secret is a deprecated alias for secretName. m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== CPSubsystem
+
+CPSubsystem contains the configuration of a component of a Hazelcast that builds a strongly consistent layer for a set of distributed data structures
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| groupSize | GroupSize is the number of CP members to participate in each CP group. Allowed values are 3, 5, and 7. m| &#42;int32 | false | -
+m| sessionTTLSeconds | SessionTTLSeconds is the duration for a CP session to be kept alive after the last received heartbeat. Must be greater than or equal to SessionHeartbeatIntervalSeconds and smaller than or equal to MissingCpMemberAutoRemovalSeconds. m| &#42;int32 | false | -
+m| sessionHeartbeatIntervalSeconds | SessionHeartbeatIntervalSeconds Interval in seconds for the periodically committed CP session heartbeats. Must be smaller than SessionTTLSeconds. m| &#42;int32 | false | -
+m| missingCpMemberAutoRemovalSeconds | MissingCpMemberAutoRemovalSeconds is the duration in seconds to wait before automatically removing a missing CP member from the CP Subsystem. m| &#42;int32 | false | -
+m| failOnIndeterminateOperationState | FailOnIndeterminateOperationState indicated whether CP Subsystem operations use at-least-once and at-most-once execution guarantees. m| &#42;bool | false | -
+m| dataLoadTimeoutSeconds | DataLoadTimeoutSeconds is the timeout duration in seconds for CP members to restore their persisted data from disk m| &#42;int32 | false | -
+m| pvc | PVC is the configuration of PersistenceVolumeClaim. m| &#42;<<PvcConfiguration,PvcConfiguration>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -578,7 +602,7 @@ m| status | &#160; m| <<HazelcastStatus,HazelcastStatus>> | false | -
 | Field | Description | Type | Required | Default
 m| name | Name of the Hazelcast cluster that Management Center will connect to, default is dev. m| string | false | "dev"
 m| address | IP address or DNS name of the Hazelcast cluster. If the cluster is exposed with a service name in a different namespace, use the following syntax "<service-name>.<service-namespace>". m| string | true | -
-m| tls | TLS client configuration. m| &#42;<<TLS,TLS>> | false | {}
+m| tls | TLS client configuration. m| &#42;<<TLS,TLS>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -691,12 +715,17 @@ HazelcastPersistenceConfiguration contains the configuration for Hazelcast Persi
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| baseDir | Persistence base directory. m| string | true | -
 m| clusterDataRecoveryPolicy | Configuration of the cluster recovery strategy. m| <<DataRecoveryPolicyType,DataRecoveryPolicyType>> | false | "FullRecoveryOnly"
 m| startupAction | StartupAction represents the action triggered when the cluster starts to force the cluster startup. m| <<PersistenceStartupAction,PersistenceStartupAction>> | false | -
 m| dataRecoveryTimeout | DataRecoveryTimeout is timeout for each step of data recovery in seconds. Maximum timeout is equal to DataRecoveryTimeout*2 (for each step: validation and data-load). m| int32 | false | -
-m| pvc | Configuration of PersistenceVolumeClaim. m| &#42;<<PersistencePvcConfiguration,PersistencePvcConfiguration>> | false | -
+m| pvc | Configuration of PersistenceVolumeClaim. m| &#42;<<PvcConfiguration,PvcConfiguration>> | false | -
 m| restore | Restore configuration m| <<RestoreConfiguration,RestoreConfiguration>> | false | {}
+|===
+==== Deprecated
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| baseDir | BaseDir is deprecated. Use restore.localConfig to restore from a local backup. m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -710,7 +739,7 @@ HazelcastSpec defines the desired state of Hazelcast
 | Field | Description | Type | Required | Default
 m| clusterSize | Number of Hazelcast members in the cluster. m| &#42;int32 | false | 3
 m| repository | Repository to pull the Hazelcast Platform image from. m| string | false | "docker.io/hazelcast/hazelcast"
-m| version | Version of Hazelcast Platform. m| string | false | "5.3.5"
+m| version | Version of Hazelcast Platform. m| string | false | "5.4.0-SNAPSHOT"
 m| imagePullPolicy | Pull policy for the Hazelcast Platform image m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#pullpolicy-v1-core[corev1.PullPolicy] | false | "IfNotPresent"
 m| imagePullSecrets | Image pull secrets for the Hazelcast Platform image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
 m| licenseKeySecretName | Name of the secret with Hazelcast Enterprise License Key. m| string | false | -
@@ -719,7 +748,7 @@ m| clusterName | Name of the Hazelcast cluster. m| string | false | "dev"
 m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingConfiguration>> | false | -
 m| resources | Compute Resources required by the Hazelcast container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | -
 m| persistence | Persistence configuration m| &#42;<<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>> | false | -
-m| agent | B&R Agent configurations m| <<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.23"}
+m| agent | B&R Agent configurations m| <<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.24"}
 m| jet | Jet Engine configuration m| &#42;<<JetEngineConfiguration,JetEngineConfiguration>> | false | {enabled: true, resourceUploadEnabled: false}
 m| userCodeDeployment | User Codes to Download into CLASSPATH m| &#42;<<UserCodeDeploymentConfig,UserCodeDeploymentConfig>> | false | -
 m| executorServices | Java Executor Service configurations, see https://docs.hazelcast.com/hazelcast/latest/computing/executor-service m| []<<ExecutorServiceConfiguration,ExecutorServiceConfiguration>> | false | -
@@ -736,8 +765,11 @@ m| tls | Hazelcast TLS configuration m| &#42;<<TLS,TLS>> | false | -
 m| serialization | Hazelcast serialization configuration m| &#42;<<SerializationConfig,SerializationConfig>> | false | -
 m| customConfigCmName | Name of the ConfigMap with the Hazelcast custom configuration. This configuration from the ConfigMap might be overridden by the Hazelcast CR configuration. m| string | false | -
 m| sql | Hazelcast SQL configuration m| &#42;<<SQL,SQL>> | false | -
+m| localDevices | Hazelcast LocalDevice configuration m| []<<LocalDeviceConfig,LocalDeviceConfig>> | false | -
 m| annotations | Hazelcast Kubernetes resource annotations m| map[string]string | false | -
 m| labels | Hazelcast Kubernetes resource labels m| map[string]string | false | -
+m| serviceAccountName | ServiceAccountName is the name of the ServiceAccount to use to run Hazelcast cluster. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/ m| string | false | -
+m| cpSubsystem | CPSubsystem is the configuration of the Hazelcast CP Subsystem. m| &#42;<<CPSubsystem,CPSubsystem>> | false | -
 |===
 ==== Deprecated
 [cols="4,8,4,2,4"options="header"]
@@ -1111,6 +1143,22 @@ m| nestedGroupSearch | NestedGroupSearch enables searching for nested LDAP group
 
 <<Table of Contents,Back to TOC>>
 
+=== LocalDeviceConfig
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| name | Name represents the name of the local device m| string | true | -
+m| blockSize | BlockSize defines Device block/sector size in bytes. m| &#42;int32 | false | 4096
+m| readIOThreadCount | ReadIOThreadCount is Read IO thread count. m| &#42;int32 | false | 4
+m| writeIOThreadCount | WriteIOThreadCount is Write IO thread count. m| &#42;int32 | false | 4
+m| pvc | Configuration of PersistenceVolumeClaim. m| &#42;<<PvcConfiguration,PvcConfiguration>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === MCJVMConfiguration
 
 MCJVMConfiguration is a ManagementCenter JVM configuration
@@ -1274,6 +1322,7 @@ m| inMemoryFormat | InMemoryFormat specifies in which format data will be stored
 m| entryListeners | EntryListeners contains the configuration for the map-level or entry-based events listeners provided by the Hazelcast’s eventing framework. You can learn more at https://docs.hazelcast.com/hazelcast/latest/events/object-events. m| []<<EntryListenerConfiguration,EntryListenerConfiguration>> | false | -
 m| nearCache | InMemoryFormat specifies near cache configuration for map m| &#42;<<NearCache,NearCache>> | false | -
 m| eventJournal | EventJournal specifies event journal configuration of the Map m| &#42;<<EventJournal,EventJournal>> | false | -
+m| tieredStore | TieredStore enables the Hazelcast's Tiered-Store feature for the Map m| &#42;<<TieredStore,TieredStore>> | false | -
 m| merkleTree | MerkleTree defines the configuration for the Merkle tree data structure. m| &#42;<<MerkleTreeConfig,MerkleTreeConfig>> | false | -
 |===
 
@@ -1428,7 +1477,7 @@ m| size | Size is maximum size of the Near Cache used for max-size-policy m| uin
 
 <<Table of Contents,Back to TOC>>
 
-=== PersistencePvcConfiguration
+=== PvcConfiguration
 
 
 
@@ -1606,6 +1655,22 @@ RestoreConfiguration contains the configuration for Restore operation
 | Field | Description | Type | Required | Default
 m| bucketConfig | Bucket Configuration from which the backup will be downloaded. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
 m| hotBackupResourceName | Name of the HotBackup resource from which backup will be fetched. m| string | false | -
+m| localConfig | Configuration to restore from local backup m| &#42;<<RestoreFromLocalConfiguration,RestoreFromLocalConfiguration>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== RestoreFromLocalConfiguration
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| pvcNamePrefix | PVC name prefix used in existing PVCs m| <<PVCNamePrefix,PVCNamePrefix>> | false | "persistence"
+m| baseDir | Persistence base directory m| string | false | -
+m| backupDir | Local backup base directory m| string | false | -
+m| backupFolder | Backup directory m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1754,6 +1819,19 @@ m| mutualAuthentication | Mutual authentication configuration. It’s None by de
 
 <<Table of Contents,Back to TOC>>
 
+=== TieredStore
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| memoryCapacity | MemoryCapacity sets Memory tier capacity, i.e., how much main memory should this tier consume at most. m| &#42;resource.Quantity | false | "256M"
+m| diskDeviceName | diskDeviceName defines the name of the device for a given disk tier. m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === Topic
 
 Topic is the Schema for the topics API
@@ -1896,6 +1974,7 @@ m| endpoints | Endpoints is the target cluster comma separated endpoint list . m
 m| queue | Queue is the configuration for WAN events queue. m| <<QueueSetting,QueueSetting>> | false | {capacity: 10000, fullBehavior: DISCARD_AFTER_MUTATION}
 m| batch | Batch is the configuration for WAN events batch. m| <<BatchSetting,BatchSetting>> | false | {size: 500, maximumDelay: 1000}
 m| acknowledgement | Acknowledgement is the configuration for the condition when the next batch of WAN events are sent. m| <<AcknowledgementSetting,AcknowledgementSetting>> | false | {type: ACK_ON_OPERATION_COMPLETE, timeout: 60000}
+m| syncConsistencyCheckStrategy | SyncConsistencyCheckStrategy is the strategy for checking the consistency of data between replicas. m| <<SyncConsistencyCheckStrategy,SyncConsistencyCheckStrategy>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -2399,6 +2478,19 @@ m| "STARTING" | &#160;
 
 <<Table of Contents,Back to TOC>>
 
+=== PVCNamePrefix
+
+PVCNamePrefix specifies the prefix of existing PVCs
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "persistence" | Persistence format is persistence.
+m| "hot-restart-persistence" | HotRestartPersistence format is hot-restart-persistence.
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === PersistenceStartupAction
 
 PersistenceStartupAction represents the action triggered on the cluster startup to force the cluster startup.
@@ -2464,6 +2556,17 @@ m| "Unknown" | &#160;
 m| "Failed" | &#160;
 m| "InProgress" | &#160;
 m| "Succeeded" | &#160;
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== SyncConsistencyCheckStrategy
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
 |===
 
 <<Table of Contents,Back to TOC>>
