@@ -227,7 +227,7 @@ To restore from local backups that are in an existing link:https://kubernetes.io
 include::ROOT:example$/hazelcast-persistence-restore-local.yaml[]
 ----
 
-<1> For existing PVCs to attach successfully to the newly created cluster;
+<1> To successfully attach existing PVCs to the newly created cluster:
 
 - If the older cluster was created by the Hazelcast Platform Operator, Hazelcast custom resource name for both backup and restore CRs must be the same, otherwise, the restore fails.
 - If the older cluster was created by the Hazelcast Helm Chart, the name of the new CR must be in the following format: `<name>-hazelcast-persistence`. For example, assuming older cluster was installed with `helm install hz hazelcast/hazelcast-enterprise` command, new CR name must be `hz-hazelcast-enterprise`.
