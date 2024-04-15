@@ -218,7 +218,7 @@ uses the latest agent version that is compatible with its version.
 
 ====
 
-== Restoring from Persistent Volume Claims
+== Restoring from Persistent Volumes
 
 To restore from local backups that are in a existing link:https://kubernetes.io/docs/concepts/storage/persistent-volumes/[Persistent Volume], configure `localConfig`.
 
