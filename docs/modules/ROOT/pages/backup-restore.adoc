@@ -229,7 +229,7 @@ include::ROOT:example$/hazelcast-persistence-restore-local.yaml[]
 
 <1> To successfully attach existing PVCs to the newly created cluster:
 
-- If the older cluster was created by the Hazelcast Platform Operator, Hazelcast custom resource name for both backup and restore CRs must be the same, otherwise, the restore fails.
+- If the older cluster was created by the Hazelcast Platform Operator, the name of both the backup and restore Hazelcast custom resources must be the same.
 - If the older cluster was created by the Hazelcast Helm Chart, the name of the new CR must be in the following format: `<name>-hazelcast-persistence`. For example, assuming older cluster was installed with `helm install hz hazelcast/hazelcast-enterprise` command, new CR name must be `hz-hazelcast-enterprise`.
 <2> If you configured maps with persistence, you must create them while creating the Hazelcast CR. To create them while creating the Hazelcast CR, you must use xref:custom-config.adoc[Custom Config]. You cannot apply the Hazelcast CR and then the Map CRs.
 <3> `pvcNamePrefix` is the prefix of the existing PVCs. It can be set to `persistence` or `hot-restart-persistence` depending on the installation method of the old cluster. In different versions of Hazelcast Helm Chart and Hazelcast Platform Operator, these values are used by default. Run the `kubect get pvc` command to decide which setting best suits your requirements.
