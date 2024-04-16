@@ -18,7 +18,7 @@ This release introduced xref:tiered-storage.adoc[Tiered Storage], xref:cp-subsys
 - Added support for running a Hazelcast cluster with the user-defined `serviceAccount` (https://github.com/hazelcast/hazelcast-platform-operator/pull/983[#983])
 - Display HazelcastEndpoint address for NodePort services (https://github.com/hazelcast/hazelcast-platform-operator/pull/966[#966])
 - Enabled the `hazelcast.cluster.version.auto.upgrade.enabled` by default (https://github.com/hazelcast/hazelcast-platform-operator/pull/957[#957])
-- Support for scaling the cluster size using the `scale` subresource has been added (https://github.com/hazelcast/hazelcast-platform-operator/pull/941[#941])
+- Added support for scaling the cluster size using the `scale` subresource (https://github.com/hazelcast/hazelcast-platform-operator/pull/941[#941])
 - Users are now able to define annotations and labels for Hazelcast resources, which Operator will use when creating new Kubernetes resources (https://github.com/hazelcast/hazelcast-platform-operator/pull/964[#964])
 - Added ‘delete’ Webhook to HotBackup Custom Resource Definition (CRD)  for checking to restore references (https://github.com/hazelcast/hazelcast-platform-operator/pull/981[#981])
 - WanConfig name field length limit was set to prevent port name generation issues (https://github.com/hazelcast/hazelcast-platform-operator/pull/936[#936])
