@@ -15,7 +15,7 @@ This release introduced xref:tiered-storage.adoc[Tiered Storage], xref:cp-subsys
 == Changes
 
 - Removed the ability to configure `persistence.baseDir` field for user convenience (https://github.com/hazelcast/hazelcast-platform-operator/pull/1028[#1028])
-- Added support for running Hazelcast cluster with user-defined `serviceAccount` (https://github.com/hazelcast/hazelcast-platform-operator/pull/983[#983])
+- Added support for running a Hazelcast cluster with the user-defined `serviceAccount` (https://github.com/hazelcast/hazelcast-platform-operator/pull/983[#983])
 - Display HazelcastEndpoint address for NodePort services (https://github.com/hazelcast/hazelcast-platform-operator/pull/966[#966])
 - Property `hazelcast.cluster.version.auto.upgrade.enabled` was enabled by default (https://github.com/hazelcast/hazelcast-platform-operator/pull/957[#957])
 - Support for scaling the cluster size using the `scale` subresource has been added (https://github.com/hazelcast/hazelcast-platform-operator/pull/941[#941])
