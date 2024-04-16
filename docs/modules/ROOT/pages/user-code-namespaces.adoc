@@ -31,5 +31,4 @@ spec:
 ----
 
 With User Code Namespaces enabled, you can create and use the namespaces from the client as described in xref:hazelcast:clusters:ucn-dynamic-client.adoc[Configure Client].
-+
 NOTE: The same User Code Namespaces must have been configured in your data structure.
