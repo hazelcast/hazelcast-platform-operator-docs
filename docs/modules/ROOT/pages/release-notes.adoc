@@ -1,4 +1,4 @@
-= Release notes
+= Release Notes
 
 This release introduced xref:tiered-storage.adoc[Tiered Storage], xref:cp-subsystem.adoc[CP Subsystem], xref:wan-sync.adoc[Full and Delta WAN Sync support].
 
