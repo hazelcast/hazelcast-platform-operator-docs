@@ -1,0 +1,33 @@
+= User Code Namespaces
+:description: User Code Namespaces provide a container for Java classpath resources, such as user code and accompanying artifacts like property files. This provides namespace isolation to ensure that access to resources in different namespaces can be managed through configuration. With the Hazelcast Platform Operator, you can create User Code Namespaces from the client.
+
+{description}
+
+See xref:hazelcast:clusters:user-code-namespaces.adoc[User Code Namespaces] for more detailed information about the configuration and behavior of User Code Namespaces in Hazelcast.
+
+== Enabling User Code Namespaces
+
+To enable User Code Namespaces you must use the xref:custom-config.adoc[Custom Configuration].
+
+.Example of Hazelcast with User Code Namespaces enabled
+[source,yaml,subs="attributes+"]
+----
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: custom-config-cm
+data:
+  hazelcast: |-
+    user-code-namespaces:
+      enabled: true
+---
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+  licenseKeySecretName: hazelcast-license-key
+  customConfigCmName: custom-config-cm
+----
+
+With the User Code Namespaces enabled, you can create and use it from the client as described in xref:hazelcast:clusters:ucn-dynamic-client.adoc[Configure Client].
