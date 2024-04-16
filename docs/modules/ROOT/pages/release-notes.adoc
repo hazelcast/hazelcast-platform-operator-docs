@@ -29,5 +29,5 @@ This release introduced xref:tiered-storage.adoc[Tiered Storage], xref:cp-subsys
 
 - Fixed Update validation for Management Center `hazelcastClusters[*].tls.secretName` (https://github.com/hazelcast/hazelcast-platform-operator/pull/1074[#1074])
 - Refactored HotBackup persistence validation to use the `HotBackup` object as the source object of the error instead of the `Hazelcast` object (https://github.com/hazelcast/hazelcast-platform-operator/pull/988[#988])
-- Watching of resources in Operator’s own namespace was removed when watchedNamespaces were specified (https://github.com/hazelcast/hazelcast-platform-operator/pull/935[#935])
+- Removed the watching of resources in Operator’s own namespace when watchedNamespaces were specified (https://github.com/hazelcast/hazelcast-platform-operator/pull/935[#935])
 - Fixed that WatchedNamespaces were passed as environment variable (https://github.com/hazelcast/hazelcast-platform-operator/pull/934[#934])
