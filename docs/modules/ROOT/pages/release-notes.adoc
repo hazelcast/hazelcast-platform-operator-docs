@@ -23,7 +23,7 @@ This release introduced xref:tiered-storage.adoc[Tiered Storage], xref:cp-subsys
 - Added ‘delete’ Webhook to HotBackup Custom Resource Definition (CRD)  for checking to restore references (https://github.com/hazelcast/hazelcast-platform-operator/pull/981[#981])
 - Set the WanConfig name field length limit to prevent port name generation issues (https://github.com/hazelcast/hazelcast-platform-operator/pull/936[#936])
 - Added ability to configure resources field for Operator Agent Sidecar (https://github.com/hazelcast/hazelcast-platform-operator/pull/980[#980])
-- Platform Operator Agent image version was updated to 0.1.26
+- Updated the Platform Operator Agent image version to 0.1.26
 
 == Fixed Issues
 
