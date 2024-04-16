@@ -15,7 +15,7 @@ To enable User Code Namespaces you must configure the `userCodeNamespaces` secti
 include::ROOT:example$/hazelcast-ucn.yaml[]
 ----
 
-== Creating a new User Code Namespace
+== Creating a User Code Namespace
 
 To create a new User Code Namespace you must create a new `UserCodeNamespace` CR. The name of the CR will be used as the name of the created User Code Namespace. The JAR files stored in the configured bucket will be uploaded to the Hazelcast cluster under the newly created namespace.
 
