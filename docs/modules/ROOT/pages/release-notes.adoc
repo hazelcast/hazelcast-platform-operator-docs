@@ -7,7 +7,7 @@ This release introduced xref:tiered-storage.adoc[Tiered Storage], xref:cp-subsys
 - Tiered Storage support for Hazelcast and Map CRs (https://github.com/hazelcast/hazelcast-platform-operator/pull/984[#984])
 - CP Subsystem configuration support for Hazelcast CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/1041[#1041])
 - Full and Delta WAN Sync support (https://github.com/hazelcast/hazelcast-platform-operator/pull/977[#977])
-- Added possibility to configure `consistencyCheckStrategy` in WanReplication CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/1072[#1072])
+- Added ability to configure `consistencyCheckStrategy` in WanReplication CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/1072[#1072])
 - Introduced localConfig was added to Persistence configuration to restore from existing PVs which are created by the Helm chart or the Operator (https://github.com/hazelcast/hazelcast-platform-operator/pull/1043[#1043])
 - Exposed ingress path for external connectivity in the Management Center CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/989[#989])
 - Added Custom Query Attributes into Map CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/978[#978])
