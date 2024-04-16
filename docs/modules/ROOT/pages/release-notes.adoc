@@ -1,28 +1,33 @@
-= Release Notes
+= Release notes
 
-This release introduces LDAP Security Provider support for Management Center CR.
+This release introduced xref:tiered-storage.adoc[Tiered Storage], xref:cp-subsystem.adoc[CP Subsystem], xref:wan-sync.adoc[Full and Delta WAN Sync support].
 
 == New Features
 
-- Added LDAP Security Provider support for Management Center CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/892[#892])
+- Tiered Storage support for Hazelcast and Map CRs (https://github.com/hazelcast/hazelcast-platform-operator/pull/984[#984])
+- CP Subsystem configuration support for Hazelcast CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/1041[#1041])
+- Full and Delta WAN Sync support (https://github.com/hazelcast/hazelcast-platform-operator/pull/977[#977])
+- Added possibility to configure `consistencyCheckStrategy` in WanReplication CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/1072[#1072])
+- Introduced localConfig was added to Persistence configuration to restore from existing PVs which are created by the Helm chart or the Operator (https://github.com/hazelcast/hazelcast-platform-operator/pull/1043[#1043])
+- Exposed ingress path for external connectivity in the Management Center CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/989[#989])
+- Added Custom Query Attributes into Map CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/978[#978])
 
 == Changes
 
-- Added the ability to configure Interfaces for ClientServer (https://github.com/hazelcast/hazelcast-platform-operator/pull/920[#920])
-- The new `hazelcastendpoint` Custom Resource Definition (CRD) provides a better way to list the external addresses of your Hazelcast cluster (https://github.com/hazelcast/hazelcast-platform-operator/pull/860[#860])
-- A `hazelcast-resource` column has been added to the `additionalPrinterColumns` for the wide output of CRDs referencing Hazelcast CR (https://github.com/hazelcast/hazelcast-platform-operator/pull/899[#899])
-- Failed HotBackup upload to bucket now correctly handles partially uploaded files and tries to remove them (https://github.com/hazelcast/hazelcast-platform-operator/pull/885[#885])
-- The `v.Err` function was moved to `fieldValidator` to remove duplication (https://github.com/hazelcast/hazelcast-platform-operator/pull/886[#886])
-- Improved validations for HotBackup, WANReplication, JetJob, JetJobSnapshot, Map, Cache, and Topic (https://github.com/hazelcast/hazelcast-platform-operator/pull/877[#877])(https://github.com/hazelcast/hazelcast-platform-operator/pull/876[#876])(https://github.com/hazelcast/hazelcast-platform-operator/pull/875[#875])(https://github.com/hazelcast/hazelcast-platform-operator/pull/874[#874])(https://github.com/hazelcast/hazelcast-platform-operator/pull/873[#873])(https://github.com/hazelcast/hazelcast-platform-operator/pull/872[#872])(https://github.com/hazelcast/hazelcast-platform-operator/pull/871[#871])(https://github.com/hazelcast/hazelcast-platform-operator/pull/859[#859])
+- Removed the ability to configure `persistence.baseDir` field for user convenience (https://github.com/hazelcast/hazelcast-platform-operator/pull/1028[#1028])
+- Added support for running Hazelcast cluster with user-defined `serviceAccount` (https://github.com/hazelcast/hazelcast-platform-operator/pull/983[#983])
+- Display HazelcastEndpoint address for NodePort services (https://github.com/hazelcast/hazelcast-platform-operator/pull/966[#966])
+- Property `hazelcast.cluster.version.auto.upgrade.enabled` was enabled by default (https://github.com/hazelcast/hazelcast-platform-operator/pull/957[#957])
+- Support for scaling the cluster size using the `scale` subresource has been added (https://github.com/hazelcast/hazelcast-platform-operator/pull/941[#941])
+- Users are now able to define annotations and labels for Hazelcast resources, which Operator will use when creating new Kubernetes resources (https://github.com/hazelcast/hazelcast-platform-operator/pull/964[#964])
+- Added ‘delete’ Webhook to HotBackup Custom Resource Definition (CRD)  for checking to restore references (https://github.com/hazelcast/hazelcast-platform-operator/pull/981[#981])
+- WanConfig name field length limit was set to prevent port name generation issues (https://github.com/hazelcast/hazelcast-platform-operator/pull/936[#936])
+- Added ability to configure resources field for Operator Agent Sidecar (https://github.com/hazelcast/hazelcast-platform-operator/pull/980[#980])
+- Platform Operator Agent image version was updated to 0.1.26
 
 == Fixed Issues
 
-- WAN Services are now deleted automatically when their corresponding Hazelcast resource is deleted (https://github.com/hazelcast/hazelcast-platform-operator/pull/862[#862])
-- Skip validations on Management Center and Hazelcast deletion (https://github.com/hazelcast/hazelcast-platform-operator/pull/923[#923])
-- Improved CronHotBackup controller behavior when deleting referenced backups (https://github.com/hazelcast/hazelcast-platform-operator/pull/903[#903])
-- Fixed an error that occurred during Hazelcast cluster creation when an empty 'basedir' path was used for backup without '/' (https://github.com/hazelcast/hazelcast-platform-operator/pull/841[#841])
-- Fixed the issue where SQL metadata persistence could change after being enabled (https://github.com/hazelcast/hazelcast-platform-operator/pull/883[#883])
-- The name of a JetJobSnapshot is now taken through the `SnapshotName()` function (https://github.com/hazelcast/hazelcast-platform-operator/pull/870[#870])
-- The misleading logs in the external address function have been removed (https://github.com/hazelcast/hazelcast-platform-operator/pull/897[#897])
-- Fix HazelcastEndpoint discovery type issue in Management Center (https://github.com/hazelcast/hazelcast-platform-operator/pull/895[#895])
-- Fixed the generation of compact serialization config (https://github.com/hazelcast/hazelcast-platform-operator/pull/865[#865])
+- Fixed Update validation for Management Center `hazelcastClusters[*].tls.secretName` (https://github.com/hazelcast/hazelcast-platform-operator/pull/1074[#1074])
+- Refactored HotBackup persistence validation to use the `HotBackup` object as the source object of the error instead of the `Hazelcast` object (https://github.com/hazelcast/hazelcast-platform-operator/pull/988[#988])
+- Watching of resources in Operator’s own namespace was removed when watchedNamespaces were specified (https://github.com/hazelcast/hazelcast-platform-operator/pull/935[#935])
+- Fixed that WatchedNamespaces were passed as environment variable (https://github.com/hazelcast/hazelcast-platform-operator/pull/934[#934])
