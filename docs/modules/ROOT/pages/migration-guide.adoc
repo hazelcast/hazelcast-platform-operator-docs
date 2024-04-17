@@ -1,0 +1,5 @@
+= Migrating to 5.11
+
+- You no longer need to configure the `persistence.baseDir` field in the Hazelcast CR. Hazelcast Platform Operator manages this setting for you.
++
+If you are using `baseDir` to start a cluster from a backup directory, you can use the `persistence.restore.localConfig` field. For more information on the `localConfig` field and restoring from backups in an existing persistent volume, see link:https://docs.hazelcast.com/operator/5.11/backup-restore#restoring-from-persistent-volumes[Restoring from Persistent Volumes].
