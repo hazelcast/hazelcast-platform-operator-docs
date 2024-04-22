@@ -56,14 +56,17 @@ After installing CRDs, install the Operator by running the following command. Th
 [source,shell,subs="attributes"]
 ----
 helm install operator hazelcast/hazelcast-platform-operator --version={operator-chart-version} -n hz-system \
-    --set=createClusterScopedResources=false \
-    --set=webhook.enabled=false \
-    --set=enableHazelcastNodeDiscovery=false \
+    --set=createClusterScopedResources=false \ <1>
+    --set=webhook.enabled=false \ <2>
+    --set=enableHazelcastNodeDiscovery=false \ <3>
     --set=installCRDs=false \
     --set=watchedNamespaces="{ns-1, ns-2}"
 ----
 --
 ====
+<1> Disabling `createClusterScopedResources` confines the operator to manage resources only within the specified namespaces, enhancing security and compliance.
+<2> `webhook.enabled=false` is necessary because enabling webhooks requires cluster-wide permissions, which conflicts with our restrictions against cluster-scoped resource creation.
+<3> By setting `enableHazelcastNodeDiscovery` to false, the operator will not automatically discover nodes across all namespaces. This limits the use of `NODE_AWARE` in `highAvailabilityMode` and `NodePort` in `discoveryServiceType`, which depend on broader node discovery.
 
 +
 NOTE: You can view all configuration options by running the following command: `helm show values hazelcast/hazelcast-platform-operator`
