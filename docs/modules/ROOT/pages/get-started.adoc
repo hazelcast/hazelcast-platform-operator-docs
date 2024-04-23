@@ -64,7 +64,7 @@ helm install operator hazelcast/hazelcast-platform-operator --version={operator-
 ----
 --
 ====
-<1> Disabling `createClusterScopedResources` confines the operator to manage resources only within the specified namespaces, enhancing security and compliance.
+<1> Disabling `createClusterScopedResources` means that the management of resources by Operator is constrained to specified namespaces. This enhances both security and compliance.
 <2> `webhook.enabled=false` is necessary because enabling webhooks requires cluster-wide permissions, which conflicts with our restrictions against cluster-scoped resource creation.
 <3> By setting `enableHazelcastNodeDiscovery` to false, the operator will not automatically discover nodes across all namespaces. This limits the use of `NODE_AWARE` in `highAvailabilityMode` and `NodePort` in `discoveryServiceType`, which depend on broader node discovery.
 
