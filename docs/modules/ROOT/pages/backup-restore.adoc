@@ -156,8 +156,6 @@ hot-backup   Success
 
 == Restoring from Local Backups
 
-=== Restoring from Local Backups Created by Hot Backup Custom Resource
-
 To restore a cluster from local backups, you can directly reapply the `Hazelcast` resource, which gives the cluster access to the PVCs that contain the persisted data. This will restore the Hazelcast cluster from existing `hot-restart` folders.
 
 Or, to restore from local backups that you have taken using the `HotBackup` resource, give the `HotBackup` resource name in the restore configuration. For the restore to work correctly, make sure the status of the `HotBackup` resource is `Success`.
@@ -178,34 +176,6 @@ The agent configuration is optional. If you give `restore` under `persistence` a
 uses the latest agent version that is compatible with its version.
 
 WARNING: You can use a local backup only once to restore a cluster. We recommend you backup externally if you need to persistently restore a backup across the clusters.
-
-=== Restoring from Local Backups Created with other Methods
-
-To restore from local backups that were not created by the HotBackup resource, configure `localConfig`.
-
-[source,yaml,subs="attributes+"]
-----
-include::ROOT:example$/hazelcast-persistence-restore-local.yaml[]
-----
-
-<1> The name of the Hazelcast custom resource for both backup and restore must be the same. If the Hazelcast custom resource name is different, the restore fails.
-<2> If you configured maps with persistence, you must create them while creating the Hazelcast CR. To create them while creating the Hazelcast CR, you must use xref:custom-config.adoc[Custom Config]. You cannot apply the Hazelcast CR and then the Map CRs.
-<3> `pvcNamePrefix` is the prefix of the existing PVCs. It can be set to `persistence` or `hot-restart-persistence` depending on the installation method of the old cluster. In different versions of Hazelcast Helm Chart and Hazelcast Platform Operator, these values are used by default. Run the `kubect get pvc` command to decide which setting best suits your requirements.
-<4> `baseDir` is the root directory for persistence.
-<5> `backupDir` is the directory that contains a backupFolder for each available backup.
-<6> `backupFolder` is the directory containing the specific backup for the restore.
-
-TIP: To find the `backupFolder` value, you can run `kubectl exec -it <hazelcast-custom-resource-name> -c hazelcast -- /bin/bash` and list the contents of your in your existing installation. If you already deleted your installation, you can run a simple pod that lists the contents of the PVC and checks its logs. This lists the folder structure of the specified PVC. For example:
-
-[source,yaml,subs="attributes+"]
-----
-include::ROOT:example$/pod-local-pvc-content.yaml[]
-----
-<1> Replace `/data/persistence` with the path to your PV, which is mounted inside the container.
-<2> Replace `/data/persistence` with the correct mountPath specified in PV.
-<3> Replace with the name of the one of the PVCs, which is mounted to the cluster from which the backup is taken.
-
-NOTE: Agent copies the backup to be restored from `{baseDir}/{backupDir}/{backupFolder}` to `/data/persistence/base-dir`.
 
 == Restoring from External Backups
 
@@ -248,6 +218,37 @@ uses the latest agent version that is compatible with its version.
 
 ====
 
+== Restoring from Persistent Volumes
+
+To restore from local backups that are in an existing link:https://kubernetes.io/docs/concepts/storage/persistent-volumes/[Persistent Volume], configure `localConfig`.
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-persistence-restore-local.yaml[]
+----
+
+<1> To successfully attach existing PVCs to the newly created cluster:
+
+- If the older cluster was created by the Hazelcast Platform Operator, the name of both the backup and restore Hazelcast custom resources must be the same.
+- If the older cluster was created by the Hazelcast Helm Chart, the name of the new CR must be in the following format: `<name>-hazelcast-persistence`. For example, assuming that the older cluster was installed with `helm install hz hazelcast/hazelcast-enterprise` command, the new CR name must be `hz-hazelcast-enterprise`.
+<2> If you configured maps with persistence, you must create them while creating the Hazelcast CR. To create them while creating the Hazelcast CR, you must use xref:custom-config.adoc[Custom Config]. You cannot apply the Hazelcast CR and then the Map CRs.
+<3> `pvcNamePrefix` is the prefix of the existing PVCs. It can be set to `persistence` or `hot-restart-persistence` depending on the installation method of the old cluster. In different versions of Hazelcast Helm Chart and Hazelcast Platform Operator, these values are used by default. Run the `kubect get pvc` command to decide which setting best suits your requirements.
+<4> `baseDir` is the root directory for persistence.
+<5> `backupDir` is the directory that contains a backupFolder for each available backup.
+<6> `backupFolder` is the directory containing the specific backup for the restore.
+
+TIP: To find the `backupFolder` value, you can run `kubectl exec -it <hazelcast-custom-resource-name> -c hazelcast -- /bin/bash` and list the contents of your in your existing installation. If you already deleted your installation, you can run a simple pod that lists the contents of the PVC and checks its logs. This lists the folder structure of the specified PVC. For example:
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/pod-local-pvc-content.yaml[]
+----
+<1> Replace `/data/persistence` with the path to your PV, which is mounted inside the container.
+<2> Replace `/data/persistence` with the correct mountPath specified in PV.
+<3> Replace with the name of the one of the PVCs, which is mounted to the cluster from which the backup is taken.
+
+NOTE: Agent copies the backup to be restored from `{baseDir}/{backupDir}/{backupFolder}` to `/data/persistence/base-dir`.
+
 == Configuring Persistence
 
 === Data Recovery Timeout
@@ -280,9 +281,11 @@ To decide how a cluster should behave when one or more members cannot rejoin aft
 
 To recover a cluster that has Persistence enabled after a cluster-wide restart, you can force a cluster to delete their persistence stores when one or more members fail to restart by triggering Force Start. Or you can force a cluster to start without some members by triggering Partial Start
 
-WARNING: The cluster loses all persisted data after a force-start.
-
-WARNING: The cluster loses some persistent data after a partial-start.
+[WARNING]
+====
+* The cluster loses all persisted data after a force-start if any member fails to start properly. If all members successfully start, all persisted data remains intact.
+* The cluster loses persisted data after a partial-start only for specific members that have failed to start properly. Persisted data remains intact for members that successfully start.
+====
 
 To trigger the cluster recover action set the `startupAction`:
 
