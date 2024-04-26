@@ -5,4 +5,4 @@ metadata:
 spec:
   jvm:
     gc:
-      logging: enabled
+      logging: true
