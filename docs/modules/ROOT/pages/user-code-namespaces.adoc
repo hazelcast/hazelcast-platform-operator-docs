@@ -28,7 +28,7 @@ AWS::
 User Code Namespaces in AWS S3:
 [source,yaml,subs="attributes+"]
 ----
-include::ROOT:example$/hazelcast-user-code-deployment-aws.yaml[]
+include::ROOT:example$/user-code-namespace-aws.yaml[]
 ----
 --
 
@@ -48,7 +48,7 @@ Azure::
 User Code Namespaces in Azure Blob:
 [source,yaml,subs="attributes+"]
 ----
-include::ROOT:example$/hazelcast-user-code-deployment-azure.yaml[]
+include::ROOT:example$/user-code-namespace-azure.yaml[]
 ----
 --
 ====
