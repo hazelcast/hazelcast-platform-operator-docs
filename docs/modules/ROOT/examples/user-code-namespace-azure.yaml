@@ -5,5 +5,5 @@ metadata:
 spec:
   hazelcastResourceName: hazelcast
   bucketConfig:
-    secretName: map-store-bucket-secret <1>
+    secretName: azure-blob-bucket-secret <1>
     bucketURI: azblob://map-store-bucket/path/to/jars <2>

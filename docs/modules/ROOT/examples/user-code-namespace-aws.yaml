@@ -5,5 +5,5 @@ metadata:
 spec:
   hazelcastResourceName: hazelcast
   bucketConfig:
-    secretName: map-store-bucket-secret <1>
+    secretName: s3-bucket-secret <1>
     bucketURI: s3://map-store-bucket/path/to/jars <2>
