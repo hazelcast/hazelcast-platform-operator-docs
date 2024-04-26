@@ -19,11 +19,39 @@ include::ROOT:example$/hazelcast-ucn.yaml[]
 
 To create a User Code Namespace, you must create a new `UserCodeNamespace` CR. The name of the CR is used as the name of the created User Code Namespace. The JAR files stored in the configured bucket are uploaded to the Hazelcast cluster under the newly created namespace.
 
-.Example of User Code Namespaces
+[tabs]
+====
+
+AWS::
++
+--
+User Code Namespaces in AWS S3:
 [source,yaml,subs="attributes+"]
 ----
-include::ROOT:example$/user-code-namespace.yaml[]
+include::ROOT:example$/hazelcast-user-code-deployment-aws.yaml[]
 ----
+--
+
+GCP::
++
+--
+User Code Namespaces in GCP:
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/user-code-namespace-gcp.yaml[]
+----
+--
+
+Azure::
++
+--
+User Code Namespaces in Azure Blob:
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-user-code-deployment-azure.yaml[]
+----
+--
+====
 <1> The bucket URI in which to store backup data
 <2> Name of the secret with credentials for accessing the Bucket URI.
 
