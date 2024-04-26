@@ -61,3 +61,4 @@ To allow your data structures to resolve your user code, you must reference the 
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/map-ucn.yaml[]
+---

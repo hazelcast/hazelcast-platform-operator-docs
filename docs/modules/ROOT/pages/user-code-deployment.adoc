@@ -1,6 +1,8 @@
 = User Code Deployment
 :description: Hazelcast allows you to deploy your own custom and domain classes to cluster members. From Hazelcast Platform Operator, you can deploy your application code from external buckets and ConfigMap objects in Kubernetes.
 
+WARNING: User Code Delpoymen is deprecated. Use * xref:user-code-namespaces.adoc[User Code Namespaces] instead.
+
 {description}
 
 This topic explains how to configure code deployments. It also brings together examples of when you might use code deployments as part of the configuration of other features, such as the xref:hazelcast:data-structures:working-with-external-data.adoc[implementation of an external data store] or an xref:hazelcast:computing:executor-service.adoc[executor service] for the asynchronous execution of tasks.
