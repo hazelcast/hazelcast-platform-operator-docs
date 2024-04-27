@@ -1,5 +1,5 @@
 = User Code Namespaces
-:description: User Code Namespaces provide a container for Java classpath resources, such as user code and accompanying artifacts like property files. This provides namespace isolation to ensure that access to resources in different namespaces can be managed through configuration. With the Hazelcast Platform Operator, you can create User Code Namespaces from the client.
+:description: User Code Namespaces provide a container for Java classpath resources, such as user code and accompanying artifacts like property files. This provides namespace isolation to ensure that access to resources in different namespaces can be managed through configuration. From Hazelcast Platform Operator, you can deploy your application code from external buckets using UserCodeNamespace CRs. 
 
 {description}
 
@@ -7,28 +7,58 @@ See xref:hazelcast:clusters:user-code-namespaces.adoc[User Code Namespaces] for 
 
 == Enabling User Code Namespaces
 
-To enable User Code Namespaces you must use the xref:custom-config.adoc[Custom Configuration].
+To enable User Code Namespaces you must configure the `userCodeNamespaces` section in the Hazelcast custom resource.
 
 .Example of Hazelcast with User Code Namespaces enabled
 [source,yaml,subs="attributes+"]
 ----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: custom-config-cm
-data:
-  hazelcast: |-
-    user-code-namespaces:
-      enabled: true
----
-apiVersion: hazelcast.com/v1alpha1
-kind: Hazelcast
-metadata:
-  name: hazelcast
-spec:
-  licenseKeySecretName: hazelcast-license-key
-  customConfigCmName: custom-config-cm
+include::ROOT:example$/hazelcast-ucn.yaml[]
 ----
 
-With User Code Namespaces enabled, you can create and use the namespaces from the client as described in xref:hazelcast:clusters:ucn-dynamic-client.adoc[Configure Client].
-NOTE: The same User Code Namespaces must have been configured in your data structure.
+== Creating a User Code Namespace
+
+To create a User Code Namespace, you must create a new `UserCodeNamespace` CR. The name of the CR is used as the name of the created User Code Namespace. The JAR files stored in the configured bucket are uploaded to the Hazelcast cluster under the newly created namespace.
+
+[tabs]
+====
+
+AWS::
++
+--
+User Code Namespaces in AWS S3:
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/user-code-namespace-aws.yaml[]
+----
+--
+
+GCP::
++
+--
+User Code Namespaces in GCP:
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/user-code-namespace-gcp.yaml[]
+----
+--
+
+Azure::
++
+--
+User Code Namespaces in Azure Blob:
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/user-code-namespace-azure.yaml[]
+----
+--
+====
+<1> The bucket URI in which to store backup data
+<2> Name of the secret with credentials for accessing the Bucket URI.
+
+To allow your data structures to resolve your user code, you must reference the required namespace in the data structure configuration. You can configure the same namespace for multiple data structures.
+
+.Example of Map with User Code Namespace
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/map-ucn.yaml[]
+---
