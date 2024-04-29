@@ -1,4 +1,4 @@
-name: Backport changes to maintenance branches
+name: Backport changes to 5.11 branch
 on:
  push:
   branches:
@@ -7,7 +7,7 @@ jobs:
   backport:
     strategy:
       matrix:
-        branch: ['v/5.8', 'v/5.9', 'v/5.10']
+        branch: ['v/5.11']
     runs-on: ubuntu-latest
     steps:
     
@@ -26,7 +26,7 @@ jobs:
         uses: shioyang/check-pr-labels-on-push-action@v1.0.12
         with:
          github-token: ${{ secrets.GITHUB_TOKEN }}
-         labels: '["backport"]'
+         labels: '["backport to 5.11"]'
         
       - name: See result
         run: echo "${{ steps.check_pr_labels.outputs.result }}"

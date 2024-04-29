@@ -1,0 +1,9 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: UserCodeNamespace
+metadata:
+  name: ucn-sample
+spec:
+  hazelcastResourceName: hazelcast
+  bucketConfig:
+    secretName: azure-blob-bucket-secret <1>
+    bucketURI: azblob://map-store-bucket/path/to/jars <2>

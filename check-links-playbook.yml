@@ -21,6 +21,9 @@ content:
   - url: https://github.com/hazelcast/cloud-docs
     branches: [main]
     start_paths: [docs, tutorials]
+  - url: https://github.com/hazelcast-guides/sql_stock_ticker_cloud
+    branches: master
+    start_paths: docs    
   - url: https://github.com/hazelcast-guides/client-failover
     branches: master
     start_paths: docs

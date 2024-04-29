@@ -6,7 +6,9 @@
 * xref:scheduling-configuration.adoc[Schedule Hazelcast Pods]
 * xref:serialization-configuration.adoc[Serialization]
 * xref:scaling-upgrading.adoc[Scale & Upgrade]
-* Configure Data Structures
+* xref:cp-subsystem.adoc[Enable CP Subsystem]
+* xref:tiered-storage.adoc[Tiered Storage]
+. Configure Data Structures
 ** xref:map-configuration.adoc[Map]
 ** xref:multimap-configuration.adoc[MultiMap]
 ** xref:topic-configuration.adoc[Topic]
@@ -24,12 +26,13 @@
 * xref:hazelcast-parameters.adoc[Configure System Properties]
 * xref:advanced-networking.adoc[Advanced Networking]
 * xref:tls.adoc[Configure TLS]
-* Data Pipelines
+* xref:user-code-namespaces.adoc[User Code Namespaces]
+. Data Pipelines
 ** xref:jet-engine-configuration.adoc[Configure the Jet Engine]
 ** xref:jet-job-configuration.adoc[Run Data Pipelines]
 ** xref:jet-job-snapshot.adoc[Save the State of Data Pipelines]
 * xref:custom-config.adoc[Custom Configuration of Hazelcast cluster]
-* Management Center
+. Management Center
 ** xref:management-center-clusters.adoc[Hazelcast Clusters]
 ** xref:management-center-external-access.adoc[External Access]
 ** xref:management-center-persistence.adoc[Persistence]
