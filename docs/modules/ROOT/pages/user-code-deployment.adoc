@@ -82,6 +82,8 @@ include::ROOT:example$/hazelcast-user-code-deployment-azure.yaml[]
 <1> The bucket URI where backup data will be stored in
 <2> Name of the secret with credentials for accessing the Bucket URI.
 
+NOTE: Public buckets should be installed using the `remoteURLs` field via HTTP.
+
 == Configuring an External Data Store with Hazelcast Platform Operator
 
 The `MapLoader` and `MapStore` interfaces in Hazelcast allow you to load map entries from and save map entries to an external data store. See xref:hazelcast:data-structures:working-with-external-data.adoc[Working with an External Data Store] for implementation details.
