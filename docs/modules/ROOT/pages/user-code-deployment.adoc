@@ -82,7 +82,7 @@ include::ROOT:example$/hazelcast-user-code-deployment-azure.yaml[]
 <1> The bucket URI where backup data will be stored in
 <2> Name of the secret with credentials for accessing the Bucket URI.
 
-NOTE: Public buckets should be installed using the `remoteURLs` field via HTTP.
+NOTE: Install public buckets using the `remoteURLs` field over HTTP.
 
 == Configuring an External Data Store with Hazelcast Platform Operator
 

@@ -55,7 +55,7 @@ include::ROOT:example$/user-code-namespace-azure.yaml[]
 <1> The bucket URI in which to store backup data
 <2> Name of the secret with credentials for accessing the Bucket URI.
 
-NOTE: Public buckets should be installed using the `remoteURLs` field via HTTP.
+NOTE: Install public buckets using the `remoteURLs` field over HTTP.
 
 To allow your data structures to resolve your user code, you must reference the required namespace in the data structure configuration. You can configure the same namespace for multiple data structures.
 
