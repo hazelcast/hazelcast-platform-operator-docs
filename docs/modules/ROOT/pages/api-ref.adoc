@@ -80,7 +80,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<JVMConfiguration,JVMConfiguration>>
 * <<JVMGCConfiguration,JVMGCConfiguration>>
 * <<JVMMemoryConfiguration,JVMMemoryConfiguration>>
-* <<JavaSerializationFilter,JavaSerializationFilter>>
+* <<JavaFilterConfig,JavaFilterConfig>>
 * <<JetEdgeDefaults,JetEdgeDefaults>>
 * <<JetEngineConfiguration,JetEngineConfiguration>>
 * <<JetInstance,JetInstance>>
@@ -164,6 +164,12 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<TopicStatus,TopicStatus>>
 * <<UniqueKeyTransition,UniqueKeyTransition>>
 * <<UserCodeDeploymentConfig,UserCodeDeploymentConfig>>
+* <<UserCodeNamespace,UserCodeNamespace>>
+* <<UserCodeNamespaceList,UserCodeNamespaceList>>
+* <<UserCodeNamespaceSpec,UserCodeNamespaceSpec>>
+* <<UserCodeNamespaceState,UserCodeNamespaceState>>
+* <<UserCodeNamespaceStatus,UserCodeNamespaceStatus>>
+* <<UserCodeNamespacesConfig,UserCodeNamespacesConfig>>
 * <<WANConfig,WANConfig>>
 * <<WanReplication,WanReplication>>
 * <<WanReplicationList,WanReplicationList>>
@@ -213,7 +219,7 @@ m| wan | &#160; m| []<<WANConfig,WANConfig>> | false | -
 |===
 | Field | Description | Type | Required | Default
 m| repository | Repository to pull Hazelcast Platform Operator Agent(https://github.com/hazelcast/platform-operator-agent) m| string | false | "docker.io/hazelcast/platform-operator-agent"
-m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.26"
+m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.27"
 m| resources | Compute Resources required by the Agent container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | -
 |===
 
@@ -332,6 +338,7 @@ m| name | Name of the data structure config to be created. If empty, CR name wil
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource that this resource is created for. m| string | true | -
 m| backupCount | Number of synchronous backups. m| &#42;int32 | false | 1
 m| asyncBackupCount | Number of asynchronous backups. m| int32 | false | 0
+m| userCodeNamespace | Name of the User Code Namespace applied to this instance m| string | false | -
 m| keyType | Class name of the key type m| string | false | -
 m| valueType | Class name of the value type m| string | false | -
 m| persistenceEnabled | When enabled, cache data will be persisted. m| bool | false | false
@@ -422,6 +429,7 @@ m| name | Name of the data structure config to be created. If empty, CR name wil
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource that this resource is created for. m| string | true | -
 m| backupCount | Number of synchronous backups. m| &#42;int32 | false | 1
 m| asyncBackupCount | Number of asynchronous backups. m| int32 | false | 0
+m| userCodeNamespace | Name of the User Code Namespace applied to this instance m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -451,6 +459,7 @@ m| name | The name of the executor service m| string | false | "default"
 m| poolSize | The number of executor threads per member. m| int32 | false | 16
 m| durability | Durability of the executor. m| int32 | false | 1
 m| capacity | Capacity of the executor task per partition. m| int32 | false | 100
+m| userCodeNamespace | Name of the User Code Namespace applied to this instance m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -506,6 +515,7 @@ m| maxSizePolicy | Policy for deciding if the maxSize is reached. m| <<MaxSizePo
 m| name | The name of the executor service m| string | false | "default"
 m| poolSize | The number of executor threads per member. m| int32 | false | 8
 m| queueCapacity | Task queue capacity of the executor. m| int32 | false | 0
+m| userCodeNamespace | Name of the User Code Namespace applied to this instance m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -747,9 +757,8 @@ m| clusterName | Name of the Hazelcast cluster. m| string | false | "dev"
 m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingConfiguration>> | false | -
 m| resources | Compute Resources required by the Hazelcast container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | -
 m| persistence | Persistence configuration m| &#42;<<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>> | false | -
-m| agent | B&R Agent configurations m| <<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.26"}
+m| agent | B&R Agent configurations m| <<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.27"}
 m| jet | Jet Engine configuration m| &#42;<<JetEngineConfiguration,JetEngineConfiguration>> | false | {enabled: true, resourceUploadEnabled: false}
-m| userCodeDeployment | User Codes to Download into CLASSPATH m| &#42;<<UserCodeDeploymentConfig,UserCodeDeploymentConfig>> | false | -
 m| executorServices | Java Executor Service configurations, see https://docs.hazelcast.com/hazelcast/latest/computing/executor-service m| []<<ExecutorServiceConfiguration,ExecutorServiceConfiguration>> | false | -
 m| durableExecutorServices | Durable Executor Service configurations, see https://docs.hazelcast.com/hazelcast/latest/computing/durable-executor-service m| []<<DurableExecutorServiceConfiguration,DurableExecutorServiceConfiguration>> | false | -
 m| scheduledExecutorServices | Scheduled Executor Service configurations, see https://docs.hazelcast.com/hazelcast/latest/computing/scheduled-executor-service m| []<<ScheduledExecutorServiceConfiguration,ScheduledExecutorServiceConfiguration>> | false | -
@@ -769,12 +778,14 @@ m| annotations | Hazelcast Kubernetes resource annotations m| map[string]string 
 m| labels | Hazelcast Kubernetes resource labels m| map[string]string | false | -
 m| serviceAccountName | ServiceAccountName is the name of the ServiceAccount to use to run Hazelcast cluster. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/ m| string | false | -
 m| cpSubsystem | CPSubsystem is the configuration of the Hazelcast CP Subsystem. m| &#42;<<CPSubsystem,CPSubsystem>> | false | -
+m| userCodeNamespaces | UserCodeNamespaces provide a container for Java classpath resources, such as user code and accompanying artifacts like property files m| &#42;<<UserCodeNamespacesConfig,UserCodeNamespacesConfig>> | false | -
 |===
 ==== Deprecated
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
 m| licenseKeySecret | licenseKeySecret is a deprecated alias for licenseKeySecretName. m| string | false | -
+m| userCodeDeployment | User Codes to Download into CLASSPATH m| &#42;<<UserCodeDeploymentConfig,UserCodeDeploymentConfig>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -927,7 +938,7 @@ m| maxRAMPercentage | MaxRAMPercentage sets the maximum heap size for a JVM m| &
 
 <<Table of Contents,Back to TOC>>
 
-=== JavaSerializationFilter
+=== JavaFilterConfig
 
 
 
@@ -1310,6 +1321,7 @@ m| name | Name of the data structure config to be created. If empty, CR name wil
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource that this resource is created for. m| string | true | -
 m| backupCount | Number of synchronous backups. m| &#42;int32 | false | 1
 m| asyncBackupCount | Number of asynchronous backups. m| int32 | false | 0
+m| userCodeNamespace | Name of the User Code Namespace applied to this instance m| string | false | -
 m| timeToLiveSeconds | Maximum time in seconds for each entry to stay in the map. If it is not 0, entries that are older than this time and not updated for this time are evicted automatically. It can be updated. m| int32 | false | 0
 m| maxIdleSeconds | Maximum time in seconds for each entry to stay idle in the map. Entries that are idle for more than this time are evicted automatically. It can be updated. m| int32 | false | 0
 m| eviction | Configuration for removing data from the map when it reaches its max size. It can be updated. m| <<EvictionConfig,EvictionConfig>> | false | {maxSize: 0, evictionPolicy: NONE, maxSizePolicy: PER_NODE}
@@ -1408,6 +1420,7 @@ m| name | Name of the data structure config to be created. If empty, CR name wil
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource that this resource is created for. m| string | true | -
 m| backupCount | Number of synchronous backups. m| &#42;int32 | false | 1
 m| asyncBackupCount | Number of asynchronous backups. m| int32 | false | 0
+m| userCodeNamespace | Name of the User Code Namespace applied to this instance m| string | false | -
 m| binary | Specifies in which format data will be stored in your MultiMap. false: OBJECT true: BINARY m| bool | false | false
 m| collectionType | Type of the value collection m| <<CollectionType,CollectionType>> | false | SET
 |===
@@ -1541,6 +1554,7 @@ m| name | Name of the data structure config to be created. If empty, CR name wil
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource that this resource is created for. m| string | true | -
 m| backupCount | Number of synchronous backups. m| &#42;int32 | false | 1
 m| asyncBackupCount | Number of asynchronous backups. m| int32 | false | 0
+m| userCodeNamespace | Name of the User Code Namespace applied to this instance m| string | false | -
 m| maxSize | Max size of the queue. m| int32 | false | 0
 m| emptyQueueTTLSeconds | Time in seconds after which the Queue will be destroyed if it stays empty or unused. If the values is not provided the Queue will never be destroyed. m| &#42;int32 | false | -1
 m| priorityComparatorClassName | The name of the comparator class. If the class name is provided, the Queue becomes Priority Queue. You can learn more at https://docs.hazelcast.com/hazelcast/latest/data-structures/priority-queue. m| string | false | -
@@ -1614,6 +1628,7 @@ m| name | Name of the ReplicatedMap config to be created. If empty, CR name will
 m| asyncFillup | AsyncFillup specifies whether the ReplicatedMap is available for reads before the initial replication is completed m| &#42;bool | false | true
 m| inMemoryFormat | InMemoryFormat specifies in which format data will be stored in the ReplicatedMap m| <<RMInMemoryFormatType,RMInMemoryFormatType>> | false | OBJECT
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource. m| string | true | -
+m| userCodeNamespace | Name of the User Code Namespace applied to this instance m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1713,6 +1728,7 @@ m| poolSize | The number of executor threads per member. m| int32 | false | 16
 m| durability | Durability of the executor. m| int32 | false | 1
 m| capacity | Capacity of the executor task per partition. m| int32 | false | 100
 m| capacityPolicy | The active policy for the capacity setting. m| string | false | PER_NODE
+m| userCodeNamespace | Name of the User Code Namespace applied to this instance m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1761,7 +1777,7 @@ m| portableFactories | Lists class implementations of Hazelcast's PortableFactor
 m| globalSerializer | List of global serializers. m| &#42;<<GlobalSerializer,GlobalSerializer>> | false | -
 m| serializers | List of serializers (classes) that implemented using Hazelcast's StreamSerializer, ByteArraySerializer etc. m| []<<Serializer,Serializer>> | false | -
 m| compactSerialization | Configuration attributes the compact serialization. m| &#42;<<CompactSerializationConfig,CompactSerializationConfig>> | false | -
-m| javaSerializationFilter | Blacklist and whitelist for deserialized classes when Java serialization is used. m| &#42;<<JavaSerializationFilter,JavaSerializationFilter>> | false | -
+m| javaSerializationFilter | Blacklist and whitelist for deserialized classes when Java serialization is used. m| &#42;<<JavaFilterConfig,JavaFilterConfig>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1869,6 +1885,7 @@ m| name | Name of the topic config to be created. If empty, CR name will be used
 m| globalOrderingEnabled | globalOrderingEnabled allows all nodes listening to the same topic get their messages in the same order the same order m| bool | false | false
 m| multiThreadingEnabled | multiThreadingEnabled enables multi-threaded processing of incoming messages a single thread will handle all topic messages m| bool | false | false
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource for which topic config will be created m| string | true | -
+m| userCodeNamespace | Name of the User Code Namespace applied to this instance m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1899,6 +1916,71 @@ m| triggerSequence | A string for triggering a rolling restart for re-downloadin
 m| bucketConfig | Bucket config from where the JAR files will be downloaded. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
 m| configMaps | Names of the list of ConfigMaps. Files in each ConfigMap will be downloaded. m| []string | false | -
 m| remoteURLs | List of URLs from where the files will be downloaded. m| []string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== UserCodeNamespace
+
+UserCodeNamespace is the Schema for the usercodenamespaces API
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| spec | &#160; m| <<UserCodeNamespaceSpec,UserCodeNamespaceSpec>> | false | -
+m| status | &#160; m| <<UserCodeNamespaceStatus,UserCodeNamespaceStatus>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== UserCodeNamespaceList
+
+UserCodeNamespaceList contains a list of UserCodeNamespace
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| items | &#160; m| []<<UserCodeNamespace,UserCodeNamespace>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== UserCodeNamespaceSpec
+
+UserCodeNamespaceSpec defines the desired state of UserCodeNamespace
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| bucketConfig | Bucket config from where the JAR files will be downloaded. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
+m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource that this resource is created for. m| string | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== UserCodeNamespaceStatus
+
+UserCodeNamespaceStatus defines the observed state of UserCodeNamespace
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| state | &#160; m| <<UserCodeNamespaceState,UserCodeNamespaceState>> | false | -
+m| message | &#160; m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== UserCodeNamespacesConfig
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| classFilter | Blacklist and whitelist for classes when User Code Namespaces is used. m| &#42;<<JavaFilterConfig,JavaFilterConfig>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -2580,6 +2662,20 @@ m| "Succeeded" | &#160;
 m| "OBJECT" | &#160;
 m| "LONG" | &#160;
 m| "RAW" | &#160;
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== UserCodeNamespaceState
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "Pending" | &#160;
+m| "Failure" | &#160;
+m| "Success" | &#160;
 |===
 
 <<Table of Contents,Back to TOC>>
