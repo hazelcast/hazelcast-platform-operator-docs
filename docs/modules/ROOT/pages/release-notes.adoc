@@ -9,7 +9,7 @@ This release adds support to configure xref:user-code-namespaces.adoc[User Code 
 == Changes
 
 - Thread name was added to the logging pattern for users (https://github.com/hazelcast/hazelcast-platform-operator/pull/1117[#1117])
-- Add DefaultJavaOptions and append them to JAVA_OPTS env variable (https://github.com/hazelcast/hazelcast-platform-operator/pull/1114[#1114])
+- Added `DefaultJavaOptions` and appended these options to the `JAVA_OPTS` environment variable. https://github.com/hazelcast/hazelcast-platform-operator/pull/1114[#1114]
 
 == Fixed Issues
 
