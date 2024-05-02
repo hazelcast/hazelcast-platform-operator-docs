@@ -13,5 +13,5 @@ This release adds support to configure xref:user-code-namespaces.adoc[User Code 
 
 == Fixed Issues
 
-- Fixed the Webhook setup error in restricted-mode (https://github.com/hazelcast/hazelcast-platform-operator/pull/1128[#1128])
+- Fixed the Webhook setup error in the restricted mode. https://github.com/hazelcast/hazelcast-platform-operator/pull/1128[#1128]
 - Fix "Failed to watch *v1.Node: unknown (get nodes)" warnings (https://github.com/hazelcast/hazelcast-platform-operator/pull/1115[#1115])
