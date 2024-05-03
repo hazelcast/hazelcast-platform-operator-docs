@@ -4,7 +4,7 @@ This release adds support to configure xref:user-code-namespaces.adoc[User Code 
 
 == New Features
 
-- Added support to configure User Code Namespaces via the `UserCodeNamespace` CR. https://github.com/hazelcast/hazelcast-platform-operator/pull/1091[#1091]
+- Added support to configure User Code Namespaces using the `UserCodeNamespace` CR. https://github.com/hazelcast/hazelcast-platform-operator/pull/1091[#1091]
 
 == Changes
 
