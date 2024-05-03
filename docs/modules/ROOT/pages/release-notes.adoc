@@ -1,6 +1,6 @@
 = Release Notes
 
-This release adds support to configure xref:user-code-namespaces.adoc[User Code Namespaces] via the UserCodeNamespace CR.
+This release adds support to configure xref:user-code-namespaces.adoc[User Code Namespaces] using the UserCodeNamespace CR.
 
 == New Features
 
