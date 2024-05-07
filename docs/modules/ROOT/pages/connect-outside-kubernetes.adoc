@@ -140,6 +140,7 @@ Java::
 ----
 ClientConfig config = new ClientConfig();
 config.getNetworkConfig().addAddress("35.230.92.217");
+config.getProperties().setProperty(ClientProperty.DISCOVERY_SPI_PUBLIC_IP_ENABLED.toString(), "true");
 HazelcastInstance client = HazelcastClient.newHazelcastClient(config);
 ----
 --
