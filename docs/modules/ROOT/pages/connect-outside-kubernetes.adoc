@@ -157,6 +157,9 @@ const clientConfig = {
     clusterMembers: [
       '35.230.92.217'
     ]
+  },
+  properties: {
+    ['hazelcast.discovery.public.ip.enabled']: true
   }
 };
 const client = await Client.newHazelcastClient(clientConfig);
