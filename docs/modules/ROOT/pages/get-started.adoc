@@ -56,9 +56,9 @@ After installing CRDs, install the Operator by running the following command. Th
 [source,shell,subs="attributes+"]
 ----
 helm install operator hazelcast/hazelcast-platform-operator --version={operator-chart-version} -n hz-system \
-    --set=createClusterScopedResources=false \ <1>
-    --set=webhook.enabled=false \ <2>
-    --set=enableHazelcastNodeDiscovery=false \ <3>
+    --set=createClusterScopedResources=false \#<1>
+    --set=webhook.enabled=false \#<2>
+    --set=enableHazelcastNodeDiscovery=false \#<3>
     --set=installCRDs=false \
     --set=watchedNamespaces="{ns-1, ns-2}"
 ----
