@@ -23,3 +23,5 @@ When the `pvc` section is configured in `cpSubsystem`, a PVC is created and moun
 ----
 include::ROOT:example$/hazelcast-cp-subsystem-persistence.yaml[]
 ----
+
+NOTE: The cluster cannot be scaled up or down with the CP subsystem enabled. Although it is allowed to pause the cluster, i.e., scaling it to 0, when starting the cluster, you must scale only to the original cluster size; otherwise, it will fail to start.
