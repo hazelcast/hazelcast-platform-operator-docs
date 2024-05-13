@@ -27,6 +27,7 @@
 * xref:advanced-networking.adoc[Advanced Networking]
 * xref:tls.adoc[Configuring TLS]
 * xref:user-code-namespaces.adoc[User Code Namespaces]
+* xref:lite-members.adoc[Enabling Lite Members]
 * Data Pipelines
 ** xref:jet-engine-configuration.adoc[Configuring the Jet Engine]
 ** xref:jet-job-configuration.adoc[Running Data Pipelines]
