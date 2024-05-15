@@ -1,10 +1,17 @@
-= Scaling and Upgrading a Hazelcast Deployment
+= Scale and Upgrade a Hazelcast Deployment
+:description: You can scale your deployment to create replicas, which can help to prevent the unexpected availability of your deployment. You can also upgrade the version of your deployment using a rolling upgrade.
 
-To scale an existing Hazelcast deployment, there are two options:
+{description}
 
-- Modify the yaml definition you used to deploy Hazelcast cluster by updating `clusterSize` field and re-apply it again:
+== Scale
+
+You can scale an existing Hazelcast deployment in either of the following ways:
+
+- Modify the Hazelcast custom resource (the YAML definition you used to deploy Hazelcast cluster) by updating the `clusterSize` field.
 +
-Assuming the following is the existing configuration:
+You must re-apply the definition after you have updated it.
++
+In this example, the existing configuration is as follows:
 +
 [source,yaml]
 ----
@@ -16,7 +23,7 @@ spec:
   clusterSize: 3
 ----
 +
-and you want to scale your deployment to five replicas, you need to apply the following:
+To scale the deployment to five replicas, we update this configuration as follows:
 +
 [source,yaml]
 ----
@@ -28,37 +35,53 @@ spec:
   clusterSize: 5
 ----
 +
-- To scale an existing Hazelcast deployment, use the following command:
+Once we have saved the changes, we reapply the configuration as follows:
++
+[source,shell]
+----
+kubectl apply -f hazelcast-enterprise.yaml
+----
+
+- Use a command to scale an existing Hazelcast deployment. The command has the following format:
 +
 [source,shell]
 ----
 kubectl scale hazelcast <name> --replicas <replica-count>
 ----
 +
-Example:
+For example, we can scale the deployment to five replicas using the following command:
 +
 [source,shell]
 ----
 kubectl scale hazelcast hazelcast-sample --replicas 5
 ----
 
-== Upgrading
+== Upgrade
 
-Before upgrading, we recommend that you to read xref:hazelcast:maintain-cluster:rolling-upgrades.adoc#hazelcast-members-compatibility-guarantees[Rolling Upgrades] information.
+Before upgrading, refer to the xref:hazelcast:maintain-cluster:rolling-upgrades.adoc#hazelcast-members-compatibility-guarantees[Compatibility Guarantees,window=_blank] in the Platform documentation.
 
-To upgrade your existing deployment to a newer version, you need to update `spec.version` field and re-apply. For example:
+To upgrade the version of your existing deployment, you must do the following:
 
-Assuming the following is the existing configuration:
+* Update the `spec.version` field in your Hazelcast custom resource. 
+* Re-apply the definition.
+
+In this example, the existing configuration is as follows:
 
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hazelcast-5.2.4.yaml[]
 ----
 
-and you want to upgrade your Hazelcast version to {page-latest-supported-hazelcast}, you need to apply the following:
+To upgrade the Hazelcast version to {page-latest-supported-hazelcast},  we update this configuration as follows:
 
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hazelcast.yaml[]
 ----
 
+Once we have saved the changes, we reapply the configuration, as follows:
+
+[source,shell]
+----
+kubectl apply -f hazelcast-enterprise.yaml
+----

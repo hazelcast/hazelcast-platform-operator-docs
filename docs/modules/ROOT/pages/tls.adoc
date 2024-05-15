@@ -1,54 +1,66 @@
 = Configuring TLS
-:description: Hazelcast TLS is a security feature that provides encryption and authentication of data transmitted between Hazelcast nodes, preventing unauthorized access and eavesdropping.
+:description: Hazelcast Transport Layer Security (TLS) provides encryption and authentication of data transmitted between Hazelcast nodes to prevent unauthorized access and eavesdropping.
 
 {description}
 
-Hazelcast TLS uses standard SSL/TLS certificates, which can be obtained from trusted Certificate Authorities (CA) or self-signed. The certificates are used to establish trust between the communicating parties and ensure the authenticity of the communication channel.
+Hazelcast TLS uses standard SSL/TLS certificates, which can be obtained from trusted Certificate Authorities (CA) or be self-signed. The certificates are used to establish trust between the communicating parties and ensure the authenticity of the communication channel.
 
-See xref:hazelcast:security:tls-ssl.adoc[TLS/SSL Basics] for more detailed information about the configuration and behavior of TLS in Hazelcast.
+For further information on the configuration and behavior of TLS in Hazelcast, refer to xref:hazelcast:security:tls-ssl.adoc[TLS/SSL Basics,window=_blank] in the Platform documentation.
 
 == Prerequisites for TLS
 
-Before you create and configure TLS, you need to create Kubernetes secret:
+Before you create and configure TLS, you must create a Kubernetes secret as follows:
 
 [source,shell]
 ----
 kubectl create secret tls example --cert=example.crt --key=example.key
 ----
 
-== Configuring Hazelcast TLS
+== Configure Hazelcast TLS
 
-Below are the configuration options for the TLS.
+TLS is configured using the following fields:
 
 [cols="25%m,75%a"]
 |===
 |Field|Description
 
 |`secretName`
-| Specifies the name of Kubernetes TLS secret.
+|The name of the Kubernetes TLS secret.
 
 |`mutualAuthentication`
-|  Mutual authentication configuration, available values are:
+|The end-to-end security method to apply at both ends of the connection; that is, both the server and the client. This is known as mutual authentication.
+Valid values are as follows:
 
-- `None` (default): The client side of the connection is not authenticated.  
-- `Required`:  Server forces usage of a trusted client certificate
-- `Optional`: Server asks for a client certificate, but it doesn't require it
+- `None` (default). Server doesn't ask for the certificate from the client. If the client successfully validates the certificate from the server, a connection is established.
+- `Required`. Server asks for and validates the certificate from the client. If validation is unsuccessful, a connection is not established between server and client.
+- `Optional`. Server asks for the certificate from the client, but doesn't validate or require it.
 
 |===
 
 === Example Configuration
 
-The example configuration does the following:
+In these example, we configure the following:
 
-- Enables member to member and member-client Hazelcast TLS connections
-- Enforces mutual TLS authentication for cluster members
+- Member-to-member Hazelcast TLS connection.
+- Member-client Hazelcast TLS connection.
+- Required mutual TLS authentication for cluster members.
 
+You can configure TLS in either of the following ways:
+
+* Using the Hazelcast custom resource. 
++
+The configuration is as follows:
++
 .Example Hazelcast configuration
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hazelcast-tls.yaml[]
 ----
 
+* Using Hazelcast Management Center. 
++
+The configuration is as follows:
++
 .Example Management Center configuration
 [source,yaml,subs="attributes+"]
 ----

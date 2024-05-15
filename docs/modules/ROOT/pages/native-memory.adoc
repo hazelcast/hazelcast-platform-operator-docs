@@ -1,42 +1,60 @@
-= Configuring the Native Memory Store
-:description: The Native Memory Store is a pluggable memory manager. It allows you to set up different configurations, or stores, for your application’s data structures on a single JVM. These memory stores form part of a common access layer which scales up to use a configured amount of memory on the JVM.
+= Configure the Native Memory Store
+:description: The Native Memory Store is a pluggable memory manager that sets up different configurations, or stores, for your application’s data structures on a single JVM. These memory stores form part of a common access layer that scales up to use a configured amount of memory on the JVM.
 
 {description}
 
-As well as providing more predictable application scaling, using a Native Memory Store boosts performance, reduces latency, and minimizes garbage collection pauses. 
+The Native Memory Store provides the following:
 
-== Configuring a Native Memory Store
+* More predictable application scaling.
+* Boosted performance.
+* Reduced latency.
+* Minimized garbage collection pauses. 
 
-Below are the configuration options for the Native Memory Store.
+== Configure a Native Memory Store
+
+You can use the following configuration options for the Native Memory Store:
 
 [cols="25%m,75%a"]
 |===
 |Field|Description
 
 |`allocatorType`
-| Specifies the mechanism for allocating memory; either STANDARD or POOLED.
+|The mechanism used to allocate memory. Valid values are as follows:
+
+* `POOLED`. Default. Manages memory blocks in local thread pools.
+* `STANDARD`. Allocates and frees memory using the default OS memory manager.
 
 |`size`
-|Size of the total native memory to allocate.
+|The total native memory. 
+Set the `size` and `unit` attributes to define the amount of memory to allocate, and the unit in which the size is measured.
+The default size is `128`, and the default unit is `MEGABYTES`
+
 
 |`minBlockSize`
-|Size of smallest block of memory to allocate.
+|The minimum amount of memory to allocate to the blocks in bytes. Default is `16`.
+This is only used if the `allocatorType` is set to `POOLED`.
+The value must be a power of two.
 
 |`pageSize`
-|Size of the page in bytes to allocate as a block of memory.
+|Size of the page in bytes to allocate as a block of memory. Default is `4194304`, which is approximately 4 MB.
+This is only used if the `allocatorType` is set to `POOLED`.
 
 |`metadataSpacePercentage`
-|Percentage of the allocated native memory that is used for the metadata of other map components such as index (for predicates), offset, etc.
+|Percentage of allocated native memory that is used for the metadata of other map components, including index, for predicates, and offset. Default is 12.5.
+This is only used if the `allocatorType` is set to `POOLED`.
 
 |===
 
 === Example Configuration
 
-The example configuration does the following:
+To configure the Native Memory Store, we must configure the cluster, the Map, and the cache.
 
-- Creates a cluster with `Native Memory` and the `POOLED` allocator enabled.
-- Configures a map on the cluster to use native memory.
+In the following example, we configure the Native Memory Store as follows:
 
+* Manage memory blocks in local thread pools.
+* Allocate `512M` for the total native memory.
+
+The configuration is as follows:
 
 .Example Hazelcast configuration
 [source,yaml,subs="attributes+"]
@@ -44,11 +62,19 @@ The example configuration does the following:
 include::ROOT:example$/hazelcast-native-memory.yaml[]
 ----
 
+In the following example, we configure the Map to use the Native Memory Store.
+
+The configuration is as follows:
+
 .Example Map configuration
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hazelcast-native-memory-map.yaml[]
 ----
+
+In the following example, we configure the cache to use the Native Memory Store.
+
+The configuration is as follows:
 
 .Example Cache configuration
 [source,yaml,subs="attributes+"]
