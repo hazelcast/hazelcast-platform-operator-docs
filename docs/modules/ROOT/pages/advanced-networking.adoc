@@ -1,11 +1,11 @@
 = Advanced Network Configuration
-:description: With the default configuration, Hazelcast members use a single server socket for connections. With advanced network configuration, you can configure the use of separate server sockets. Hazelcast Operator enables advanced networking configuration by default with pre-configured networks for client, member, REST, and WAN protocols. 
+:description: With the default configuration, Hazelcast members use a single server socket for connections. With advanced network configuration, you can configure the use of separate server sockets. Hazelcast Operator enables advanced network by default with pre-configured networks for client, member, REST, and WAN protocols. 
 
 {description}
 
 When you configure Hazelcast members with separate server sockets, you can apply distinct network configurations for various protocols through the advanced network. For further information on the advanced network, refer to xref:hazelcast:clusters:network-configuration.adoc#advanced-network-configuration[Advanced Network Configuration,window=_blank] in the Platform documentation.
 
-Hazelcast Operator enables advanced networking by default, and pre-configures the following protocol properties:
+Hazelcast Operator enables the advanced network by default, and pre-configures the following protocol properties:
 
 - Client protocol. Pre-configures the port number to `5701`.
 - Member protocol. Pre-configures the port number to `5702`.
