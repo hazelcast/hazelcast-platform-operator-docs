@@ -10,7 +10,7 @@ When using either type of partition grouping (ZONE_AWARE or NODE_AWARE) with a H
 The `highAvailabilityMode` parameter allows you to specify partition groups and to automatically distribute members across availability zones and nodes, using the Kubernetes policy `topologySpreadConstraints`.
 
 
-== Configuring High Availability Mode 
+== Configuring High Availability Mode
 
 Below are the configuration options for the High Availability Mode feature.
 
@@ -58,3 +58,57 @@ Below are the configuration options for the High Availability Mode feature.
 ----
 include::ROOT:example$/hazelcast-high-availability-mode.yaml[]
 ----
+
+== High Availability Mode and Subset Routing
+
+Subset routing is a client feature that a client can connect to a subset of members determined by grouping strategy. To benefit from subset routing, high availability mode must be set, because partition groups are determined depending on this parameter. Also, if the subset routing is used on client-side, in the Hazelcast CR, `exposeExternally.type` must be set to `smart`.
+
+Example server and client configurations to run subset routing correctly:
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-high-availability-mode-subset-routing.yaml[]
+----
+
+[tabs]
+====
+Java::
++
+--
+[source, java]
+----
+ClientConfig clientConfig = new ClientConfig();
+ClientNetworkConfig networkConfig = clientConfig.getNetworkConfig();
+networkConfig.setSmartRouting(false);
+SubsetRoutingConfig subsetRoutingConfig = networkConfig.getSubsetRoutingConfig();
+subsetRoutingConfig.setEnabled(true);
+subsetRoutingConfig.setRoutingStrategy(RoutingStrategy.PARTITION_GROUPS);
+----
+--
+
+XML::
++
+--
+[source, xml]
+----
+...
+<network>
+    <subset-routing enabled="true" routing-strategy="PARTITION_GROUPS"/>
+    <smart-routing>false</smart-routing>
+</network>
+...
+----
+--
+
+YAML::
++
+--
+[source, yaml]
+----
+network:
+  subset-routing:
+    enabled: true
+    routing-strategy: PARTITION_GROUPS
+  smart-routing: false
+----
+--
