@@ -39,7 +39,11 @@ If you use AKS, consider the following:
 
 == Configuring `exposeExternally`
 
-To allow connections from clients, you need to configure the `exposeExternally` field, of the Hazelcast custom resource. This field has the following properties:
+To allow connections from clients, you need to configure the `exposeExternally` field, of the Hazelcast custom resource. 
+
+IMPORTANT: If using Istio, you cannot use `exposeExternally`.
+
+This field has the following properties:
 
 [cols="20%m,80%a"]
 |===
@@ -57,9 +61,6 @@ To allow connections from clients, you need to configure the `exposeExternally` 
 - `LoadBalancer` (default): Hazelcast client configuration `<load-balancer-external-ip>:5701`.
 +
 WARNING: Your Kubernetes cluster should be able to assign public IPs to LoadBalancer services.
-
-WARNING: Expose externally feature is not supported in Istio setup.
-
 - `NodePort`: Hazelcast client configuration `<node-address>:<node-port>`.
 |memberAccess
 |The way in which clients access Hazelcast members:
