@@ -56,13 +56,7 @@ To allow connections from clients, you need to configure the `exposeExternally` 
 
 - `LoadBalancer` (default): Hazelcast client configuration `<load-balancer-external-ip>:5701`.
 +
-
-[WARNING]:
-====
 * Your Kubernetes cluster should be able to assign public IPs to LoadBalancer services.
-* If using Istio, you cannot use `exposeExternally`.
-====
-
 - `NodePort`: Hazelcast client configuration `<node-address>:<node-port>`.
 |memberAccess
 |The way in which clients access Hazelcast members:
@@ -73,7 +67,11 @@ To allow connections from clients, you need to configure the `exposeExternally` 
 
 |===
 
-WARNING: If NodePorts are used (`discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), the Kubernetes nodes must allow external TCP traffic on node IPs and ports.
+[WARNING]
+====
+* If NodePorts are used (`discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), the Kubernetes nodes must allow external TCP traffic on node IPs and ports.
+* If using Istio, you cannot use `exposeExternally`.
+====
 
 == Exposing Hazelcast to Smart Clients
 
