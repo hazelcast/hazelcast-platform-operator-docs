@@ -39,7 +39,11 @@ If you use AKS, consider the following:
 
 == Configuring `exposeExternally`
 
-To allow connections from clients, you need to configure the `exposeExternally` field, of the Hazelcast custom resource. This field has the following properties:
+To allow connections from clients, you need to configure the `exposeExternally` field, of the Hazelcast custom resource.
+
+NOTE: If using Istio, you cannot use `exposeExternally`.
+
+This field has the following properties:
 
 [cols="20%m,80%a"]
 |===
@@ -67,11 +71,7 @@ WARNING: Your Kubernetes cluster should be able to assign public IPs to LoadBala
 
 |===
 
-[WARNING]
-====
-* If NodePorts are used (`discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), the Kubernetes nodes must allow external TCP traffic on node IPs and ports.
-* If using Istio, you cannot use `exposeExternally`.
-====
+WARNING: If NodePorts are used (`discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), the Kubernetes nodes must allow external TCP traffic on node IPs and ports.
 
 == Exposing Hazelcast to Smart Clients
 
