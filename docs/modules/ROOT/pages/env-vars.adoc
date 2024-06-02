@@ -1,0 +1,11 @@
+= Configuring Environment Variables
+
+You can configure the environment variables in the `hazelcast` pods using the `env` field of the CRD spec.
+
+Example Configuration:
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/env-vars.yaml[]
+----
+
+WARNING: Environment variables to configure Hazelcast (environment variables with `HZ_` prefix) cannot be configured using `env` field. You should use xref:custom-config.adoc[Custom Config] to configure Hazelcast.
