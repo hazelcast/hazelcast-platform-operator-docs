@@ -8,4 +8,4 @@ Example Configuration:
 include::ROOT:example$/env-vars.yaml[]
 ----
 
-WARNING: Environment variables to configure Hazelcast (environment variables with `HZ_` prefix) cannot be configured using `env` field. You should use xref:custom-config.adoc[Custom Config] to configure Hazelcast.
+WARNING: You cannot use the `env` field to configure Hazelcast environment variables, which are prefixed `HZ_`. To configure the Hazelcast environment variables, use xref:custom-config.adoc[Custom Config].
