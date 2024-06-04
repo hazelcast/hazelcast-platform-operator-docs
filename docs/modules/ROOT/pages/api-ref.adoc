@@ -779,6 +779,7 @@ m| labels | Hazelcast Kubernetes resource labels m| map[string]string | false | 
 m| serviceAccountName | ServiceAccountName is the name of the ServiceAccount to use to run Hazelcast cluster. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/ m| string | false | -
 m| cpSubsystem | CPSubsystem is the configuration of the Hazelcast CP Subsystem. m| &#42;<<CPSubsystem,CPSubsystem>> | false | -
 m| userCodeNamespaces | UserCodeNamespaces provide a container for Java classpath resources, such as user code and accompanying artifacts like property files m| &#42;<<UserCodeNamespacesConfig,UserCodeNamespacesConfig>> | false | -
+m| env | Env configuration of environment variables m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#envvar-v1-core[corev1.EnvVar] | false | -
 |===
 ==== Deprecated
 [cols="4,8,4,2,4"options="header"]
