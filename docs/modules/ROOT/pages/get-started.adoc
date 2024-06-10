@@ -99,64 +99,6 @@ oc logs deployment.apps/operator-hazelcast-platform-operator
 
 After installing and running the Hazelcast Platform Operator, you can create a Hazelcast cluster. First, create the `Hazelcast` custom resource file as `hazelcast.yaml`.
 
-[tabs]
-====
-Open Source::
-+
---
-
-. Create the `Hazelcast` custom resource file and name it `hazelcast.yaml`.
-+
-[source,yaml,subs="attributes+"]
-----
-include::ROOT:example$/hazelcast.yaml[]
-----
-
-. Apply the custom resource to start the Hazelcast cluster.
-+
-
-.For Kubernetes
-[source,shell]
-----
-kubectl apply -f hazelcast.yaml
-
-----
-+
-.For Openshift
-[source,shell]
-----
-oc apply -f hazelcast.yaml
-----
-
-
-. Verify that the cluster is up and running by checking the Hazelcast member logs.
-+
-
-.For Kubernetes
-[source,shell]
-----
-kubectl logs pod/hazelcast-sample-0
-----
-+
-.For Openshift
-[source,shell]
-----
-oc logs pod/hazelcast-sample-0
-----
-
-You should see the following:
-
-```
-Members {size:3, ver:3} [
-        Member [10.36.8.3]:5701 - ccf31703-de3b-4094-9faf-7b5d0dc145b2 this
-        Member [10.36.7.2]:5701 - e75bd6e2-de4b-4360-8113-040773d858b7
-        Member [10.36.6.2]:5701 - c3d105d2-0bca-4a66-8519-1cacffc05c98
-]
-```
---
-Enterprise::
-+
---
 Hazelcast Enterprise requires a license key. If you don't have a license key, you can request one from the link:http://trialrequest.hazelcast.com/[Hazelcast website].
 
 . Create a Kubernetes secret to hold your license key.
@@ -207,6 +149,7 @@ kubectl logs pod/hazelcast-sample-0
 ----
 oc logs pod/hazelcast-sample-0
 ----
+
 You should see the following:
 
 ```
@@ -216,9 +159,6 @@ Members {size:3, ver:3} [
         Member [10.36.6.2]:5701 - c3d105d2-0bca-4a66-8519-1cacffc05c98
 ]
 ```
-
---
-====
 
 == Step 3. Check that the Hazelcast Cluster is Running
 
