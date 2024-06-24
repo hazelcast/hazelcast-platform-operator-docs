@@ -3,9 +3,13 @@
 
 {description}
 
-== Before you Begin
+== Prerequisites
 
-You need a Kubernetes or Openshift cluster, and the `kubectl` or `oc` command-line tool must be configured to communicate with your cluster.
+Prerequisites
+
+* A Kubernetes or OpenShift cluster
+* The link:https://kubernetes.io/docs/tasks/tools/#kubectl[`kubectl`] or link:https://docs.openshift.com/container-platform/latest/cli_reference/openshift_cli/getting-started-cli.html[`oc`] command-line tools, configured to communicate with your cluster
+* link:https://helm.sh/docs/intro/install[`Helm`]
 
 
 == Step 1. Deploy Hazelcast Platform Operator
