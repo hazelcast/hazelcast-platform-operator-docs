@@ -55,14 +55,14 @@ NOTE: Persistence should be enabled for Hazelcast before enabling it for the map
 - propertiesSecretName: Name of the secret holding the properties for the MapStore classes implementing the `MapLoaderLifecycleSupport` interface.
 
 |entryListeners
-|Configuration options for listening for the map-level or entry-based events using the listeners provided by the Hazelcast’s eventing framework. You can learn more at link:https://docs.hazelcast.com/imdg/latest/events/object-events[Distributed Object Events].
+|Configuration options for listening for the map-level or entry-based events using the listeners provided by the Hazelcast’s eventing framework. You can learn more at link:https://docs.hazelcast.com/hazelcast/latest/events/object-events[Distributed Object Events].
 
 - className: Name of your class implementing a `MapListener` sub-interface.
 - includeValues: An optional attribute that indicates whether the map event should contains the map value.
 - local: An optional attribute that indicates whether you can listen to the map on the local member.
 
 |nearCache
-|Configuration options for server side `Near Cache`. You can learn more at link:https://docs.hazelcast.com/imdg/4.2/performance/near-cache[Near Cache].
+|Configuration options for server side `Near Cache`. You can learn more at link:https://docs.hazelcast.com/hazelcast/latest/cluster-performance/best-practices#near-cache[Near Cache].
 
 - name: name of the near cache.
 - inMemoryFormat: specifies in which format data will be stored in your near cache.
