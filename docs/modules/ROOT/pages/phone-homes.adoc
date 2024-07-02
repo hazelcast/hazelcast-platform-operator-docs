@@ -14,7 +14,6 @@ The following information is sent in a phone home:
 * UID of the operator
 * Operator installation origin such as Dockerhub or Red Hat Connect
 * Type of watched namespace scope such as single, all, multi, own etc.
-* Number of created Hazelcast Open Source clusters
 * Number of created Hazelcast Enterprise clusters
 * List of created Hazelcast cluster UUIDs
 * List of High Availability Modes of Hazelcast clusters
