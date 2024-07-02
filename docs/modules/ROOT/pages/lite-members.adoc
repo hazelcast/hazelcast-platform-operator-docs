@@ -1,0 +1,14 @@
+= Enabling Lite Members
+
+To enable lite members, set the `liteMemberCount` parameter in the Hazelcast CR configuration.
+
+.Example Configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-lite-members.yaml[]
+----
+
+Bear in mind the following limitations while setting `liteMemberCount`:
+
+- `liteMemberCount` cannot be greater than or equal to `clusterSize`.
+- `liteMemberCount` cannot be updated. When you scale a cluster, it will scale the data members.
