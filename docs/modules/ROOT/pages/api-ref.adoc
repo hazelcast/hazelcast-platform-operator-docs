@@ -596,7 +596,7 @@ Hazelcast is the Schema for the hazelcasts API
 |===
 | Field | Description | Type | Required | Default
 m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
-m| spec | Initial values will be filled with its fields' default values. m| <<HazelcastSpec,HazelcastSpec>> | false | {"repository" : "docker.io/hazelcast/hazelcast"}
+m| spec | &#160; m| <<HazelcastSpec,HazelcastSpec>> | false | -
 m| status | &#160; m| <<HazelcastStatus,HazelcastStatus>> | false | -
 |===
 
@@ -747,11 +747,11 @@ HazelcastSpec defines the desired state of Hazelcast
 |===
 | Field | Description | Type | Required | Default
 m| clusterSize | Number of Hazelcast members in the cluster. m| &#42;int32 | false | 3
-m| repository | Repository to pull the Hazelcast Platform image from. m| string | false | "docker.io/hazelcast/hazelcast"
+m| repository | Repository to pull the Hazelcast Platform image from. m| string | false | "docker.io/hazelcast/hazelcast-enterprise"
 m| version | Version of Hazelcast Platform. m| string | false | "5.5.0-SNAPSHOT"
 m| imagePullPolicy | Pull policy for the Hazelcast Platform image m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#pullpolicy-v1-core[corev1.PullPolicy] | false | "IfNotPresent"
 m| imagePullSecrets | Image pull secrets for the Hazelcast Platform image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
-m| licenseKeySecretName | Name of the secret with Hazelcast Enterprise License Key. m| string | false | -
+m| licenseKeySecretName | Name of the secret with Hazelcast Enterprise License Key. m| string | true | -
 m| exposeExternally | Configuration to expose Hazelcast cluster to external clients. m| &#42;<<ExposeExternallyConfiguration,ExposeExternallyConfiguration>> | false | -
 m| clusterName | Name of the Hazelcast cluster. m| string | false | "dev"
 m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingConfiguration>> | false | -
@@ -1205,7 +1205,7 @@ ManagementCenter is the Schema for the managementcenters API
 |===
 | Field | Description | Type | Required | Default
 m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
-m| spec | Initial values will be filled with its fields' default values. m| <<ManagementCenterSpec,ManagementCenterSpec>> | false | {"repository" : "docker.io/hazelcast/management-center"}
+m| spec | &#160; m| <<ManagementCenterSpec,ManagementCenterSpec>> | false | -
 m| status | &#160; m| <<ManagementCenterStatus,ManagementCenterStatus>> | false | -
 |===
 
@@ -1249,7 +1249,7 @@ m| repository | Repository to pull the Management Center image from. m| string |
 m| version | Version of Management Center. m| string | false | "5.4.1"
 m| imagePullPolicy | Pull policy for the Management Center image m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#pullpolicy-v1-core[corev1.PullPolicy] | false | "IfNotPresent"
 m| imagePullSecrets | Image pull secrets for the Management Center image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
-m| licenseKeySecretName | Name of the secret with Hazelcast Enterprise License Key. m| string | false | -
+m| licenseKeySecretName | Name of the secret with Hazelcast Enterprise License Key. m| string | true | -
 m| hazelcastClusters | Connection configuration for the Hazelcast clusters that Management Center will monitor. m| []<<HazelcastClusterConfig,HazelcastClusterConfig>> | false | -
 m| externalConnectivity | Configuration to expose Management Center to outside. m| &#42;<<ExternalConnectivityConfiguration,ExternalConnectivityConfiguration>> | false | {type: "LoadBalancer"}
 m| persistence | Configuration for Management Center persistence. m| &#42;<<MCPersistenceConfiguration,MCPersistenceConfiguration>> | false | {enabled: true, size: "10Gi"}
