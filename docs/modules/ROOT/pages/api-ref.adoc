@@ -1096,6 +1096,7 @@ m| state | State is used to manage the job state. m| <<JetJobState,JetJobState>>
 m| jarName | JarName specify the name of the Jar to run that is present on the member. m| string | true | -
 m| mainClass | MainClass is the name of the main class that will be run on the submitted job. m| string | false | -
 m| initialSnapshotResourceName | InitialSnapshotResourceName specify the name of the JetJobSnapshot object from which the JetJob is initialized. m| string | false | -
+m| parameters | Parameters to be passed to Jet Job. m| []string | false | -
 m| bucketConfig | Bucket config from where the JAR files will be downloaded. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
 m| remoteURL | URL from where the file will be downloaded. m| string | false | -
 |===
