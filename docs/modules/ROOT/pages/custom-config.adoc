@@ -70,7 +70,7 @@ kind: Hazelcast
 metadata:
   name: hazelcast
 spec:
-  customConfigCmName: custom-config-secret
+  customConfigSecretName: custom-config-secret
 ```
 
 --
