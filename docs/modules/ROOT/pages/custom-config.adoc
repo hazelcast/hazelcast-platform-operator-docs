@@ -5,8 +5,14 @@
 
 == Configuring Hazelcast using Custom Config
 
-To use the Custom Config as a method of configuring the Hazelcast cluster, you need to create a `ConfigMap` with the member configuration. The configuration must be in YAML format and consist of valid xref:hazelcast:configuration:configuring-declaratively.adoc[Hazelcast configuration].
+To use the Custom Config as a method of configuring the Hazelcast cluster, you need to create a `ConfigMap` or a `Secret` with the member configuration. The configuration must be in YAML format and consist of valid xref:hazelcast:configuration:configuring-declaratively.adoc[Hazelcast configuration].
 
+[tabs]
+====
+
+ConfigMap::
++
+--
 [source,yaml]
 ```
 apiVersion: v1
@@ -39,6 +45,36 @@ metadata:
 spec:
   customConfigCmName: custom-config-cm
 ```
+
+--
+
+Secret::
++
+--
+[source,yaml]
+```
+apiVersion: v1
+kind: Secret
+metadata:
+  name: custom-config-secret
+data:
+  hazelcast: c2VjdXJpdHk6CiAgZW5hYmxlZDogZmFsc2UKICByZWFsbXM6CiAgLSBuYW1lOiBzaW1wbGVSZWFsbQogICAgYXV0aGVudGljYXRpb246CiAgICAgIHNpbXBsZToKICAgICAgICB1c2VyczoKICAgICAgICAtIHVzZXJuYW1lOiBkZXYKICAgICAgICAgIHBhc3N3b3JkOiAnc2VjcmV0JwogICAgICAgICAgcm9sZXM6CiAgICAgICAgICAtIHJvb3QK
+```
+
+The name of the `Secret` should be set to the Hazelcast CR's `customConfigSecretName` field.
+
+[source,yaml]
+```
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+  customConfigCmName: custom-config-secret
+```
+
+--
+====
 
 == Custom Config and Hazelcast CR
 
@@ -91,6 +127,11 @@ If the same feature is configured with Custom Config `ConfigMap` and in the Haze
 == Cautions and limitations
 
 The Custom Config feature contains raw Hazelcast configuration that is not being managed by the Hazelcast Platform Operator. Thus its usage has some cautions and limitations.
+
+=== Combining ConfigMap and Secred based Custom Configs
+
+It is not possible to use both `ConfigMap` and `Secret` based Custom Config. You must choose only one type of custom configuration.
+
 
 === Combining Hazelcast CR and Custom Config
 
