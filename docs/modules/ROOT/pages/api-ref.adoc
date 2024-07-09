@@ -33,6 +33,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<CronHotBackupList,CronHotBackupList>>
 * <<CronHotBackupSpec,CronHotBackupSpec>>
 * <<CronHotBackupStatus,CronHotBackupStatus>>
+* <<CustomConfig,CustomConfig>>
 * <<DataRecoveryPolicyType,DataRecoveryPolicyType>>
 * <<DataStructure,DataStructure>>
 * <<DataStructureConfigState,DataStructureConfigState>>
@@ -418,6 +419,19 @@ m| suspend | When true, CronHotBackup will stop creating HotBackup CRs until it 
 
 <<Table of Contents,Back to TOC>>
 
+=== CustomConfig
+
+CustomConfig contains the name of the custom configuration object
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| customConfigCmName | Name of the ConfigMap with the Hazelcast custom configuration. This configuration from the ConfigMap might be overridden by the Hazelcast CR configuration. m| string | false | -
+m| customConfigSecretName | Name of the Secret with the Hazelcast custom configuration. This configuration from the ConfigMap might be overridden by the Hazelcast CR configuration. m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === DataStructureSpec
 
 
@@ -772,6 +786,7 @@ m| managementCenter | Hazelcast Management Center Configuration m| &#42;<<Manage
 m| tls | Hazelcast TLS configuration m| &#42;<<TLS,TLS>> | false | -
 m| serialization | Hazelcast serialization configuration m| &#42;<<SerializationConfig,SerializationConfig>> | false | -
 m| customConfigCmName | Name of the ConfigMap with the Hazelcast custom configuration. This configuration from the ConfigMap might be overridden by the Hazelcast CR configuration. m| string | false | -
+m| customConfigSecretName | Name of the Secret with the Hazelcast custom configuration. This configuration from the ConfigMap might be overridden by the Hazelcast CR configuration. m| string | false | -
 m| sql | Hazelcast SQL configuration m| &#42;<<SQL,SQL>> | false | -
 m| localDevices | Hazelcast LocalDevice configuration m| []<<LocalDeviceConfig,LocalDeviceConfig>> | false | -
 m| annotations | Hazelcast Kubernetes resource annotations m| map[string]string | false | -
