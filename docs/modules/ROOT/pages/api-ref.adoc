@@ -738,8 +738,7 @@ HazelcastPersistenceConfiguration contains the configuration for Hazelcast Persi
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| clusterDataRecoveryPolicy | Configuration of the cluster recovery strategy. m| <<DataRecoveryPolicyType,DataRecoveryPolicyType>> | false | "FullRecoveryOnly"
-m| startupAction | StartupAction represents the action triggered when the cluster starts to force the cluster startup. m| <<PersistenceStartupAction,PersistenceStartupAction>> | false | -
+m| clusterDataRecoveryPolicy | Configuration of the cluster recovery strategy. m| <<DataRecoveryPolicyType,DataRecoveryPolicyType>> | false | "PartialRecoveryMostComplete"
 m| dataRecoveryTimeout | DataRecoveryTimeout is timeout for each step of data recovery in seconds. Maximum timeout is equal to DataRecoveryTimeout*2 (for each step: validation and data-load). m| int32 | false | -
 m| pvc | Configuration of PersistenceVolumeClaim. m| &#42;<<PvcConfiguration,PvcConfiguration>> | false | -
 m| restore | Restore configuration m| <<RestoreConfiguration,RestoreConfiguration>> | false | {}
@@ -749,6 +748,7 @@ m| restore | Restore configuration m| <<RestoreConfiguration,RestoreConfiguratio
 |===
 | Field | Description | Type | Required | Default
 m| baseDir | BaseDir is deprecated. Use restore.localConfig to restore from a local backup. m| string | false | -
+m| startupAction | DEPRECATED: DeprecatedStartupAction is deprecated. Use ClusterDataRecoveryPolicy PartialRecoveryMostComplete instead. DeprecatedStartupAction represents the action triggered when the cluster starts to force the cluster startup. m| <<PersistenceStartupAction,PersistenceStartupAction>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
