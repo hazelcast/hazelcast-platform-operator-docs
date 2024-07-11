@@ -31,6 +31,8 @@ uses the latest agent version that is compatible with its version.
 
 NOTE: Make sure to calculate the total disk space that you will use. The total used disk space may be larger than the size of in-memory data, depending on how many <<local-backup, backups>> you take.
 
+IMPORTANT: If you want to enable persistence for a map or cache you need to enable it in the Map or Cache CRs by setting `persistenceEnabled: true`. For more information, please check xref:map-configuration.adoc#configuring-the-map-resource[Configuring Map] and xref:cache-configuration.adoc#configuring-a-cache-resource[Configuring Cache] sections.
+
 [[trigger-backup]]
 == Triggering Local Backups
 
