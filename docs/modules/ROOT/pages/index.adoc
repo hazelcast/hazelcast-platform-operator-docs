@@ -15,7 +15,7 @@ This documentation assumes an intermediate knowledge of Kubernetes.
 
 == Supported Platform Versions
 
-=== Supported Kubernetes Versions
+=== Kubernetes Versions
 
 Hazelcast Platform Operator supports the following Kubernetes versions:
 
