@@ -27,7 +27,7 @@ Hazelcast Platform Operator supports the following Kubernetes versions:
 
 Every Hazelcast Platform Operator version is tested against these Kubernetes versions.
 
-=== Supported OCP Versions
+=== OpenShift Versions
 
 Hazelcast Platform Operator supports following OCP versions:
 
