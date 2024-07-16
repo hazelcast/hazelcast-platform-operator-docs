@@ -10,5 +10,4 @@ spec:
     wan:
     - name: istanbul
       port: 5710
-      portCount: 5
       serviceType: LoadBalancer
