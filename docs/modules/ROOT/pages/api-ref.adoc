@@ -172,6 +172,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<UserCodeNamespaceStatus,UserCodeNamespaceStatus>>
 * <<UserCodeNamespacesConfig,UserCodeNamespacesConfig>>
 * <<WANConfig,WANConfig>>
+* <<WANServiceType,WANServiceType>>
 * <<WanReplication,WanReplication>>
 * <<WanReplicationList,WanReplicationList>>
 * <<WanReplicationMapStatus,WanReplicationMapStatus>>
@@ -2011,7 +2012,7 @@ m| classFilter | Blacklist and whitelist for classes when User Code Namespaces i
 | Field | Description | Type | Required | Default
 m| port | &#160; m| uint | false | -
 m| portCount | &#160; m| uint | false | -
-m| serviceType | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#servicetype-v1-core[corev1.ServiceType] | false | -
+m| serviceType | &#160; m| <<WANServiceType,WANServiceType>> | false | "LoadBalancer"
 m| name | &#160; m| string | false | -
 |===
 
@@ -2693,6 +2694,18 @@ m| "RAW" | &#160;
 m| "Pending" | &#160;
 m| "Failure" | &#160;
 m| "Success" | &#160;
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== WANServiceType
+
+WANServiceType describes the service type where the wan ports are exposed
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "WithExposeExternally" | WANServiceTypeWithExposeExternally exposes WAN ports in the existing service-per-pod services configured in 'exposeExternally'
 |===
 
 <<Table of Contents,Back to TOC>>
