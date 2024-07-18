@@ -65,16 +65,7 @@ External backup in AWS S3:
 include::ROOT:example$/hot-backup-external-aws.yaml[]
 ----
 
-See https://docs.aws.amazon.com/sdk-for-go/api/aws/session/[AWS Session] to learn about authentication procedure.
-[source,bash]
-----
-kubectl create secret generic <secret-name> \
-	--from-literal=region=<region> \
-	--from-literal=access-key-id=<access-key-id> \
-	--from-literal=secret-access-key=<secret-access-key>
-----
-
-NOTE: You can also use xref:using-service-accounts.adoc[service accounts] to access cloud provider resources without providing `secretName`.
+NOTE: Please see xref:authorization.adoc[Authorization Methods to Access Cloud Provider Resources] page to learn more about accessing resources on different cloud providers.
 --
 
 GCP::
@@ -86,14 +77,7 @@ External backup in GCP Bucket:
 include::ROOT:example$/hot-backup-external-gcp.yaml[]
 ----
 
-See https://cloud.google.com/docs/authentication/production/[Application Default Credentials] to learn about authentication procedure.
-[source,bash]
-----
-kubectl create secret generic <secret-name> \
-	--from-file=google-credentials-path=<service_account_json_file>
-----
-
-NOTE: You can also use xref:using-service-accounts.adoc[service accounts] to access cloud provider resources without providing `secretName`.
+NOTE: Please see xref:authorization.adoc[Authorization Methods to Access Cloud Provider Resources] page to learn more about accessing resources on different cloud providers.
 --
 
 Azure::
@@ -103,14 +87,6 @@ External backup in Azure Blob:
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hot-backup-external-azure.yaml[]
-----
-
-See https://docs.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage?tabs=azure-portal/[Azure Storage Account Keys] to learn about authentication procedure.
-[source,bash]
-----
-kubectl create secret generic <secret-name> \
-	--from-literal=storage-account=<storage-account> \
-	--from-literal=storage-key=<storage-key>
 ----
 --
 ====

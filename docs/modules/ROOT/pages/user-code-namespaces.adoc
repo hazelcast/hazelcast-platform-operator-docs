@@ -31,7 +31,7 @@ User Code Namespaces in AWS S3:
 include::ROOT:example$/user-code-namespace-aws.yaml[]
 ----
 
-NOTE: You can also use xref:using-service-accounts.adoc[service accounts] to access cloud provider resources without providing `secretName`.
+NOTE: Please see xref:authorization.adoc[Authorization Methods to Access Cloud Provider Resources] page to learn more about accessing resources on different cloud providers.
 --
 
 GCP::
@@ -43,7 +43,7 @@ User Code Namespaces in GCP:
 include::ROOT:example$/user-code-namespace-gcp.yaml[]
 ----
 
-NOTE: You can also use xref:using-service-accounts.adoc[service accounts] to access cloud provider resources without providing `secretName`.
+NOTE: Please see xref:authorization.adoc[Authorization Methods to Access Cloud Provider Resources] page to learn more about accessing resources on different cloud providers.
 --
 
 Azure::
