@@ -31,9 +31,13 @@ The following example shows a configuration for setting up WAN sockets using the
 include::ROOT:example$/advanced-networking-wan.yaml[]
 ----
 
-Possible values for `serviceType` are: `ClusterIP` and `LoadBalancer`. After applying this example configuration, there will be 1 service created with a type of `LoadBalancer` which exposes 5 ports: `5710`, `5711`, `5712`, `5713`, `5714`. If you don't provide a `serviceType`, it will be set to `LoadBalancer` by default.
+After applying this example configuration, a single service is created with a type of `LoadBalancer`, which exposes five ports: `5710`, `5711`, `5712`, `5713`, `5714`. If you don't provide a `serviceType`, it is set to `LoadBalancer` by default.
 
 NOTE: In case WAN Replication configuration is not provided in `advancedNetwork` configuration, port number `5710` will be configured for WAN Replication by default.
+
+Possible values for `serviceType` are: `ClusterIP`, `NodePort`, `LoadBalancer`, and `WithExposeExternally`. The values of `ClusterIP`, `NodePort`, and `LoadBalancer` create a new dedicated service for the WAN and expose the provided ports through this service. In contrast, `WithExposeExternally` exposes WAN ports on the existing member services, allowing WAN clients to use the service-per-pod topology.
+
+WARNING: The `WithExposeExternally` serviceType requires Hazelcast version 5.5 or later.
 
 You can use the following command to list the external addresses of the WAN endpoints of the cluster.
 
