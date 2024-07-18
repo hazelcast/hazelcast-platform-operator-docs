@@ -62,3 +62,6 @@ The following `JetJob` resource runs the Data Pipeline for the `Hazelcast` resou
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/jet-job-example.yaml[]
+----
+
+NOTE: You can also use xref:using-service-accounts.adoc[service accounts] to access cloud provider resources without providing `secretName`.

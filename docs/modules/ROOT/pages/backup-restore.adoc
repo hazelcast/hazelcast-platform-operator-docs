@@ -73,6 +73,8 @@ kubectl create secret generic <secret-name> \
 	--from-literal=access-key-id=<access-key-id> \
 	--from-literal=secret-access-key=<secret-access-key>
 ----
+
+NOTE: You can also use xref:using-service-accounts.adoc[service accounts] to access cloud provider resources without providing `secretName`.
 --
 
 GCP::
@@ -90,6 +92,8 @@ See https://cloud.google.com/docs/authentication/production/[Application Default
 kubectl create secret generic <secret-name> \
 	--from-file=google-credentials-path=<service_account_json_file>
 ----
+
+NOTE: You can also use xref:using-service-accounts.adoc[service accounts] to access cloud provider resources without providing `secretName`.
 --
 
 Azure::
