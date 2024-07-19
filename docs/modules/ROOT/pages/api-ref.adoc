@@ -2011,9 +2011,14 @@ m| classFilter | Blacklist and whitelist for classes when User Code Namespaces i
 |===
 | Field | Description | Type | Required | Default
 m| port | &#160; m| uint | false | 5710
-m| portCount | &#160; m| uint | false | -
 m| serviceType | &#160; m| <<WANServiceType,WANServiceType>> | false | "LoadBalancer"
 m| name | &#160; m| string | false | "default"
+|===
+==== Deprecated
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| portCount | DEPRECATED: PortCount is deprecated. The actual value is always 1 regardless of the given value. m| &#42;uint | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
