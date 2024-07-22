@@ -173,6 +173,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<UserCodeNamespacesConfig,UserCodeNamespacesConfig>>
 * <<WANConfig,WANConfig>>
 * <<WANServiceType,WANServiceType>>
+* <<WanMemberStatus,WanMemberStatus>>
 * <<WanReplication,WanReplication>>
 * <<WanReplicationList,WanReplicationList>>
 * <<WanReplicationMapStatus,WanReplicationMapStatus>>
@@ -2023,6 +2024,19 @@ m| portCount | DEPRECATED: PortCount is deprecated. The actual value is always 1
 
 <<Table of Contents,Back to TOC>>
 
+=== WanMemberStatus
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| isConnected | IsConnected defines whether the member is connected m| bool | false | -
+m| state | State is the WAN state of the member m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === WanReplication
 
 WanReplication is the Schema for the wanreplications API
@@ -2060,6 +2074,7 @@ m| items | &#160; m| []<<WanReplication,WanReplication>> | true | -
 m| resourceName | ResourceName is the name of the Map Custom Resource. m| string | false | -
 m| publisherId | PublisherId is the ID used for WAN publisher ID m| string | false | -
 m| status | Status is the status of WAN replication m| <<WanStatus,WanStatus>> | false | -
+m| membersStatus | MembersStatus is the wan status of each member m| map[string]<<WanMemberStatus,WanMemberStatus>> | false | -
 m| message | Message is the field to show detail information or error m| string | false | -
 |===
 
