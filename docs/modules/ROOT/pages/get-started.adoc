@@ -84,7 +84,7 @@ Kubernetes::
 --
 [source,shell]
 ----
-kubectl logs deployment.apps/operator-hazelcast-platform-operator
+kubectl logs deployment.apps/operator-hazelcast-platform-operator -n hz-system
 ----
 --
 Openshift::
@@ -92,7 +92,7 @@ Openshift::
 --
 [source,shell]
 ----
-oc logs deployment.apps/operator-hazelcast-platform-operator
+oc logs deployment.apps/operator-hazelcast-platform-operator -n hz-system
 ----
 --
 ====
