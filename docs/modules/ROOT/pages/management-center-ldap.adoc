@@ -59,8 +59,8 @@ The following example shows how to create a `Secret` for the LDAP credentials.
 
 [source,shell]
 ----
-$ kubectl create secret generic ldap-credentials --from-literal=username="cn=admin,dc=example,dc=org" --from-literal=password="adminpassword"
-$ kubectl get secret ldap-credentials -o=yaml
+$ kubectl create secret generic ldap-credentianls --from-literal=username="cn=admin,dc=example,dc=org" --from-literal=password="adminpassword"
+$ kubectl get secret ldap-credentianls -o=yaml
 apiVersion: v1
 data:
   password: YWRtaW5wYXNzd29yZA==
@@ -68,7 +68,7 @@ data:
 kind: Secret
 metadata:
   creationTimestamp: "2023-10-11T10:51:37Z"
-  name: ldap-credentials
+  name: ldap-credentianls
   namespace: default
   resourceVersion: "59391"
   uid: 299e5d42-4c72-4877-9a99-c6ffa3c68d07
