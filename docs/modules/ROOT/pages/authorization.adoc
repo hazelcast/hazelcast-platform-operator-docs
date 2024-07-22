@@ -1,4 +1,4 @@
-= Authorization Methods to Access Cloud Provider Resources
+= Authorization Methods to Access Cloud Storage
 
 == Using Secrets
 
