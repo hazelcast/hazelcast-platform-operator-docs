@@ -88,6 +88,8 @@ External backup in Azure Blob:
 ----
 include::ROOT:example$/hot-backup-external-azure.yaml[]
 ----
+
+NOTE: Please see xref:authorization.adoc[Authorization Methods to Access Cloud Provider Resources] page to learn more about accessing resources on different cloud providers.
 --
 ====
 <1> The bucket URI where backup data will be stored in
