@@ -64,4 +64,4 @@ The following `JetJob` resource runs the Data Pipeline for the `Hazelcast` resou
 include::ROOT:example$/jet-job-example.yaml[]
 ----
 
-NOTE: Please see xref:authorization.adoc[Authorization Methods to Access Cloud Provider Resources] page to learn more about accessing resources on different cloud providers.
+NOTE: For further information about accessing resources on different cloud providers, see xref:authorization.adoc[Authorization Methods to Access Cloud Provider Resources].

@@ -31,7 +31,7 @@ User Code Namespaces in AWS S3:
 include::ROOT:example$/user-code-namespace-aws.yaml[]
 ----
 
-NOTE: Please see xref:authorization.adoc[Authorization Methods to Access Cloud Provider Resources] page to learn more about accessing resources on different cloud providers.
+NOTE: For further information about accessing resources on different cloud providers, see xref:authorization.adoc[Authorization Methods to Access Cloud Provider Resources].
 --
 
 GCP::
@@ -43,7 +43,7 @@ User Code Namespaces in GCP:
 include::ROOT:example$/user-code-namespace-gcp.yaml[]
 ----
 
-NOTE: Please see xref:authorization.adoc[Authorization Methods to Access Cloud Provider Resources] page to learn more about accessing resources on different cloud providers.
+NOTE: For further information about accessing resources on different cloud providers, see xref:authorization.adoc[Authorization Methods to Access Cloud Provider Resources].
 --
 
 Azure::
@@ -54,6 +54,8 @@ User Code Namespaces in Azure Blob:
 ----
 include::ROOT:example$/user-code-namespace-azure.yaml[]
 ----
+
+NOTE: For further information about accessing resources on different cloud providers, see xref:authorization.adoc[Authorization Methods to Access Cloud Provider Resources].
 --
 ====
 <1> The bucket URI in which to store backup data

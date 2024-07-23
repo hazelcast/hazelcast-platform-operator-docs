@@ -65,7 +65,7 @@ External backup in AWS S3:
 include::ROOT:example$/hot-backup-external-aws.yaml[]
 ----
 
-NOTE: Please see xref:authorization.adoc[Authorization Methods to Access Cloud Provider Resources] page to learn more about accessing resources on different cloud providers.
+NOTE: For further information about accessing resources on different cloud providers, see xref:authorization.adoc[Authorization Methods to Access Cloud Provider Resources].
 --
 
 GCP::
@@ -77,7 +77,7 @@ External backup in GCP Bucket:
 include::ROOT:example$/hot-backup-external-gcp.yaml[]
 ----
 
-NOTE: Please see xref:authorization.adoc[Authorization Methods to Access Cloud Provider Resources] page to learn more about accessing resources on different cloud providers.
+NOTE: For further information about accessing resources on different cloud providers, see xref:authorization.adoc[Authorization Methods to Access Cloud Provider Resources].
 --
 
 Azure::
@@ -89,7 +89,7 @@ External backup in Azure Blob:
 include::ROOT:example$/hot-backup-external-azure.yaml[]
 ----
 
-NOTE: Please see xref:authorization.adoc[Authorization Methods to Access Cloud Provider Resources] page to learn more about accessing resources on different cloud providers.
+NOTE: For further information about accessing resources on different cloud providers, see xref:authorization.adoc[Authorization Methods to Access Cloud Provider Resources].
 --
 ====
 <1> The bucket URI where backup data will be stored in
