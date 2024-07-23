@@ -31,9 +31,9 @@ The following example shows a configuration for setting up WAN sockets using the
 include::ROOT:example$/advanced-networking-wan.yaml[]
 ----
 
-After applying this example configuration, a single service is created with a type of `LoadBalancer`, which exposes five ports: `5710`, `5711`, `5712`, `5713`, `5714`. If you don't provide a `serviceType`, it is set to `LoadBalancer` by default.
+After applying this example configuration, a single service is created with a type of `LoadBalancer`, which exposes port `5710`. If you don't provide a `serviceType`, it is set to `LoadBalancer` by default.
 
-NOTE: In case WAN Replication configuration is not provided in `advancedNetwork` configuration, port number `5710` will be configured for WAN Replication by default.
+NOTE: In case WAN Replication endpoint configuration is not provided in `advancedNetwork` configuration, port number `5710` will be configured for WAN Replication endpoint by default. It will be exposed on the discovery service only.
 
 Possible values for `serviceType` are: `ClusterIP`, `NodePort`, `LoadBalancer`, and `WithExposeExternally`. The values of `ClusterIP`, `NodePort`, and `LoadBalancer` create a new dedicated service for the WAN and expose the provided ports through this service. In contrast, `WithExposeExternally` exposes WAN ports on the existing member services, allowing WAN clients to use the service-per-pod topology.
 
@@ -47,10 +47,6 @@ kubectl get hazelcastendpoint --selector="app.kubernetes.io/instance=hazelcast-s
 ----
 
 ```
-NAME                          TYPE   ADDRESS
-hazelcast-sample-istanbul-0   WAN    34.72.248.220:5710
-hazelcast-sample-istanbul-1   WAN    34.72.248.220:5711
-hazelcast-sample-istanbul-2   WAN    34.72.248.220:5712
-hazelcast-sample-istanbul-3   WAN    34.72.248.220:5713
-hazelcast-sample-istanbul-4   WAN    34.72.248.220:5714
+NAME                        TYPE   ADDRESS
+hazelcast-sample-istanbul   WAN    34.72.248.220:5710
 ```
