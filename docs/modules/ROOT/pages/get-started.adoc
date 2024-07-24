@@ -261,7 +261,7 @@ oc delete -f hazelcast.yaml
 --
 ====
 
-If you installed Hazelcast Enterprise, run the following commands to remove Hazelcast Enterprise cluster and Hazelcast License Key Secret.
+Run the following commands to remove Hazelcast cluster and Hazelcast License Key Secret.
 
 [tabs]
 ====
