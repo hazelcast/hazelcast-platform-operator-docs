@@ -28,6 +28,7 @@
 * xref:advanced-networking.adoc[Advanced Networking]
 * xref:tls.adoc[Configuring TLS]
 * xref:user-code-namespaces.adoc[User Code Namespaces]
+* xref:authorization.adoc[Authorization Methods to Access Cloud Storage]
 * Data Pipelines
 ** xref:jet-engine-configuration.adoc[Configuring the Jet Engine]
 ** xref:jet-job-configuration.adoc[Running Data Pipelines]
