@@ -1,6 +1,5 @@
 = Tiered Storage
 :description: Tiered Storage offers an extension to Hazelcast map, which allows you to store a larger data set than the available memory can accommodate.
-:page-enterprise: true
 
 {description}
 

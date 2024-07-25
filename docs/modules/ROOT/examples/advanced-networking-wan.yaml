@@ -4,11 +4,10 @@ metadata:
   name: hazelcast-sample
 spec:
   clusterSize: 3
-  repository: 'docker.io/hazelcast/hazelcast'
+  repository: 'docker.io/hazelcast/hazelcast-enterprise'
   version: '{page-latest-supported-hazelcast}-slim'
   advancedNetwork:
     wan:
     - name: istanbul
       port: 5710
-      portCount: 5
       serviceType: LoadBalancer

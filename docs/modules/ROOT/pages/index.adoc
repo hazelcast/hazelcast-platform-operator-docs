@@ -13,6 +13,29 @@ Hazelcast Platform Operator allows your development and DevOps teams to automate
 
 This documentation assumes an intermediate knowledge of Kubernetes.
 
+== Supported Platform Versions
+
+=== Kubernetes Versions
+
+Hazelcast Platform Operator supports the following Kubernetes versions:
+
+- 1.26
+- 1.27
+- 1.28
+- 1.29
+- 1.30
+
+Every Hazelcast Platform Operator version is tested against these Kubernetes versions.
+
+=== OpenShift Versions
+
+Hazelcast Platform Operator supports following OpenShift versions:
+
+- 4.13
+- 4.14
+- 4.15
+- 4.16
+
 ////
 Content to consider for this page:
 
@@ -21,13 +44,6 @@ High-level architectural diagram of components, workflow
 Short discussion of the difference between the Helm chart and the operator
 Known limitations
 ////
-
-== Community Support
-
-Community support is for every Hazelcast user. You can use the following channels to get community support:
-
-* https://github.com/hazelcast/hazelcast-platform-operator[Hazelcast Platform Operator GitHub^] (for reporting issues through our GitHub repository)
-* https://slack.hazelcast.com/[Hazelcast Community Slack^]
 
 == Customer Support
 

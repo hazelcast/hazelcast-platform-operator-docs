@@ -22,11 +22,13 @@
 * xref:high-availability-mode.adoc[High Availability Mode]
 * xref:native-memory.adoc[Native Memory]
 * xref:jvm-parameters.adoc[Configuring JVM Parameters]
+* xref:env-vars.adoc[Configuring Environment Variables]
 * xref:resource-configuration.adoc[Configuring Resource Limits]
 * xref:hazelcast-parameters.adoc[Configuring System Properties]
 * xref:advanced-networking.adoc[Advanced Networking]
 * xref:tls.adoc[Configuring TLS]
 * xref:user-code-namespaces.adoc[User Code Namespaces]
+* xref:authorization.adoc[Authorization Methods to Access Cloud Storage]
 * Data Pipelines
 ** xref:jet-engine-configuration.adoc[Configuring the Jet Engine]
 ** xref:jet-job-configuration.adoc[Running Data Pipelines]

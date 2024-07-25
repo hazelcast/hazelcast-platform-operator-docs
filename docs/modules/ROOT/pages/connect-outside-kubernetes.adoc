@@ -39,7 +39,11 @@ If you use AKS, consider the following:
 
 == Configuring `exposeExternally`
 
-To allow connections from clients, you need to configure the `exposeExternally` field, of the Hazelcast custom resource. This field has the following properties:
+To allow connections from clients, you need to configure the `exposeExternally` field, of the Hazelcast custom resource.
+
+NOTE: If using Istio, you cannot use `exposeExternally`.
+
+This field has the following properties:
 
 [cols="20%m,80%a"]
 |===

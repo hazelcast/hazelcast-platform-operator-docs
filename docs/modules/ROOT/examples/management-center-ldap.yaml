@@ -7,12 +7,12 @@ spec:
   licenseKeySecretName: hazelcast-license-key
   securityProvider:
     ldap:
-      credentialsSecretName: ldap-credentianls
-      groupDN: ou=users,dc=example,dc=org
+      credentialsSecretName: ldap-credentials
+      groupDN: ou=groups,dc=example,dc=org
       groupSearchFilter: member={0}
       nestedGroupSearch: false
       url: ldap://ldap-server-url:1389
-      userDN: ou=users,dc=example,dc=org
+      userDN: ou=groups,dc=example,dc=org
       userGroups:
       - users
       metricsOnlyGroups:

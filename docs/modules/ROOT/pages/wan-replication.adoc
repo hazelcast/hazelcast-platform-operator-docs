@@ -1,6 +1,5 @@
 = Configuring WAN Replication
 :description: pass:q[WAN replication allows you to keep Hazelcast clusters in sync across multiple sites or cloud deployments. In Hazelcast Platform Operator, you can create a `WanReplication` resource to replicate multiple maps from multiple source clusters to a single target Hazelcast cluster. ]
-:page-enterprise: true
 
 {description}
 
