@@ -59,7 +59,7 @@ Below are the configuration options for the High Availability Mode feature.
 include::ROOT:example$/hazelcast-high-availability-mode.yaml[]
 ----
 
-== High Availability Mode and Subset Routing
+== High Availability Mode and MULTI_MEMBER Routing
 
 Subset routing is a client feature that allows a client to connect to a subset of members that is determined by a grouping strategy. To benefit from subset routing, you must set high availability mode, because this parameter is used to determine partition groups. Also, if the subset routing is used on client-side, `exposeExternally.type` must be set to `smart` in the Hazelcast CR.
 
