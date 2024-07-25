@@ -67,7 +67,7 @@ Example server and client configurations to use `MULTI_MEMBER` routing:
 
 [source,yaml,subs="attributes+"]
 ----
-include::ROOT:example$/hazelcast-high-availability-mode-subset-routing.yaml[]
+include::ROOT:example$/hazelcast-high-availability-mode-multi-member-routing.yaml[]
 ----
 
 [tabs]
