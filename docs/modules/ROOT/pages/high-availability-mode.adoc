@@ -79,10 +79,9 @@ Java::
 ----
 ClientConfig clientConfig = new ClientConfig();
 ClientNetworkConfig networkConfig = clientConfig.getNetworkConfig();
-networkConfig.setSmartRouting(false);
-SubsetRoutingConfig subsetRoutingConfig = networkConfig.getSubsetRoutingConfig();
-subsetRoutingConfig.setEnabled(true);
-subsetRoutingConfig.setRoutingStrategy(RoutingStrategy.PARTITION_GROUPS);
+networkConfig.getClusterRoutingConfig().setRoutingMode(RoutingMode.MULTI_MEMBER);
+// PARTITION_GROUPS is the default strategy, so it does not need to be explicitly defined
+networkConfig.getClusterRoutingConfig().setRoutingStrategy(RoutingStrategy.PARTITION_GROUPS);
 ----
 --
 
