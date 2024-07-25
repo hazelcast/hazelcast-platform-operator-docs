@@ -92,10 +92,11 @@ XML::
 [source, xml]
 ----
 ...
-<network>
-    <subset-routing enabled="true" routing-strategy="PARTITION_GROUPS"/>
-    <smart-routing>false</smart-routing>
-</network>
+    <network>
+        <cluster-routing mode="MULTI_MEMBER">
+          <grouping-strategy>PARTITION_GROUPS</grouping-strategy>
+        </cluster-routing>
+    </network>
 ...
 ----
 --
