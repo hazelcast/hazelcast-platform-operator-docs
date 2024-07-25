@@ -22,16 +22,21 @@ metadata:
 data:
   hazelcast: |-
     security:
-      enabled: false
+      enabled: true
       realms:
-        - name: simpleRealm
-          authentication:
-            simple:
-              users:
-                - username: dev
-                  password: 'secret'
-                  roles:
-                    - root
+      - name: simpleRealm
+        authentication:
+          simple:
+            users:
+            - username: operator
+              password: 'op-pass'
+              roles:
+              - root
+      client-authentication:
+        realm: simpleRealm
+      client-permissions:
+        all:
+          principal: root
 ```
 
 The name of the `ConfigMap` should be set to the Hazelcast CR's `customConfigCmName` field.
@@ -58,7 +63,8 @@ kind: Secret
 metadata:
   name: custom-config-secret
 data:
-  hazelcast: c2VjdXJpdHk6CiAgZW5hYmxlZDogZmFsc2UKICByZWFsbXM6CiAgLSBuYW1lOiBzaW1wbGVSZWFsbQogICAgYXV0aGVudGljYXRpb246CiAgICAgIHNpbXBsZToKICAgICAgICB1c2VyczoKICAgICAgICAtIHVzZXJuYW1lOiBkZXYKICAgICAgICAgIHBhc3N3b3JkOiAnc2VjcmV0JwogICAgICAgICAgcm9sZXM6CiAgICAgICAgICAtIHJvb3QK
+  hazelcast: c2VjdXJpdHk6CiAgZW5hYmxlZDogdHJ1ZQogIHJlYWxtczoKICAtIG5hbWU6IHNpbXBsZVJlYWxtCiAgICBhdXRoZW50aWNhdGlvbjoKICAgICAgc2ltcGxlOgogICAgICAgIHVzZXJzOgogICAgICAgIC0gdXNlcm5hbWU6IG9wZXJhdG9yCiAgICAgICAgICBwYXNzd29yZDogJ29wLXBhc3MnCiAgICAgICAgICByb2xlczoKICAgICAgICAgIC0gcm9vdAogIGNsaWVudC1hdXRoZW50aWNhdGlvbjoKICAgIHJlYWxtOiBzaW1wbGVSZWFsbQogIGNsaWVudC1wZXJtaXNzaW9uczoKICAgIGFsbDoKICAgICAgcHJpbmNpcGFsOiByb290Cgo=
+
 ```
 
 The name of the `Secret` should be set to the Hazelcast CR's `customConfigSecretName` field.
