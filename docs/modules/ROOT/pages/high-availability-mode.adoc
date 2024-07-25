@@ -106,10 +106,9 @@ YAML::
 --
 [source, yaml]
 ----
-network:
-  subset-routing:
-    enabled: true
-    routing-strategy: PARTITION_GROUPS
-  smart-routing: false
+  network:
+    cluster-routing:
+      mode: MULTI_MEMBER
+      grouping-strategy: PARTITION_GROUPS
 ----
 --
