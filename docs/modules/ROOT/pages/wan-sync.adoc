@@ -1,6 +1,5 @@
 = Syncronizing WAN replicated data
 :description: pass:q[WAN Syncronization allows you to overcome out-of-sync issues with the WAN replicated data. ]
-:page-enterprise: true
 
 {description}
 

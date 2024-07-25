@@ -1,6 +1,5 @@
 = Saving State of Data Pipelines
 :description: During the processing of data pipelines, the states of the computation process are saved and used by the pipelines. These states are crucial for ensuring the accuracy and integrity of the data processing operations. Jet's snapshot allows you to save and restore these processing states.
-:page-enterprise: true
 
 {description}
 

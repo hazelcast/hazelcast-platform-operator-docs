@@ -45,13 +45,6 @@ Short discussion of the difference between the Helm chart and the operator
 Known limitations
 ////
 
-== Community Support
-
-Community support is for every Hazelcast user. You can use the following channels to get community support:
-
-* https://github.com/hazelcast/hazelcast-platform-operator[Hazelcast Platform Operator GitHub^] (for reporting issues through our GitHub repository)
-* https://slack.hazelcast.com/[Hazelcast Community Slack^]
-
 == Customer Support
 
 Customer support is for paying Hazelcast customers. For further information on Hazelcast's comprehensive 24/7 support offerings, refer to the https://hazelcast.com/services/support/[Hazelcast website^].

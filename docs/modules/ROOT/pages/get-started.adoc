@@ -14,7 +14,7 @@
 
 From release 5.6.0 onwards, you can use a Helm chart to install the Hazelcast Platform Operator.
 
-. Add the link:https://github.com/hazelcast/charts[Hazelcast Helm Charts repository] to your Helm repository list by running the following command:
+. Add the Hazelcast Helm Charts repository to your Helm repository list by running the following command:
 
 +
 [source,shell]
@@ -261,7 +261,7 @@ oc delete -f hazelcast.yaml
 --
 ====
 
-If you installed Hazelcast Enterprise, run the following commands to remove Hazelcast Enterprise cluster and Hazelcast License Key Secret.
+Run the following commands to remove Hazelcast cluster and Hazelcast License Key Secret.
 
 [tabs]
 ====
