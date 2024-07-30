@@ -1,17 +1,32 @@
 = Release Notes
+:description: These release notes list any new features, enhancements, fixes and breaking changes that were made between version 5.12.0 and version 5.13.0 of Hazelcast Operator.
 
-This release adds support to configure xref:user-code-namespaces.adoc[User Code Namespaces] using the UserCodeNamespace CR.
+{description}
 
 == New Features
 
-- Added support to configure User Code Namespaces using the `UserCodeNamespace` CR. https://github.com/hazelcast/hazelcast-platform-operator/pull/1091[#1091]
+- Custom WAN ports are now exposed on member services with the `WithExposeExternally` value of `serviceType`
+- Added support for Secrets in Custom Config
+- Added parameters to JetJob CR
+- Added custom environment variable support
+- Added support for IAM roles for service accounts in AWS
 
 == Changes
 
-- Added "thread name" to the logging pattern. https://github.com/hazelcast/hazelcast-platform-operator/pull/1117[#1117]
-- Added `DefaultJavaOptions` and appended these options to the `JAVA_OPTS` environment variable. https://github.com/hazelcast/hazelcast-platform-operator/pull/1114[#1114]
+- OS cluster creation logic removed, and it is now required to provide the `licenseKeySecretName`
+- Changed the default persistence value `clusterDataRecoveryPolicy` to `PartialRecoveryMostComplete` and `autoRemoveStaleData` to `true`
+- Added client authentication capability when security is configured in Custom Config
+- Updated members connection status in WAN replication
+- Deprecated `portCount` in Advanced Network WAN
+- Reduced the number of init containers to one
 
 == Fixed Issues
 
-- Fixed the Webhook setup error in restricted mode. https://github.com/hazelcast/hazelcast-platform-operator/pull/1128[#1128]
-- Fixed the `Failed to watch *v1.Node: unknown (get nodes)` warnings. https://github.com/hazelcast/hazelcast-platform-operator/pull/1115[#1115]
+- Fixed the `persistence.storageClass` validation issue
+- Removed leftover WAN services after a WAN config was deleted from advanced network
+- Added validation for the maximum WAN port value in Hazelcast CR
+- Added the default WAN port and name in Advanced Network for Hazelcast CR
+- Made WAN names DNS compatible
+- Fixed error with MTLS client registry after operator restart
+- Fixed map status when MapConfig creation failed
+- Fixed panic error in the `ValidateNotUpdatableMcPersistenceFields` function
