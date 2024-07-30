@@ -26,12 +26,12 @@ With the release of Hazelcast Platform 5.5, you can use multi-member routing to 
 On the Platform Operator side, you can utilize this feature using 'High Availability Mode'. For more information, see xref:high-availability-mode.adoc##high-availability-mode-and-multi_member-routing[High Availability Mode and MULTI_MEMBER Routing] 
 
 
+== Distribute your workload with Jet Job placement control
 
-[NOTE]
-.Distribute your workload with Jet Job placement control
-====
 With the release of Hazelcast Platform 5.5, you can configure Jet processing jobs so that they run on lite members only, allowing you to split your computational and storage requirements without the need to configure each job separately. 
 
+[NOTE]
+====
 Currently, lite member creation support has not been introduced on the Platform Operator, but it is planned to be released in upcoming versions.
 ====
 
