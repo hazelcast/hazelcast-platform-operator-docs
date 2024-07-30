@@ -2,30 +2,31 @@
 :description: These release notes list any new features, enhancements, fixes and breaking changes that were made between version 5.12.0 and version 5.13.0 of Hazelcast Operator.
 
 {description}
+
 == New Features
 
-- Custom WAN ports are now exposed on member services with the `WithExposeExternally` value of `serviceType` (CN-1124)
-- Added support for Secrets in Custom Config (CN-1320)
-- Added parameters to JetJob CR (CN-1314)
-- Added custom environment variable support (CN-1303)
-- Added support for IAM roles for service accounts in AWS (CN-1273)
+- Custom WAN ports are now exposed on member services with the `WithExposeExternally` value of `serviceType`
+- Added support for Secrets in Custom Config
+- Added parameters to JetJob CR
+- Added custom environment variable support
+- Added support for IAM roles for service accounts in AWS
 
 == Changes
 
-- OS cluster creation logic removed, and it is now required to provide the `licenseKeySecretName` (CN-1283, CN-1282)
-- Changed the default persistence value `clusterDataRecoveryPolicy` to `PartialRecoveryMostComplete` and `autoRemoveStaleData` to `true` (CN-1330)
-- Added client authentication capability when security is configured in Custom Config (CN-1351)
-- Updated members connection status in WAN replication (CN-1158)
-- Deprecated `portCount` in Advanced Network WAN (CN-1350)
-- Reduced the number of init containers to one (CN-1251)
+- OS cluster creation logic removed, and it is now required to provide the `licenseKeySecretName`
+- Changed the default persistence value `clusterDataRecoveryPolicy` to `PartialRecoveryMostComplete` and `autoRemoveStaleData` to `true`
+- Added client authentication capability when security is configured in Custom Config
+- Updated members connection status in WAN replication
+- Deprecated `portCount` in Advanced Network WAN
+- Reduced the number of init containers to one
 
 == Fixed Issues
 
-- Fixed the `persistence.storageClass` validation issue (CN-1356)
-- Removed leftover WAN services after a WAN config was deleted from advanced network (CN-1335)
-- Added validation for the maximum WAN port value in Hazelcast CR (CN-1332)
-- Added the default WAN port and name in Advanced Network for Hazelcast CR (CN-1331)
-- Made WAN names DNS compatible (CN-1334)
-- Fixed error with MTLS client registry after operator restart (CN-1254)
-- Fixed map status when MapConfig creation failed (CN-1226)
-- Fixed panic error in the `ValidateNotUpdatableMcPersistenceFields` function (CN-1356)
+- Fixed the `persistence.storageClass` validation issue
+- Removed leftover WAN services after a WAN config was deleted from advanced network
+- Added validation for the maximum WAN port value in Hazelcast CR
+- Added the default WAN port and name in Advanced Network for Hazelcast CR
+- Made WAN names DNS compatible
+- Fixed error with MTLS client registry after operator restart
+- Fixed map status when MapConfig creation failed
+- Fixed panic error in the `ValidateNotUpdatableMcPersistenceFields` function
