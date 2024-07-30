@@ -12,7 +12,7 @@
 
 == Changes
 
-- OS cluster creation logic removed, and now it is required to provide the `licenseKeySecretName` (CN-1283, CN-1282)
+- OS cluster creation logic removed, and it is now required to provide the `licenseKeySecretName` (CN-1283, CN-1282)
 - Changed the default persistence value `clusterDataRecoveryPolicy` to `PartialRecoveryMostComplete` and `autoRemoveStaleData` to `true` (CN-1330)
 - Added client authentication capability when security is configured in Custom Config (CN-1351)
 - Updated members connection status in WAN replication (CN-1158)
