@@ -1,5 +1,7 @@
 = Release Notes
+:description: These release notes list any new features, enhancements, fixes and breaking changes that were made between version 5.12.0 and version 5.13.0 of Hazelcast Operator.
 
+{description}
 == New Features
 
 - Custom WAN ports are now exposed on member services with the `WithExposeExternally` value of `serviceType` (CN-1124)
