@@ -254,4 +254,4 @@ include::ROOT:example$/hazelcast-scheduled-executor-service.yaml[]
 
 == Configuring an Entry Processor with Hazelcast Platform Operator
 
-An entry processor executes your code on a map entry in an atomic way. To implement the `EntryProcessor` interface, you can deploy an `EntryProcessor` class from the Hazelcast Platform Operator to the classpath of a Hazelcast member. See xref:hazelcast:computing:entry-processor.adoc[Entry Processor] for more detailed information.
+An entry processor executes your code on a map entry in an atomic way. To implement the `EntryProcessor` interface, you can deploy an `EntryProcessor` class from the Hazelcast Platform Operator to the classpath of a Hazelcast member. See xref:hazelcast:data-structures:entry-processor.adoc[Entry Processor] for more detailed information.
