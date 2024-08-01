@@ -1,0 +1,7 @@
+= Migrating to 5.13
+
+In March 2024, we made updates to the Community Edition of the Hazelcast Platform. One important change is that cluster creation capabilities are no longer available in the Community Edition. For more info, see https://hazelcast.com/blog/changes-to-community-edition/ 
+
+As a result of these updates, the `licenseKeySecretName` parameter is now required for Hazelcast Platform and Management Center custom resources. 
+
+You can obtain a 30-day trial license from the link:https://hazelcast.com/get-started?utm_source=docs-website[Hazelcast website].
