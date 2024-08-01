@@ -23,7 +23,7 @@ In the 5.13 release, improvements have been made to the WANReplication custom re
 
 With the release of Hazelcast Platform 5.5, you can use multi-member routing to provide greater performance and stability for Java client applications connecting to geographically dispersed clusters. 
 
-On the Platform Operator side, you can utilize this feature using 'High Availability Mode'. For more information, see xref:high-availability-mode.adoc##high-availability-mode-and-multi_member-routing[High Availability Mode and MULTI_MEMBER Routing] 
+On the Platform Operator side, you can utilize this feature using High Availability Mode. For more info, see xref:high-availability-mode.adoc##high-availability-mode-and-multi_member-routing[High Availability Mode and MULTI_MEMBER Routing] 
 
 
 == Additional Improvements
