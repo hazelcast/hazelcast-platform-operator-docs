@@ -1,0 +1,37 @@
+= What's New in Hazelcast Platform Operator
+:description: Here are the highlights of what's new and improved in Hazelcast Platform Operator 5.13.
+
+{description}
+
+NOTE: For new and improved features in Hazelcast Platform, see xref:{page-latest-supported-hazelcast}@hazelcast:ROOT:whats-new.adoc[What's new in Hazelcast Platform 5.5].
+
+== Community Edition and Repository Changes
+
+In March 2024, we made some updates to the Community Edition of the Hazelcast Platform, including making the Hazelcast Platform Operator 5.13 closed source and its cluster creation capabilities no longer available in the Community Edition. 
+
+You can find more information here: https://hazelcast.com/blog/changes-to-community-edition/.
+
+
+== WAN Replication Performance and Usability Enhancements
+
+For best performance using WAN Replication, all members should be connected directly by source clusters. To achieve this topology, we have introduced the `WithExposeExternally` parameter for Advanced WAN Network configuration at Hazelcast custom resource. For more info xref:advanced-networking.adoc#configuring-wan-protocol-sockets[Configuring WAN Protocol Sockets]
+
+In the 5.13 release, improvements have been made to the WANReplication custom resource to provide more accurate and detailed statuses and validations.
+
+
+== Multi-member routing for Java clients
+
+With the release of Hazelcast Platform 5.5, you can use multi-member routing to provide greater performance and stability for Java client applications connecting to geographically dispersed clusters. 
+
+On the Platform Operator side, you can utilize this feature using High Availability Mode. For more info, see xref:high-availability-mode.adoc##high-availability-mode-and-multi_member-routing[High Availability Mode and MULTI_MEMBER Routing].
+
+
+== Additional Improvements
+
+For detailed release notes that include new features and enhancements, breaking changes, deprecations and other fixes, see xref:release-notes.adoc[5.13 Release Notes].
+
+To get started with Platform Operator, see xref:get-started.adoc[Deploy a Cluster with the Hazelcast Platform Operator for Kubernetes].
+
+== API Reference
+
+Please refer to the xref:api-ref.adoc[API Reference] for a complete list of available parameters for custom resources.
