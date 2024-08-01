@@ -13,7 +13,7 @@
 
 == Changes
 
-- Open source cluster creation logic removed, and it is now required to provide the `licenseKeySecretName`
+- Open Source cluster creation logic removed; it is now required to provide the `licenseKeySecretName`
 - Changed the default persistence value `clusterDataRecoveryPolicy` to `PartialRecoveryMostComplete` and `autoRemoveStaleData` to `true`
 - Added client authentication capability when security is configured in Custom Config
 - Updated members connection status in WAN replication
