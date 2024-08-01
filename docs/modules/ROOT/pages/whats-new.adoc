@@ -16,7 +16,7 @@ You can find more information here: https://hazelcast.com/blog/changes-to-commun
 
 For performant WAN Replication, all members should be connected directly by source clusters. To achieve this topology, we have intorudced `WithExposeExternally` parameter for Advanced WAN Network configuration at Hazelcast custom resource, see xref:advanced-networking.adoc#configuring-wan-protocol-sockets[Configuring WAN Protocol Sockets]
 
-In the 5.13 release, improvements have been made to the WANReplication custom resource to provide more accurate and informative status and validations.
+In the 5.13 release, improvements have been made to the WANReplication custom resource to provide more accurate and detailed statuses and validations.
 
 
 == Multi-member routing for Java clients
