@@ -13,10 +13,10 @@
 
 == Changes
 
-- Open source cluster creation logic removed, and it is now required to provide the `licenseKeySecretName`
+- Open source cluster creation logic removed, and it is now required to provide the `licenseKeySecretName` for Hazelcast and Management Center custom resources.
 - Changed the default persistence value `clusterDataRecoveryPolicy` to `PartialRecoveryMostComplete` and `autoRemoveStaleData` to `true`
 - Added client authentication capability when security is configured in Custom Config
-- Updated members connection status in WAN replication
+- Updated members' connection status in WAN replication
 - Deprecated `portCount` in Advanced Network WAN
 - Reduced the number of init containers to one
 

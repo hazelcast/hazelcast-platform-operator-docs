@@ -7,14 +7,14 @@ NOTE: For new and improved features in Hazelcast Platform 5.5, see xref:{page-la
 
 == Community Edition and Repository Changes
 
-In March 2024, we made some updates to the Community Edition of the Hazelcast Platform, including making the Platform Operator 5.13 closed-source and its cluster creation capabilities will no longer be available in the Community Edition. 
+In March 2024, we made some updates to the Community Edition of the Hazelcast Platform, including making the Hazelcast Platform Operator 5.13 closed-source and its cluster creation capabilities will no longer be available in the Community Edition. 
 
-You can find more information here: https://hazelcast.com/blog/changes-to-community-edition/
+You can find more information here: https://hazelcast.com/blog/changes-to-community-edition/.
 
 
 == WAN Replication Performance and Usability Enhancements
 
-For performant WAN Replication, all members should be connected directly by source clusters. To achieve this topology, we have intorudced `WithExposeExternally` parameter for Advanced WAN Network configuration at Hazelcast custom resource, see xref:advanced-networking.adoc#configuring-wan-protocol-sockets[Configuring WAN Protocol Sockets]
+For best performance using WAN Replication, all members should be connected directly by source clusters. To achieve this topology, we have introduced the `WithExposeExternally` parameter for Advanced WAN Network configuration at Hazelcast custom resource. For more info xref:advanced-networking.adoc#configuring-wan-protocol-sockets[Configuring WAN Protocol Sockets]
 
 In the 5.13 release, improvements have been made to the WANReplication custom resource to provide more accurate and informative status and validations.
 
