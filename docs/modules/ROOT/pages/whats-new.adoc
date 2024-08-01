@@ -7,7 +7,7 @@ NOTE: For new and improved features in Hazelcast Platform, see xref:{page-latest
 
 == Community Edition and Repository Changes
 
-In March 2024, we made some updates to the Community Edition of the Hazelcast Platform, including making the Hazelcast Platform Operator 5.13 closed-source and its cluster creation capabilities will no longer be available in the Community Edition. 
+In March 2024, we made some updates to the Community Edition of the Hazelcast Platform, including making the Hazelcast Platform Operator 5.13 closed source and its cluster creation capabilities no longer available in the Community Edition. 
 
 You can find more information here: https://hazelcast.com/blog/changes-to-community-edition/.
 
