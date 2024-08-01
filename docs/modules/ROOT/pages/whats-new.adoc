@@ -1,5 +1,5 @@
 = What's New in Hazelcast Platform Operator
-:description: Here are the highlights of what's new and improved in Hazelcast Platform Operator 5.13.0.
+:description: Here are the highlights of what's new and improved in Hazelcast Platform Operator 5.13.
 
 {description}
 
