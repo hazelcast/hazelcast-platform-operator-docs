@@ -1,0 +1,45 @@
+= Configuring Vector Collection
+:description: pass:q[The primary object for interacting with vector storage is a Vector Collection. A Vector Collection holds information about the vectors and associated metadata (user values).]
+
+{description}
+
+== Configuring a VectorCollection Resource
+
+You can use any of the following configuration options in the `VectorCollection` resource. For more information, see the xref:api-ref.adoc#vectorcollectionspec[API Reference].
+
+[cols="20%m,80%a"]
+|===
+|Field|Description
+
+|name
+|Name of the vector collection configuration that you're creating. If empty, the custom resource (CR) name is used.
+
+|hazelcastResourceName
+|Defines the name of the Hazelcast resource for which the vector collection configuration is created.
+
+|indexes
+|Information about indexes configuration.
+
+|===
+
+== Example Configuration
+
+The following `VectorCollection` custom resource creates a vector collection configuration for the `Hazelcast` custom resource that is defined in the `hazelcastResourceName` field.
+
+.Example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/vector-collection.yaml[]
+----
+
+After creating the `VectorCollection` resource, use the following command to check its status:
+
+[source,shell]
+----
+kubectl get vectorcollection vectorcollection-sample -o wide
+----
+
+```
+NAME                      STATUS    HAZELCAST-RESOURCE   MESSAGE
+vectorcollection-sample   Success   hazelcast
+```
