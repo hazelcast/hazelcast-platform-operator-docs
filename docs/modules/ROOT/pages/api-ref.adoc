@@ -222,7 +222,7 @@ m| wan | &#160; m| []<<WANConfig,WANConfig>> | false | -
 |===
 | Field | Description | Type | Required | Default
 m| repository | Repository to pull Hazelcast Platform Operator Agent(https://github.com/hazelcast/platform-operator-agent) m| string | false | "docker.io/hazelcast/platform-operator-agent"
-m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "0.1.29"
+m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "latest-snapshot"
 m| resources | Compute Resources required by the Agent container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | -
 |===
 
@@ -773,7 +773,7 @@ m| clusterName | Name of the Hazelcast cluster. m| string | false | "dev"
 m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingConfiguration>> | false | -
 m| resources | Compute Resources required by the Hazelcast container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | -
 m| persistence | Persistence configuration m| &#42;<<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>> | false | -
-m| agent | B&R Agent configurations m| <<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "0.1.29"}
+m| agent | B&R Agent configurations m| <<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "latest-snapshot"}
 m| jet | Jet Engine configuration m| &#42;<<JetEngineConfiguration,JetEngineConfiguration>> | false | {enabled: true, resourceUploadEnabled: false}
 m| executorServices | Java Executor Service configurations, see https://docs.hazelcast.com/hazelcast/latest/computing/executor-service m| []<<ExecutorServiceConfiguration,ExecutorServiceConfiguration>> | false | -
 m| durableExecutorServices | Durable Executor Service configurations, see https://docs.hazelcast.com/hazelcast/latest/computing/durable-executor-service m| []<<DurableExecutorServiceConfiguration,DurableExecutorServiceConfiguration>> | false | -
@@ -910,7 +910,7 @@ m| spec | Specification of the desired behavior of the hot backup. m| <<HotBacku
 m| name | Name of the index config. m| string | false | -
 m| type | Type of the index. See https://docs.hazelcast.com/hazelcast/latest/query/indexing-maps#index-types m| <<IndexType,IndexType>> | true | -
 m| attributes | Attributes of the index. m| []string | false | -
-m| bitMapIndexOptions | Options for "BITMAP" index type. See https://docs.hazelcast.com/hazelcast/latest/query/indexing-maps#configuring-bitmap-indexes m| &#42;<<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>> | false | {}
+m| bitMapIndexOptions | Options for "BITMAP" index type. See https://docs.hazelcast.com/hazelcast/latest/query/indexing-maps#configuring-bitmap-indexes m| &#42;<<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
