@@ -171,6 +171,12 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<UserCodeNamespaceState,UserCodeNamespaceState>>
 * <<UserCodeNamespaceStatus,UserCodeNamespaceStatus>>
 * <<UserCodeNamespacesConfig,UserCodeNamespacesConfig>>
+* <<VectorCollection,VectorCollection>>
+* <<VectorCollectionList,VectorCollectionList>>
+* <<VectorCollectionSpec,VectorCollectionSpec>>
+* <<VectorCollectionStatus,VectorCollectionStatus>>
+* <<VectorIndex,VectorIndex>>
+* <<VectorMetric,VectorMetric>>
 * <<WANConfig,WANConfig>>
 * <<WANServiceType,WANServiceType>>
 * <<WanMemberStatus,WanMemberStatus>>
@@ -2004,6 +2010,78 @@ m| classFilter | Blacklist and whitelist for classes when User Code Namespaces i
 
 <<Table of Contents,Back to TOC>>
 
+=== VectorCollection
+
+VectorCollection is the Schema for the vectorcollections API
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| spec | &#160; m| <<VectorCollectionSpec,VectorCollectionSpec>> | false | -
+m| status | &#160; m| <<VectorCollectionStatus,VectorCollectionStatus>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== VectorCollectionList
+
+VectorCollectionList contains a list of VectorCollection
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| items | &#160; m| []<<VectorCollection,VectorCollection>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== VectorCollectionSpec
+
+VectorCollectionSpec defines the desired state of VectorCollection
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| name | Name of the data structure config to be created. If empty, CR name will be used. It cannot be updated after the config is created successfully. m| string | false | -
+m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource that this resource is created for. m| string | true | -
+m| indexes | Information about indexes configuration m| []<<VectorIndex,VectorIndex>> | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== VectorCollectionStatus
+
+VectorCollectionStatus defines the observed state of VectorCollection
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| state | State of the data structure m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
+m| message | Message explaining the current state m| string | false | -
+m| memberStatuses | Holds status of data structure for each Hazelcast member m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== VectorIndex
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| name | Name is name of the vector index. Can include letters, numbers, and the symbols - and _. Required for single-index vector collections. Optional for multi-index collection. m| string | false | -
+m| dimension | Dimension of the vector. m| int32 | true | -
+m| metric | Metric is used to calculate the distance between two vectors. m| <<VectorMetric,VectorMetric>> | true | -
+m| maxDegree | MaxDegree is used to calculate the maximum number of neighbors per node. The calculation used is max-degree * 2. m| int32 | true | -
+m| efConstruction | EfConstruction is the size of the search queue to use when finding nearest neighbors. m| int32 | true | -
+m| useDeduplication | UseDeduplication specify whether to use vector deduplication. m| bool | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === WANConfig
 
 
@@ -2714,6 +2792,20 @@ m| "RAW" | &#160;
 m| "Pending" | &#160;
 m| "Failure" | &#160;
 m| "Success" | &#160;
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== VectorMetric
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "Euclidean" | Euclidean distance. Score definition: 1 / (1 + squareDistance(v1, v2))
+m| "Cosine" | Cosine of the angle between the vectors. Score definition: (1 + cos(v1, v2)) / 2
+m| "Dot" | Dot product of the vectors. Score definition: (1 + dotProduct(v1, v2)) / 2
 |===
 
 <<Table of Contents,Back to TOC>>
