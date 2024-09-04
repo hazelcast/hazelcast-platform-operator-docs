@@ -442,7 +442,7 @@ m| customConfigSecretName | Name of the Secret with the Hazelcast custom configu
 
 === DataStructureSpec
 
-
+DataStructureSpec is a common spec for data structures.
 
 [cols="4,8,4,2,4"options="header"]
 |===
