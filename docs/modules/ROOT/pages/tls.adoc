@@ -9,11 +9,23 @@ See xref:hazelcast:security:tls-ssl.adoc[TLS/SSL Basics] for more detailed infor
 
 == Prerequisites for TLS
 
-Before you create and configure TLS, you need to create Kubernetes secret:
+Before you create and configure TLS, you need to create Kubernetes secret. Kubernetes secret can be created in two different ways:
+
+If you just want to provide certificates to create the keystore:
 
 [source,shell]
 ----
 kubectl create secret tls example --cert=example.crt --key=example.key
+----
+
+If you also want to provide the certificates to create both keystore and truststore:
+
+[source,shell]
+----
+kubectl create secret generic example \
+  --from-file=tls.crt=example.crt \
+  --from-file=tls.key=example.key \
+  --from-file=ca.crt=ca.crt
 ----
 
 == Configuring Hazelcast TLS
