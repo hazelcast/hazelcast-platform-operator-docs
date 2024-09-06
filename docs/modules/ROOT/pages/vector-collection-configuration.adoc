@@ -1,4 +1,4 @@
-= Configuring Vector Collection
+= Configuring Vector Collections
 :description: pass:q[The primary object for interacting with vector storage is a Vector Collection. A Vector Collection holds information about the vectors and associated metadata (user values).]
 
 {description}
@@ -18,7 +18,7 @@ You can use any of the following configuration options in the `VectorCollection`
 |Defines the name of the Hazelcast resource for which the vector collection configuration is created.
 
 |indexes
-|Information about indexes configuration.
+|Information about configuration for indexes.
 
 |===
 
@@ -38,7 +38,8 @@ After creating the `VectorCollection` resource, use the following command to che
 ----
 kubectl get vectorcollection vectorcollection-sample -o wide
 ----
-
+ 
+This should produce output like this:
 ```
 NAME                      STATUS    HAZELCAST-RESOURCE   MESSAGE
 vectorcollection-sample   Success   hazelcast
