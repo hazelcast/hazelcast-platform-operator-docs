@@ -1,0 +1,12 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: VectorCollection
+metadata:
+  name: vectorcollection-sample
+spec:
+  hazelcastResourceName: hazelcast
+  indexes:
+  - dimension: 10
+    efConstruction: 256
+    maxDegree: 32
+    metric: Dot
+    useDeduplication: false
