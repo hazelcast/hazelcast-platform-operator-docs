@@ -1,5 +1,5 @@
 = User Code Namespaces
-:description: User Code Namespaces provide a container for Java classpath resources, such as user code and accompanying artifacts like property files. This provides namespace isolation to ensure that access to resources in different namespaces can be managed through configuration. From Hazelcast Platform Operator, you can deploy your application code from external buckets using UserCodeNamespace CRs. 
+:description: User Code Namespaces provide a container for Java classpath resources, such as user code and accompanying artifacts like property files. This provides namespace isolation to ensure that access to resources in different namespaces can be managed through configuration. From Hazelcast Platform Operator, you can deploy your application code from external buckets using UserCodeNamespace CRs.
 
 {description}
 
@@ -67,4 +67,4 @@ To allow your data structures to resolve your user code, you must reference the 
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/map-ucn.yaml[]
----
+----
