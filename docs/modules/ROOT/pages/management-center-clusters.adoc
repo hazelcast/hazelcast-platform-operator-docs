@@ -57,5 +57,7 @@ You can create TLS secret from existing PEM certificate:
 
 [source,shell]
 ----
-kubectl create secret tls example --cert=example.crt --key=example.key
+kubectl create secret generic example \
+  --from-file=tls.crt=example.crt \
+  --from-file=tls.key=example.key
 ----
