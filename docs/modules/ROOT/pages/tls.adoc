@@ -32,7 +32,7 @@ kubectl create secret generic example \
 
 NOTE: If you provide `ca.crt`, it creates a truststore using it, if you don't create it, the truststore and keystore will be the same.
 
-NOTE: The Operator creates keystore and truststore in link:https://en.wikipedia.org/wiki/PKCS_12[PKCS12] format.
+NOTE: The Operator creates the keystore and truststore in link:https://en.wikipedia.org/wiki/PKCS_12[PKCS12] format.
 
 WARNING: The provided `tls.key` must be unencrypted.
 
