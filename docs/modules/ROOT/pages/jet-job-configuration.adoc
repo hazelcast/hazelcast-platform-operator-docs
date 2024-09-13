@@ -62,3 +62,4 @@ The following `JetJob` resource runs the Data Pipeline for the `Hazelcast` resou
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/jet-job-example.yaml[]
+----
