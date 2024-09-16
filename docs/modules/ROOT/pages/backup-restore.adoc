@@ -196,7 +196,7 @@ be deployed with the Hazelcast container in the same Pod.
 include::ROOT:example$/hazelcast-persistence-agent.yaml[]
 ----
 <1> The backup type for where the backup data will be stored. It is either `Local` or `External`. Default value is `Local`.
-<5> The agent which is responsible for backing data up into the external storage.
+<2> The agent which is responsible for backing data up into the external storage.
 The agent configuration is optional. If you set the `backupType` to `External` and do not pass the agent configuration, the operator
 directly use the latest stable version of the agent.
 +

@@ -1,4 +1,4 @@
-= Migrating to 5.5
+=== Migrating to 5.5
 
 - `backupType` field is removed:
 
