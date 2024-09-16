@@ -37,7 +37,7 @@ WARNING: The data stored in a ConfigMap cannot exceed 1 MiB. For more info, see 
 The example configuration below:
 
 * downloads the JAR files from the specified external bucket and places them under the classpath of each of the Hazelcast members
-* puts all the files specified in the ConfigMap objects under the classpath of each of the Hazelcast members. 
+* puts all the files specified in the ConfigMap objects under the classpath of each of the Hazelcast members.
 
 WARNING: Currently, mounted persistent volumes are not supported; only cloud provider external buckets are supported.
 
@@ -113,7 +113,7 @@ Use the following configuration options in the `Map` resource for a MapStore. Th
 
 === Example MapStore Configuration
 
-An example `Map` resource with MapStore configuration. 
+An example `Map` resource with MapStore configuration.
 
 .Example configuration
 [source,yaml,subs="attributes+"]
@@ -136,7 +136,7 @@ There are three variants of the executor service:
 - Durable Executor Service
 - Scheduled Executor Service.
 
-Configuration options for a `Hazelcast` resource to work with all three variants are shown in this section, along with examples of how you might implement these options. For more detailed implementation information, see xref:hazelcast:computing:executor-service.adoc[Java Executor Service]. 
+Configuration options for a `Hazelcast` resource to work with all three variants are shown in this section, along with examples of how you might implement these options. For more detailed implementation information, see xref:hazelcast:computing:executor-service.adoc[Java Executor Service].
 
 
 [tabs]
@@ -252,4 +252,4 @@ include::ROOT:example$/hazelcast-scheduled-executor-service.yaml[]
 
 == Configuring an Entry Processor with Hazelcast Platform Operator
 
-An entry processor executes your code on a map entry in an atomic way. To implement the `EntryProcessor` interface, you can deploy an `EntryProcessor` class from the Hazelcast Platform Operator to the classpath of a Hazelcast member. See xref:hazelcast:computing:entry-processor.adoc[Entry Processor] for more detailed information.
+An entry processor executes your code on a map entry in an atomic way. To implement the `EntryProcessor` interface, you can deploy an `EntryProcessor` class from the Hazelcast Platform Operator to the classpath of a Hazelcast member. See xref:hazelcast:data-structures:entry-processor.adoc[Entry Processor] for more detailed information.
