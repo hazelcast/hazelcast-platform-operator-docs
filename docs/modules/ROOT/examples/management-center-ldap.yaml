@@ -9,7 +9,7 @@ spec:
     ldap:
       credentialsSecretName: ldap-credentials
       groupDN: ou=groups,dc=example,dc=org
-      groupSearchFilter: member={0}
+      groupSearchFilter: member=\{0}
       nestedGroupSearch: false
       url: ldap://ldap-server-url:1389
       userDN: ou=groups,dc=example,dc=org
@@ -21,4 +21,4 @@ spec:
       - admins
       readonlyUserGroups:
       - readers
-      userSearchFilter: cn={0}
+      userSearchFilter: cn=\{0}
