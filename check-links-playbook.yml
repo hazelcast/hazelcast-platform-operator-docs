@@ -2,7 +2,7 @@ site:
   title: Documentation
   url: http:localhost:5000
 content:
-  sources: 
+  sources:
   - url: .
     branches: HEAD
     start_path: docs
@@ -24,9 +24,6 @@ content:
   - url: https://github.com/hazelcast/cloud-docs
     branches: [main]
     start_paths: [docs, tutorials]
-  - url: https://github.com/hazelcast/hazelcast-commandline-client
-    branches: main
-    start_path: docs
   - url: https://github.com/hazelcast-guides/write-through-cache-mongodb-mapstore
     branches: master
     start_paths: docs
@@ -41,7 +38,7 @@ content:
   - url: https://github.com/hazelcast-guides/hazelcast-platform-operator-external-backup-restore
     branches: master
     start_path: docs
-ui: 
+ui:
   bundle:
     url: https://github.com/hazelcast/hazelcast-docs-ui/releases/latest/download/ui-bundle.zip #../hazelcast-docs-ui/build/ui-bundle.zip
     snapshot: true
