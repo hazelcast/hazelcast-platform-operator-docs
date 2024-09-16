@@ -10,23 +10,20 @@ content:
       start_paths: [home,tutorials]
       branches: HEAD
     - url: https://github.com/hazelcast/hz-docs
-      branches: [main, v/*]
+      branches: [main]
       start_path: docs
     - url: https://github.com/hazelcast/imdg-docs
       branches: [v/*]
       start_path: docs
-    - url: https://github.com/hazelcast/imdg-docs
-      branches: [archived-versions]
-      start_paths: docs/*
     - url: https://github.com/hazelcast/management-center-docs
-      branches: [main, v/*]
+      branches: [main]
       start_path: docs
-    - url: https://github.com/hazelcast/management-center-docs
-      branches: [archived-versions]
-      start_paths: docs/*
     - url: https://github.com/hazelcast/cloud-docs
       branches: [main]
       start_paths: [docs, tutorials]
+    - url: https://github.com/hazelcast-guides/sql_stock_ticker_cloud
+      branches: master
+      start_paths: docs
     - url: https://github.com/hazelcast-guides/client-failover
       branches: master
       start_paths: docs
@@ -86,9 +83,6 @@ content:
     - url: https://github.com/hazelcast-guides/ecs-embedded
       branches: master
       start_path: docs
-    - url: https://github.com/hazelcast-guides/striim-cdc
-      branches: master
-      start_path: docs
     - url: https://github.com/hazelcast-guides/springboot-tomcat-session-replication
       branches: master
       start_path: docs
@@ -146,6 +140,9 @@ content:
     - url: https://github.com/hazelcast-guides/hazelcast-platform-operator-external-backup-restore
       branches: master
       start_path: docs
+    - url: https://github.com/hazelcast/clc-docs
+      branches: main
+      start_path: docs
 ui:
   bundle:
     url: https://github.com/hazelcast/hazelcast-docs-ui/releases/latest/download/ui-bundle.zip #../hazelcast-docs-ui/build/ui-bundle.zip
@@ -154,7 +151,7 @@ asciidoc:
   attributes:
     # Download images from kroki at build time (does not work for inline images)
     kroki-fetch-diagram: true
-    # Inlude next and previous links on each page
+    # Include next and previous links on each page
     page-pagination: true
     idprefix: ''
     # Separate anchor link names by dashes
