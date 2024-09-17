@@ -1284,6 +1284,12 @@ m| securityProvider | SecurityProviders to authenticate users in Management Cent
 m| annotations | ManagementCenter Kubernetes resource annotations m| map[string]string | false | -
 m| labels | ManagementCenter Kubernetes resource labels m| map[string]string | false | -
 |===
+==== Deprecated
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| licenseKeySecret | licenseKeySecret is a deprecated alias for licenseKeySecretName. m| string | false | -
+|===
 
 <<Table of Contents,Back to TOC>>
 
