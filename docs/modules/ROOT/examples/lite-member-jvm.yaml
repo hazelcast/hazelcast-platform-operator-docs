@@ -1,0 +1,13 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+  repository: 'docker.io/hazelcast/hazelcast-enterprise'
+  liteMember:
+    count: 2
+    jvm:
+      memory:
+        initialRAMPercentage: "10"
+        maxRAMPercentage: "20"
+        minRAMPercentage: "10"

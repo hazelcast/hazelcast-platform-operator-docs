@@ -41,6 +41,7 @@
 ** xref:management-center-persistence.adoc[Persistence]
 ** xref:management-center-jvm-args.adoc[JVM Arguments]
 ** xref:management-center-ldap.adoc[LDAP Security Provider]
+* xref:lite-members.adoc[Deploying Lite Members]
 
 .Reference
 // Configuration options/spec files/any other reference docs
