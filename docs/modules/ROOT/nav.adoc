@@ -6,6 +6,7 @@
 * xref:scheduling-configuration.adoc[Scheduling Hazelcast Pods]
 * xref:serialization-configuration.adoc[Serialization]
 * xref:scaling-upgrading.adoc[Scaling & Upgrading]
+* xref:lite-members.adoc[Deploying Lite Members]
 * xref:cp-subsystem.adoc[Enabling CP Subsystem]
 * xref:tiered-storage.adoc[Tiered Storage]
 * Configuring Data Structures
@@ -41,7 +42,6 @@
 ** xref:management-center-persistence.adoc[Persistence]
 ** xref:management-center-jvm-args.adoc[JVM Arguments]
 ** xref:management-center-ldap.adoc[LDAP Security Provider]
-* xref:lite-members.adoc[Deploying Lite Members]
 
 .Reference
 // Configuration options/spec files/any other reference docs
