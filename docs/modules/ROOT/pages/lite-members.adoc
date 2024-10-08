@@ -16,6 +16,8 @@ include::ROOT:example$/lite-member.yaml[]
 
 When you apply the given example, 3 data members and 2 lite members are going to be deployed.
 
+NOTE: As seen in the example, `clusterSize` stands for the number of data members to be created.
+
 == Configuring JVM Parameters
 
 To configure JVM Parameters specifically for lite members, you can use the `jvm` field in the `liteMember` section of the Hazelcast CR.
@@ -28,7 +30,7 @@ include::ROOT:example$/lite-member-jvm.yaml[]
 
 == Configuring Environment Variables
 
-To configure JVM Parameters specifically for lite members, you can use the `jvm` field in the `liteMember` section of the Hazelcast CR.
+To configure environment variables specifically for lite members, you can use the `env` field in the `liteMember` section of the Hazelcast CR.
 
 Same rules and logic is applicable as in the xref:env-vars.adoc[Environment variables].
 
