@@ -2,6 +2,8 @@
 
 You can the Hazelcast Platform Operator to deploy link:https://docs.hazelcast.com/hazelcast/latest/maintain-cluster/lite-members[Lite Members]. You can use the separate `liteMember` section in the Hazelcast CR.
 
+WARNING: When `jvm`, `env`, `resources`, `scheduling` sections are configured in the Hazelcast CR, it will not affect the lite member configuration. Lite members must be configured as explained in the next sections in this document.
+
 == Configuring the Number of Lite Members
 
 To configure the number of lite members you want to deploy in the Hazelcast CR, use the `count` field in the `liteMember` section of the Hazelcast CR.
