@@ -1283,6 +1283,7 @@ m| jvm | ManagementCenter JVM configuration m| &#42;<<MCJVMConfiguration,MCJVMCo
 m| securityProvider | SecurityProviders to authenticate users in Management Center m| &#42;<<SecurityProviders,SecurityProviders>> | false | -
 m| annotations | ManagementCenter Kubernetes resource annotations m| map[string]string | false | -
 m| labels | ManagementCenter Kubernetes resource labels m| map[string]string | false | -
+m| env | Env configuration of environment variables m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#envvar-v1-core[corev1.EnvVar] | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
