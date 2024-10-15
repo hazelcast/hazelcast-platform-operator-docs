@@ -74,3 +74,5 @@ include::ROOT:example$/hazelcast-tls.yaml[]
 ----
 include::ROOT:example$/management-center-tls.yaml[]
 ----
+
+NOTE: To update TLS certificates, it is required to delete and recreate the Hazelcast/Management Center custom resource.
