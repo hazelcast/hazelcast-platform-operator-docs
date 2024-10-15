@@ -105,6 +105,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<JetJobStatusPhase,JetJobStatusPhase>>
 * <<JetRemoteFileConfiguration,JetRemoteFileConfiguration>>
 * <<LDAPProvider,LDAPProvider>>
+* <<LiteMember,LiteMember>>
 * <<LocalDeviceConfig,LocalDeviceConfig>>
 * <<LoggingLevel,LoggingLevel>>
 * <<MCJVMConfiguration,MCJVMConfiguration>>
@@ -901,6 +902,7 @@ m| serviceAccountName | ServiceAccountName is the name of the ServiceAccount to 
 m| cpSubsystem | CPSubsystem is the configuration of the Hazelcast CP Subsystem. m| &#42;<<CPSubsystem,CPSubsystem>> | false | -
 m| userCodeNamespaces | UserCodeNamespaces provide a container for Java classpath resources, such as user code and accompanying artifacts like property files m| &#42;<<UserCodeNamespacesConfig,UserCodeNamespacesConfig>> | false | -
 m| env | Env configuration of environment variables m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#envvar-v1-core[corev1.EnvVar] | false | -
+m| liteMember | &#160; m| &#42;<<LiteMember,LiteMember>> | false | -
 |===
 ==== Deprecated
 [cols="4,8,4,2,4"options="header"]
@@ -920,6 +922,7 @@ HazelcastStatus defines the observed state of Hazelcast
 |===
 | Field | Description | Type | Required | Default
 m| clusterSize | Number of Hazelcast members in the cluster. m| int32 | false | -
+m| liteMemberCount | Number of Hazelcast lite members in the cluster. m| int32 | false | -
 m| selector | Selector is a label selector used by HorizontalPodAutoscaler to autoscale Hazelcast resource. m| string | false | -
 m| phase | Phase of the Hazelcast cluster m| <<Phase,Phase>> | false | -
 m| hazelcastClusterStatus | Status of the Hazelcast cluster m| <<HazelcastClusterStatus,HazelcastClusterStatus>> | false | -
@@ -1272,6 +1275,22 @@ m| metricsOnlyGroups | Members of these groups and its nested groups have the pr
 m| userSearchFilter | LDAP search filter expression to search for the users. For example, uid={0} searches for a username that matches with the uid attribute. m| string | true | -
 m| groupSearchFilter | LDAP search filter expression to search for the groups. For example, uniquemember={0} searches for a group that matches with the uniquemember attribute. m| string | true | -
 m| nestedGroupSearch | NestedGroupSearch enables searching for nested LDAP groups. m| bool | true | false
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== LiteMember
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| count | &#160; m| int32 | true | -
+m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingConfiguration>> | false | -
+m| jvm | Hazelcast JVM configuration m| &#42;<<JVMConfiguration,JVMConfiguration>> | false | -
+m| resources | Compute Resources required by the Hazelcast container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | -
+m| env | Env configuration of environment variables m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#envvar-v1-core[corev1.EnvVar] | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
