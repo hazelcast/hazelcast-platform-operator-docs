@@ -1,0 +1,78 @@
+= Running in air-gapped environments
+
+The Hazelcast Platform Operator can be run in an air-gapped environment without access to the open internet when it is configured not to pull container images from `docker.io/hazelcast`. 
+
+By default the Platform Operator, Hazelcast, the agent and Management Center image do not require you to specify the container images. The operator will automatically set the correct container image for each applications. When running in an air-gapped or offline environment you will have to mirror the official images in a private container image registry. To make use of your mirrored images you have to set the image for each applications explicitly as shown in the preceding sections.
+
+== Setting image for the Platform Operator
+
+[source,bash]
+----
+helm install operator hazelcast/hazelcast-platform-operator --version=5.13.0 \
+    --set=installCRDs=true \
+    --set=image.repository= < PRIVATE_REGISTRY > \
+    --set=image.tag= < PRIVATE_TAG > \
+    --set=image.pullSecrets= {< REGISTRY-SECRET >}
+----
+
+
+== Setting image for the Hazelcast
+
+[source,yaml]
+```
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+  repository: < PRIVATE_REGISTRY >
+  version: < PRIVATE_TAG >
+  imagePullSecrets:
+    - name: < PRIVATE_REGISTRY-SECRET >
+```
+
+== Setting image for the Sidecar Agent
+
+[source,yaml]
+```
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+  imagePullSecrets:
+    - name: < PRIVATE_REGISTRY-SECRET >
+  agent:
+    repository: < PRIVATE_REGISTRY >
+    version: < PRIVATE_TAG >
+```
+
+== Setting image for the Management Center
+
+[source,yaml]
+```
+apiVersion: hazelcast.com/v1alpha1
+kind: ManagementCenter
+metadata:
+  name: managementcenter
+spec:
+  repository: < PRIVATE_REGISTRY >
+  version: < PRIVATE_TAG >
+  imagePullSecrets:
+    - name: < PRIVATE_REGISTRY-SECRET >
+```
+
+== Setting image for the Flow
+
+[source,yaml]
+```
+apiVersion: hazelcast.com/v1alpha1
+kind: Flow
+metadata:
+  name: flow
+spec:
+  repository: < PRIVATE_REGISTRY >
+  version: < PRIVATE_TAG >
+  imagePullSecrets:
+    - name: < PRIVATE_REGISTRY-SECRET >
+```
