@@ -692,6 +692,7 @@ FlowStatus defines the observed state of Flow
 | Field | Description | Type | Required | Default
 m| phase | Phase of the Flow m| <<FlowPhase,FlowPhase>> | false | -
 m| message | Message about the Flow state m| string | false | -
+m| size | Size of Flow members in the cluster. m| int32 | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
