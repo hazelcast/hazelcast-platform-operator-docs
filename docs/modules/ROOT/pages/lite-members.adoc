@@ -14,7 +14,7 @@ To configure the number of lite members you want to deploy in the Hazelcast CR, 
 include::ROOT:example$/lite-member.yaml[]
 ----
 
-When you apply the given example, 3 data members and 2 lite members are going to be deployed.
+When you apply the given example, 3 data members and 2 lite members are deployed.
 
 NOTE: As seen in the example, `clusterSize` represents the number of data members to be created.
 
