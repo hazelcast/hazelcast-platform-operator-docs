@@ -4,6 +4,8 @@
 
 {description}
 
+See xref:flow:introduction:index.adoc[Flow] for more detailed information.
+
 == Prerequisites
 
 - Flow requires the Management Center application to run and be configured properly. The Management Center application should be configured to use FLow.
@@ -50,7 +52,7 @@ To run Flow on Kubernetes using Hazelcast Platform Operator you need to create a
 include::ROOT:example$/flow.yaml[]
 ----
 
-Additional flow configuration can be achieved by providing additional parameters using the `OPTIONS` environment variable.
+Additional flow configuration can be achieved by providing additional parameters using the `OPTIONS` environment variable. See xref:flow:introduction:index.adoc[Configure Flow] for detailed information.
 
 NOTE: Parameters managed by the Hazelcast Platform Operator are not allowed in `OPTIONS`. E.g., the Database configuration can only be done via `spec.database` in the Flow CR.
 
