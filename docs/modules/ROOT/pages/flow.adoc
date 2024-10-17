@@ -21,7 +21,7 @@ jvm:
 ...
 ----
 
-<1> The service name of the Flow application. The same as the Flow CR name.
+<1> The service name of the Flow application. The same as the Flow Custom Resource (CR) name.
 <2> Hazelcast cluster name. Should always be `flow`.
 <3> Flow Ingress public address.
 <4> The internal address of Flow in the format of `http://<service-name>:9021`. The service name is the same as the Flow CR name.
@@ -47,13 +47,13 @@ To run Flow on Kubernetes using Hazelcast Platform Operator you need to create a
 include::ROOT:example$/flow.yaml[]
 ----
 
-Additional flow configuration can be accheived by providing additional parameters via `OPTIONS` environment variable.
+Additional flow configuration can be achieved by providing additional parameters using the `OPTIONS` environment variable.
 
-NOTE: Parameters managed by the Hazelcat Platform Operator are not allowed in the `OPTIONS`. E.g., the Database configuration can only be done via `spec.database` in the Flow CR.
+NOTE: Parameters managed by the Hazelcast Platform Operator are not allowed in `OPTIONS`. E.g., the Database configuration can only be done via `spec.database` in the Flow CR.
 
 === Configure OpenID support
 
-You can enable OpenID support with Management Center deployment on Flow. In order to configure OpenID, you need to provide the required parameters to the `OPTIONS` environment variable:
+You can enable OpenID support with Management Center deployment on Flow. To configure OpenID, provide the required parameters to the `OPTIONS` environment variable:
 
 [source,yaml]
 ----
