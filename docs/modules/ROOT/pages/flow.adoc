@@ -11,20 +11,23 @@
 [source,yaml]
 ----
 ...
+image: docker.io/hazelcast/management-center-flow <1>
+...
 hazelcastClusters:
-- address: flow <1>
-  name: flow <2>
+- address: flow <2>
+  name: flow <3>
 jvm:
   args:
-  - "-Dhazelcast.mc.flow.addresses=http://233.252.0.158/" <3>
-  - "-Dhazelcast.mc.internal.flowAddresses=http://flow:9021" <4>
+  - "-Dhazelcast.mc.flow.addresses=http://233.252.0.158/" <4>
+  - "-Dhazelcast.mc.internal.flowAddresses=http://flow:9021" <5>
 ...
 ----
 
-<1> The service name of the Flow application. The same as the Flow Custom Resource (CR) name.
-<2> Hazelcast cluster name. Should always be `flow`.
-<3> Flow Ingress public address.
-<4> The internal address of Flow in the format of `http://<service-name>:9021`. The service name is the same as the Flow CR name.
+<1> Management Center Flow image.
+<2> The service name of the Flow application. The same as the Flow Custom Resource (CR) name.
+<3> Hazelcast cluster name. Should always be `flow`.
+<4> Flow Ingress public address.
+<5> The internal address of Flow in the format of `http://<service-name>:9021`. The service name is the same as the Flow CR name.
 
 - To connect to the database you need create a `Secret` with the DB credentials:
 
