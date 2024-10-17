@@ -667,8 +667,8 @@ FlowSpec defines the desired state of Flow
 |===
 | Field | Description | Type | Required | Default
 m| size | Number of Flow instances. m| &#42;int32 | false | 3
-m| repository | Repository to pull the Flow image from. m| string | false | "quay.io/hazelcast_cloud/hazelcast-flow-internal"
-m| version | Version of Flow. m| string | false | "next-v593"
+m| repository | Repository to pull the Flow image from. m| string | false | "docker.io/hazelcast/hazelcast-flow"
+m| version | Version of Flow. m| string | false | "5.5.0"
 m| imagePullPolicy | Pull policy for the Flow image m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#pullpolicy-v1-core[corev1.PullPolicy] | false | "IfNotPresent"
 m| imagePullSecrets | Image pull secrets for the Flow image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
 m| licenseKeySecretName | Name of the secret with Hazelcast Enterprise License Key. m| string | true | -
