@@ -47,7 +47,7 @@ spec:
     version: < PRIVATE_TAG >
 ```
 
-== Setting image for the Management Center
+== Setting the image for the Management Center
 
 [source,yaml]
 ```
