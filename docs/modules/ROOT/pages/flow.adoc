@@ -31,7 +31,7 @@ jvm:
 <4> Flow Ingress public address.
 <5> The internal address of Flow in the format of `http://<service-name>:9021`. The service name is the same as the Flow CR name.
 
-- To connect to the database you need create a `Secret` with the DB credentials:
+- To connect to PostgreSQL database you need create a `Secret` with the DB credentials:
 
 [source,shell]
 ----
