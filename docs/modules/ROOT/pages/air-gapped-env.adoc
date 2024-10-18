@@ -62,7 +62,7 @@ spec:
     - name: < PRIVATE_REGISTRY-SECRET >
 ```
 
-== Setting image for the Flow
+== Setting the image for Flow
 
 [source,yaml]
 ```
