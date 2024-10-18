@@ -16,7 +16,7 @@ helm install operator hazelcast/hazelcast-platform-operator --version=5.13.0 \
 ----
 
 
-== Setting image for the Hazelcast
+== Setting the image for Hazelcast
 
 [source,yaml]
 ```
