@@ -8,7 +8,7 @@ By default, while using the Hazelcast Platform Operator, you don't need to speci
 
 [source,shell,subs="attributes"]
 ----
-helm install operator hazelcast/hazelcast-platform-operator --version=5.13.0 \
+helm install operator hazelcast/hazelcast-platform-operator --version={operator-chart-version} \
     --set=installCRDs=true \
     --set=image.repository= < PRIVATE_REGISTRY > \
     --set=image.tag= < PRIVATE_TAG > \
