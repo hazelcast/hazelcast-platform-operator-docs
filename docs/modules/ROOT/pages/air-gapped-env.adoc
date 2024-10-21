@@ -2,7 +2,7 @@
 
 The Hazelcast Platform Operator can be run in an air-gapped environment without access to the open internet when it is configured not to pull container images from `docker.io/hazelcast`. 
 
-By default, the Platform Operator, Hazelcast, the agent and Management Center image do not require you to specify the container images. The operator will automatically set the correct container image for each application. When running in an air-gapped or offline environment, you will have to mirror the official images in a private container image registry. To make use of your mirrored images, you have to set the image for each application explicitly, as shown in the preceding sections.
+By default, while using the Hazelcast Platform Operator, you don't need to specify the container images in Hazelcast and Management Center custom resources for any application. The operator automatically sets the correct container image for each application. When running in an air-gapped or offline environment, you have to mirror the official images in a private container image registry. To make use of your mirrored images, you have to set the image for each application explicitly, as shown in the preceding sections.
 
 == Setting the image for the Platform Operator
 
