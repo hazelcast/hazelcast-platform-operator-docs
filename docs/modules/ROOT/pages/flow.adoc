@@ -4,7 +4,7 @@
 
 {description}
 
-See xref:flow:ROOT:index.adoc[Flow] for more detailed information.
+See xref:flow:index.adoc[Flow] for more detailed information.
 
 == Prerequisites
 
