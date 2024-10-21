@@ -105,6 +105,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<JetJobStatusPhase,JetJobStatusPhase>>
 * <<JetRemoteFileConfiguration,JetRemoteFileConfiguration>>
 * <<LDAPProvider,LDAPProvider>>
+* <<LiteMember,LiteMember>>
 * <<LocalDeviceConfig,LocalDeviceConfig>>
 * <<LoggingLevel,LoggingLevel>>
 * <<MCJVMConfiguration,MCJVMConfiguration>>
@@ -666,8 +667,8 @@ FlowSpec defines the desired state of Flow
 |===
 | Field | Description | Type | Required | Default
 m| size | Number of Flow instances. m| &#42;int32 | false | 3
-m| repository | Repository to pull the Flow image from. m| string | false | "quay.io/hazelcast_cloud/hazelcast-flow-internal"
-m| version | Version of Flow. m| string | false | "next-v593"
+m| repository | Repository to pull the Flow image from. m| string | false | "docker.io/hazelcast/hazelcast-flow"
+m| version | Version of Flow. m| string | false | "5.5.0"
 m| imagePullPolicy | Pull policy for the Flow image m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#pullpolicy-v1-core[corev1.PullPolicy] | false | "IfNotPresent"
 m| imagePullSecrets | Image pull secrets for the Flow image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
 m| licenseKeySecretName | Name of the secret with Hazelcast Enterprise License Key. m| string | true | -
@@ -691,6 +692,7 @@ FlowStatus defines the observed state of Flow
 | Field | Description | Type | Required | Default
 m| phase | Phase of the Flow m| <<FlowPhase,FlowPhase>> | false | -
 m| message | Message about the Flow state m| string | false | -
+m| size | Size of Flow members in the cluster. m| int32 | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -901,6 +903,7 @@ m| serviceAccountName | ServiceAccountName is the name of the ServiceAccount to 
 m| cpSubsystem | CPSubsystem is the configuration of the Hazelcast CP Subsystem. m| &#42;<<CPSubsystem,CPSubsystem>> | false | -
 m| userCodeNamespaces | UserCodeNamespaces provide a container for Java classpath resources, such as user code and accompanying artifacts like property files m| &#42;<<UserCodeNamespacesConfig,UserCodeNamespacesConfig>> | false | -
 m| env | Env configuration of environment variables m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#envvar-v1-core[corev1.EnvVar] | false | -
+m| liteMember | &#160; m| &#42;<<LiteMember,LiteMember>> | false | -
 |===
 ==== Deprecated
 [cols="4,8,4,2,4"options="header"]
@@ -920,6 +923,7 @@ HazelcastStatus defines the observed state of Hazelcast
 |===
 | Field | Description | Type | Required | Default
 m| clusterSize | Number of Hazelcast members in the cluster. m| int32 | false | -
+m| liteMemberCount | Number of Hazelcast lite members in the cluster. m| int32 | false | -
 m| selector | Selector is a label selector used by HorizontalPodAutoscaler to autoscale Hazelcast resource. m| string | false | -
 m| phase | Phase of the Hazelcast cluster m| <<Phase,Phase>> | false | -
 m| hazelcastClusterStatus | Status of the Hazelcast cluster m| <<HazelcastClusterStatus,HazelcastClusterStatus>> | false | -
@@ -1276,6 +1280,22 @@ m| nestedGroupSearch | NestedGroupSearch enables searching for nested LDAP group
 
 <<Table of Contents,Back to TOC>>
 
+=== LiteMember
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| count | &#160; m| int32 | true | -
+m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingConfiguration>> | false | -
+m| jvm | Hazelcast JVM configuration m| &#42;<<JVMConfiguration,JVMConfiguration>> | false | -
+m| resources | Compute Resources required by the Hazelcast container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | -
+m| env | Env configuration of environment variables m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#envvar-v1-core[corev1.EnvVar] | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === LocalDeviceConfig
 
 
@@ -1368,7 +1388,7 @@ ManagementCenterSpec defines the desired state of ManagementCenter.
 |===
 | Field | Description | Type | Required | Default
 m| repository | Repository to pull the Management Center image from. m| string | false | "docker.io/hazelcast/management-center"
-m| version | Version of Management Center. m| string | false | "5.5.3-SNAPSHOT"
+m| version | Version of Management Center. m| string | false | "5.6.0"
 m| imagePullPolicy | Pull policy for the Management Center image m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#pullpolicy-v1-core[corev1.PullPolicy] | false | "IfNotPresent"
 m| imagePullSecrets | Image pull secrets for the Management Center image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
 m| licenseKeySecretName | Name of the secret with Hazelcast Enterprise License Key. m| string | true | -
