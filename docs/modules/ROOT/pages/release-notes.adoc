@@ -1,6 +1,12 @@
 = Release Notes
 
-This release introduces new features including xref:flow.adoc[Flow CR deployment] capability, xref:lite-members.adoc[Lite Member] support, Certificate Chain support for separate xref:tls.adoc[KeyStore and TrustStore configurations], and xref:vector-collection-configuration.adoc[VectorCollection] support.
+:description:
+These release notes list any new features, enhancements, fixes and breaking changes that were made between version 5.13.0 and version 5.14.0 of Hazelcast Operator:
+
+- Introduced xref:lite-members.adoc[Lite Member] support
+- Certificate Chain support for separate xref:tls.adoc[KeyStore and TrustStore] configurations
+- xref:vector-collection-configuration.adoc[VectorCollection] support
+{description}
 
 == New Features
 
