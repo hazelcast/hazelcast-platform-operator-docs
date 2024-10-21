@@ -1,0 +1,78 @@
+= Deploy Flow
+
+:description: In this tutorial, you'll deploy a Flow application using Hazelcast Platform Operator for Kubernetes.
+
+{description}
+
+See xref:flow:index.adoc[Flow] for more detailed information.
+
+== Prerequisites
+
+- Flow requires the Management Center application to run and be configured properly. The Management Center application should be configured to use FLow.
+
+[source,yaml]
+----
+...
+image: docker.io/hazelcast/management-center-flow <1>
+...
+hazelcastClusters:
+- address: flow <2>
+  name: flow <3>
+jvm:
+  args:
+  - "-Dhazelcast.mc.flow.addresses=http://233.252.0.158/" <4>
+  - "-Dhazelcast.mc.internal.flowAddresses=http://flow:9021" <5>
+...
+----
+
+<1> Management Center Flow image.
+<2> The service name of the Flow application. The same as the Flow Custom Resource (CR) name.
+<3> Hazelcast cluster name. Should always be `flow`.
+<4> Flow Ingress public address.
+<5> The internal address of Flow in the format of `http://<service-name>:9021`. The service name is the same as the Flow CR name.
+
+- To connect to PostgreSQL database you need create a `Secret` with the DB credentials:
+
+[source,shell]
+----
+kubectl create secret generic flow-db-secret \
+  --from-literal=database=flow \
+  --from-literal=username=flow \
+  --from-literal=password="strong-password"
+----
+
+In the created secret `username` and `password` are required, whereas `database` field is optional and will default to `flow` if not provided.
+
+== Run Flow
+
+To run Flow on Kubernetes using Hazelcast Platform Operator you need to create a Flow CR.
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/flow.yaml[]
+----
+
+Additional flow configuration can be achieved by providing additional parameters using the `OPTIONS` environment variable. See xref:flow:introduction:index.adoc[Configure Flow] for detailed information.
+
+NOTE: Parameters managed by the Hazelcast Platform Operator are not allowed in `OPTIONS`. E.g., the Database configuration can only be done via `spec.database` in the Flow CR.
+
+=== Configure OpenID support
+
+You can enable OpenID support with Management Center deployment on Flow. To configure OpenID, provide the required parameters to the `OPTIONS` environment variable.
+See xref:flow:deploy:security-recommendations.adoc[Security recommendations] to discover all available options.
+
+[source,yaml]
+----
+...
+- name: OPTIONS
+  value: |
+      --flow.security.openIdp.enabled=true
+      --flow.security.openIdp.jwks-uri=http://233.252.0.158/mc/oauth2/jwks
+      --flow.security.openIdp.issuerUrl=http://233.252.0.158/mc
+      --flow.security.openIdp.clientId=flow-client
+      --flow.security.openIdp.require-https=false
+      --flow.security.open-idp.roles.format=path
+      --flow.security.open-idp.roles.path=roles
+      --flow.security.open-idp.refreshTokensDisabled=true
+...
+----
