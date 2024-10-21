@@ -2,6 +2,8 @@
 * xref:index.adoc[Overview]
 * xref:get-started.adoc[Deploy a Cluster]
 * xref:deploy-management-center.adoc[Deploy Management Center]
+* xref:scaling-upgrading.adoc[Scaling & Upgrading]
+* xref:air-gapped-env.adoc[Running in air-gapped environments]
 * xref:connect-outside-kubernetes.adoc[]
 * xref:scheduling-configuration.adoc[Scheduling Hazelcast Pods]
 * xref:serialization-configuration.adoc[Serialization]
