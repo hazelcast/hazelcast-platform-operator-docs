@@ -6,7 +6,7 @@ By default, while using the Hazelcast Platform Operator, you don't need to speci
 
 == Setting the image for the Platform Operator
 
-[source,bash]
+[source,shell,subs="attributes"]
 ----
 helm install operator hazelcast/hazelcast-platform-operator --version=5.13.0 \
     --set=installCRDs=true \
