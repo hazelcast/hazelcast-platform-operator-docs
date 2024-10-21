@@ -4,7 +4,7 @@
 
 {description}
 
-See xref:flow:introduction:index.adoc[Flow] for more detailed information.
+See xref:flow:ROOT:index.adoc[Flow] for more detailed information.
 
 == Prerequisites
 
@@ -58,7 +58,8 @@ NOTE: Parameters managed by the Hazelcast Platform Operator are not allowed in `
 
 === Configure OpenID support
 
-You can enable OpenID support with Management Center deployment on Flow. To configure OpenID, provide the required parameters to the `OPTIONS` environment variable:
+You can enable OpenID support with Management Center deployment on Flow. To configure OpenID, provide the required parameters to the `OPTIONS` environment variable.
+See xref:flow:deploy:security-recommendations.adoc[Security recommendations] to discover all available options.
 
 [source,yaml]
 ----
