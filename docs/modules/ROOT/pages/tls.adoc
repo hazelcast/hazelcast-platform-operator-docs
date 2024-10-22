@@ -47,12 +47,28 @@ Below are the configuration options for the TLS.
 |`secretName`
 | Specifies the name of Kubernetes TLS secret.
 
-|`mutualAuthentication`
+|`mutualAuthentication` (deprecated)
 |  Mutual authentication configuration, available values are:
 
 - `None` (default): The client side of the connection is not authenticated.  
-- `Required`:  Server forces usage of a trusted client certificate
-- `Optional`: Server asks for a client certificate, but it doesn't require it
+- `Required`:  Server forces usage of a trusted client certificate.
+- `Optional`: Server asks for a client certificate, but it doesn't require it.
+
+WARNING: It is deprecated and should no longer be used. It is retained solely for the purpose of maintaining backward compatibility. In the previous versions, the Operator was forcing mutual authentication between members and the `mutualAuthentication` field was being used as the `clientAuthentication` field. Now, it is possible to configure them separately.
+
+|`clientAuthentication`
+|  Mutual authentication configuration for client to member communication, available values are:
+
+- `None` (default): The client side of the connection is not authenticated.
+- `Required`:  Server forces usage of a trusted client certificate.
+- `Optional`: Server asks for a client certificate, but it doesn't require it.
+
+|`memberAuthentication`
+|  Mutual authentication configuration for member to member communication, available values are:
+
+- `None` (default): The client side of the connection is not authenticated.
+- `Required`:  Server forces usage of a trusted client certificate.
+- `Optional`: Server asks for a client certificate, but it doesn't require it.
 
 |===
 
