@@ -13,19 +13,20 @@ See xref:flow:ROOT:index.adoc[Flow] for more detailed information.
 [source,yaml]
 ----
 ...
-image: docker.io/hazelcast/management-center-flow <1>
+repository: docker.io/hazelcast/management-center-flow <1>
+version: 5.6.0
 ...
 hazelcastClusters:
 - address: flow <2>
   name: flow <3>
 jvm:
   args:
-  - "-Dhazelcast.mc.flow.addresses=http://233.252.0.158/" <4>
+  - "-Dhazelcast.mc.flow.addresses=http://233.252.0.158" <4>
   - "-Dhazelcast.mc.internal.flowAddresses=http://flow:9021" <5>
 ...
 ----
 
-<1> Management Center Flow image.
+<1> Management Center Flow image and version
 <2> The service name of the Flow application. The same as the Flow Custom Resource (CR) name.
 <3> Hazelcast cluster name. Should always be `flow`.
 <4> Flow Ingress public address.
