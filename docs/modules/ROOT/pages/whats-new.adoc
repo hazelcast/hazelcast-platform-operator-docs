@@ -1,0 +1,28 @@
+= What's New in Hazelcast Platform Operator
+:description: Here are the highlights of what's new and improved in Hazelcast Platform Operator 5.14.
+
+{description}
+
+
+== Lite Member Support
+
+With the release of Hazelcast Platform 5.5, Compute Isolation was introduced, allowing you to distribute your workload using Jet Job replacement control. To run workloads on Lite Members, the Platform Operator can enable Lite Member deployment through a Hazelcast custom resource. For more information xref:lite-members.adoc[Deploying Lite Members]
+
+To learn more about Compute Isolation, see https://docs.hazelcast.com/hazelcast/latest/whats-new#distribute-your-workload-with-jet-job-placement-control[What's new in Hazelcast Platform 5.5].
+
+
+== Vector Collection Custom Resource
+
+With the release of Hazelcast Platform 5.5, a new data structure called Vector Collection was introduced to enhance semantic search capabilities. The Platform Operator now includes a custom resource for creating and configuring Vector Collections in a declarative manner. For more details xref:vector-collection-configuration.adoc[Configuring Vector Collections].
+
+For more information on Vector Collections,, see https://docs.hazelcast.com/hazelcast/5.5/whats-new#new-vector-collection-for-building-semantic-search-beta[What's new in Hazelcast Platform 5.5].
+
+== Additional Improvements
+
+For detailed release notes that include new features and enhancements, breaking changes, deprecations and other fixes, see xref:release-notes.adoc[5.14 Release Notes].
+
+To get started with Platform Operator, see xref:get-started.adoc[Deploy a Cluster with the Hazelcast Platform Operator for Kubernetes].
+
+== API Reference
+
+Please refer to the xref:api-ref.adoc[API Reference] for a complete list of available parameters for custom resources.
