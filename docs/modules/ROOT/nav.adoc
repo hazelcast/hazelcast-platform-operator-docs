@@ -45,6 +45,7 @@
 ** xref:management-center-jvm-args.adoc[JVM Arguments]
 ** xref:management-center-ldap.adoc[LDAP Security Provider]
 * xref:flow.adoc[Flow]
+* xref:migrating-from-helm.adoc[Migrating From Helm Chart]
 
 .Reference
 // Configuration options/spec files/any other reference docs

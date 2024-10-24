@@ -9,6 +9,7 @@
 * The link:https://kubernetes.io/docs/tasks/tools/#kubectl[`kubectl`] or link:https://docs.openshift.com/container-platform/latest/cli_reference/openshift_cli/getting-started-cli.html[`oc`] command-line tools, configured to communicate with your cluster
 * link:https://helm.sh/docs/intro/install[`Helm`]
 
+NOTE: If you want to migrate from the Hazelcast Helm Chart, please follow the guidance in xref:migrating-from-helm.adoc[Migrating from Helm] document.
 
 == Step 1. Deploy Hazelcast Platform Operator
 
