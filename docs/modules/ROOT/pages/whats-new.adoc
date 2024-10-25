@@ -25,4 +25,4 @@ To get started with Platform Operator, see xref:get-started.adoc[Deploy a Cluste
 
 == API Reference
 
-Please refer to the xref:api-ref.adoc[API Reference] for a complete list of available parameters for custom resources.
+For a complete list of available parameters for custom resources, see xref:api-ref.adoc[API Reference] .
