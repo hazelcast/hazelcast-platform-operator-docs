@@ -1,4 +1,4 @@
-= What's New in Hazelcast Platform Operator
+= What's new in Hazelcast Platform Operator
 :description: Here are the highlights of what's new and improved in Hazelcast Platform Operator 5.14.
 
 {description}
