@@ -13,7 +13,7 @@ To learn more about Compute Isolation, see https://docs.hazelcast.com/hazelcast/
 
 == Vector Collection custom resource
 
-With the release of Hazelcast Platform 5.5, a new data structure called Vector Collection was introduced to enhance semantic search capabilities. The Platform Operator now includes a custom resource for creating and configuring Vector Collections in a declarative manner. For more details xref:vector-collection-configuration.adoc[Configuring Vector Collections].
+With the release of Hazelcast Platform 5.5, a new data structure called Vector Collection was introduced to enhance semantic search capabilities. Hazelcast Platform Operator now includes a custom resource for creating and configuring Vector Collections in a declarative manner. For more details, see xref:vector-collection-configuration.adoc[Configuring Vector Collections].
 
 For more information on Vector Collections,, see https://docs.hazelcast.com/hazelcast/5.5/whats-new#new-vector-collection-for-building-semantic-search-beta[What's new in Hazelcast Platform 5.5].
 
