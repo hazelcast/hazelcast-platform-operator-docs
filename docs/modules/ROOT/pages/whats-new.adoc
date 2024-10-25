@@ -6,7 +6,7 @@
 
 == Lite Member Support
 
-With the release of Hazelcast Platform 5.5, Compute Isolation was introduced, allowing you to distribute your workload using Jet Job replacement control. To run workloads on Lite Members, the Platform Operator can enable Lite Member deployment through a Hazelcast custom resource. For more information xref:lite-members.adoc[Deploying Lite Members]
+Compute Isolation was introduced in Hazelcast Platform 5.5, enabling you to distribute your workload using Jet Job replacement control. To run workloads on Lite Members, Platform Operator can enable Lite Member deployment through a Hazelcast custom resource. For more information, see xref:lite-members.adoc[Deploying Lite Members].
 
 To learn more about Compute Isolation, see https://docs.hazelcast.com/hazelcast/latest/whats-new#distribute-your-workload-with-jet-job-placement-control[What's new in Hazelcast Platform 5.5].
 
