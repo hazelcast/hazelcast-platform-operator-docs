@@ -1,5 +1,6 @@
 .Get Started
 * xref:index.adoc[Overview]
+* xref:ask-ai.adoc[]
 * xref:get-started.adoc[Deploy a Cluster]
 * xref:deploy-management-center.adoc[Deploy Management Center]
 * xref:scaling-upgrading.adoc[Scaling & Upgrading]
