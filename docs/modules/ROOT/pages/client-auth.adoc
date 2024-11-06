@@ -1,0 +1,109 @@
+= Client Authentication and Authorization
+
+Use the Hazelcast Platform Operator to configure xref:hazelcast:security:authentication-overview.adoc[Client Authentication] and xref:hazelcast:security:client-authentication.adoc[Client Authentication].
+
+== Simple Authentication
+
+You can easily use xref:hazelcast:security:simple-authentication.adoc[Client Authentication][Hazelcast Simple Authentication] by making minimal changes in the original configuration.
+
+For example:
+
+[source,yaml]
+----
+security:
+  enabled: true
+  realms:
+    - name: simpleRealm-clients
+      authentication:
+        simple:
+          users:
+          - secretName: user1-secret
+            roles:
+              - admin
+          - secretName: user2-secret
+            roles:
+              - monitor
+              - application
+  client-authentication:
+    realm: simpleRealm-clients
+  client-permissions:
+    all:
+      principal: admin
+      endpoints:
+        - 127.0.0.1
+    map:
+      - name: playground
+        actions:
+          - all
+      - name: accounts
+        principal: monitor
+        actions:
+          - read
+      - name: accounts
+        principal: application
+        endpoints:
+          - 192.168.1.*
+          - 192.168.2.*
+        actions:
+          - create
+          - destroy
+          - put
+          - read
+          - remove
+          - lock
+----
+
+This can be converted as:
+
+[source,yaml]
+----
+security:
+    realms:
+      - name: simpleRealm-clients
+        authentication:
+          simple:
+            users:
+            - secretName: user1-secret
+              roles:
+                - admin
+            - secretName: user2-secret
+              roles:
+                - monitor
+                - application
+    clientAuthentication:
+      realm: simpleRealm-clients
+    clientPermissions:
+      all:
+        principal: admin
+        endpoints:
+          - 127.0.0.1
+      permissions:
+        map:
+          - name: playground
+            actions:
+              - all
+          - name: accounts
+            principal: monitor
+            actions:
+              - read
+          - name: accounts
+            principal: application
+            endpoints:
+              - 192.168.1.*
+              - 192.168.2.*
+            actions:
+              - create
+              - destroy
+              - put
+              - read
+              - remove
+              - lock
+----
+
+Required Changes:
+
+* `security.enabled` should be removed.
+* convert kebab cases to camel cases:
+** `client-authentication` -> `clientAuthentication`
+** `client-permissions` -> `clientPermissions`
+* add `permissions` node to `clientPermissions` to wrap permissions other than `all`.

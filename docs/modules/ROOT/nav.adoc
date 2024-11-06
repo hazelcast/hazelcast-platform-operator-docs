@@ -30,7 +30,9 @@
 * xref:resource-configuration.adoc[Configuring Resource Limits]
 * xref:hazelcast-parameters.adoc[Configuring System Properties]
 * xref:advanced-networking.adoc[Advanced Networking]
-* xref:tls.adoc[Configuring TLS]
+* [Security]
+** xref:tls.adoc[Configuring TLS]
+** xref:client-auth.adoc[Configuring Client Authentication]
 * xref:user-code-namespaces.adoc[User Code Namespaces]
 * xref:authorization.adoc[Authorization Methods to Access Cloud Storage]
 * Data Pipelines
