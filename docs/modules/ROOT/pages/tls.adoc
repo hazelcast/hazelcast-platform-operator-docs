@@ -59,8 +59,8 @@ Below are the configuration options for the TLS.
 |`memberAuthentication`
 |  Mutual authentication configuration for member to member communication, available values are:
 
-- `None` (default): The client side of the connection is not authenticated.
-- `Required`:  Server forces usage of a trusted client certificate.
+- `None`: The client side of the connection is not authenticated.
+- `Required`(default):  Server forces usage of a trusted client certificate.
 - `Optional`: Server asks for a client certificate, but it doesn't require it.
 
 |===
