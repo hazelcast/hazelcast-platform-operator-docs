@@ -1,10 +1,10 @@
 = Client Authentication and Authorization
 
-Use the Hazelcast Platform Operator to configure xref:hazelcast:security:authentication-overview.adoc[Client Authentication] and xref:hazelcast:security:client-authentication.adoc[Client Authentication].
+Use the Hazelcast Platform Operator to configure xref:hazelcast:security:authentication-overview.adoc[Client Authentication] and xref:hazelcast:security:client-authorization.adoc[Client Authorization].
 
 == Simple Authentication
 
-You can easily use xref:hazelcast:security:simple-authentication.adoc[Client Authentication][Hazelcast Simple Authentication] by making minimal changes in the original configuration.
+You can easily use xref:hazelcast:security:simple-authentication.adoc[Hazelcast Simple Authentication] by making minimal changes in the original configuration.
 
 For example:
 
