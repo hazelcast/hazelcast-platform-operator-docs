@@ -4,7 +4,7 @@ Unfortunately there isn't any way to migrate without re-creating the cluster as 
 
 There are two ways to migrate from a cluster that is created by the Hazelcast Helm Chart.
 
-WARNING: For both solutions to work, `persistence` must be enabled. You should also set `cluster-data-recovery-policy` parameter's value to `PARTIAL_RECOVERY_MOST_COMPLETE` to avoid any issues during restore process.
+WARNING: For either solution to work, `persistence` must be enabled. You should also set the `cluster-data-recovery-policy` parameter's value to `PARTIAL_RECOVERY_MOST_COMPLETE` to avoid any issues during the restore process.
 
 == Restoring from a Backup
 
