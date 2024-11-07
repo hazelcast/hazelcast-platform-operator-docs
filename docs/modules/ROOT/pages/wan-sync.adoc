@@ -30,7 +30,7 @@ include::ROOT:example$/wan-sync-full.yaml[]
 To configure xref:hazelcast:wan:advanced-features#delta-wan-synchronization.adoc[Delta WAN Sync] for the Hazelcast cluster, do the following:
 
 * Configure Merkle Tree for the `Map` resource.
-* Set `synConsistencyCheckStrategy` to `MERKLE_TREES` in the `WanReplication` resource. 
+* Set `syncConsistencyCheckStrategy` to `MERKLE_TREES` in the `WanReplication` resource.
 * Create the `WanSync` resource. The created `WanSync` automatically uses Delta WAN Synchronization.
 
 .Example of Delta WanSync
