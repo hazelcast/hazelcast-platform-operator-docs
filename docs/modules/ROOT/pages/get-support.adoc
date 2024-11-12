@@ -1,7 +1,7 @@
 = Get support
 :description: 'Getting support with Hazelcast Platform Operator.'
 
-Customer support is for paying Hazelcast customers. For further information on Hazelcast's comprehensive 24/7 support offerings, refer to the https://hazelcast.com/services/support/[Hazelcast website^].
+Customer support is for paying Hazelcast customers. For further information on Hazelcast's comprehensive 24/7 support offerings, refer to the https://hazelcast.com/services/support/?utm_source=docs-website[Hazelcast website^].
 
 A support subscription from Hazelcast allows you to get the most value from Hazelcast Platform Operator. Our rapid response times to technical
 support inquiries, access to critical software patches, and other services allow you to improve productivity and quality.
