@@ -8,7 +8,7 @@
 .Deploy
 // Deploy options
 * xref:get-started.adoc[Deploy cluster]
-* xref:lite-members.adoc[Deploy Lite Members]
+* xref:lite-members.adoc[Deploy lite members]
 * xref:deploy-management-center.adoc[Deploy Management Center]
 * xref:flow.adoc[Deploy Flow]
 * xref:air-gapped-env.adoc[Run in air-gapped environments]
