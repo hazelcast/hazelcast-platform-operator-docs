@@ -23,8 +23,7 @@
 ** xref:native-memory.adoc[High-density memory store]
 ** xref:tiered-storage.adoc[Tiered storage]
 
-* Fault tolerance
-** xref:backup-restore.adoc[Backup & restore]
+* xref:backup-restore.adoc[Persistence, backup & restore]
 
 * Data
 ** Data structures
