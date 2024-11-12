@@ -7,7 +7,7 @@
 
 .Deploy
 // Deploy options
-* xref:get-started.adoc[Deploy a cluster]
+* xref:get-started.adoc[Deploy cluster]
 * xref:lite-members.adoc[Deploy Lite Members]
 * xref:deploy-management-center.adoc[Deploy Management Center]
 * xref:flow.adoc[Deploy Flow]
