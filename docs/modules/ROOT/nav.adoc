@@ -20,11 +20,11 @@
 * xref:scheduling-configuration.adoc[Assign Pods to nodes]
 
 * Memory & storage
-** xref:jvm-parameters.adoc[JVM parameters]
 ** xref:native-memory.adoc[High-density memory store]
 ** xref:tiered-storage.adoc[Tiered storage]
 
-* xref:backup-restore.adoc[Fault tolerance]
+* Fault tolerance
+** xref:backup-restore.adoc[Backup & restore]
 
 * Data
 ** Data structures
@@ -53,26 +53,27 @@
 *** xref:wan-replication.adoc[Configure WAN replication]
 *** xref:wan-sync.adoc[Synchronize WAN replicated data]
 
-** Security
-*** xref:tls.adoc[Configure TLS]
-*** xref:authorization.adoc[Authorization Methods to Access Cloud Storage]
+* Security
+** xref:tls.adoc[Configure TLS]
+** xref:authorization.adoc[Authorization Methods to Access Cloud Storage]
 
-** Compute
-*** xref:user-code-deployment.adoc[User Code Deployment]
-*** xref:user-code-namespaces.adoc[User Code Namespaces]
+* Compute
+** xref:user-code-deployment.adoc[User Code Deployment]
+** xref:user-code-namespaces.adoc[User Code Namespaces]
 
-** Config properties
-*** xref:env-vars.adoc[Environment variables]
-*** xref:resource-configuration.adoc[Container resources]
-*** xref:hazelcast-parameters.adoc[System properties]
-*** xref:custom-config.adoc[Custom configuration]
+* Configuration properties
+** xref:env-vars.adoc[Environment variables]
+** xref:resource-configuration.adoc[Container resources]
+** xref:hazelcast-parameters.adoc[System properties]
+** xref:custom-config.adoc[Custom configuration]
+** xref:jvm-parameters.adoc[JVM parameters]
 
-** Management Center
-*** xref:management-center-clusters.adoc[Hazelcast clusters]
-*** xref:management-center-external-access.adoc[External access]
-*** xref:management-center-persistence.adoc[Persistence]
-*** xref:management-center-jvm-args.adoc[JVM arguments]
-*** xref:management-center-ldap.adoc[LDAP security provider]
+* Management Center
+** xref:management-center-clusters.adoc[Hazelcast clusters]
+** xref:management-center-external-access.adoc[External access]
+** xref:management-center-persistence.adoc[Persistence]
+** xref:management-center-jvm-args.adoc[JVM arguments]
+** xref:management-center-ldap.adoc[LDAP security provider]
 
 .Reference
 // Other reference docs
