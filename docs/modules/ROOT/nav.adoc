@@ -1,53 +1,80 @@
-.Get Started
+.Get started
+// Get started, release notes & support info
 * xref:index.adoc[Overview]
-* xref:ask-ai.adoc[]
-* xref:get-started.adoc[Deploy a Cluster]
+* xref:ask-ai.adoc[Ask AI]
+* xref:release-notes.adoc[Release notes]
+* xref:get-support.adoc[Get support]
+
+.Deploy
+// Deploy options
+* xref:get-started.adoc[Deploy cluster]
+* xref:lite-members.adoc[Deploy lite members]
 * xref:deploy-management-center.adoc[Deploy Management Center]
-* xref:scaling-upgrading.adoc[Scaling & Upgrading]
-* xref:air-gapped-env.adoc[Running in air-gapped environments]
-* xref:connect-outside-kubernetes.adoc[]
-* xref:scheduling-configuration.adoc[Scheduling Hazelcast Pods]
-* xref:serialization-configuration.adoc[Serialization]
-* xref:scaling-upgrading.adoc[Scaling & Upgrading]
-* xref:lite-members.adoc[Deploying Lite Members]
-* xref:cp-subsystem.adoc[Enabling CP Subsystem]
-* xref:tiered-storage.adoc[Tiered Storage]
-* Configuring Data Structures
-** xref:map-configuration.adoc[Map]
-** xref:multimap-configuration.adoc[MultiMap]
-** xref:topic-configuration.adoc[Topic]
-** xref:queue-configuration.adoc[Queue]
-** xref:cache-configuration.adoc[Cache]
-** xref:vector-collection-configuration.adoc[Vector Collection]
-** xref:replicatedmap-configuration.adoc[ReplicatedMap]
-* xref:backup-restore.adoc[Persistence, Backup, and Restore]
-* xref:wan-replication.adoc[Configuring WAN Replication]
-* xref:wan-sync.adoc[Syncronizing WAN replicated data]
-* xref:user-code-deployment.adoc[User Code Deployment]
-* xref:high-availability-mode.adoc[High Availability Mode]
-* xref:native-memory.adoc[Native Memory]
-* xref:jvm-parameters.adoc[Configuring JVM Parameters]
-* xref:env-vars.adoc[Configuring Environment Variables]
-* xref:resource-configuration.adoc[Configuring Resource Limits]
-* xref:hazelcast-parameters.adoc[Configuring System Properties]
-* xref:advanced-networking.adoc[Advanced Networking]
-* xref:tls.adoc[Configuring TLS]
-* xref:user-code-namespaces.adoc[User Code Namespaces]
-* xref:authorization.adoc[Authorization Methods to Access Cloud Storage]
-* Data Pipelines
-** xref:jet-engine-configuration.adoc[Configuring the Jet Engine]
-** xref:jet-job-configuration.adoc[Running Data Pipelines]
-** xref:jet-job-snapshot.adoc[Saving the State of Data Pipelines]
-* xref:custom-config.adoc[Custom Configuration of Hazelcast cluster]
+* xref:flow.adoc[Deploy Flow]
+* xref:air-gapped-env.adoc[Run in air-gapped environments]
+* xref:scaling-upgrading.adoc[Scale and upgrade]
+
+.Configure
+// Configuration options
+* xref:connect-outside-kubernetes.adoc[Connect to Hazelcast from outside Kubernetes]
+* xref:scheduling-configuration.adoc[Assign pods to nodes]
+
+* Memory & storage
+** xref:native-memory.adoc[High-density memory store]
+** xref:tiered-storage.adoc[Tiered storage]
+
+* xref:backup-restore.adoc[Persistence, backup & restore]
+
+* Data
+** Data structures
+*** xref:map-configuration.adoc[Map]
+*** xref:multimap-configuration.adoc[MultiMap]
+*** xref:topic-configuration.adoc[Topic]
+*** xref:queue-configuration.adoc[Queue]
+*** xref:cache-configuration.adoc[Cache]
+*** xref:vector-collection-configuration.adoc[Vector collection]
+*** xref:replicatedmap-configuration.adoc[ReplicatedMap]
+
+** Data pipelines
+*** xref:jet-engine-configuration.adoc[Configure the Jet Engine]
+*** xref:jet-job-configuration.adoc[Run data pipelines]
+*** xref:jet-job-snapshot.adoc[Save state of data pipelines]
+
+** xref:serialization-configuration.adoc[Data serialization]
+** xref:cp-subsystem.adoc[Enable CP subsystem]
+
+* Resilience
+** Partition groups & networking
+*** xref:high-availability-mode.adoc[High Availability Mode]
+*** xref:advanced-networking.adoc[Advanced network configuration]
+
+** Synchronize data across clusters
+*** xref:wan-replication.adoc[Configure WAN replication]
+*** xref:wan-sync.adoc[Synchronize WAN replicated data]
+
+* Security
+** xref:tls.adoc[Configure TLS]
+** xref:authorization.adoc[Authorization Methods to Access Cloud Storage]
+
+* Compute
+** xref:user-code-deployment.adoc[User Code Deployment]
+** xref:user-code-namespaces.adoc[User Code Namespaces]
+
+* Configuration properties
+** xref:env-vars.adoc[Environment variables]
+** xref:resource-configuration.adoc[Container resources]
+** xref:hazelcast-parameters.adoc[System properties]
+** xref:custom-config.adoc[Custom configuration]
+** xref:jvm-parameters.adoc[JVM parameters]
+
 * Management Center
-** xref:management-center-clusters.adoc[Hazelcast Clusters]
-** xref:management-center-external-access.adoc[External Access]
+** xref:management-center-clusters.adoc[Hazelcast clusters]
+** xref:management-center-external-access.adoc[External access]
 ** xref:management-center-persistence.adoc[Persistence]
-** xref:management-center-jvm-args.adoc[JVM Arguments]
-** xref:management-center-ldap.adoc[LDAP Security Provider]
-* xref:flow.adoc[Flow]
+** xref:management-center-jvm-args.adoc[JVM arguments]
+** xref:management-center-ldap.adoc[LDAP security provider]
 
 .Reference
-// Configuration options/spec files/any other reference docs
-* xref:phone-homes.adoc[Phone Homes]
-* xref:api-ref.adoc[API References]
+// Other reference docs
+* xref:phone-homes.adoc[Phone home data]
+* xref:api-ref.adoc[API types]
