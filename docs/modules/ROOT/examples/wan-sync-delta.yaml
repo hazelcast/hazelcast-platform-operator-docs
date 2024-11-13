@@ -17,7 +17,7 @@ spec:
     kind: Map
   targetClusterName: dev
   endpoints: "35.192.33.252"
-  synConsistencyCheckStrategy: "MERKLE_TREES"
+  syncConsistencyCheckStrategy: "MERKLE_TREES"
 ---
 apiVersion: hazelcast.com/v1alpha1
 kind: WanSync
