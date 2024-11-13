@@ -74,5 +74,10 @@ See xref:flow:deploy:security-recommendations.adoc[Security recommendations] to 
       --flow.security.openIdp.roles.format=path
       --flow.security.openIdp.roles.path=roles
       --flow.security.openIdp.refreshTokensDisabled=true
+      --flow.security.openIdp.executorRoleClientId=application-client
+      --flow.security.openIdp.executorRoleClientSecret=${MC_APPLICATION_CLIENT_SECRET}
+      --flow.security.openIdp.executorRoleTokenUrl=http://233.252.0.158/mc/oauth2/token
+      --flow.security.openIdp.executorRoleAuthenticationType=ClientSecretBasic
+      --flow.security.openIdp.executorRoleScopes=openid email profile flow:Admin
 ...
 ----
