@@ -62,3 +62,19 @@ and you want to upgrade your Hazelcast version to {page-latest-supported-hazelca
 include::ROOT:example$/hazelcast.yaml[]
 ----
 
+Each Operator version has been tested and validated to work correctly with a specific Hazelcast version. You can find the test matrix below. We highly recommend you to consider it to avoid issues during Operator installations.
+
+[cols="1,1"options="header"]
+|===
+| Operator Version | Hazelcast Version
+| 5.5 | 5.1.4
+| 5.6 | 5.2.1
+| 5.7 | 5.2.3
+| 5.8 | 5.3.1
+| 5.9 | 5.3.2
+| 5.10 | 5.3.5
+| 5.11 | 5.4.0
+| 5.12 | 5.4.0
+| 5.13 | 5.5.0
+| 5.14 | 5.5.2
+|===
