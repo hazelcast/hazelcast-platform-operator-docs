@@ -4,7 +4,7 @@ on:
   branches:
    - main
 jobs:
-  backport-to-specified-branch:
+  backport:
     strategy:
       fail-fast: true
       matrix:
