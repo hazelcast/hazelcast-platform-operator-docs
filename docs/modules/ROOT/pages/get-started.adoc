@@ -7,6 +7,7 @@
 
 You need a Kubernetes or Openshift cluster, and the `kubectl` or `oc` command-line tool must be configured to communicate with your cluster.
 
+NOTE: If you want to migrate from the Hazelcast Helm Chart, please follow the guidance in xref:migrating-from-helm.adoc[Migrating from Helm] document.
 
 == Step 1. Deploy Hazelcast Platform Operator
 
