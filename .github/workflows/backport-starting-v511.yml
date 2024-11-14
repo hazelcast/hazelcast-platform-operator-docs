@@ -6,11 +6,11 @@ on:
 jobs:
   backport:
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         branch: ['v/5.11','v/5.12','v/5.13','v/5.14']
     uses: hazelcast/hz-docs/.github/workflows/backport-workflow.yml@main
     with:
-      label: '["backport starting from 5.11"]'
+      label-to-check-for: '["backport starting from 5.11"]'
       target-branch: v/${{ matrix.branch }}
     secrets: inherit
