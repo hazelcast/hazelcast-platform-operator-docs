@@ -1,8 +1,6 @@
 .Get Started
 * xref:index.adoc[Overview]
-* xref:ask-ai.adoc[Ask AI]
 * xref:release-notes.adoc[Release notes]
-* xref:get-support.adoc[Get support]
 * xref:migrating-from-helm.adoc[Migrating From Helm Chart]
 
 .Deploy
