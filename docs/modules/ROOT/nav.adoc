@@ -6,7 +6,6 @@
 .Deploy
 // Deploy options
 * xref:get-started.adoc[Deploy cluster]
-* xref:lite-members.adoc[Deploy lite members]
 * xref:deploy-management-center.adoc[Deploy Management Center]
 * xref:connect-outside-kubernetes.adoc[]
 * xref:scheduling-configuration.adoc[Scheduling Hazelcast Pods]
