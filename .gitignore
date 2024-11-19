@@ -3,5 +3,4 @@
 /build/
 .idea
 .DS_Store
-package-lock.json
 .vscode
