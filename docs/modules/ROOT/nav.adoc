@@ -1,7 +1,11 @@
 .Get Started
 * xref:index.adoc[Overview]
-* xref:whats-new.adoc[What's New in 5.13]
-* xref:get-started.adoc[Deploy a Cluster]
+* xref:release-notes.adoc[Release notes]
+* xref:migrating-from-helm.adoc[Migrating From Helm Chart]
+
+.Deploy
+// Deploy options
+* xref:get-started.adoc[Deploy cluster]
 * xref:deploy-management-center.adoc[Deploy Management Center]
 * xref:connect-outside-kubernetes.adoc[]
 * xref:scheduling-configuration.adoc[Scheduling Hazelcast Pods]
