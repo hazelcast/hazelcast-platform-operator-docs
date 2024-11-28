@@ -58,6 +58,7 @@ This can be converted as:
 [source,yaml]
 ----
 security:
+    operatorClientSecretName: user1-secret
     realms:
       - name: simpleRealm-clients
         authentication:
@@ -107,3 +108,17 @@ Required Changes:
 ** `client-authentication` -> `clientAuthentication`
 ** `client-permissions` -> `clientPermissions`
 * add `permissions` node to `clientPermissions` to wrap permissions other than `all`.
+
+NOTE:  The `operatorClientSecretName` is a mandatory field required for the Operator to establish a connection with the Hazelcast cluster. The given user in the `operatorClientSecretName` field must have a role that has all the client permissions. Otherwise, the Operator will fail with a validation error.
+
+=== Management Center Configuration
+
+As the Management Center serves as a client of the Hazelcast cluster, it must be properly configured to connect to the cluster. The `security.clientSecretName` field in the `hazelcastClusters` section is utilized for this configuration.
+
+.Management Center Simple Authentication Example
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/management-center-simple-auth.yaml[]
+----
+
+NOTE: The given user in the `clientSecretName` field have a role that has all the client permissions.
