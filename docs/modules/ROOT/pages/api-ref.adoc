@@ -27,6 +27,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<CacheSpec,CacheSpec>>
 * <<CacheStatus,CacheStatus>>
 * <<CapacityPolicyType,CapacityPolicyType>>
+* <<ClientTLS,ClientTLS>>
 * <<CollectionType,CollectionType>>
 * <<CompactSerializationConfig,CompactSerializationConfig>>
 * <<CronHotBackup,CronHotBackup>>
@@ -376,6 +377,25 @@ CacheStatus defines the observed state of Cache
 m| state | State of the data structure m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
 m| message | Message explaining the current state m| string | false | -
 m| memberStatuses | Holds status of data structure for each Hazelcast member m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ClientTLS
+
+ClientTLS is used by Management Center CR, MC has nothing to do with MemberAuthentication
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| secretName | Name of the secret with TLS certificate and key. m| string | true | -
+m| clientAuthentication | Mutual authentication configuration for the client. It is None by default which means the client side of connection is not authenticated. m| <<MutualAuthentication,MutualAuthentication>> | false | "None"
+|===
+==== Deprecated
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| mutualAuthentication | mutualAuthentication is deprecated. Use clientAuthentication field instead. Mutual authentication configuration. It’s None by default which means the client side of connection is not authenticated. m| <<MutualAuthentication,MutualAuthentication>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -733,7 +753,7 @@ m| status | &#160; m| <<HazelcastStatus,HazelcastStatus>> | false | -
 | Field | Description | Type | Required | Default
 m| name | Name of the Hazelcast cluster that Management Center will connect to, default is dev. m| string | false | "dev"
 m| address | IP address or DNS name of the Hazelcast cluster. If the cluster is exposed with a service name in a different namespace, use the following syntax "<service-name>.<service-namespace>". m| string | true | -
-m| tls | TLS client configuration. m| &#42;<<TLS,TLS>> | false | -
+m| tls | TLS client configuration. m| &#42;<<ClientTLS,ClientTLS>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -870,7 +890,7 @@ HazelcastSpec defines the desired state of Hazelcast
 | Field | Description | Type | Required | Default
 m| clusterSize | Number of Hazelcast members in the cluster. m| &#42;int32 | false | 3
 m| repository | Repository to pull the Hazelcast Platform image from. m| string | false | "docker.io/hazelcast/hazelcast-enterprise"
-m| version | Version of Hazelcast Platform. m| string | false | "5.5.2-SNAPSHOT"
+m| version | Version of Hazelcast Platform. m| string | false | "5.5.3-SNAPSHOT"
 m| imagePullPolicy | Pull policy for the Hazelcast Platform image m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#pullpolicy-v1-core[corev1.PullPolicy] | false | "IfNotPresent"
 m| imagePullSecrets | Image pull secrets for the Hazelcast Platform image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
 m| licenseKeySecretName | Name of the secret with Hazelcast Enterprise License Key. m| string | true | -
@@ -1961,13 +1981,14 @@ m| interfaces | &#160; m| []string | false | -
 
 === TLS
 
-
+TLS is used by Hazelcast CR
 
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
 m| secretName | Name of the secret with TLS certificate and key. m| string | true | -
-m| mutualAuthentication | Mutual authentication configuration. It’s None by default which means the client side of connection is not authenticated. m| <<MutualAuthentication,MutualAuthentication>> | false | "None"
+m| clientAuthentication | Mutual authentication configuration for the client. It is None by default which means the client side of connection is not authenticated. m| <<MutualAuthentication,MutualAuthentication>> | false | "None"
+m| memberAuthentication | Mutual authentication configuration between members. It is Required by default which means the connections between members are authenticated. m| <<MutualAuthentication,MutualAuthentication>> | false | "Required"
 |===
 
 <<Table of Contents,Back to TOC>>
