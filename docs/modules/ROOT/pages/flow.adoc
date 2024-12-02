@@ -80,5 +80,7 @@ See xref:flow:deploy:security-recommendations.adoc[Security recommendations] to 
       --flow.security.openIdp.executorRoleAuthenticationType=ClientSecretBasic
 - name: FLOW_SECURITY_OPENIDP_EXECUTORROLESCOPES
   value: "openid email profile flow:Admin"
+- name: FLOW_SECURITY_OPENIDP_SCOPE
+  value: "openid email profile"
 ...
 ----
