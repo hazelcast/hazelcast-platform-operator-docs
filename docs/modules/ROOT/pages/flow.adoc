@@ -72,11 +72,6 @@ See xref:flow:deploy:security-recommendations.adoc[Security recommendations] to 
       --flow.security.openIdp.issuerUrl=http://233.252.0.158/mc
       --flow.security.openIdp.clientId=flow-client
       --flow.security.openIdp.require-https=false
-<<<<<<< HEAD
-      --flow.security.open-idp.roles.format=path
-      --flow.security.open-idp.roles.path=roles
-      --flow.security.open-idp.refreshTokensDisabled=true
-=======
       --flow.security.openIdp.roles.format=path
       --flow.security.openIdp.roles.path=roles
       --flow.security.openIdp.refreshTokensDisabled=true
@@ -86,6 +81,7 @@ See xref:flow:deploy:security-recommendations.adoc[Security recommendations] to 
       --flow.security.openIdp.executorRoleAuthenticationType=ClientSecretBasic
 - name: FLOW_SECURITY_OPENIDP_EXECUTORROLESCOPES
   value: "openid email profile flow:Admin"
->>>>>>> e68f635 ([HZX-344] update openId settings)
+- name: FLOW_SECURITY_OPENIDP_SCOPE
+  value: "openid email profile"
 ...
 ----
