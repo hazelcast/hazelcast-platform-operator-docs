@@ -57,48 +57,53 @@ This can be converted as:
 
 [source,yaml]
 ----
-security:
-    operatorClientSecretName: user1-secret
-    realms:
-      - name: simpleRealm-clients
-        authentication:
-          simple:
-            users:
-            - secretName: user1-secret
-              roles:
-                - admin
-            - secretName: user2-secret
-              roles:
-                - monitor
-                - application
-    clientAuthentication:
-      realm: simpleRealm-clients
-    clientPermissions:
-      all:
-        principal: admin
-        endpoints:
-          - 127.0.0.1
-      permissions:
-        map:
-          - name: playground
-            actions:
-              - all
-          - name: accounts
-            principal: monitor
-            actions:
-              - read
-          - name: accounts
-            principal: application
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+    security:
+        operatorClientSecretName: user1-secret
+        realms:
+          - name: simpleRealm-clients
+            authentication:
+              simple:
+                users:
+                - secretName: user1-secret
+                  roles:
+                    - admin
+                - secretName: user2-secret
+                  roles:
+                    - monitor
+                    - application
+        clientAuthentication:
+          realm: simpleRealm-clients
+        clientPermissions:
+          all:
+            principal: admin
             endpoints:
-              - 192.168.1.*
-              - 192.168.2.*
-            actions:
-              - create
-              - destroy
-              - put
-              - read
-              - remove
-              - lock
+              - 127.0.0.1
+          permissions:
+            map:
+              - name: playground
+                actions:
+                  - all
+              - name: accounts
+                principal: monitor
+                actions:
+                  - read
+              - name: accounts
+                principal: application
+                endpoints:
+                  - 192.168.1.*
+                  - 192.168.2.*
+                actions:
+                  - create
+                  - destroy
+                  - put
+                  - read
+                  - remove
+                  - lock
 ----
 
 Required Changes:
