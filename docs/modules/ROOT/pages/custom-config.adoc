@@ -86,4 +86,4 @@ The Hazelcast Platform Operator communicates with the Hazelcast cluster, requiri
 
 === Security configuration
 
-The security configuration is not accessible through custom configuration. To configure security use `Security` section of the Hazelcast CR.
+The security configuration is not accessible through custom configuration. To configure xref:client-simple-auth.adoc[Simple Authentication] use `Security` section of the Hazelcast CR.
