@@ -1293,8 +1293,8 @@ m| adminGroups | Members of these groups and its nested groups have admin privil
 m| userGroups | Members of these groups and its nested groups have read and write privileges on the Management Center. m| []string | true | -
 m| readonlyUserGroups | Members of these groups and its nested groups have only read privilege on the Management Center. m| []string | true | -
 m| metricsOnlyGroups | Members of these groups and its nested groups have the privilege to see only the metrics on the Management Center. m| []string | true | -
-m| userSearchFilter | LDAP search filter expression to search for the users. For example, uid={0} searches for a username that matches with the uid attribute. m| string | true | -
-m| groupSearchFilter | LDAP search filter expression to search for the groups. For example, uniquemember={0} searches for a group that matches with the uniquemember attribute. m| string | true | -
+m| userSearchFilter | LDAP search filter expression to search for the users. For example, uid=\{0} searches for a username that matches with the uid attribute. m| string | true | -
+m| groupSearchFilter | LDAP search filter expression to search for the groups. For example, uniquemember=\{0} searches for a group that matches with the uniquemember attribute. m| string | true | -
 m| nestedGroupSearch | NestedGroupSearch enables searching for nested LDAP groups. m| bool | true | false
 |===
 
