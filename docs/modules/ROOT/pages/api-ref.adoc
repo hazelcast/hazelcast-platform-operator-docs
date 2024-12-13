@@ -16,6 +16,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<AdvancedNetwork,AdvancedNetwork>>
 * <<AgentConfiguration,AgentConfiguration>>
 * <<AttributeConfig,AttributeConfig>>
+* <<Authentication,Authentication>>
 * <<BatchSetting,BatchSetting>>
 * <<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>>
 * <<BucketConfiguration,BucketConfiguration>>
@@ -27,6 +28,10 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<CacheSpec,CacheSpec>>
 * <<CacheStatus,CacheStatus>>
 * <<CapacityPolicyType,CapacityPolicyType>>
+* <<ClientAuthentication,ClientAuthentication>>
+* <<ClientOnJoinOperation,ClientOnJoinOperation>>
+* <<ClientPermissions,ClientPermissions>>
+* <<ClientSecurity,ClientSecurity>>
 * <<ClientTLS,ClientTLS>>
 * <<CollectionType,CollectionType>>
 * <<CompactSerializationConfig,CompactSerializationConfig>>
@@ -137,6 +142,8 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<NearCacheEviction,NearCacheEviction>>
 * <<NodeState,NodeState>>
 * <<PVCNamePrefix,PVCNamePrefix>>
+* <<PermissionItem,PermissionItem>>
+* <<PermissionWithName,PermissionWithName>>
 * <<PersistenceStartupAction,PersistenceStartupAction>>
 * <<Phase,Phase>>
 * <<PvcConfiguration,PvcConfiguration>>
@@ -146,6 +153,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<QueueSpec,QueueSpec>>
 * <<QueueStatus,QueueStatus>>
 * <<RMInMemoryFormatType,RMInMemoryFormatType>>
+* <<Realm,Realm>>
 * <<RemoteFileConfiguration,RemoteFileConfiguration>>
 * <<ReplicatedMap,ReplicatedMap>>
 * <<ReplicatedMapList,ReplicatedMapList>>
@@ -160,11 +168,13 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<SQL,SQL>>
 * <<ScheduledExecutorServiceConfiguration,ScheduledExecutorServiceConfiguration>>
 * <<SchedulingConfiguration,SchedulingConfiguration>>
+* <<Security,Security>>
 * <<SecurityProviders,SecurityProviders>>
 * <<SerializationConfig,SerializationConfig>>
 * <<SerializationFilterList,SerializationFilterList>>
 * <<Serializer,Serializer>>
 * <<ServerSocketEndpointConfig,ServerSocketEndpointConfig>>
+* <<SimpleAuthentication,SimpleAuthentication>>
 * <<SpecAnnotatorLabeler,SpecAnnotatorLabeler>>
 * <<SyncConsistencyCheckStrategy,SyncConsistencyCheckStrategy>>
 * <<TLS,TLS>>
@@ -174,6 +184,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<TopicSpec,TopicSpec>>
 * <<TopicStatus,TopicStatus>>
 * <<UniqueKeyTransition,UniqueKeyTransition>>
+* <<User,User>>
 * <<UserCodeDeploymentConfig,UserCodeDeploymentConfig>>
 * <<UserCodeNamespace,UserCodeNamespace>>
 * <<UserCodeNamespaceList,UserCodeNamespaceList>>
@@ -253,6 +264,18 @@ m| resources | Compute Resources required by the Agent container. m| &#42;https:
 | Field | Description | Type | Required | Default
 m| name | Name of the attribute https://docs.hazelcast.com/hazelcast/latest/query/predicate-overview#creating-custom-query-attributes m| string | true | -
 m| extractorClassName | Name of the extractor class https://docs.hazelcast.com/hazelcast/latest/query/predicate-overview#implementing-a-valueextractor m| string | true | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== Authentication
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| simple | &#160; m| &#42;<<SimpleAuthentication,SimpleAuthentication>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -377,6 +400,45 @@ CacheStatus defines the observed state of Cache
 m| state | State of the data structure m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
 m| message | Message explaining the current state m| string | false | -
 m| memberStatuses | Holds status of data structure for each Hazelcast member m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ClientAuthentication
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| realm | &#160; m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ClientPermissions
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| priorityGrant | &#160; m| &#42;bool | false | -
+m| onJoinOperation | &#160; m| <<ClientOnJoinOperation,ClientOnJoinOperation>> | false | -
+m| all | &#160; m| &#42;<<PermissionItem,PermissionItem>> | false | -
+m| permissions | &#160; m| map[string][]<<PermissionWithName,PermissionWithName>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ClientSecurity
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| clientSecretName | &#160; m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -754,6 +816,7 @@ m| status | &#160; m| <<HazelcastStatus,HazelcastStatus>> | false | -
 m| name | Name of the Hazelcast cluster that Management Center will connect to, default is dev. m| string | false | "dev"
 m| address | IP address or DNS name of the Hazelcast cluster. If the cluster is exposed with a service name in a different namespace, use the following syntax "<service-name>.<service-namespace>". m| string | true | -
 m| tls | TLS client configuration. m| &#42;<<ClientTLS,ClientTLS>> | false | -
+m| security | Security client configuration. m| &#42;<<ClientSecurity,ClientSecurity>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -924,6 +987,7 @@ m| cpSubsystem | CPSubsystem is the configuration of the Hazelcast CP Subsystem.
 m| userCodeNamespaces | UserCodeNamespaces provide a container for Java classpath resources, such as user code and accompanying artifacts like property files m| &#42;<<UserCodeNamespacesConfig,UserCodeNamespacesConfig>> | false | -
 m| env | Env configuration of environment variables m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#envvar-v1-core[corev1.EnvVar] | false | -
 m| liteMember | &#160; m| &#42;<<LiteMember,LiteMember>> | false | -
+m| security | &#160; m| &#42;<<Security,Security>> | false | -
 |===
 ==== Deprecated
 [cols="4,8,4,2,4"options="header"]
@@ -1293,8 +1357,8 @@ m| adminGroups | Members of these groups and its nested groups have admin privil
 m| userGroups | Members of these groups and its nested groups have read and write privileges on the Management Center. m| []string | true | -
 m| readonlyUserGroups | Members of these groups and its nested groups have only read privilege on the Management Center. m| []string | true | -
 m| metricsOnlyGroups | Members of these groups and its nested groups have the privilege to see only the metrics on the Management Center. m| []string | true | -
-m| userSearchFilter | LDAP search filter expression to search for the users. For example, uid=\{0} searches for a username that matches with the uid attribute. m| string | true | -
-m| groupSearchFilter | LDAP search filter expression to search for the groups. For example, uniquemember=\{0} searches for a group that matches with the uniquemember attribute. m| string | true | -
+m| userSearchFilter | LDAP search filter expression to search for the users. For example, uid={0} searches for a username that matches with the uid attribute. m| string | true | -
+m| groupSearchFilter | LDAP search filter expression to search for the groups. For example, uniquemember={0} searches for a group that matches with the uniquemember attribute. m| string | true | -
 m| nestedGroupSearch | NestedGroupSearch enables searching for nested LDAP groups. m| bool | true | false
 |===
 
@@ -1647,6 +1711,37 @@ m| size | Size is maximum size of the Near Cache used for max-size-policy m| uin
 
 <<Table of Contents,Back to TOC>>
 
+=== PermissionItem
+
+PermissionItem is used for cluster wide permissions which is configured as `all` in Hazelcast config
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| principal | &#160; m| string | false | -
+m| endpoints | &#160; m| []string | false | -
+m| deny | &#160; m| &#42;bool | false | -
+m| actions | &#160; m| []string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== PermissionWithName
+
+PermissionWithName is used for instance permissions like map, queue etc.
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| principal | &#160; m| string | false | -
+m| endpoints | &#160; m| []string | false | -
+m| deny | &#160; m| &#42;bool | false | -
+m| actions | &#160; m| []string | false | -
+m| name | &#160; m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === PvcConfiguration
 
 
@@ -1730,6 +1825,19 @@ QueueStatus defines the observed state of Queue
 m| state | State of the data structure m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
 m| message | Message explaining the current state m| string | false | -
 m| memberStatuses | Holds status of data structure for each Hazelcast member m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== Realm
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| name | &#160; m| string | false | -
+m| authentication | &#160; m| &#42;<<Authentication,Authentication>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1906,6 +2014,21 @@ m| topologySpreadConstraints | TopologySpreadConstraints m| []https://kubernetes
 
 <<Table of Contents,Back to TOC>>
 
+=== Security
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| operatorClientSecretName | &#160; m| string | false | -
+m| realms | &#160; m| []<<Realm,Realm>> | false | -
+m| clientAuthentication | &#160; m| &#42;<<ClientAuthentication,ClientAuthentication>> | false | -
+m| clientPermissions | &#160; m| &#42;<<ClientPermissions,ClientPermissions>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === SecurityProviders
 
 
@@ -1975,6 +2098,18 @@ m| className | Class name of the implementation of the serializer class. m| stri
 |===
 | Field | Description | Type | Required | Default
 m| interfaces | &#160; m| []string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== SimpleAuthentication
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| users | &#160; m| []<<User,User>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -2059,6 +2194,19 @@ TopicStatus defines the observed state of Topic
 m| state | State of the data structure m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
 m| message | Message explaining the current state m| string | false | -
 m| memberStatuses | Holds status of data structure for each Hazelcast member m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== User
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| secretName | &#160; m| string | false | -
+m| roles | &#160; m| []string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -2428,6 +2576,20 @@ CapacityPolicyType represents the active policy types for the capacity setting
 | Value | Description
 m| "PER_NODE" | CapacityPolicyPerNode is the policy for limiting the maximum number of tasks in each Hazelcast instance
 m| "PER_PARTITION" | CapacityPolicyPerPartition is the policy for limiting the maximum number of tasks within each partition.
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ClientOnJoinOperation
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "SEND" | &#160;
+m| "RECEIVE" | &#160;
+m| "NONE" | &#160;
 |===
 
 <<Table of Contents,Back to TOC>>
