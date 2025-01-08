@@ -235,9 +235,6 @@ Any additional information such as validation errors will be provided in the `me
 
 The `readyMembers` field represents the number of Hazelcast members that are connected to the cluster.
 
-WARNING: Use the `readyMembers` field only for informational purposes. This field is not always accurate. Some members may have joined or left the cluster since this field was last updated.
-
-
 == Step 4. Clean up
 
 Run the following commands to remove Hazelcast cluster and Hazelcast License Key Secret.
