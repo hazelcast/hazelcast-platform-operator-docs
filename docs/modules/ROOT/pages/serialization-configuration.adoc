@@ -9,7 +9,7 @@ You can find more detailed information on configuration of Serialization in xref
 
 == Configuring Compact Serialization
 
-To configure Compact serialization, you need to define the `compactSerialization` section. The following configuration will register an explicit serializer `com.example.FooSerializer` along with a zero-config serializer for `com.example.Bar` class.
+To configure Compact serialization, you need to define the `compactSerialization` section. The following configuration will register an explicit serializer `com.example.FooSerializer` along with a zero-config serializer for the `com.example.Bar` class.
 
 .Compact serialization example configuration
 [source,yaml,subs="attributes+"]
