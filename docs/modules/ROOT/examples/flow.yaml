@@ -23,7 +23,5 @@ spec:
   - name: OPTIONS
     value: |
       --flow.analytics.persistRemoteCallResponses=true
-      --flow.stream-server.enabled=false
       --flow.analytics.persistResults=false
-      --flow.toggles.dashboard-enabled=true
       --flow.config.custom.managementCenterUrl=http://233.252.0.158/mc
