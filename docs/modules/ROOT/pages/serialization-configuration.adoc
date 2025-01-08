@@ -3,9 +3,19 @@
 
 {description}
 
-With the Hazelcast Platform Operator you can configure Hazelcast Serialization using the Hazelcast CR. To understand the Hazelcast Serialization, refer to xref:hazelcast:serialization:serialization.adoc[Platform documentation].
+With the Hazelcast Platform Operator you can configure Hazelcast Serialization using the Hazelcast Custom Resource (CR). To understand the Hazelcast Serialization, refer to xref:hazelcast:serialization:serialization.adoc[Platform documentation].
 
 You can find more detailed information on configuration of Serialization in xref:api-ref.adoc#serializationconfig[API Reference] page.
+
+== Configuring Compact Serialization
+
+To configure Compact serialization, you need to define the `compactSerialization` section. The following configuration will register an explicit serializer `com.example.FooSerializer` along with a zero-config serializer for the `com.example.Bar` class.
+
+.Compact serialization example configuration
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/serialization-compact.yaml[]
+----
 
 == Configuring Custom Serialization
 
@@ -15,17 +25,6 @@ To register custom serializers, you need to define the list of serializers and t
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/serialization-custom.yaml[]
-----
-
-
-== Configuring Compact Serialization
-
-To configure Compact serialization, you need to define the `compactSerialization` section. The following configuration will register an explicit serializer `com.example.FooSerializer` along with a zero-config serializer for `com.example.Bar` class.
-
-.Compact serialization example configuration
-[source,yaml,subs="attributes+"]
-----
-include::ROOT:example$/serialization-compact.yaml[]
 ----
 
 == Disallowing Deserialization of Untrusted Java Classes
