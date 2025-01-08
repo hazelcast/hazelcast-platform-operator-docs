@@ -74,3 +74,22 @@ metadata:
   uid: 299e5d42-4c72-4877-9a99-c6ffa3c68d07
 type: Opaque
 ----
+
+== Enabling TLS/SSL for LDAP
+
+To enable TLS when using an LDAP server that employs the LDAPS (LDAP over SSL) protocol or the Start TLS operation, you need to create the sercret that contains `keyStore`, `keyStorePassword`, `trustStore` and `trustStorePassword` and to ensure that the `tls` parameter is configured to use the create secret.
+
+[source,shell]
+----
+kubectl create secret generic mc-ldap-secret \
+  --from-file=trustStore=truststore.p12  --from-literal=trustStorePassword=my-password \
+  --from-file=keyStore=keystore.p12 --from-literal=keyStorePassword=my-password
+----
+
+[source,yaml,subs="attributes+"]
+----
+securityProvider:
+  ldap:
+    tls:
+      secretName: mc-ldap-secret
+----
