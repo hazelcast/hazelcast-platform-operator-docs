@@ -77,7 +77,7 @@ type: Opaque
 
 == Enabling TLS/SSL for LDAP
 
-To enable TLS when using an LDAP server that employs the LDAPS (LDAP over SSL) protocol or the Start TLS operation, you need to create the sercret that contains `keyStore`, `keyStorePassword`, `trustStore` and `trustStorePassword` and to ensure that the `tls` parameter is configured to use the create secret.
+To enable TLS when using an LDAP server that employs the LDAPS (LDAP over SSL) protocol or the Start TLS operation, you need to create a secret that contains `keyStore`, `keyStorePassword`, `trustStore` and `trustStorePassword` and ensure that the `tls` parameter is configured to use this secret.
 
 [source,shell]
 ----
