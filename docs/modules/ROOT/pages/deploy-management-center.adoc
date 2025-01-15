@@ -119,6 +119,8 @@ MANCENTER_IP=$( oc get service managementcenter-sample -o jsonpath='{.status.loa
 
 == Clean up
 
+#Authors note - Is clean up part of the deployment process or is it only something you'd do if you wanted to remove the Management Center? In what circumstances might you do this? Perhaps this should be a separate topic and not part of Deployment? Please advise.#
+
 You can run the commands below to remove the Management Center.
 
 [tabs]
