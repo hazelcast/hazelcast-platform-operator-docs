@@ -111,6 +111,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<JetJobStatusPhase,JetJobStatusPhase>>
 * <<JetRemoteFileConfiguration,JetRemoteFileConfiguration>>
 * <<LDAPProvider,LDAPProvider>>
+* <<LdapTLS,LdapTLS>>
 * <<LiteMember,LiteMember>>
 * <<LocalDeviceConfig,LocalDeviceConfig>>
 * <<LoggingLevel,LoggingLevel>>
@@ -1360,6 +1361,19 @@ m| metricsOnlyGroups | Members of these groups and its nested groups have the pr
 m| userSearchFilter | LDAP search filter expression to search for the users. For example, uid=\{0} searches for a username that matches with the uid attribute. m| string | true | -
 m| groupSearchFilter | LDAP search filter expression to search for the groups. For example, uniquemember=\{0} searches for a group that matches with the uniquemember attribute. m| string | true | -
 m| nestedGroupSearch | NestedGroupSearch enables searching for nested LDAP groups. m| bool | true | false
+m| tls | TLS configures the TLS connection for LDAP. m| &#42;<<LdapTLS,LdapTLS>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== LdapTLS
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| secretName | Name of the secret with TLS certificate and key. m| string | true | -
 |===
 
 <<Table of Contents,Back to TOC>>
