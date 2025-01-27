@@ -16,13 +16,14 @@ NOTE: If you want to migrate from the Hazelcast Helm Chart, please follow the gu
 As part of the deployment process, you will install the custom resource definitions (CRD) that describe the Hazelcast resource types.
 
 A CRD is a Kubernetes feature that allows you to create custom resources that extend the Kubernetes API.
-CRDs allow new types of resources tailored to specific use cases to be created, without adding another API server. They also provide detailed reports on the configuration content of a CRD to any authorized Kubernetes API consumer. Using CRDs, you can:
+CRDs allow new types of resources tailored to specific use cases to be created, without adding another API server. 
+They also provide detailed reports on the configuration content of a CRD to any authorized Kubernetes API consumer. Using CRDs, you can:
 
 * Introduce unique objects or types into the Kubernetes cluster
 * Create platform resources on top of Kubernetes
 * Build and use platforms through self-service activity
 
-For example, the `clusterName` object can be used to rename a cluster. The Operator's controllers watch for the apply event and create resources in the cluster to achieve the changes expressed by the `clusterName` object.
+For example, the `clusterName` field can be used to rename a Hazelcast cluster.
 
 CRDs are expressed in YAML format, just like standard Kubernetes entities. The Kubernetes API server processes and manages CRDs the same way it does with built-in resources.
 
