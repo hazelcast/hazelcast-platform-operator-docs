@@ -117,30 +117,6 @@ MANCENTER_IP=$( oc get service managementcenter-sample -o jsonpath='{.status.loa
 --
 ====
 
-== Clean up
-
-You can run the commands below to remove the Management Center.
-
-[tabs]
-====
-Kubernetes::
-+
---
-[source,shell]
-----
-kubectl delete -f management-center.yaml
-----
---
-Openshift::
-+
---
-[source,shell]
-----
-oc delete -f management-center.yaml
-----
---
-====
-
 == Next Steps
 
 Learn how to xref:connect-outside-kubernetes.adoc[expose Hazelcast clusters outside Kubernetes] so you can connect external clients to them.

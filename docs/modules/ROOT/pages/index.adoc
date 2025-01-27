@@ -1,17 +1,37 @@
 = Hazelcast Platform Operator
 :!page-pagination:
-:description: By eliminating the need for manual deployment and life-cycle management, Hazelcast Platform Operator simplifies working with Hazelcast clusters on Kubernetes and Red Hat OpenShift.
+:description: Hazelcast Platform Operator simplifies working with Hazelcast clusters on Kubernetes and Red Hat OpenShift by eliminating the need for manual deployment and life-cycle management.
 
-{description}
+== Overview
 
-Hazelcast Platform Operator allows your development and DevOps teams to automate common management tasks for your Hazelcast clusters on Kubernetes and Red Hat OpenShift. For example, you can use Hazelcast Platform Operator to automate the following tasks:
+Hazelcast Operator simplifies the deployment and management of Hazelcast clusters on Kubernetes and Red Hat OpenShift platforms. It automates common management tasks, making it easier for Development and DevOps teams to work with Hazelcast clusters in cloud-native environments.
+
+For example, you can use Hazelcast Platform Operator to automate the following tasks:
 
 * Configuration
 * Creation
 * Scaling
 * Recovery
 
-This documentation assumes an intermediate knowledge of Kubernetes.
+Hazelcast and Kubernetes are complex systems which you will need a good understanding of before you use Operator. Refer to the Platform documentation for more information about Hazelcast. 
+
+NOTE: Hazelcast Operator only supports Enterprise deployments of Hazelcast clusters. 
+The Community Edition does not provide support for the Operator.  
+
+=== Key features and benefits
+
+The aim of Operator is to manage a Hazelcast deployment on Kubernetes and Red Hat OpenShift so that you do not need to worry about the operational complexities of running Hazelcast. It offers:
+
+* Kubernetes-native experience: Hazelcast Operator makes the Hazelcast Platform truly Kubernetes-native by using Custom Resource Definitions (CRDs)
+* Automated configuration and management: It handles configuration, creation, scaling, and recovery tasks automatically
+* Simplified persistence, backup and restore: Makes it easier to enable persistence on Hazelcast and manage backup and restore on Kubernetes
+* Support for WAN Replication: Simplifies the configuration and management of WAN Replication in Kubernetes environments
+* Dynamic configuration: Allows updating configurations without cluster restarts, enhancing flexibility
+* Rich API: Provides an intuitive API that abstracts complex Hazelcast configurations, focusing on features rather than on specific settings
+* Automatic feature lifecycle control: Simplifies advanced operations such as cluster backups without manual intervention
+* Platform-specific optimizations: Automatically applies optimal configurations based on the runtime environment
+
+By using Hazelcast Operator, teams can benefit from a more streamlined, automated, and Kubernetes-native approach to managing Hazelcast clusters. This helps to reduce complexity and improve operational efficiency in cloud environments.
 
 == Supported Platform Versions
 
@@ -47,4 +67,4 @@ Known limitations
 
 == Get Started
 
-xref:get-started.adoc[].
+For information on how to install Operator and deploy a Hazelcast cluster, see: xref:get-started.adoc[].

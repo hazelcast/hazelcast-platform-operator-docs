@@ -1,6 +1,6 @@
 = Migrating From Helm Chart to the Operator
 
-Unfortunately there isn't any way to migrate without re-creating the cluster as the Operator needs to take control of the custom resources which were created by the Helm chart, which it is not possible.
+Unfortunately, you cannot migrate without re-creating the cluster as the Operator needs to take control of the custom resources which were created by the Helm chart, which is not possible.
 
 There are two ways to migrate from a cluster that is created by the Hazelcast Helm Chart.
 

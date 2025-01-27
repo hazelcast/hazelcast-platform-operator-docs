@@ -1,12 +1,14 @@
 = Deploying Lite Members
 
-Use the Hazelcast Platform Operator to deploy link:https://docs.hazelcast.com/hazelcast/latest/maintain-cluster/lite-members[Lite Members]. You can use the separate `liteMember` section in the Hazelcast CR.
+Use the Hazelcast Platform Operator to deploy link:https://docs.hazelcast.com/hazelcast/latest/maintain-cluster/lite-members[Lite Members]. You can use the separate `liteMember` section in the xref:api-ref.adoc#litemember[Hazelcast CR].
+
+#Authors note - should we use CR or API to refer to this topic. Currently both terms are used so we should standardise on one#
 
 WARNING: When `jvm`, `env`, `resources`, `scheduling` sections are configured in the Hazelcast CR, it will not affect the lite member configuration. Lite members must be configured as explained in the following sections.
 
 == Configuring the Number of Lite Members
 
-To configure the number of lite members you want to deploy in the Hazelcast CR, use the `count` field in the `liteMember` section of the Hazelcast CR.
+To configure the number of lite members you want to deploy in the Hazelcast CR, use the `count` field in the `liteMember` section of the xref:api-ref.adoc#litemember[Hazelcast CR].
 
 .Example Lite Member Count Configuration
 [source,yaml,subs="attributes+"]
@@ -20,7 +22,7 @@ NOTE: As seen in the example, `clusterSize` represents the number of data member
 
 == Configuring JVM Parameters
 
-To configure JVM Parameters specifically for lite members, you can use the `jvm` field in the `liteMember` section of the Hazelcast CR.
+To configure JVM Parameters specifically for lite members, you can use the `jvm` field in the `liteMember` section of the xref:api-ref.adoc#litemember[Hazelcast CR].
 
 .Example Lite Member JVM Configuration
 [source,yaml,subs="attributes+"]
@@ -30,13 +32,13 @@ include::ROOT:example$/lite-member-jvm.yaml[]
 
 == Configuring Environment Variables
 
-To configure environment variables specifically for lite members, you can use the `env` field in the `liteMember` section of the Hazelcast CR.
+To configure environment variables specifically for lite members, you can use the `env` field in the `liteMember` section of the xref:api-ref.adoc#litemember[Hazelcast CR].
 
 Same rules and logic is applicable as in the xref:env-vars.adoc[Environment variables].
 
 == Configuring Resource Limits
 
-To configure resource limits specifically for lite members, you can use the `resources` field in the `liteMember` section of the Hazelcast CR.
+To configure resource limits specifically for lite members, you can use the `resources` field in the `liteMember` section of the xref:api-ref.adoc#litemember[Hazelcast CR].
 
 .Example Lite Member Resource Limits Configuration
 [source,yaml,subs="attributes+"]
@@ -46,7 +48,7 @@ include::ROOT:example$/lite-member-resource-limits.yaml[]
 
 == Configuring Scheduling
 
-To configure scheduling specifically for lite members, you can use the `scheduling` field in the `liteMember` section of the Hazelcast CR.
+To configure scheduling specifically for lite members, you can use the `scheduling` field in the `liteMember` section of the xref:api-ref.adoc#litemember[Hazelcast CR].
 
 .Example Lite Member Scheduling Configuration
 [source,yaml,subs="attributes+"]

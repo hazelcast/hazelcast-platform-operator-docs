@@ -1,5 +1,5 @@
 = Deploy a Cluster with the Hazelcast Platform Operator for Kubernetes
-:description: In this tutorial, you'll deploy a Hazelcast cluster using Hazelcast Platform Operator for Kubernetes.
+:description: This topic explains how to deploy a Hazelcast cluster using Hazelcast Platform Operator for Kubernetes.
 
 {description}
 
@@ -12,6 +12,24 @@
 NOTE: If you want to migrate from the Hazelcast Helm Chart, please follow the guidance in xref:migrating-from-helm.adoc[Migrating from Helm] document.
 
 == Step 1. Deploy Hazelcast Platform Operator
+
+As part of the deployment process, you will install the custom resource definitions (CRD) that describe the Hazelcast resource types.
+
+A CRD is a Kubernetes feature that allows you to create custom resources that extend the Kubernetes API.
+CRDs allow new types of resources tailored to specific use cases to be created, without adding another API server. 
+They also provide detailed reports on the configuration content of a CRD to any authorized Kubernetes API consumer. Using CRDs, you can:
+
+* Introduce unique objects or types into the Kubernetes cluster
+* Create platform resources on top of Kubernetes
+* Build and use platforms through self-service activity
+
+For example, the `clusterName` field in the Hazelcast CRD can be used to rename a cluster.
+
+CRDs are expressed in YAML format, just like standard Kubernetes entities. The Kubernetes API server processes and manages CRDs the same way it does with built-in resources.
+
+For more information about the Hazelcast Platform Operator CRD, see xref:api-ref.adoc[API types].
+
+=== Install and run Operator
 
 From release 5.6.0 onwards, you can use a Helm chart to install the Hazelcast Platform Operator.
 
@@ -163,7 +181,7 @@ Members {size:3, ver:3} [
 ]
 ```
 
-== Step 3. Check that the Hazelcast Cluster is Running
+== Step 3. Check that the Hazelcast Cluster is running
 
 To check if a cluster is running, see the `status` field of the Hazelcast resource.
 
@@ -235,45 +253,6 @@ Any additional information such as validation errors will be provided in the `me
 
 The `readyMembers` field represents the number of Hazelcast members that are connected to the cluster.
 
-== Step 4. Clean up
-
-Run the following commands to remove Hazelcast cluster and Hazelcast License Key Secret.
-
-[tabs]
-====
-Kubernetes::
-+
---
-[source,shell]
-----
-kubectl delete -f hazelcast-enterprise.yaml
-kubectl delete secret hazelcast-license-key
-----
---
-Openshift::
-+
---
-[source,shell]
-----
-oc delete -f hazelcast-enterprise.yaml
-oc delete secret hazelcast-license-key
-----
---
-====
-
-Finally, run the command below to delete the Hazelcast Platform Operator deployment.
-
-[source,shell]
-----
-helm uninstall operator
-----
-
-If you installed the CRDs separately from the operator, you need to remove them by running the following command:
-
-[source,shell]
-----
-helm uninstall operator-crds
-----
 
 == Next Steps
 

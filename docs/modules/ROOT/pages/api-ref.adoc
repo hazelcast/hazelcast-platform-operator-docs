@@ -1,16 +1,23 @@
 
 = Hazelcast Platform Operator API Docs
 
-A reference guide to the Hazelcast Platform Operator CRD types.
+Hazelcast Operator simplifies the deployment and management of Hazelcast clusters, 
+and an important element of this is its intuitive API which abstracts the complexity.
 
-== Hazelcast Platform Operator API Docs
+For example, consider the task of connecting to Hazelcast running on Kubernetes from outside with a smart client. 
+To do this, you need to create the service per pod manually, making scaling more difficult, or use a third-party tool such as `metacontroller`. 
+However, with the Operator, you can declaratively specify the `exposeExternally` configuration in the Hazelcast CRD, 
+and Operator will take care of creating the service per pod. 
 
-This is a reference for the Hazelcast Platform Operator API types.
-These are all the types and fields that are used in the Hazelcast Platform Operator CRDs. 
+== About this guide
 
-TIP: This document was generated from comments in the Go code in the api/ directory.
+The following is a reference guide to the Hazelcast Platform Operator API types.
+It includes all the types and fields used in the Hazelcast Platform Operator Custom Resource Definitions (CRDs).
+
+NOTE: This document was generated from comments in the Go code in the api/ directory.
 
 === Table of Contents
+
 * <<AcknowledgementSetting,AcknowledgementSetting>>
 * <<AcknowledgementType,AcknowledgementType>>
 * <<AdvancedNetwork,AdvancedNetwork>>
