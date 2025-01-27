@@ -15,7 +15,8 @@ For example, you can use Hazelcast Platform Operator to automate the following t
 
 Hazelcast and Kubernetes are complex systems which you will need a good understanding of before you use Operator. Refer to the Platform documentation for more information about Hazelcast. 
 
-#Authors note - should we state that Operator is an Enterprise feature?#
+NOTE: Hazelcast Operator only supports Enterprise deployments of Hazelcast clusters. 
+The Community Edition does not provide support for the Operator.  
 
 === Key features and benefits
 

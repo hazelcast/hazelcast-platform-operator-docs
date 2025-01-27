@@ -117,32 +117,6 @@ MANCENTER_IP=$( oc get service managementcenter-sample -o jsonpath='{.status.loa
 --
 ====
 
-== Clean up
-
-#Authors note - Is clean up part of the deployment process or is it only something you'd do if you wanted to remove the Management Center? In what circumstances might you do this? Perhaps this should be a separate topic and not part of Deployment? Please advise.#
-
-You can run the commands below to remove the Management Center.
-
-[tabs]
-====
-Kubernetes::
-+
---
-[source,shell]
-----
-kubectl delete -f management-center.yaml
-----
---
-Openshift::
-+
---
-[source,shell]
-----
-oc delete -f management-center.yaml
-----
---
-====
-
 == Next Steps
 
 Learn how to xref:connect-outside-kubernetes.adoc[expose Hazelcast clusters outside Kubernetes] so you can connect external clients to them.

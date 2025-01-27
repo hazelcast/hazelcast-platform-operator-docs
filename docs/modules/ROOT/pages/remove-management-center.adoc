@@ -1,0 +1,28 @@
+= Remove Management Center using the Operator
+:description: This topic describes how to remove Management Center using the Hazelcast Platform Operator for Kubernetes.
+
+{description}
+
+== Remove Management Center
+
+To remove the Management Center, run the commands below.
+
+[tabs]
+====
+Kubernetes::
++
+--
+[source,shell]
+----
+kubectl delete -f management-center.yaml
+----
+--
+Openshift::
++
+--
+[source,shell]
+----
+oc delete -f management-center.yaml
+----
+--
+====

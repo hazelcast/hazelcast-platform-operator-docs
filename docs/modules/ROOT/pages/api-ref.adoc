@@ -1,22 +1,23 @@
 
 = Hazelcast Platform Operator API Docs
 
-A reference guide to the Hazelcast Platform Operator CRD types.
+Hazelcast Operator simplifies the deployment and management of Hazelcast clusters, 
+and an important element of this is its intuitive API which abstracts the complexity.
 
-#Authors note - is this Operator API docs or custom resource documentation? Which is it?#
+For example, consider the task of connecting to Hazelcast running on Kubernetes from outside with a smart client. 
+To do this, you need to create the service per pod manually, making scaling more difficult, or use a third-party tool such as `metacontroller`. 
+However, with the Operator, you can declaratively specify the `exposeExternally` configuration in the Hazelcast CRD, 
+and Operator will take care of creating the service per pod. 
 
-== Hazelcast Platform Operator API Docs
+== About this guide
 
-Hazelcast Operator simplifies the deployment and management of Hazelcast clusters, and an important element of this is its intuitive API which abstracts the complexity.
+The following is a reference guide to the Hazelcast Platform Operator API types.
+It includes all the types and fields used in the Hazelcast Platform Operator Custom Resource Definitions (CRDs).
 
-For example, consider the task of connecting to Hazelcast running on Kubernetes from outside with a smart client. To do this, you need to create the service per pod manually, making scaling more difficult, or use a third-party tool such as `metacontroller`. However, with the Operator, you can declaratively specify the `exposeExternally` configuration in the Hazelcast CRD, and Operator will take care of creating the service per pod. 
-
-This topic is a reference for the Hazelcast Platform Operator API types.
-These are all the types and fields that are used in the Hazelcast Platform Operator CRDs. 
-
-TIP: This document was generated from comments in the Go code in the api/ directory.
+NOTE: This document was generated from comments in the Go code in the api/ directory.
 
 === Table of Contents
+
 * <<AcknowledgementSetting,AcknowledgementSetting>>
 * <<AcknowledgementType,AcknowledgementType>>
 * <<AdvancedNetwork,AdvancedNetwork>>

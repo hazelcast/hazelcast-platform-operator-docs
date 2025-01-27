@@ -252,47 +252,6 @@ Any additional information such as validation errors will be provided in the `me
 
 The `readyMembers` field represents the number of Hazelcast members that are connected to the cluster.
 
-== Step 4. Clean up
-
-#Authors note - Is clean up part of the deployment process or is it only something you'd do if you wanted to remove Operator? In what circumstances would you do this? Perhaps this should be a separate topic and not part of Deployment? Please advise.#
-
-Run the following commands to remove Hazelcast cluster and Hazelcast License Key Secret.
-
-[tabs]
-====
-Kubernetes::
-+
---
-[source,shell]
-----
-kubectl delete -f hazelcast-enterprise.yaml
-kubectl delete secret hazelcast-license-key
-----
---
-Openshift::
-+
---
-[source,shell]
-----
-oc delete -f hazelcast-enterprise.yaml
-oc delete secret hazelcast-license-key
-----
---
-====
-
-Finally, run the command below to delete the Hazelcast Platform Operator deployment.
-
-[source,shell]
-----
-helm uninstall operator
-----
-
-If you installed the CRDs separately from the operator, you need to remove them by running the following command:
-
-[source,shell]
-----
-helm uninstall operator-crds
-----
 
 == Next Steps
 
