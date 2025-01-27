@@ -23,7 +23,7 @@ They also provide detailed reports on the configuration content of a CRD to any 
 * Create platform resources on top of Kubernetes
 * Build and use platforms through self-service activity
 
-For example, the `clusterName` field can be used to rename a Hazelcast cluster.
+For example, the `clusterName` field in the Hazelcast CRD can be used to rename a cluster.
 
 CRDs are expressed in YAML format, just like standard Kubernetes entities. The Kubernetes API server processes and manages CRDs the same way it does with built-in resources.
 
