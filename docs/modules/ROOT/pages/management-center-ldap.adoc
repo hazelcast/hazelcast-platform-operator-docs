@@ -1,14 +1,23 @@
 = LDAP Security Provider
-:description: You can use your existing LDAP server for authentication/authorization on the Management Center.
+:description: This topic explains how to use your existing LDAP server for authentication/authorization in the Management Center.
 
 {description}
 
-See xref:management-center:deploy-manage:ldap.adoc[Management Center Documentation] for more detailed information.
+Hazelcast supports authentication and authorization against Lightweight Directory Access Protocol (LDAP) servers.
+You can use Hazelcast Operator to configure Management Center to use an LDAP server. 
+For more information about using LDAP in the Management Center, see the link:https://docs.hazelcast.com/management-center/latest/getting-started/overview[Management Center Documentation].
 
-== Setting Up the LDAP Security Provider
+== Setting Up the LDAP security provider
 
-To set up LDAP, you need to configure the `securityProvider.ldap` section in the Management Center CR.
-The following are the required fields to configure the LDAP Security provider.
+You can configure either LDAP or LDAP over TLS (or LDAPS). To set up:
+
+* LDAP, configure the `securityProvider.ldap` section in the Management Center CR.
+
+* LDAP over TLS (or LDAPS)
+** Create the `secretName` (this contains the name of the secret and includes the keyStore, keyStorePassword, trustStore, and trustStorePassword). If you do not create the secretName, a validation error will occur.
+** Configure the `securityProvider.ldap.tls` section in the Management Center CR.
+
+Use the following fields to configure the LDAP security provider:
 
 [cols="30%m,70%a"]
 |===
@@ -17,8 +26,11 @@ The following are the required fields to configure the LDAP Security provider.
 |`url`
 | URL of your LDAP server, including schema (ldap://) and port.
 
+|`secretName`
+| The name of the secret that contains `keyStore`, `keyStorePassword`, `trustStore`, and `trustStorePassword` for LDAP over TLS (or LDAPS).
+
 |`credentialsSecretName`
-| The name of the secret that contains `username` and `password` keys of a user that has admin privileges on the LDAP server. The `username` must be the must be the distinguished name (DN) of the user. It is used to connect to the server when authenticating users.
+| The name of the secret that contains `username` and `password` keys of a user that has admin privileges on the LDAP server. The `username` must be the distinguished name (DN) of the user. It is used to connect to the server when authenticating users.
 
 |`userDN`
 | DN to be used for searching users.
@@ -48,13 +60,6 @@ The following are the required fields to configure the LDAP Security provider.
 
 === Example Management Center LDAP Configuration
 
-The following is an example configuration for the LDAP Security Provider:
-
-[source,yaml,subs="attributes+"]
-----
-include::ROOT:example$/management-center-ldap.yaml[]
-----
-
 The following example shows how to create a `Secret` for the LDAP credentials.
 
 [source,shell]
@@ -73,4 +78,20 @@ metadata:
   resourceVersion: "59391"
   uid: 299e5d42-4c72-4877-9a99-c6ffa3c68d07
 type: Opaque
+----
+
+#Authors note - do we need an example of how to create the `secretName` for LDAP/TLS, similar to the above?#
+
+The following is an example configuration for the LDAP Security Provider:
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/management-center-ldap.yaml[]
+----
+
+The following is an example configuration for the LDAP over TLS (or LDAPS) Security Provider:
+
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/management-center-ldap-tls.yaml[]
 ----
