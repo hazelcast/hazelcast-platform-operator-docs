@@ -1,0 +1,129 @@
+= Client Authentication and Authorization
+
+Use the Hazelcast Platform Operator to configure xref:hazelcast:security:authentication-overview.adoc[Client Authentication] and xref:hazelcast:security:client-authorization.adoc[Client Authorization].
+
+== Simple Authentication
+
+You can easily use xref:hazelcast:security:simple-authentication.adoc[Hazelcast Simple Authentication] by making minimal changes in the original configuration.
+
+For example:
+
+[source,yaml]
+----
+security:
+  enabled: true
+  realms:
+    - name: simpleRealm-clients
+      authentication:
+        simple:
+          users:
+          - secretName: user1-secret
+            roles:
+              - admin
+          - secretName: user2-secret
+            roles:
+              - monitor
+              - application
+  client-authentication:
+    realm: simpleRealm-clients
+  client-permissions:
+    all:
+      principal: admin
+      endpoints:
+        - 127.0.0.1
+    map:
+      - name: playground
+        actions:
+          - all
+      - name: accounts
+        principal: monitor
+        actions:
+          - read
+      - name: accounts
+        principal: application
+        endpoints:
+          - 192.168.1.*
+          - 192.168.2.*
+        actions:
+          - create
+          - destroy
+          - put
+          - read
+          - remove
+          - lock
+----
+
+This can be converted as:
+
+[source,yaml]
+----
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+    security:
+        operatorClientSecretName: user1-secret
+        realms:
+          - name: simpleRealm-clients
+            authentication:
+              simple:
+                users:
+                - secretName: user1-secret
+                  roles:
+                    - admin
+                - secretName: user2-secret
+                  roles:
+                    - monitor
+                    - application
+        clientAuthentication:
+          realm: simpleRealm-clients
+        clientPermissions:
+          all:
+            principal: admin
+            endpoints:
+              - 127.0.0.1
+          permissions:
+            map:
+              - name: playground
+                actions:
+                  - all
+              - name: accounts
+                principal: monitor
+                actions:
+                  - read
+              - name: accounts
+                principal: application
+                endpoints:
+                  - 192.168.1.*
+                  - 192.168.2.*
+                actions:
+                  - create
+                  - destroy
+                  - put
+                  - read
+                  - remove
+                  - lock
+----
+
+Required Changes:
+
+* `security.enabled` should be removed.
+* convert kebab cases to camel cases:
+** `client-authentication` -> `clientAuthentication`
+** `client-permissions` -> `clientPermissions`
+* add `permissions` node to `clientPermissions` to wrap permissions other than `all`.
+
+NOTE:  The `operatorClientSecretName` is a mandatory field required for the Operator to establish a connection with the Hazelcast cluster. The given user in the `operatorClientSecretName` field must have a role that has all the client permissions. Otherwise, the Operator will fail with a validation error.
+
+=== Management Center Configuration
+
+As the Management Center serves as a client of the Hazelcast cluster, it must be properly configured to connect to the cluster. The `security.clientSecretName` field in the `hazelcastClusters` section is utilized for this configuration.
+
+.Management Center Simple Authentication Example
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/management-center-simple-auth.yaml[]
+----
+
+NOTE: The given user in the `clientSecretName` field have a role that has all the client permissions.

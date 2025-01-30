@@ -13,31 +13,10 @@ To use the Custom Config as a method of configuring the Hazelcast cluster, you n
 ConfigMap::
 +
 --
-[source,yaml]
-```
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: custom-config-cm
-data:
-  hazelcast: |-
-    security:
-      enabled: true
-      realms:
-      - name: simpleRealm
-        authentication:
-          simple:
-            users:
-            - username: operator
-              password: 'op-pass'
-              roles:
-              - root
-      client-authentication:
-        realm: simpleRealm
-      client-permissions:
-        all:
-          principal: root
-```
+[source,shell]
+----
+kubectl create configmap custom-config-cm --from-file=<path-to-file>
+----
 
 The name of the `ConfigMap` should be set to the Hazelcast CR's `customConfigCmName` field.
 
@@ -56,15 +35,9 @@ spec:
 Secret::
 +
 --
-[source,yaml]
+[source,shell]
 ```
-apiVersion: v1
-kind: Secret
-metadata:
-  name: custom-config-secret
-data:
-  hazelcast: c2VjdXJpdHk6CiAgZW5hYmxlZDogdHJ1ZQogIHJlYWxtczoKICAtIG5hbWU6IHNpbXBsZVJlYWxtCiAgICBhdXRoZW50aWNhdGlvbjoKICAgICAgc2ltcGxlOgogICAgICAgIHVzZXJzOgogICAgICAgIC0gdXNlcm5hbWU6IG9wZXJhdG9yCiAgICAgICAgICBwYXNzd29yZDogJ29wLXBhc3MnCiAgICAgICAgICByb2xlczoKICAgICAgICAgIC0gcm9vdAogIGNsaWVudC1hdXRoZW50aWNhdGlvbjoKICAgIHJlYWxtOiBzaW1wbGVSZWFsbQogIGNsaWVudC1wZXJtaXNzaW9uczoKICAgIGFsbDoKICAgICAgcHJpbmNpcGFsOiByb290Cgo=
-
+kubectl create secret generic custom-config-secret --from-file=<path-to-file>
 ```
 
 The name of the `Secret` should be set to the Hazelcast CR's `customConfigSecretName` field.
@@ -85,47 +58,6 @@ spec:
 == Custom Config and Hazelcast CR
 
 The Custom Config is not designed as an alternative to the Hazelcast CR configuration, and it is not recommended to use it as the main source of the configuration. That said, Custom Config can and should be used together with the Hazelcast CR configuration.
-
-[source,yaml]
-```
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: custom-config-cm
-data:
-  hazelcast: |-
-    security:
-      enabled: false
-      realms:
-        - name: simpleRealm
-          authentication:
-            simple:
-              users:
-                - username: dev
-                  password: 'secret'
-                  roles:
-                    - root
-```
-
-[source,yaml]
-```
-apiVersion: hazelcast.com/v1alpha1
-kind: Hazelcast
-metadata:
-  name: hazelcast
-spec:
-  customConfigCmName: custom-config-cm
-  userCodeDeployment:
-    bucketConfig:
-      secretName: br-secret-gcp
-      bucketURI: "gs://operator-custom-class/executorService"
-  executorServices:
-    - name: service1
-  durableExecutorServices:
-    - name: service2
-  scheduledExecutorServices:
-    - name: service3
-```
 
 The configuration from the Hazelcast CR and the Custom Config will be merged into one structure that will be used as the Hazelcast member configuration.
 If the same feature is configured with Custom Config `ConfigMap` and in the Hazelcast CR, the configuration from the Hazelcast CR will take precedence and will override the one from the Custom Config.
@@ -154,4 +86,4 @@ The Hazelcast Platform Operator communicates with the Hazelcast cluster, requiri
 
 === Security configuration
 
-When configuring `security` with enabled `client-authentication`, you must provide a user with `all` permissions and a simple authentication method. The client and the operator will use this user to connect to and manage the cluster.
+The security configuration is not accessible through custom configuration. To configure xref:client-simple-auth.adoc[Simple Authentication] use `Security` section of the Hazelcast CR.

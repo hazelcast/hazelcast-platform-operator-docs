@@ -58,6 +58,8 @@
 * Security
 ** xref:tls.adoc[Configure TLS]
 ** xref:authorization.adoc[Authorization Methods to Access Cloud Storage]
+** Configuring Client Authentication
+*** xref:client-auth.adoc[Simple Authentication]
 
 * Compute
 ** xref:user-code-deployment.adoc[User Code Deployment]
