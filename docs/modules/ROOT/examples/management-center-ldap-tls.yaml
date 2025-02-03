@@ -1,0 +1,26 @@
+apiVersion: hazelcast.com/v1alpha1
+kind: ManagementCenter
+metadata:
+  name: managementcenter
+spec:
+  repository: 'hazelcast/management-center'
+  licenseKeySecretName: hazelcast-license-key
+  securityProvider:
+    ldap:
+      tls:
+        secretName: mc-ldap-secret
+      credentialsSecretName: ldap-credentials
+      groupDN: ou=users,dc=example,dc=org
+      groupSearchFilter: member={0}
+      nestedGroupSearch: false
+      url: ldap://34.118.236.200:1389
+      userDN: ou=users,dc=example,dc=org
+      userGroups:
+        - readers
+      metricsOnlyGroups:
+        - readers
+      adminGroups:
+        - readers
+      readonlyUserGroups:
+        - readers
+      userSearchFilter: cn={0}
