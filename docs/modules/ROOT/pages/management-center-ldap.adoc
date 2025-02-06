@@ -29,6 +29,9 @@ Use the following fields to configure the LDAP security provider:
 |`secretName`
 | The name of the secret that contains `keyStore`, `keyStorePassword`, `trustStore`, and `trustStorePassword` for LDAP over TLS (or LDAPS).
 
+|`startTLS`
+| Enable TLS encryption for LDAP connections to initiate a secure TLS connection over an initially unencrypted channel.
+
 |`credentialsSecretName`
 | The name of the secret that contains `username` and `password` keys of a user that has admin privileges on the LDAP server. The `username` must be the distinguished name (DN) of the user. It is used to connect to the server when authenticating users.
 
@@ -58,7 +61,7 @@ Use the following fields to configure the LDAP security provider:
 
 |===
 
-=== Example Management Center LDAP Configuration
+=== Example Management Center LDAP configuration
 
 The following example shows how to create a `Secret` for the LDAP credentials.
 

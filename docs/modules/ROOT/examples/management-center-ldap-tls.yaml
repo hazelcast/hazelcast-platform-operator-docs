@@ -9,6 +9,7 @@ spec:
     ldap:
       tls:
         secretName: mc-ldap-secret
+        startTLS: true
       credentialsSecretName: ldap-credentials
       groupDN: ou=users,dc=example,dc=org
       groupSearchFilter: member={0}
