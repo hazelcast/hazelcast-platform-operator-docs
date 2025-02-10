@@ -20,7 +20,7 @@ For help installing and running Operator Hazelcast Platform Operator, see xref:g
 == Fixed issues
 
 - *Static configuration for User Code Namespace (UCN) now correctly generates the configuration in `hazelcast.yaml`*: static configuration for User Code Namespace (UCN) now correctly generates the configuration in `hazelcast.yaml` by including the required `name-spaces` field instead of incorrectly using the `default` key
-- *Fixed the issue when Hazelcast can't be deployed using Compact Serializers.*: the provided compact serializer config was passed to Hazelcast with the wrong YAML format. Now Hazelcast throws an `InvalidConfigurationException` since the claimed class is not on the _classpath_, which is expected
+- *Fixed the issue when Hazelcast can't be deployed using Compact Serializers*: the provided compact serializer config was passed to Hazelcast with the wrong YAML format. Now Hazelcast throws an `InvalidConfigurationException` since the claimed class is not on the _classpath_, which is expected
 
 == Known Issues
 
