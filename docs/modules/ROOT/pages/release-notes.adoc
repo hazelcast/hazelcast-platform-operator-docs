@@ -17,7 +17,7 @@ For help installing and running Operator Hazelcast Platform Operator, see xref:g
 
 - *Added ability to configure client and member mutual authentication separately*: you can configure mutual authentication of client-to-member and member-to-member communications separately. (Previously mutual authentication for member to member communication was always Required by default)
 
-== Fixed issues
+== Fixes
 
 - *Static configuration for User Code Namespace (UCN) now correctly generates the configuration in `hazelcast.yaml`*: static configuration for User Code Namespace (UCN) now correctly generates the configuration in `hazelcast.yaml` by including the required `name-spaces` field instead of incorrectly using the `default` key
 - *Fixed the issue when Hazelcast can't be deployed using Compact Serializers*: the provided compact serializer config was passed to Hazelcast with the wrong YAML format. Now Hazelcast throws an `InvalidConfigurationException` since the claimed class is not on the _classpath_, which is expected
