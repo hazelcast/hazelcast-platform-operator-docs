@@ -57,6 +57,7 @@
 
 * Security
 ** xref:tls.adoc[Configure TLS]
+** xref:configure-simple-security.adoc[Configure simple authentication and authorization]
 ** xref:configure-jaas.adoc[Configure JAAS]
 ** xref:authorization.adoc[Authorization Methods to Access Cloud Storage]
 
