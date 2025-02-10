@@ -3,7 +3,7 @@
 
 {description}
 
-Hazelcast Operator supports simple authentication and authorization for client connections, bringing native security controls to Operator-managed clusters. You can define authentication realms using Kubernetes secrets, assign roles (admin, monitor, application), and configure fine-grained permissions with InstancePermission and ClusterPermission. 
+Hazelcast Operator supports simple authentication and authorization for client connections, bringing native security controls to Operator-managed clusters. You can define authentication realms using Kubernetes secrets, assign roles (admin, monitor, application), and configure fine-grained permissions with `InstancePermission` and `ClusterPermission`. 
 
 The Operator retrieves admin credentials directly from `operatorClientSecretName`, eliminating manual configuration. This ensures secure, role-based access control, simplifies client authentication setup, and aligns with Hazelcast's standard security model for a seamless Kubernetes integration.
 
