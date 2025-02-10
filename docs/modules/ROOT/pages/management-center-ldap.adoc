@@ -5,7 +5,7 @@
 
 Hazelcast supports authentication and authorization against Lightweight Directory Access Protocol (LDAP) servers.
 You can use Hazelcast Operator to configure Management Center to use an LDAP server. 
-For more information about using LDAP in the Management Center, see the link:https://docs.hazelcast.com/management-center/latest/getting-started/overview[Management Center Documentation].
+For more information about using LDAP in the Management Center, see the link:https://docs.hazelcast.com/management-center/latest/deploy-manage/ldap[Management Center Documentation].
 
 == Setting Up the LDAP security provider
 
