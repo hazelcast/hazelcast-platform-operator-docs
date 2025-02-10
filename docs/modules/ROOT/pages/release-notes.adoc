@@ -1,22 +1,28 @@
-= Release Notes
+= Release notes
 
 :description:
-These release notes list any new features, enhancements, fixes and breaking changes that were made between version 5.13.0 and version 5.14.0 of Hazelcast Operator
+These release notes list any new features, enhancements, fixes and breaking changes that were made between version 5.14.0 and version 5.15.0 of Hazelcast Operator.
 
-== New Features
+== New features
 
-- Introduced xref:lite-members.adoc[Lite Member] support
-- Added support for xref:vector-collection-configuration.adoc[VectorCollection]
-- Implemented certificate chain support for separate xref:tls.adoc[KeyStore and TrustStore] configurations
-- Added support for deploying Flow using Flow Custom Resource (CR)
-- Added environment variable support for the Management Center CR
+#Author notes - links to the docs may not work until PR-292 is merged which has the doc changes in it. Also, what topic should the Simple Authentication and Authorization for Clients link to?#
+
+- *Support for xref:configure-jaas.adoc[JAAS Authentication]*. Hazelcast Operator now supports setting up Java Authentication and Authorization Service (JAAS) for the clients, allowing enterprises to deploy Hazelcast securely with JAAS authentication in Kubernetes environments
+- *TLS support for xref:management-center-ldap.adoc[MC LDAP Security Provider]*. Hazelcast Operator now supports authentication and authorization against Lightweight Directory Access Protocol (LDAP) servers over TLS (or LDAPS) for Management Center. To use this feature, you need to manually configure a truststore in which to store the certificates. Non-SSL LDAP connections continue to work as expected
+- *Simple authentication and authorization for clients*. Hazelcast Operator now supports simple authentication and authorization for client connections, bringing native security controls to Operator-managed clusters. You can define authentication realms using Kubernetes secrets, assign roles (admin, monitor, application), and configure fine-grained permissions with InstancePermission and ClusterPermission. The Operator retrieves admin credentials directly from `operatorClientSecretName`, eliminating manual configuration. This enhancement ensures secure, role-based access control, simplifies client authentication setup, and aligns with Hazelcast's standard security model for a seamless Kubernetes integration
 
 == Changes
 
-- Synchronized the versions of the operator and sidecar agent to improve ease of use.
-- Replaced JKS with PKCS12 for TLS certificate and key storage
-- Improved scaling options for the Flow CR
+#Author notes - I've retained the heading Changes, not Enhancements, because we refer to the 3rd New feature above as an enhancement so this might be confusing. Also, what topic should we link to?#
 
-== Fixed Issues
+- *Added ability to configure client and member mutual authentication separately*. You can configure mutual authentication of client-to-member and member-to-member communications separately. (Previously mutual authentication for member to member communication was always Required by default)
 
-- Resolved LDAP configuration issue when persistence is disabled
+== Fixed issues
+
+- *Static configuration for User Code Namespace (UCN) now correctly generates the configuration in `hazelcast.yaml`*. Static configuration for User Code Namespace (UCN) now correctly generates the configuration in `hazelcast.yaml` by including the required `name-spaces` field instead of incorrectly using the `default` key
+- *Fixed the issue when Hazelcast can't be deployed using Compact Serializers.* The provided compact serializer config was passed to Hazelcast with the wrong YAML format. Now Hazelcast throws an `InvalidConfigurationException` since the claimed class is not on the _classpath_, which is expected
+
+== Known Issues
+
+- *Authorization errors logged at incorrect level in Hazelcast Operator*. Currently, authorization errors in Hazelcast Operator are logged at the DEBUG level instead of ERROR, making it difficult to identify permission-related issues. When an invalid JAAS authentication configuration is applied (such as an incorrect class name) the logs do not immediately signal a failure. Until this issue is resolved in a future release, you should manually check the logs for authorization failures
+- *Clients continue connecting to cluster with expired or invalid TLS certificates*. Currently, when a TLS secret is updated with a new keystore and truststore, clients using outdated certificates can still connect to the Hazelcast cluster instead of being rejected. Even after updating the TLS secret, there is no built-in mechanism to enforce immediate re-authentication, leading to potential security concerns
