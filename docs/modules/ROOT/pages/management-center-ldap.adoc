@@ -1,5 +1,5 @@
 = LDAP Security Provider
-:description: This topic explains how to use your existing LDAP server for authentication/authorization in the Management Center.
+:description: This topic explains how to use your existing LDAP server for authentication/authorization in Management Center.
 
 {description}
 
