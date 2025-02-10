@@ -83,7 +83,7 @@ metadata:
 type: Opaque
 ----
 
-The following example shows how to create the `secretName` for LDAP/TLS.
+The following example shows how to create the secret for LDAP/TLS.
 [source,shell]
 ----
 $ kubectl create secret generic mc-ldap-secret --from-file=trustStore=truststore.p12 --from-literal=trustStorePassword=<password> --from-file=keyStore=keystore.p12 --from-literal=keyStorePassword=<password>
