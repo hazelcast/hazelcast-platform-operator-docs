@@ -27,7 +27,7 @@ Use the following fields to configure the LDAP security provider:
 | URL of your LDAP server, including schema (ldap://) and port.
 
 |tls
-|Configuration for TLS
+|Configuration for TLS:
 
 - `secretName`: The name of the secret that contains `keyStore`, `keyStorePassword`, `trustStore`, and `trustStorePassword` for LDAP over TLS (or LDAPS)
 - `startTLS`: Enable TLS encryption for LDAP connections to initiate a secure TLS connection over an initially unencrypted channel
