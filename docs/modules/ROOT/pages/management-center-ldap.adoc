@@ -89,7 +89,7 @@ The following example shows how to create the secret for LDAP/TLS.
 $ kubectl create secret generic mc-ldap-secret --from-file=trustStore=truststore.p12 --from-literal=trustStorePassword=<password> --from-file=keyStore=keystore.p12 --from-literal=keyStorePassword=<password>
 ----
 
-The following is an example configuration for the LDAP Security Provider:
+The following is an example configuration for the LDAP security provider:
 
 [source,yaml,subs="attributes+"]
 ----
