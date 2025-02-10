@@ -26,11 +26,11 @@ Use the following fields to configure the LDAP security provider:
 |`url`
 | URL of your LDAP server, including schema (ldap://) and port.
 
-|`secretName`
-| The name of the secret that contains `keyStore`, `keyStorePassword`, `trustStore`, and `trustStorePassword` for LDAP over TLS (or LDAPS).
+|tls
+|Configuration for TLS
 
-|`startTLS`
-| Enable TLS encryption for LDAP connections to initiate a secure TLS connection over an initially unencrypted channel.
+- `secretName`: The name of the secret that contains `keyStore`, `keyStorePassword`, `trustStore`, and `trustStorePassword` for LDAP over TLS (or LDAPS)
+- `startTLS`: Enable TLS encryption for LDAP connections to initiate a secure TLS connection over an initially unencrypted channel
 
 |`credentialsSecretName`
 | The name of the secret that contains `username` and `password` keys of a user that has admin privileges on the LDAP server. The `username` must be the distinguished name (DN) of the user. It is used to connect to the server when authenticating users.
@@ -83,7 +83,11 @@ metadata:
 type: Opaque
 ----
 
-#Authors note - do we need an example of how to create the `secretName` for LDAP/TLS, similar to the above?#
+The following example shows how to create the `secretName` for LDAP/TLS.
+[source,shell]
+----
+$ kubectl create secret generic mc-ldap-secret --from-file=trustStore=truststore.p12 --from-literal=trustStorePassword=<password> --from-file=keyStore=keystore.p12 --from-literal=keyStorePassword=<password>
+----
 
 The following is an example configuration for the LDAP Security Provider:
 
