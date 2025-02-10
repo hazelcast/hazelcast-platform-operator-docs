@@ -63,7 +63,7 @@ Use the following fields to configure the LDAP security provider:
 
 === Example Management Center LDAP configuration
 
-The following example shows how to create a `Secret` for the LDAP credentials.
+The following example shows how to create a `Secret` for the LDAP credentials:
 
 [source,shell]
 ----
