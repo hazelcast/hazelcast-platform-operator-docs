@@ -96,7 +96,7 @@ The following is an example configuration for the LDAP security provider:
 include::ROOT:example$/management-center-ldap.yaml[]
 ----
 
-The following is an example configuration for the LDAP over TLS (or LDAPS) Security Provider:
+The following is an example configuration for the LDAP over TLS (or LDAPS) security provider:
 
 [source,yaml,subs="attributes+"]
 ----
