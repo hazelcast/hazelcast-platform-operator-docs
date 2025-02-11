@@ -32,7 +32,7 @@ You need the following:
 * Deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator version 5.8 or above]
 * Blob storage and access credentials on one of the following cloud providers: https://aws.amazon.com/s3/[AWS], https://cloud.google.com/storage/[GCP], https://azure.microsoft.com/en-us/services/storage/blobs/[Azure]
 
-== Step 1. Deploy the Jet Pipeline JAR to Cloud Storage
+== Step 1. Deploy the Jet pipeline JAR to cloud storage
 
 In this step, you'll build the Jet pipeline JAR from the tutorial's GitHub repository, and upload it to your cloud provider.
 
@@ -172,7 +172,7 @@ EOF
 ----
 +
 
-NOTE: If you want to specify the Hazelcast version explicitly, you need to use Hazelcast 5.3 or above to submit JetJobs with the Hazelcast Platform Operator.
+NOTE: If you want to specify the Hazelcast version explicitly, you need to use Hazelcast 5.3 or above to submit Jet jobs with the Hazelcast Platform Operator.
 
 . Now check the cluster status to make sure that it's up and running.
 
@@ -248,7 +248,7 @@ The logs of the Jet pipeline are displayed in the output.
 . Now, cancel the Jet job by setting the `spec.state` to `Canceled`. Use one of the following options.
 
 +
-a) Run the following command to cancel the JetJob, using `kubectl apply`:
+a) Run the following command to cancel the Jet job, using `kubectl apply`:
 +
 [source, shell]
 ----
@@ -257,7 +257,7 @@ include::ROOT:example$/jet-canceled.yaml[]
 EOF
 ----
 +
-b) Run the following command to cancel the JetJob, using `kubectl patch`:
+b) Run the following command to cancel the Jet job, using `kubectl patch`:
 +
 [source,bash]
 ----
