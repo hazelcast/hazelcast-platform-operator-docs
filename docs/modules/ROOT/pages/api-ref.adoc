@@ -91,10 +91,12 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<IndexConfig,IndexConfig>>
 * <<IndexType,IndexType>>
 * <<InitialModeType,InitialModeType>>
+* <<JAASAuthItem,JAASAuthItem>>
+* <<JAASPropertiesSource,JAASPropertiesSource>>
+* <<JAASPropertyFromSource,JAASPropertyFromSource>>
 * <<JVMConfiguration,JVMConfiguration>>
 * <<JVMGCConfiguration,JVMGCConfiguration>>
 * <<JVMMemoryConfiguration,JVMMemoryConfiguration>>
-* <<JaasAuthItem,JaasAuthItem>>
 * <<JavaFilterConfig,JavaFilterConfig>>
 * <<JetEdgeDefaults,JetEdgeDefaults>>
 * <<JetEngineConfiguration,JetEngineConfiguration>>
@@ -279,7 +281,7 @@ m| extractorClassName | Name of the extractor class https://docs.hazelcast.com/h
 |===
 | Field | Description | Type | Required | Default
 m| simple | &#160; m| &#42;<<SimpleAuthentication,SimpleAuthentication>> | false | -
-m| jaas | &#160; m| []<<JaasAuthItem,JaasAuthItem>> | false | -
+m| jaas | &#160; m| []<<JAASAuthItem,JAASAuthItem>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1111,6 +1113,34 @@ m| bitMapIndexOptions | Options for "BITMAP" index type. See https://docs.hazelc
 
 <<Table of Contents,Back to TOC>>
 
+=== JAASAuthItem
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| className | &#160; m| string | true | -
+m| usage | &#160; m| <<LoginModuleUsage,LoginModuleUsage>> | true | REQUIRED
+m| properties | &#160; m| map[string]string | false | -
+m| propertiesFrom | &#160; m| []<<JAASPropertyFromSource,JAASPropertyFromSource>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== JAASPropertyFromSource
+
+JAASPropertyFromSource represents the source for the JAAS Properties
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| configMapRef | The ConfigMap to select from m| &#42;<<JAASPropertiesSource,JAASPropertiesSource>> | false | -
+m| secretRef | The Secret to select from m| &#42;<<JAASPropertiesSource,JAASPropertiesSource>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === JVMConfiguration
 
 JVMConfiguration is a Hazelcast JVM configuration
@@ -1148,20 +1178,6 @@ JVMMemoryConfiguration is a JVM memory configuration
 m| initialRAMPercentage | InitialRAMPercentage configures JVM initial heap size m| &#42;string | false | -
 m| minRAMPercentage | MinRAMPercentage sets the minimum heap size for a JVM m| &#42;string | false | -
 m| maxRAMPercentage | MaxRAMPercentage sets the maximum heap size for a JVM m| &#42;string | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== JaasAuthItem
-
-
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| className | &#160; m| string | true | -
-m| usage | &#160; m| <<LoginModuleUsage,LoginModuleUsage>> | true | REQUIRED
-m| properties | &#160; m| map[string]string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1391,6 +1407,7 @@ m| tls | TLS configures the TLS connection for LDAP. m| &#42;<<LdapTLS,LdapTLS>>
 |===
 | Field | Description | Type | Required | Default
 m| secretName | Name of the secret with TLS certificate and key. m| string | true | -
+m| startTLS | Enable if your LDAP server uses Start TLS operation. m| bool | true | true
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -2054,7 +2071,7 @@ m| topologySpreadConstraints | TopologySpreadConstraints m| []https://kubernetes
 | Field | Description | Type | Required | Default
 m| operatorClientSecretName | &#160; m| string | false | -
 m| realms | &#160; m| []<<Realm,Realm>> | false | -
-m| clientAuthentication | &#160; m| &#42;<<ClientAuthentication,ClientAuthentication>> | false | -
+m| clientAuthentication | &#160; m| <<ClientAuthentication,ClientAuthentication>> | false | -
 m| clientPermissions | &#160; m| &#42;<<ClientPermissions,ClientPermissions>> | false | -
 |===
 
