@@ -35,7 +35,7 @@ kubectl create secret generic hazelcast-license-key --from-literal=license-key=<
 ----
 
 . Create the Hazelcast clusters.
-.. Run the following command to create the first cluster.
+.. Run the following command to create the first cluster:
 +
 [source, shell]
 ----
@@ -44,7 +44,7 @@ include::ROOT:example$/operator-wan/hazelcast-first.yaml[]
 EOF
 ----
 
-.. Run the following command to create the second cluster.
+.. Run the following command to create the second cluster:
 +
 [source, shell]
 ----
@@ -109,7 +109,7 @@ Adding the cluster name as a resource starts WAN replication for both the maps t
 +
 - Add the second cluster as the target cluster to receive the WAN Replication events.
 +
-Run the following command to apply the configuration.
+Run the following command to apply the configuration:
 +
 [source, shell]
 ----
@@ -141,9 +141,9 @@ The sample code(excluding CLC) for this tutorial is in the link:https://github.c
 CLC::
 +
 --
-NOTE: Install CLC in your system - check the installation instructions: xref:clc:ROOT:install-clc.adoc[].
+NOTE: CLC must be installed in your system. See the https://docs.hazelcast.com/clc/5.5.0/install-clc[CLC installation instructions].
 
-Run the following command for adding the first cluster config to the CLC.
+Run the following command for adding the first cluster config to the CLC:
 
 [source, bash]
 ----
@@ -205,7 +205,7 @@ include::ROOT:example$/operator-wan/dotnet/Program.cs[]
 CLC::
 +
 --
-Run the following command for each map, using the map name as an argument to fill each map with entries. Use the map names `map-1` and `map-2`.
+Run the following command for each map, using the map name as an argument to fill each map with entries. Use the map names `map-1` and `map-2`:
 
 [source, bash]
 ----
@@ -215,7 +215,7 @@ do
 done
 ----
 
-Run the following command for each map to check if the sizes are expected.
+Run the following command for each map to check if the sizes are expected:
 
 [source, bash]
 ----
@@ -483,5 +483,5 @@ kubectl delete $(kubectl get wanreplications,map,hazelcast -o name)
 
 == See also
 
-- xref:operator:ROOT:wan-replication.adoc[]
+- xref:operator:ROOT:wan-replication.adoc[Configure WAN Replication]
 - xref:hazelcast-platform-operator-expose-externally.adoc[]

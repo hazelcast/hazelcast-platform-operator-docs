@@ -145,9 +145,9 @@ You will find language-specific client code in the `docs/modules/ROOT/examples/o
 CLC::
 +
 --
-NOTE: Before using CLC, it should be installed on your system. Check the installation instructions for CLC: xref:clc:ROOT:install-clc.adoc[].
+NOTE: CLC must be installed in your system. See the https://docs.hazelcast.com/clc/5.5.0/install-clc[CLC installation instructions].
 
-Run the following command to add the first cluster config to the CLC.
+Run the following command to add the first cluster config to the CLC:
 [source, bash]
 ----
 clc config add hz-1 cluster.name=dev cluster.address=<FIRST-CLUSTER-EXTERNAL-IP>
@@ -491,7 +491,7 @@ Current map (<MAP-NAME>) size: 0
 
 . Modify the configuration of the first cluster to add the address of the second cluster as the WAN replication event target. 
 +
-If you need a *Full WAN Sync*, run the following command to apply the configuration.
+If you need a *Full WAN Sync*, run the following command to apply the configuration:
 +
 [source, shell]
 ----
@@ -499,7 +499,7 @@ kubectl apply -f - <<EOF
 include::ROOT:example$/operator-wan-sync/full-sync-wanreplication.yaml[]
 EOF
 ----
-If you need a *Delta WAN Sync*, run the following command to apply the configuration.
+If you need a *Delta WAN Sync*, run the following command to apply the configuration:
 +
 [source, shell]
 ----
@@ -551,5 +551,5 @@ kubectl delete $(kubectl get wansync,wanreplications,map,hazelcast -o name)
 
 == See also
 
-- xref:operator:ROOT:wan-replication.adoc[]
+- xref:operator:ROOT:wan-replication.adoc[Configure WAN Replication]
 - xref:hazelcast-platform-operator-expose-externally.adoc[]

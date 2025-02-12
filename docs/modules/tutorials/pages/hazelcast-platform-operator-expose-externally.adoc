@@ -6,7 +6,7 @@
 :page-lang: go, java, node, python
 :page-est-time: 5-10 mins
 :framework: Kubernetes Operator
-:description: In this tutorial, you'll connect to a Hazelcast cluster running in Kubernetes from outside of the Kubernetes environment.
+:description: Learn how to connect to a Hazelcast cluster running in Kubernetes from outside of the Kubernetes environment.
 
 == What you'll learn
 
@@ -107,7 +107,7 @@ Configure the Hazelcast client with the external address and disable smart routi
 CLC::
 +
 --
-NOTE: Before using CLC, it should be installed in your system. Check the installation instructions for CLC: xref:clc:ROOT:install-clc.adoc[].
+NOTE: CLC must be installed in your system. See the https://docs.hazelcast.com/clc/5.5.0/install-clc[CLC installation instructions].
 
 Run the following command for adding the cluster config to the CLC:
 

@@ -122,7 +122,7 @@ The sample code(excluding CLC) for this tutorial is in the link:https://github.c
 CLC::
 +
 --
-NOTE: Before using CLC, it should be installed in your system. Check the installation instructions for CLC: xref:clc:ROOT:install-clc.adoc[].
+NOTE: CLC must be installed in your system. See the https://docs.hazelcast.com/clc/5.5.0/install-clc[CLC installation instructions].
 
 Run the following command for adding the cluster config to the CLC:
 
