@@ -45,8 +45,8 @@ Let's see both approaches.
 
 The first option is to use the `Unisocket` type. This option uses the standard Kubernetes mechanism that automatically load balances the traffic to Hazelcast members.
 
-.Hazelcast Unisocket Client
-image::unisocket.jpg[Hazelcast Unisocket Client]
+// .Hazelcast Unisocket Client
+// image::unisocket.jpg[Hazelcast Unisocket Client]
 
 === Start the Hazelcast Cluster
 
@@ -76,7 +76,7 @@ NAME           STATUS    MEMBERS
 my-hazelcast   Running   3/3
 ----
 
-After verifying that the cluster is `Running` and all the members are ready (`3/3`), run the following command to find the discovery address.
+After verifying that the cluster is `Running` and all the members are ready (`3/3`), run the following command to find the discovery address:
 
 [source, shell]
 ----
@@ -97,7 +97,7 @@ git clone https://github.com/hazelcast-guides/hazelcast-platform-operator-expose
 cd hazelcast-platform-operator-expose-externally/docs/modules/ROOT/examples/operator-expose-externally
 ----
 
-. The sample code(excluding CLC) for this tutorial is in the link:https://github.com/hazelcast-guides/hazelcast-platform-operator-expose-externally/tree/master/docs/modules/ROOT/examples/operator-expose-externally[`docs/modules/ROOT/examples/operator-expose-externally`] directory.
+. The sample code (excluding CLC) for this tutorial is in the link:https://github.com/hazelcast-guides/hazelcast-platform-operator-expose-externally/tree/master/docs/modules/ROOT/examples/operator-expose-externally[`docs/modules/ROOT/examples/operator-expose-externally`] directory.
 
 Configure the Hazelcast client with the external address and disable smart routing to use the unisocket connection.
 
@@ -312,8 +312,8 @@ Current map size: 4
 
 The second option is to use the `Smart` type. With this option, each Hazelcast member is exposed with its own service (it can be either `LoadBalancer` or `NodePort`). Hazelcast smart client is capable of mapping the given key with its owner member, which means that it sends the data directly to the member which contains the right data partition.
 
-.Hazelcast Smart Client
-image::smart.jpg[Hazelcast Smart Client]
+// .Hazelcast Smart Client
+// image::smart.jpg[Hazelcast Smart Client]
 
 === Start the Hazelcast Cluster
 
@@ -375,7 +375,7 @@ Configure the Hazelcast client to connect to the cluster external address.
 CLC::
 +
 --
-NOTE: CLC must be installed in your system — check the installation instructions for CLC: xref:clc:ROOT:install-clc.adoc[].
+NOTE: CLC must be installed in your system. See the https://docs.hazelcast.com/clc/5.5.0/install-clc[CLC installation instructions].
 
 Run the following command for adding the cluster config to the CLC:
 
@@ -590,4 +590,5 @@ kubectl delete hazelcast my-hazelcast-smart
 == See also
 
 - xref:operator:ROOT:index.adoc[]
-- xref:kubernetes-external-client.adoc[]
+// - xref:kubernetes-external-client.adoc[]
+- xref:operator:ROOT:connect-outside-kubernetes.adoc[Connect to Hazelcast from outside Kubernetes]

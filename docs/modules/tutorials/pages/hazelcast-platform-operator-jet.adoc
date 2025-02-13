@@ -188,7 +188,7 @@ my-hazelcast   Running   3/3
 
 In this step, you'll start, check and cancel the Jet job that runs the data pipeline.
 
-. Run the following command to start the Jet job you have already deployed.
+. Run the following command to start the Jet job you have already deployed:
 
 +
 Replace the <BUCKET-URI> with the appropriate sample bucket URI for your cloud provider:
@@ -282,7 +282,7 @@ my-jet-job   ExecutionFailed   732229926463209474   2023-07-14T13:40:19Z   2023-
 ----
 +
 
-. Run the following command to see a more detailed message for the status of the Jet job.
+. Run the following command to see a more detailed message for the status of the Jet job:
 +
 [source,bash]
 ----
@@ -316,5 +316,5 @@ NOTE: Deleting the Hazelcast CR also deletes the Jet jobs linked to it.
 
 == See also
 
-- xref:operator:ROOT:jet-engine-configuration.adoc[]
-- xref:operator:ROOT:jet-job-configuration.adoc[]
+- xref:operator:ROOT:jet-engine-configuration.adoc[Configure the Jet engine]
+- xref:operator:ROOT:jet-job-configuration.adoc[Run data pipelines]

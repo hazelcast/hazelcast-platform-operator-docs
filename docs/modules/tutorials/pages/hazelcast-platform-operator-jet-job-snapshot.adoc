@@ -1,4 +1,4 @@
-= Saving the State of Jet job with Hazelcast Platform Operator
+= Save the state of a Jet job with Platform Operator
 // :page-layout: tutorial
 :page-product: operator
 :page-categories: Cloud Native
@@ -19,7 +19,7 @@ This tutorial guides you through the process of saving the state of your data pi
 
 - Export a Snapshot from the Jet pipeline
 
-- Start a new Jet pipeline initialized from the Snapshot.
+- Start a new Jet pipeline initialized from the Snapshot
 
 == Before you begin
 
@@ -236,6 +236,6 @@ Saving the current state of your data pipeline and initializing new pipelines fr
 
 == See also
 
-- xref:operator:ROOT:jet-engine-configuration.adoc[]
-- xref:operator:ROOT:jet-job-configuration.adoc[]
-- xref:operator:ROOT:jet-job-snapshot.adoc[]
+- xref:operator:ROOT:jet-engine-configuration.adoc[Configure the Jet engine]
+- xref:operator:ROOT:jet-job-configuration.adoc[Run data pipelines]
+- xref:operator:ROOT:jet-job-snapshot.adoc[Save state of data pipelines]

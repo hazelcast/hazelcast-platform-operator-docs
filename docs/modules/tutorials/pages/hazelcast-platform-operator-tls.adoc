@@ -236,4 +236,4 @@ kubectl delete secret example
 
 - xref:operator:ROOT:get-started.adoc[]
 - xref:operator:ROOT:deploy-management-center.adoc[]
-- xref:operator:ROOT:tls.adoc[]
+- xref:operator:ROOT:tls.adoc[Configure TLS]
