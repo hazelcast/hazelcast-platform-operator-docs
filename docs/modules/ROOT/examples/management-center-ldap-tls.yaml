@@ -12,7 +12,7 @@ spec:
         startTLS: true
       credentialsSecretName: ldap-credentials
       groupDN: ou=users,dc=example,dc=org
-      groupSearchFilter: member={0}
+      groupSearchFilter: member=\{0}
       nestedGroupSearch: false
       url: ldap://34.118.236.200:1389
       userDN: ou=users,dc=example,dc=org
@@ -24,4 +24,4 @@ spec:
         - readers
       readonlyUserGroups:
         - readers
-      userSearchFilter: cn={0}
+      userSearchFilter: cn=\{0}
