@@ -8,7 +8,8 @@
 
 {description}
 
-== Context
+== Overview
+
 In this tutorial, you'll do the following:
 
 - Deploy Hazelcast with persistence enabled
@@ -19,16 +20,16 @@ In this tutorial, you'll do the following:
 
 - Restart the Hazelcast cluster and restore the backup map entries from the Cloud
 
-== Before you begin
+== Prerequisites
 
-Before starting this tutorial, make sure that you meet the following prerequisites:
+Before you begin, make sure that you have:
 
-* Have an up and running https://kubernetes.io/[Kubernetes] cluster
+* An up and running https://kubernetes.io/[Kubernetes] cluster
 * Kubernetes command-line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl]
 * Deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator]
 * Created blob storage and access credentials in one of the Cloud providers: https://aws.amazon.com/s3/[AWS] - https://cloud.google.com/storage/[GCP] - https://azure.microsoft.com/en-us/services/storage/blobs/[Azure]
 
-== Step 1. Start the Hazelcast Cluster
+== Start the Hazelcast Cluster
 
 . Create a license secret
 +
@@ -87,7 +88,7 @@ my-hazelcast       Discovery   34.30.60.128:5701
 +
 The `ADDRESS` column displays the external address of your Hazelcast cluster.
 
-== Step 2. Create persistent map and put data
+== Create persistent map and put data
 
 . Create persistent map
 +
@@ -338,7 +339,7 @@ Current map size: 4
 
 ====
 
-== Step 3. Trigger external backup
+== Trigger external backup
 
 For triggering backup, you need `bucketURI` where backup data will be stored in, and a `secret` with credentials for accessing the given Bucket URI.
 
@@ -416,7 +417,7 @@ NAME         STATUS
 hot-backup   Success
 ----
 
-== Step 4. Restore from external backup
+== Restore from external backup
 
 . Delete the Hazelcast Cluster
 +
@@ -612,7 +613,21 @@ kubectl delete $(kubectl get hazelcast,hotbackup -o name)
 kubectl delete pvc -l "app.kubernetes.io/managed-by=hazelcast-platform-operator"
 ----
 
-== See also
+== Summary
+
+In this tutorial, you've learned how to:
+
+- Deploy Hazelcast with persistence enabled
+
+- Create a Hazelcast map that has persistence enabled
+
+- Back up all map entries to external storage in the Cloud
+
+- Restart the Hazelcast cluster and restore the backup map entries from the Cloud
+
+== Next steps
+
+See also:
 
 - xref:operator:ROOT:backup-restore.adoc[]
-- xref:hazelcast-platform-operator-expose-externally.adoc[]
+- xref:operator-tutorial-expose-externally.adoc[]

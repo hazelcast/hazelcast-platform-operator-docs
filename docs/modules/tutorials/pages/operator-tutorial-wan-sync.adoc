@@ -8,22 +8,23 @@
 
 {description}
 
-== Context
+== Overview
+
 In this tutorial, you'll do the following:
 
 - Deploy two Hazelcast clusters
 - Create a Hazelcast map configuration on one of the clusters
 - Synchronize map data between the two Hazelcast clusters using Full and Delta WAN Sync
 
-== Before you begin
+== Prerequisites
 
-Before starting this tutorial, make sure you have the following:
+Before you begin, make sure that you have:
 
 * A running https://kubernetes.io/[Kubernetes] cluster
 * The Kubernetes command-line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl]
 * A deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator]
 
-== Step 1. Start the Hazelcast Clusters
+== Start the Hazelcast Clusters
 
 In this step, you'll start two Hazelcast clusters, one called `hazelcast-first` and one called `hazelcast-second`.
 
@@ -81,7 +82,7 @@ hazelcast-second    Running   3/3
 ----
 
 
-== Step 2. Create and populate a map for WAN replication
+== Create and populate a map for WAN replication
 
 In this step, you will create and populate a map on the `hazelcast-first` cluster. This map will be the source for WAN replication.
 
@@ -357,7 +358,7 @@ Current map size: 4
 
 ====
 
-== Step 3. Enable WAN replication and replicate entries
+== Enable WAN replication and replicate entries
 
 In this step, you'll first verify that the second cluster does not contain a `map-sync` structure. You'll then enable WAN replication and verify that the map and all entries have been copied to the second cluster. 
 
@@ -549,7 +550,17 @@ kubectl delete secret hazelcast-license-key
 kubectl delete $(kubectl get wansync,wanreplications,map,hazelcast -o name)
 ----
 
-== See also
+== Summary
+
+In this tutorial, you've learned how to:
+
+- Deploy two Hazelcast clusters
+- Create a Hazelcast map configuration on one of the clusters
+- Synchronize map data between the two Hazelcast clusters using Full and Delta WAN Sync
+
+== Next steps
+
+See also:
 
 - xref:operator:ROOT:wan-replication.adoc[Configure WAN Replication]
-- xref:hazelcast-platform-operator-expose-externally.adoc[]
+- xref:operator-tutorial-expose-externally.adoc[]

@@ -9,9 +9,9 @@
 
 {description}
 
-== Context
+== Overview
 
-This tutorial guides you through the process of saving the state of your data pipelines and creating new data pipelines initialized from the saved state. We will follow the steps below during the tutorial:
+This tutorial guides you through the process of saving the state of your data pipelines and creating new data pipelines initialized from the saved state. We'll follow the steps below:
 
 - Deploy a Hazelcast cluster with the configured Jet engine
 
@@ -21,9 +21,9 @@ This tutorial guides you through the process of saving the state of your data pi
 
 - Start a new Jet pipeline initialized from the Snapshot
 
-== Before you begin
+== Prerequisites
 
-Make sure you have the following:
+Before you begin, make sure that you have:
 
 * A running https://kubernetes.io/[Kubernetes] cluster
 * Kubernetes command-line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl]
@@ -33,7 +33,7 @@ Make sure you have the following:
 
 If you're unsure about how to submit Jet jobs using the Hazelcast Platform Operator, follow the xref:hazelcast-platform-operator-jet.adoc[Jet] tutorial first. This also covers the steps for deploying a custom Jet pipeline JAR to Cloud storage and provides guidance on managing Jet job resources using the Hazelcast Platform Operator.
 
-== Step 1. Start the Hazelcast Cluster
+== Start the Hazelcast Cluster
 
 Since Snapshot is an exclusive feature of the enterprise version, you'll need to set up an Enterprise Hazelcast cluster. This is why it's necessary to create a License Key secret first.
 
@@ -68,7 +68,7 @@ NAME        STATUS    MEMBERS
 hazelcast   Running   3/3
 ----
 
-== Step 2. Run the data pipeline
+== Run the data pipeline
 
 In the tutorial, we will walk through a practical example involving a 'transaction' map designed to store crucial transaction data. Our Hazelcast Jet setup will seamlessly retrieve these transactions from the map and process them. Firstly, we will submit a Jet job that processes transactions from the 'transaction' map. To maintain simplicity in the example, the pipeline will only log the transactions. Then we'll explore the process of saving the state of the Jet job using the Hazelcast Platform Operator.
 
@@ -128,7 +128,7 @@ $ kubectl logs -l app.kubernetes.io/name=hazelcast -c hazelcast | grep transacti
 {"time":"2023-08-09T12:33:44,997", "logger": "com.hazelcast.jet.impl.connector.WriteLoggerP", "level": "INFO", "msg": "[10.36.0.10]:5702 [dev] [5.4.0] [transaction-v1/Log Transactions#0] [Job V1] transaction:'transaction-3' payload:'{\"description\": \"Restaurant Dinner\", \"amount\": 120.50, \"transactionDate\": \"2023-08-11T20:00:00Z\"}' "}
 ----
 
-== Step 3. Save the state of the data pipeline
+== Save the state of the data pipeline
 
 In data pipelines, saving and using computation process states is vital for accurate and reliable data processing. Jet's Snapshot feature lets you save and restore these processing states. A snapshot captures the state of a running Jet job at a specific time, giving you a reliable record of ongoing computations and processed data.
 
@@ -166,7 +166,7 @@ NAME             STATUS            ID                   SUBMISSIONTIME         C
 transaction-v1   ExecutionFailed   741632319877545985   2023-08-09T12:22:04Z   2023-08-09T13:07:51Z
 ----
 
-== Step 4. Submit job initialized from Snapshot
+== Submit job initialized from Snapshot
 
 When creating a new version of a data pipeline, it's essential to initialize the new pipeline from the current state of the old one. Without this initialization, the new pipeline would start with an empty state and lack information about its predecessor's state. This situation could result in data loss or duplicate processing, which is not desirable, particularly for critical pipelines. To ensure proper initialization and prevent these issues, we can rely on the Snapshot.
 
@@ -218,7 +218,7 @@ If the new version of the Jet job, named 'transaction-v2', is not initialized fr
 +
 NOTE: If want to make your Snapshots persistent against outages or restarts, create a Hazelcast cluster with persistence enabled.
 
-== Step 5. Clean up
+== Clean up
 
 To clean up all the resources you created during the tutorial, and to remove the custom resources and secrets, run the following command:
 
@@ -232,9 +232,11 @@ NOTE: Deleting the Hazelcast CR also deletes the Jet jobs and Jet job Snapshots 
 
 == Summary
 
-Saving the current state of your data pipeline and initializing new pipelines from that snapshot could be essential in some cases as demonstrated in the example in the tutorial. We have covered the process of managing the state of your data pipelines using the Hazelcast Platform Operator.
+We've seen how saving the current state of your data pipeline and initializing new pipelines from that snapshot could be essential in some cases. We've covered the process of managing the state of your data pipelines using the Hazelcast Platform Operator.
 
-== See also
+== Next steps
+
+See also:
 
 - xref:operator:ROOT:jet-engine-configuration.adoc[Configure the Jet engine]
 - xref:operator:ROOT:jet-job-configuration.adoc[Run data pipelines]

@@ -7,6 +7,8 @@ Hazelcast TLS uses standard SSL/TLS certificates, which can be obtained from tru
 
 See xref:hazelcast:security:tls-ssl.adoc[TLS/SSL Basics] for more detailed information about the configuration and behavior of TLS in Hazelcast.
 
+TIP: For a working example, see xref:tutorials:operator-tutorial-tls.adoc[this tutorial].
+
 == Prerequisites for TLS
 
 Before you create and configure TLS, you need to create a Kubernetes secret. The Operator uses the secret to create a truststore and keystore, and it modifies the Hazelcast configuration accordingly.

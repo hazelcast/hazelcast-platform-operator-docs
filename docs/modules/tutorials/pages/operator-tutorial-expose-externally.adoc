@@ -8,16 +8,26 @@
 :framework: Kubernetes Operator
 :description: Learn how to connect to a Hazelcast cluster running in Kubernetes from outside of the Kubernetes environment.
 
-== What you'll learn
-
 {description}
 
-== Before you begin
+== Overview
 
-* Up and running https://kubernetes.io/[Kubernetes] cluster
+There are two available options for the Expose Externally feature of Hazelcast Platform Operator:
+
+- *Unisocket* - client requests are load balanced between Hazelcast members
+
+- *Smart* - the client connects to all members and sends requests directly to the members owning the data
+
+Below, we'll look at both approaches.
+
+== Prerequisites
+
+Before you begin, make sure that you have:
+
+* An up and running https://kubernetes.io/[Kubernetes] cluster
 * Kubernetes command-line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl]
 * Deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator]
-* Create a license secret:
+* Created a license secret:
 +
 Create a secret with your link:http://trialrequest.hazelcast.com/[Hazelcast Enterprise License].
 
@@ -30,16 +40,6 @@ kubectl create secret generic hazelcast-license-key --from-literal=license-key=<
 NOTE: Starting with version 5.13, Hazelcast Platform Operator only supports Hazelcast Enterprise cluster creation. Even when the feature is used in Hazelcast Open Source clusters, Hazelcast Platform Operator requires a license key to run a cluster.
 
 WARNING: This tutorial uses LoadBalancer services to connect to Hazelcast from outside of the Kubernetes cluster. Therefore, it is essential to ensure that your Kubernetes cluster can assign public IPs to LoadBalancer services. This is particularly important if you are using a local Kubernetes cluster such as Minikube or Kind.
-
-== Introduction
-
-There are two available options for the Expose Externally feature of Hazelcast Platform Operator:
-
-- *Unisocket* - client requests are load balanced between Hazelcast members
-
-- *Smart* - the client connects to all members and sends requests directly to the members owning the data
-
-Let's see both approaches.
 
 == Unisocket
 
@@ -587,7 +587,13 @@ kubectl delete hazelcast my-hazelcast-unisocket
 kubectl delete hazelcast my-hazelcast-smart
 ----
 
-== See also
+== Summary
+
+In this tutorial, you've learned how to connect to a Hazelcast cluster running in Kubernetes from outside of the Kubernetes environment, using both the Unisocket and Smart options. 
+
+== Next steps
+
+See also:
 
 - xref:operator:ROOT:index.adoc[]
 // - xref:kubernetes-external-client.adoc[]

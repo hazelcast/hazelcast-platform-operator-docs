@@ -9,7 +9,8 @@
 
 {description}
 
-== Context
+== Overview
+
 In this tutorial, you'll do the following:
 
 - Build and deploy a custom Jet pipeline implementation to cloud storage
@@ -22,9 +23,9 @@ In this tutorial, you'll do the following:
 
 - Cancel the Jet pipeline
 
-== Before you begin
+== Prerequisites
 
-You need the following:
+Before you begin, make sure that you have:
 
 * A running https://kubernetes.io/[Kubernetes] cluster
 * Kubernetes command-line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl]
@@ -32,7 +33,7 @@ You need the following:
 * Deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator version 5.8 or above]
 * Blob storage and access credentials on one of the following cloud providers: https://aws.amazon.com/s3/[AWS], https://cloud.google.com/storage/[GCP], https://azure.microsoft.com/en-us/services/storage/blobs/[Azure]
 
-== Step 1. Deploy the Jet pipeline JAR to cloud storage
+== Deploy the Jet pipeline JAR to cloud storage
 
 In this step, you'll build the Jet pipeline JAR from the tutorial's GitHub repository, and upload it to your cloud provider.
 
@@ -148,7 +149,7 @@ kubectl create secret generic <SECRET-NAME> \
 
 NOTE: If you want to learn more about other authentication methods, check the xref:operator:ROOT:authorization.adoc[Authorization Methods to Access Cloud Storage] documentation.
 
-== Step 2. Start the Hazelcast Cluster
+== Start the Hazelcast Cluster
 
 . Create a secret with your link:http://trialrequest.hazelcast.com/[Hazelcast Enterprise License].
 
@@ -184,7 +185,7 @@ NAME           STATUS    MEMBERS
 my-hazelcast   Running   3/3
 ----
 
-== Step 3. Run the data pipeline
+== Run the data pipeline
 
 In this step, you'll start, check and cancel the Jet job that runs the data pipeline.
 
@@ -302,7 +303,7 @@ com.hazelcast.jet.impl.exception.CancellationByUserException
       ....
 ----
 
-== Step 4. Clean up
+== Clean up
 
 To clean up all the resources you created during the tutorial, and to remove the custom resources and secrets, run the following command:
 
@@ -314,7 +315,23 @@ kubectl delete $(kubectl get hazelcast -o name)
 
 NOTE: Deleting the Hazelcast CR also deletes the Jet jobs linked to it.
 
-== See also
+== Summary
+
+In this tutorial, you've learned how to:
+
+- Build and deploy a custom Jet pipeline implementation to cloud storage
+
+- Deploy Hazelcast with the Jet engine configured
+
+- Start the Jet pipeline
+
+- Check the Jet pipeline
+
+- Cancel the Jet pipeline
+
+== Next steps
+
+See also:
 
 - xref:operator:ROOT:jet-engine-configuration.adoc[Configure the Jet engine]
 - xref:operator:ROOT:jet-job-configuration.adoc[Run data pipelines]

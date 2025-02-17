@@ -8,24 +8,25 @@
 
 {description}
 
-== Context
+== Overview
+
 In this tutorial, you'll do the following:
 
-- Deploy two Hazelcast clusters.
+- Deploy two Hazelcast clusters
 
-- Create two Hazelcast map configurations on one of the clusters.
+- Create two Hazelcast map configurations on one of the clusters
 
-- Synchronize map data between the two Hazelcast clusters.
+- Synchronize map data between the two Hazelcast clusters
 
-== Before you begin
+== Prerequisites
 
-Before starting this tutorial, make sure that you have the following:
+Before you begin, make sure that you have:
 
 * A running https://kubernetes.io/[Kubernetes] cluster
 * The Kubernetes command-line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl]
 * A deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator]
 
-== Step 1. Start the Hazelcast Cluster
+== Start the Hazelcast Cluster
 
 . Create a secret with your link:http://trialrequest.hazelcast.com/[Hazelcast Enterprise License].
 +
@@ -87,7 +88,7 @@ hazelcast-second-wan   WAN         34.16.0.16:5710
 +
 The `ADDRESS` column displays the external addresses of the Hazelcast clusters.
 
-== Step 2. Create a WAN replication configuration
+== Create a WAN replication configuration
 
 . Create two maps on the first cluster. In this example, the following maps are created:
 
@@ -118,7 +119,7 @@ include::ROOT:example$/operator-wan/wanreplication.yaml[]
 EOF
 ----
 
-== Step 3. Put entries to the maps on the first cluster
+== Put entries to the maps on the first cluster
 
 In this step, you'll fill the maps on the first, source cluster.
 
@@ -355,7 +356,7 @@ Current map size: 4
 
 ====
 
-== Step 4. Verify the replication of map entries
+== Verify the replication of map entries
 
 In this step, you'll check the sizes of the maps on the second, target cluster to make sure that WAN replication events have been received.
 
@@ -481,7 +482,19 @@ kubectl delete secret hazelcast-license-key
 kubectl delete $(kubectl get wanreplications,map,hazelcast -o name)
 ----
 
-== See also
+== Summary
+
+In this tutorial, you've learned how to:
+
+- Deploy two Hazelcast clusters
+
+- Create two Hazelcast map configurations on one of the clusters
+
+- Synchronize map data between the two Hazelcast clusters
+
+== Next steps
+
+See also:
 
 - xref:operator:ROOT:wan-replication.adoc[Configure WAN Replication]
-- xref:hazelcast-platform-operator-expose-externally.adoc[]
+- xref:operator-tutorial-expose-externally.adoc[]

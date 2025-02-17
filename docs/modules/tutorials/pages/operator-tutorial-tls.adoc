@@ -8,7 +8,8 @@
 
 {description}
 
-== Context
+== Overview
+
 In this tutorial, you'll do the following:
 
 - Create a Kubernetes Secret with a TLS certificate and key
@@ -20,16 +21,16 @@ In this tutorial, you'll do the following:
 - Connect to your cluster using TLS to encrypt member-to-client network traffic
 
 
-== Before you begin
+== Prerequisites
 
-Before starting this tutorial, make sure that you meet the following prerequisites:
+Before you begin, make sure that you have:
 
-* Have an up and running https://kubernetes.io/[Kubernetes] cluster
+* An up and running https://kubernetes.io/[Kubernetes] cluster
 * Kubernetes command-line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl]
 * Deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator version 5.8 or above]
 * OpenSSL command-line tool, https://www.openssl.org/[openssl]
 
-== Step 1. Create Kubernetes secret with TLS certificate and key
+== Create Kubernetes secret with TLS certificate and key
 
 . Generate TLS certificate and key in PEM format using OpenSSL
 +
@@ -50,7 +51,7 @@ kubectl create secret generic example \
 
 NOTE: You can also set `ca.crt` to create a truststore. For more information, see xref:operator:ROOT:tls.adoc[TLS].
 
-== Step 2. Deploy Hazelcast cluster with TLS
+== Deploy Hazelcast cluster with TLS
 
 . Create a secret with your link:http://trialrequest.hazelcast.com/[Hazelcast Enterprise License]
 +
@@ -90,7 +91,7 @@ hazelcast-2     Member      35.194.44.37:5701
 hazelcast-wan   WAN         35.184.21.18:5710
 ----
 
-== Step 3. Deploy Management Center
+== Deploy Management Center
 
 Enabling TLS for a Hazelcast cluster adds an essential layer of security to protect data during communication. When TLS is enabled, all clients, including the Management Center, must be configured with the appropriate TLS certificates to establish a secure connection with the Hazelcast cluster.
 
@@ -103,7 +104,7 @@ include::ROOT:example$/managementcenter.yaml[]
 EOF
 ----
 
-== Step 4. Connect to Hazelcast cluster over TLS
+== Connect to Hazelcast cluster over TLS
 
 . Clone the examples repository to access all sample clients:
 +
@@ -222,7 +223,7 @@ python example.py
 --
 ====
 
-== Step 5. Clean Up
+== Clean Up
 
 To clean up the created resources remove the all Custom Resources and secrets:
 
@@ -232,7 +233,21 @@ kubectl delete $(kubectl get hazelcast,managementcenter -o name)
 kubectl delete secret example
 ----
 
-== See Also
+== Summary
+
+In this tutorial, you've learned how to:
+
+- Create a Kubernetes Secret with a TLS certificate and key
+
+- Deploy a Hazelcast cluster with TLS (mTLS) encryption enforced between members
+
+- Deploy Management Center to monitor your Hazelcast cluster
+
+- Connect to your cluster using TLS to encrypt member-to-client network traffic
+
+== Next steps
+
+See also:
 
 - xref:operator:ROOT:get-started.adoc[]
 - xref:operator:ROOT:deploy-management-center.adoc[]
