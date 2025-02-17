@@ -1,0 +1,11 @@
+= Configure JAAS
+:description: This topic explains how to configure JAAS-based authentication.
+
+{description}
+
+Hazelcast Operator supports JAAS-based authentication. JAAS (Java Authentication and Authorization Service) is a flexible authentication framework used in Hazelcast for security purposes. It allows you to implement custom authentication and authorization mechanisms for both cluster members and clients.
+
+You can use Hazelcast Operator to configure JAAS-based authentication. To do this, configure `realms.jaas` in the Security section of the Hazelcast CR. For more information, see xref:api-ref.adoc#security[API types].
+
+For more information about using JAAS in Hazelcast, see link:https://docs.hazelcast.com/hazelcast/latest/security/jaas-authentication[JAAS authentication].
+
