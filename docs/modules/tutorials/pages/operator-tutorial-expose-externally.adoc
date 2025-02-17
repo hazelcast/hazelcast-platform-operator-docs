@@ -1,4 +1,4 @@
-= Connect to Hazelcast from Outside Kubernetes
+= Connect to Hazelcast from outside Kubernetes
 :templates-url: templates:ROOT:page$/
 // :page-layout: tutorial
 :page-product: operator
@@ -12,13 +12,11 @@
 
 == Overview
 
-There are two available options for the Expose Externally feature of Hazelcast Platform Operator:
+In this tutorial, we'll look at two available options for the Expose Externally feature of Hazelcast Platform Operator:
 
 - *Unisocket* - client requests are load balanced between Hazelcast members
 
 - *Smart* - the client connects to all members and sends requests directly to the members owning the data
-
-Below, we'll look at both approaches.
 
 == Prerequisites
 

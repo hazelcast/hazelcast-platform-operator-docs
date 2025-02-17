@@ -1,4 +1,4 @@
-= Replicate data between two Hazelcast Clusters with Hazelcast Platform Operator 
+= Replicate data between two Hazelcast clusters with Platform Operator 
 // :page-layout: tutorial
 :page-product: operator
 :page-categories: Cloud Native

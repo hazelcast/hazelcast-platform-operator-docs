@@ -1,4 +1,4 @@
-= Restore a cluster from Cloud storage with Hazelcast Platform Operator
+= Restore a cluster from cloud storage with Platform Operator
 // :page-layout: tutorial
 :page-product: operator
 :page-categories: Cloud Native

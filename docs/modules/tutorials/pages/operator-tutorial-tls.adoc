@@ -1,4 +1,4 @@
-= Configure TLS with Hazelcast Platform Operator tutorial
+= Configure TLS with Platform Operator
 // :page-layout: tutorial
 :page-product: operator
 :page-categories: Cloud Native

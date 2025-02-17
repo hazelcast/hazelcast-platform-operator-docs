@@ -1,4 +1,4 @@
-= Synchronize Data between Two Hazelcast Clusters using WAN Sync
+= Synchronize data between two Hazelcast clusters using WAN Sync
 // :page-layout: tutorial
 :page-product: operator
 :page-categories: Cloud Native
