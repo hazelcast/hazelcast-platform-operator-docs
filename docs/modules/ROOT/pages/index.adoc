@@ -68,3 +68,13 @@ Known limitations
 == Get Started
 
 For information on how to install Operator and deploy a Hazelcast cluster, see: xref:get-started.adoc[].
+
+Step-by-step tutorials are also provided to show you how to:
+
+* xref:tutorials:operator-tutorial-external-backup-restore.adoc[Restore a cluster with Operator]
+* xref:tutorials:operator-tutorial-wan-replication.adoc[Replicate data between clusters with Operator]
+* xref:tutorials:operator-tutorial-wan-sync.adoc[Synchronize data between clusters using WAN Sync]
+* xref:tutorials:operator-tutorial-jet.adoc[Run a data pipeline using Jet with Operator]
+* xref:tutorials:operator-tutorial-jet-job-snapshot.adoc[Save the state of Jet job with Operator]
+* xref:tutorials:operator-tutorial-tls.adoc[Secure a cluster with TLS using Operator]
+* xref:tutorials:operator-tutorial-expose-externally.adoc[Connect to a cluster from outside of Kubernetes]

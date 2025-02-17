@@ -3,7 +3,11 @@
 
 {description}
 
-With the Hazelcast Platform Operator, you can run Data Pipelines from existing JAR files for processing data. Data Pipelines, depending on the data source, can be used for stream or batch processing. To create a Data Pipeline using `JetJob` CR, the Jet Engine in the `Hazelcast` CR must be configured. It is required to set `enable` and `resourceUploadEnabled` to `true`.  To understand the Data Pipelines and the Jet Engine, refer to xref:hazelcast:pipelines:overview.adoc[Platform documentation].
+With the Hazelcast Platform Operator, you can run Data Pipelines from existing JAR files for processing data. Data Pipelines, depending on the data source, can be used for stream or batch processing. To create a Data Pipeline using `JetJob` CR, the Jet Engine in the `Hazelcast` CR must be configured. It is required to set `enable` and `resourceUploadEnabled` to `true`.  
+
+To understand the Data Pipelines and the Jet Engine, refer to xref:hazelcast:pipelines:overview.adoc[Platform documentation].
+
+TIP: For a working example, see xref:jet-job-configuration.adoc[this tutorial].
 
 == Configuring the JetJob Resource
 
