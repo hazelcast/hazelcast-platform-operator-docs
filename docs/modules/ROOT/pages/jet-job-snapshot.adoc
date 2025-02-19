@@ -9,7 +9,7 @@ When the Jet engine takes a snapshot, all data in transit, and the internal stat
 
 To export a snapshot in Hazelcast Platform Operator, use the `JetJobSnapshot` custom resource.
 
-TIP: For a working example, see xref:jet-job-snapshot.adoc[this tutorial].
+TIP: For a worked example, see the xref:jet-job-snapshot.adoc[Save the state of Jet job tutorial].
 
 == Configuring the JetJobSnapshot Resource
 

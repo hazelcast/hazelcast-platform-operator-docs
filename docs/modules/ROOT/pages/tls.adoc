@@ -7,7 +7,7 @@ Hazelcast TLS uses standard SSL/TLS certificates, which can be obtained from tru
 
 See xref:hazelcast:security:tls-ssl.adoc[TLS/SSL Basics] for more detailed information about the configuration and behavior of TLS in Hazelcast.
 
-TIP: For a working example, see xref:tutorials:operator-tutorial-tls.adoc[this tutorial].
+TIP: For a worked example, see the xref:tutorials:operator-tutorial-tls.adoc[Secure a cluster with TLS tutorial].
 
 == Prerequisites for TLS
 

@@ -5,7 +5,7 @@
 
 See xref:hazelcast:wan:wan.adoc[WAN replication] for more detailed information about the configuration and behavior of WAN replication in Hazelcast.
 
-TIP: For a working example, see xref:tutorials:operator-tutorial-wan-replication.adoc[this tutorial].
+TIP: For a worked example, see the xref:tutorials:operator-tutorial-wan-replication.adoc[Replicate data between clusters tutorial].
 
 == Prerequisites for WAN Replication
 

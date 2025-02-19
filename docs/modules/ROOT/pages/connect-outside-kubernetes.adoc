@@ -3,7 +3,7 @@
 
 {description}
 
-TIP: For a working example, see xref:tutorials:operator-tutorial-expose-externally.adoc[this tutorial].
+TIP: For a worked example, see the xref:tutorials:operator-tutorial-expose-externally.adoc[Connect from outside Kubernetes tutorial].
 
 == Environmental Constraints
 

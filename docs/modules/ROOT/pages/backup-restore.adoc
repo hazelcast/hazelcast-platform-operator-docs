@@ -10,7 +10,7 @@ Backups can be either of the following:
 - Local: Local backups are kept in volume and never moved anywhere.
 - External: External backups are moved into buckets provided by the user.
 
-TIP: For a working example, see xref:tutorials:operator-tutorial-external-backup-restore.adoc[this tutorial].
+TIP: For a worked example, see the xref:tutorials:operator-tutorial-external-backup-restore.adoc[Restore a cluster with Operator tutorial].
 
 == Enabling Persistence
 

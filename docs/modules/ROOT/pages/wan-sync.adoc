@@ -5,7 +5,7 @@
 
 See xref:hazelcast:wan:advanced-features#synchronizing-wan-clusters.adoc[Synchronizing WAN Clusters] for more detailed information about the configuration and behavior of WAN replication in Hazelcast.
 
-TIP: For a working example, see xref:tutorials:operator-tutorial-wan-sync.adoc[this tutorial].
+TIP: For a worked example, see the xref:tutorials:operator-tutorial-wan-sync.adoc[Synchronize data using WAN Sync tutorial].
 
 == Prerequisites for WAN Sync
 

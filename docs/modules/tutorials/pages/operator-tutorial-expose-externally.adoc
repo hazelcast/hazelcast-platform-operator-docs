@@ -48,7 +48,7 @@ The first option is to use the `Unisocket` type. This option uses the standard K
 
 === Start the Hazelcast Cluster
 
-Run the following command to create the Hazelcast cluster with the Expose Externally feature enabled using Unisocket type:
+Create the Hazelcast cluster with the Expose Externally feature enabled using Unisocket type:
 
 [source, shell]
 ----
@@ -74,7 +74,7 @@ NAME           STATUS    MEMBERS
 my-hazelcast   Running   3/3
 ----
 
-After verifying that the cluster is `Running` and all the members are ready (`3/3`), run the following command to find the discovery address:
+After verifying that the cluster is `Running` and all the members are ready (`3/3`), find the discovery address:
 
 [source, shell]
 ----
@@ -168,7 +168,7 @@ Now you can start the application.
 CLC::
 +
 --
-Run the following command to fill a map:
+Fill a map:
 
 [source, bash]
 ----
@@ -178,7 +178,7 @@ do
 done
 ----
 
-Run the following command to check the map size:
+Check the map size:
 
 [source, bash]
 ----
@@ -315,7 +315,7 @@ The second option is to use the `Smart` type. With this option, each Hazelcast m
 
 === Start the Hazelcast Cluster
 
-Run the following command to create the Hazelcast cluster with the Expose Externally feature enabled using Smart type:
+Create the Hazelcast cluster with the Expose Externally feature enabled using Smart type:
 
 [source, shell]
 ----
@@ -348,7 +348,7 @@ NAME           STATUS    MEMBERS
 my-hazelcast   Running   3/3
 ----
 
-After verifying that the cluster is `Running` and all the members are ready (`3/3`), run the following command to find the discovery and member addresses:
+After verifying that the cluster is `Running` and all the members are ready (`3/3`), find the discovery and member addresses:
 
 [source, shell]
 ----
@@ -437,7 +437,7 @@ Now you can start the application.
 CLC::
 +
 --
-Run the following command to fill a map:
+Fill a map:
 
 [source, bash]
 ----
@@ -447,7 +447,7 @@ do
 done
 ----
 
-Run the following command to check the map size:
+Check the map size:
 
 [source, bash]
 ----

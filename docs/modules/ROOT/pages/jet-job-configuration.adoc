@@ -7,7 +7,7 @@ With the Hazelcast Platform Operator, you can run Data Pipelines from existing J
 
 To understand the Data Pipelines and the Jet Engine, refer to xref:hazelcast:pipelines:overview.adoc[Platform documentation].
 
-TIP: For a working example, see xref:jet-job-configuration.adoc[this tutorial].
+TIP: For a worked example, see the xref:jet-job-configuration.adoc[Run a data pipeline using Jet tutorial].
 
 == Configuring the JetJob Resource
 
