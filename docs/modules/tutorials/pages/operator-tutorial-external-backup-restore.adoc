@@ -1,9 +1,9 @@
 = Restore a cluster from cloud storage with Platform Operator
 // :page-layout: tutorial
-:page-product: operator
-:page-categories: Cloud Native
-:page-lang: go, java, node, python
-:page-est-time: 20 mins
+// :page-product: operator
+// :page-categories: Cloud Native
+// :page-lang: go, java, node, python
+// :page-est-time: 20 mins
 :description: Learn how to back up data in Hazelcast maps to cloud storage and restore a cluster from that backup data.
 
 {description}
@@ -29,7 +29,7 @@ Before you begin, make sure that you have:
 * Deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator]
 * Created blob storage and access credentials in one of the Cloud providers: https://aws.amazon.com/s3/[AWS] - https://cloud.google.com/storage/[GCP] - https://azure.microsoft.com/en-us/services/storage/blobs/[Azure]
 
-== Start the Hazelcast Cluster
+== Start the Hazelcast cluster
 
 . Create a license secret
 +
@@ -40,7 +40,7 @@ Create a secret with your link:http://trialrequest.hazelcast.com/[Hazelcast Ente
 kubectl create secret generic hazelcast-license-key --from-literal=license-key=<hz-license-key>
 ----
 
-. Create the Hazelcast Cluster
+. Create the Hazelcast cluster
 +
 Create the Hazelcast cluster with Persistence enabled:
 +
@@ -52,7 +52,7 @@ EOF
 ----
 +
 
-. Check the Cluster status
+. Check the cluster status
 +
 Run the following commands to see the cluster status:
 +
@@ -74,7 +74,7 @@ my-hazelcast-2   2/2     Running   0          2m50s
 +
 As you can see from the pod states, the agent container will be deployed with the Hazelcast container in the same Pod. The agent is responsible for backing data up into the external storage.
 
-. Get the address of the Hazelcast Cluster
+. Get the address of the Hazelcast cluster
 +
 After verifying that the cluster is `Running` and all the members are ready, find the discovery address:
 
@@ -419,7 +419,7 @@ hot-backup   Success
 
 == Restore from external backup
 
-. Delete the Hazelcast Cluster
+. Delete the Hazelcast cluster
 +
 Run the following command to delete the Hazelcast cluster:
 +
@@ -451,7 +451,7 @@ Delete the PVCs:
 kubectl delete pvc -l "app.kubernetes.io/managed-by=hazelcast-platform-operator"
 ----
 
-. Create new Hazelcast Cluster
+. Create new Hazelcast cluster
 +
 For restoring, you will use the `HotBackup` resource you have created.
 +
@@ -467,7 +467,7 @@ EOF
 +
 As you may see, the agent configuration is not set. Thus, the Operator directly uses the latest stable version of the agent.
 
-. Check the Cluster Status
+. Check the cluster status
 +
 Run the following commands to see the cluster status:
 +

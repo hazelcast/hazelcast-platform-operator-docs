@@ -1,9 +1,9 @@
 = Save the state of a Jet job with Platform Operator
 // :page-layout: tutorial
-:page-product: operator
-:page-categories: Cloud Native
-:page-lang: go, java, node, python
-:page-est-time: 10 mins
+// :page-product: operator
+// :page-categories: Cloud Native
+// :page-lang: go, java, node, python
+// :page-est-time: 10 mins
 :github-directory: https://github.com/hazelcast-guides/hazelcast-platform-operator-jet-job-snapshot
 :description: Learn how to save the state of your data pipelines and initiate a data pipeline from an existing state using the Hazelcast Platform Operator.
 
@@ -33,11 +33,11 @@ Before you begin, make sure that you have:
 
 If you're unsure about how to submit Jet jobs using the Hazelcast Platform Operator, follow the xref:hazelcast-platform-operator-jet.adoc[Jet] tutorial first. This also covers the steps for deploying a custom Jet pipeline JAR to Cloud storage and provides guidance on managing Jet job resources using the Hazelcast Platform Operator.
 
-== Start the Hazelcast Cluster
+== Start the Hazelcast cluster
 
 Since Snapshot is an exclusive feature of the enterprise version, you'll need to set up an Enterprise Hazelcast cluster. This is why it's necessary to create a License Key secret first.
 
-. Run the following command to create a secret with your link:http://trialrequest.hazelcast.com/[Hazelcast Enterprise License], which will be referenced in the Hazelcast resource definition later:
+. Create a secret with your link:http://trialrequest.hazelcast.com/[Hazelcast Enterprise License], which will be referenced in the Hazelcast resource definition later:
 
 +
 [source, shell]
@@ -45,7 +45,7 @@ Since Snapshot is an exclusive feature of the enterprise version, you'll need to
 kubectl create secret generic hazelcast-license-key --from-literal=license-key=<hz-license-key>
 ----
 
-. Run the following command to create a Hazelcast cluster with the Jet engine configured.
+. Create a Hazelcast cluster with the Jet engine configured.
 
 +
 [source, shell]
@@ -96,7 +96,7 @@ You are all set to submit the Jet job that processes transactions from the map. 
 include::ROOT:example$/operator-jet-job-snapshot/jet-pipelines/src/main/java/org/examples/jet/snapshot/JobV1.java[]
 ----
 
-. Run the following command to submit the Jet job:
+. Submit the Jet job:
 
 +
 [source, shell]
@@ -106,7 +106,7 @@ include::ROOT:example$/operator-jet-job-snapshot/job-v1.yaml[]
 EOF
 ----
 
-. Run the following command to check the status of the Jet job you have submitted:
+. Check the status of the Jet job you have submitted:
 
 +
 [source, shell]
@@ -132,7 +132,7 @@ $ kubectl logs -l app.kubernetes.io/name=hazelcast -c hazelcast | grep transacti
 
 In data pipelines, saving and using computation process states is vital for accurate and reliable data processing. Jet's Snapshot feature lets you save and restore these processing states. A snapshot captures the state of a running Jet job at a specific time, giving you a reliable record of ongoing computations and processed data.
 
-. Run the following command to export a Snapshot from the Jet job:
+. Export a Snapshot from the Jet job:
 
 +
 [source, shell]
@@ -142,7 +142,7 @@ include::ROOT:example$/operator-jet-job-snapshot/snapshot.yaml[]
 EOF
 ----
 
-. Run the following command to check the status of the exported JetJobSnapshot:
+. Check the status of the exported JetJobSnapshot:
 
 +
 [source, shell]

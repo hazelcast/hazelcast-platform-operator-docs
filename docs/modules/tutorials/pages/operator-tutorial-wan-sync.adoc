@@ -1,9 +1,9 @@
 = Synchronize data between two Hazelcast clusters using WAN Sync
 // :page-layout: tutorial
-:page-product: operator
-:page-categories: Cloud Native
-:page-est-time: 10 mins
-:page-lang: go, java, node, python
+// :page-product: operator
+// :page-categories: Cloud Native
+// :page-est-time: 10 mins
+// :page-lang: go, java, node, python
 :description: Learn how to synchronize data across two Hazelcast clusters using WAN Sync.
 
 {description}
@@ -24,7 +24,7 @@ Before you begin, make sure that you have:
 * The Kubernetes command-line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl]
 * A deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator]
 
-== Start the Hazelcast Clusters
+== Start the Hazelcast clusters
 
 In this step, you'll start two Hazelcast clusters, one called `hazelcast-first` and one called `hazelcast-second`.
 
@@ -148,7 +148,7 @@ CLC::
 --
 NOTE: CLC must be installed in your system. See the https://docs.hazelcast.com/clc/5.5.0/install-clc[CLC installation instructions].
 
-Run the following command to add the first cluster config to the CLC:
+Add the first cluster config to the CLC:
 [source, bash]
 ----
 clc config add hz-1 cluster.name=dev cluster.address=<FIRST-CLUSTER-EXTERNAL-IP>
@@ -500,7 +500,7 @@ kubectl apply -f - <<EOF
 include::ROOT:example$/operator-wan-sync/full-sync-wanreplication.yaml[]
 EOF
 ----
-If you need a *Delta WAN Sync*, run the following command to apply the configuration:
+If you need a *Delta WAN Sync*, run the following to apply the configuration:
 +
 [source, shell]
 ----
@@ -523,7 +523,7 @@ EOF
 WAN Sync ensures data consistency between the two Hazelcast clusters. Full WAN Sync transmits all data from the source cluster to the target cluster, aligning the state of the target `IMap` with the source `IMap`. This method is particularly beneficial when the synchronization between two remote clusters is lost due to WAN queue overflows or cluster restarts.
 ====
 
-. Run the following command to see the WAN synchronization status:
+. See the WAN synchronization status:
 +
 [source, shell]
 ----

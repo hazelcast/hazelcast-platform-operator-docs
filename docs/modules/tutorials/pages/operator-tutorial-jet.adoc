@@ -1,9 +1,9 @@
 = Run a data pipeline using Jet with Platform Operator
 // :page-layout: tutorial
-:page-product: operator
-:page-categories: Cloud Native
-:page-lang: go, java, node, python
-:page-est-time: 20 mins
+// :page-product: operator
+// :page-categories: Cloud Native
+// :page-lang: go, java, node, python
+// :page-est-time: 20 mins
 :github-directory: https://github.com/hazelcast-guides/hazelcast-platform-operator-jet
 :description: Learn how to run a data pipeline in Hazelcast using Jet.
 
@@ -149,7 +149,7 @@ kubectl create secret generic <SECRET-NAME> \
 
 NOTE: If you want to learn more about other authentication methods, check the xref:operator:ROOT:authorization.adoc[Authorization Methods to Access Cloud Storage] documentation.
 
-== Start the Hazelcast Cluster
+== Start the Hazelcast cluster
 
 . Create a secret with your link:http://trialrequest.hazelcast.com/[Hazelcast Enterprise License].
 
@@ -189,7 +189,7 @@ my-hazelcast   Running   3/3
 
 In this step, you'll start, check and cancel the Jet job that runs the data pipeline.
 
-. Run the following command to start the Jet job you have already deployed:
+. Start the Jet job you have already deployed:
 
 +
 Replace the <BUCKET-URI> with the appropriate sample bucket URI for your cloud provider:
@@ -249,7 +249,7 @@ The logs of the Jet pipeline are displayed in the output.
 . Now, cancel the Jet job by setting the `spec.state` to `Canceled`. Use one of the following options.
 
 +
-a) Run the following command to cancel the Jet job, using `kubectl apply`:
+a) Cancel the Jet job, using `kubectl apply`:
 +
 [source, shell]
 ----
@@ -258,7 +258,7 @@ include::ROOT:example$/jet-canceled.yaml[]
 EOF
 ----
 +
-b) Run the following command to cancel the Jet job, using `kubectl patch`:
+b) Cancel the Jet job, using `kubectl patch`:
 +
 [source,bash]
 ----
@@ -283,7 +283,7 @@ my-jet-job   ExecutionFailed   732229926463209474   2023-07-14T13:40:19Z   2023-
 ----
 +
 
-. Run the following command to see a more detailed message for the status of the Jet job:
+. See a more detailed message for the status of the Jet job:
 +
 [source,bash]
 ----

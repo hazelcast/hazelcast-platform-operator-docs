@@ -1,9 +1,9 @@
 = Configure TLS with Platform Operator
 // :page-layout: tutorial
-:page-product: operator
-:page-categories: Cloud Native
-:page-lang: go, java
-:page-est-time: 10 mins
+// :page-product: operator
+// :page-categories: Cloud Native
+// :page-lang: go, java
+// :page-est-time: 10 mins
 :description: Learn how to secure Hazelcast cluster with TLS and Hazelcast Platform Operator.
 
 {description}
@@ -69,7 +69,7 @@ include::ROOT:example$/hazelcast.yaml[]
 EOF
 ----
 
-. Run the following commands to check cluster status:
+. Check cluster status:
 +
 [source, shell]
 ----
@@ -78,7 +78,7 @@ NAME        STATUS    MEMBERS
 hazelcast   Running   3/3
 ----
 
-. Run the following commands to fetch external addresses of the cluster:
+. Fetch external addresses of the cluster:
 +
 [source, shell]
 ----
@@ -125,7 +125,7 @@ CLC::
 --
 NOTE: CLC must be installed in your system. See the https://docs.hazelcast.com/clc/5.5.0/install-clc[CLC installation instructions].
 
-Run the following command for adding the cluster config to the CLC:
+Add the cluster config to the CLC:
 
 [source, shell]
 ----

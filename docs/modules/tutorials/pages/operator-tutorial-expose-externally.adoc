@@ -1,11 +1,11 @@
 = Connect to Hazelcast from outside Kubernetes
 :templates-url: templates:ROOT:page$/
 // :page-layout: tutorial
-:page-product: operator
-:page-categories: Caching, Cloud Native
-:page-lang: go, java, node, python
-:page-est-time: 5-10 mins
-:framework: Kubernetes Operator
+// :page-product: operator
+// :page-categories: Caching, Cloud Native
+// :page-lang: go, java, node, python
+// :page-est-time: 5-10 mins
+// :framework: Kubernetes Operator
 :description: Learn how to connect to a Hazelcast cluster running in Kubernetes from outside of the Kubernetes environment.
 
 {description}
@@ -46,7 +46,7 @@ The first option is to use the `Unisocket` type. This option uses the standard K
 // .Hazelcast Unisocket Client
 // image::unisocket.jpg[Hazelcast Unisocket Client]
 
-=== Start the Hazelcast Cluster
+=== Start the Hazelcast cluster
 
 Create the Hazelcast cluster with the Expose Externally feature enabled using Unisocket type:
 
@@ -63,7 +63,7 @@ For `discoveryServiceType` you can use:
 * `NodePort` - will expose the discovery service via `NodePort`.
 
 
-=== Verify the Hazelcast Cluster
+=== Verify the Hazelcast cluster
 
 Check the cluster status by running the following command.
 
@@ -85,7 +85,7 @@ my-hazelcast-unisocket   Discovery   34.135.7.75:5701
 
 The `ADDRESS` column displays the external address of your Hazelcast cluster.
 
-=== Connect Hazelcast Clients to the Cluster
+=== Connect Hazelcast Clients to the cluster
 
 To access all sample clients, clone the following repository:
 
@@ -107,7 +107,7 @@ CLC::
 --
 NOTE: CLC must be installed in your system. See the https://docs.hazelcast.com/clc/5.5.0/install-clc[CLC installation instructions].
 
-Run the following command for adding the cluster config to the CLC:
+Add the cluster config to the CLC:
 
 [source, bash]
 ----
@@ -313,7 +313,7 @@ The second option is to use the `Smart` type. With this option, each Hazelcast m
 // .Hazelcast Smart Client
 // image::smart.jpg[Hazelcast Smart Client]
 
-=== Start the Hazelcast Cluster
+=== Start the Hazelcast cluster
 
 Create the Hazelcast cluster with the Expose Externally feature enabled using Smart type:
 
@@ -337,7 +337,7 @@ For `memberAccess` you can use the following options:
 * `NodePortNodeName` - lets the client access Hazelcast member with the `NodePort` service and the node name;
 * `NodePortExternalIP` - lets the client access Hazelcast member with the `NodePort` service and the node external IP/hostname
 
-=== Verify the Hazelcast Cluster
+=== Verify the Hazelcast cluster
 
 Check the cluster status by running the following command:
 
@@ -375,7 +375,7 @@ CLC::
 --
 NOTE: CLC must be installed in your system. See the https://docs.hazelcast.com/clc/5.5.0/install-clc[CLC installation instructions].
 
-Run the following command for adding the cluster config to the CLC:
+Add the cluster config to the CLC:
 
 [source, bash]
 ----

@@ -1,9 +1,9 @@
 = Replicate data between two Hazelcast clusters with Platform Operator 
 // :page-layout: tutorial
-:page-product: operator
-:page-categories: Cloud Native
-:page-est-time: 10 mins
-:page-lang: go, java, node, python
+// :page-product: operator
+// :page-categories: Cloud Native
+// :page-est-time: 10 mins
+// :page-lang: go, java, node, python
 :description: Learn how to keep data in sync across two Hazelcast clusters.
 
 {description}
@@ -26,7 +26,7 @@ Before you begin, make sure that you have:
 * The Kubernetes command-line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl]
 * A deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator]
 
-== Start the Hazelcast Cluster
+== Start the Hazelcast cluster
 
 . Create a secret with your link:http://trialrequest.hazelcast.com/[Hazelcast Enterprise License].
 +
@@ -36,7 +36,7 @@ kubectl create secret generic hazelcast-license-key --from-literal=license-key=<
 ----
 
 . Create the Hazelcast clusters.
-.. Run the following command to create the first cluster:
+.. Create the first cluster:
 +
 [source, shell]
 ----
@@ -45,7 +45,7 @@ include::ROOT:example$/operator-wan/hazelcast-first.yaml[]
 EOF
 ----
 
-.. Run the following command to create the second cluster:
+.. Create the second cluster:
 +
 [source, shell]
 ----
@@ -110,7 +110,7 @@ Adding the cluster name as a resource starts WAN replication for both the maps t
 +
 - Add the second cluster as the target cluster to receive the WAN Replication events.
 +
-Run the following command to apply the configuration:
+Apply the configuration:
 +
 [source, shell]
 ----
@@ -144,7 +144,7 @@ CLC::
 --
 NOTE: CLC must be installed in your system. See the https://docs.hazelcast.com/clc/5.5.0/install-clc[CLC installation instructions].
 
-Run the following command for adding the first cluster config to the CLC:
+Add the first cluster config to the CLC:
 
 [source, bash]
 ----
@@ -216,7 +216,7 @@ do
 done
 ----
 
-Run the following command for each map to check if the sizes are expected:
+Again, for each map, check if the sizes are expected:
 
 [source, bash]
 ----
