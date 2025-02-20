@@ -1,9 +1,4 @@
 = Save the state of a Jet job with Platform Operator
-// :page-layout: tutorial
-// :page-product: operator
-// :page-categories: Cloud Native
-// :page-lang: go, java, node, python
-// :page-est-time: 10 mins
 :github-directory: https://github.com/hazelcast-guides/hazelcast-platform-operator-jet-job-snapshot
 :description: Learn how to save the state of your data pipelines and initiate a data pipeline from an existing state using the Hazelcast Platform Operator.
 
@@ -20,6 +15,8 @@ This tutorial guides you through the process of saving the state of your data pi
 - Export a Snapshot from the Jet pipeline
 
 - Start a new Jet pipeline initialized from the Snapshot
+
+The tutorial should take approximately 10 minutes to complete. 
 
 == Prerequisites
 

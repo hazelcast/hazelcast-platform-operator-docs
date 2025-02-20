@@ -1,11 +1,4 @@
 = Connect to Hazelcast from outside Kubernetes
-:templates-url: templates:ROOT:page$/
-// :page-layout: tutorial
-// :page-product: operator
-// :page-categories: Caching, Cloud Native
-// :page-lang: go, java, node, python
-// :page-est-time: 5-10 mins
-// :framework: Kubernetes Operator
 :description: Learn how to connect to a Hazelcast cluster running in Kubernetes from outside of the Kubernetes environment.
 
 {description}
@@ -17,6 +10,8 @@ In this tutorial, we'll look at two available options for the Expose Externally 
 - *Unisocket* - client requests are load balanced between Hazelcast members
 
 - *Smart* - the client connects to all members and sends requests directly to the members owning the data
+
+The tutorial should take approximately 5 to 10 minutes to complete. 
 
 == Prerequisites
 

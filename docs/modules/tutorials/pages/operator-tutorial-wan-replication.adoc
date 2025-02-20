@@ -1,9 +1,4 @@
 = Replicate data between two Hazelcast clusters with Platform Operator 
-// :page-layout: tutorial
-// :page-product: operator
-// :page-categories: Cloud Native
-// :page-est-time: 10 mins
-// :page-lang: go, java, node, python
 :description: Learn how to keep data in sync across two Hazelcast clusters.
 
 {description}
@@ -17,6 +12,8 @@ In this tutorial, you'll do the following:
 - Create two Hazelcast map configurations on one of the clusters
 
 - Synchronize map data between the two Hazelcast clusters
+
+The tutorial should take approximately 10 minutes to complete. 
 
 == Prerequisites
 

@@ -1,9 +1,4 @@
 = Configure TLS with Platform Operator
-// :page-layout: tutorial
-// :page-product: operator
-// :page-categories: Cloud Native
-// :page-lang: go, java
-// :page-est-time: 10 mins
 :description: Learn how to secure Hazelcast cluster with TLS and Hazelcast Platform Operator.
 
 {description}
@@ -20,6 +15,7 @@ In this tutorial, you'll do the following:
 
 - Connect to your cluster using TLS to encrypt member-to-client network traffic
 
+The tutorial should take approximately 10 minutes to complete. 
 
 == Prerequisites
 

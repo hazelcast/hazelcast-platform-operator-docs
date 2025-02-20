@@ -1,9 +1,4 @@
 = Restore a cluster from cloud storage with Platform Operator
-// :page-layout: tutorial
-// :page-product: operator
-// :page-categories: Cloud Native
-// :page-lang: go, java, node, python
-// :page-est-time: 20 mins
 :description: Learn how to back up data in Hazelcast maps to cloud storage and restore a cluster from that backup data.
 
 {description}
@@ -19,6 +14,8 @@ In this tutorial, you'll do the following:
 - Back up all map entries to external storage in the Cloud
 
 - Restart the Hazelcast cluster and restore the backup map entries from the Cloud
+
+The tutorial should take approximately 20 minutes to complete. 
 
 == Prerequisites
 

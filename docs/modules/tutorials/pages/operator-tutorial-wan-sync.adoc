@@ -1,9 +1,4 @@
 = Synchronize data between two Hazelcast clusters using WAN Sync
-// :page-layout: tutorial
-// :page-product: operator
-// :page-categories: Cloud Native
-// :page-est-time: 10 mins
-// :page-lang: go, java, node, python
 :description: Learn how to synchronize data across two Hazelcast clusters using WAN Sync.
 
 {description}
@@ -15,6 +10,8 @@ In this tutorial, you'll do the following:
 - Deploy two Hazelcast clusters
 - Create a Hazelcast map configuration on one of the clusters
 - Synchronize map data between the two Hazelcast clusters using Full and Delta WAN Sync
+
+The tutorial should take approximately 10 minutes to complete. 
 
 == Prerequisites
 
