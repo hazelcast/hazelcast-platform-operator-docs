@@ -3,7 +3,7 @@
 
 {description}
 
-TIP: For a working example, see link:https://docs.hazelcast.com/tutorials/hazelcast-platform-operator-expose-externally/[this tutorial].
+TIP: For a worked example, see the xref:tutorials:operator-tutorial-expose-externally.adoc[Connect from outside Kubernetes tutorial].
 
 == Environmental Constraints
 
