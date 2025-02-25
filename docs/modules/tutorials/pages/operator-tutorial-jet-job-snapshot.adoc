@@ -6,7 +6,7 @@
 
 == Overview
 
-This tutorial guides you through the process of saving the state of your data pipelines and creating new data pipelines initialized from the saved state. We'll follow the steps below:
+This tutorial guides you through the process of saving the state of your data pipelines and creating new data pipelines initialized from the saved state. Follow the steps below:
 
 - Deploy a Hazelcast cluster with the configured Jet engine
 
@@ -48,7 +48,7 @@ kubectl create secret generic hazelcast-license-key --from-literal=license-key=<
 [source, shell]
 ----
 kubectl apply -f - <<EOF
-include::ROOT:example$/operator-jet-job-snapshot/hz.yaml[]
+include::6.0-snapshot@hazelcast:ROOT:example$/jet/operator-jet-job-snapshot/hz.yaml[]
 EOF
 ----
 
@@ -77,7 +77,7 @@ Before submitting the Jet job, you need to create a map from which the Jet job w
 [source, shell]
 ----
 kubectl apply -f - <<EOF
-include::ROOT:example$/operator-jet-job-snapshot/map.yaml[]
+include::6.0-snapshot@hazelcast:ROOT:example$/jet/operator-jet-job-snapshot/map.yaml[]
 EOF
 ----
 
@@ -90,7 +90,7 @@ You are all set to submit the Jet job that processes transactions from the map. 
 +
 [source, java]
 ----
-include::ROOT:example$/operator-jet-job-snapshot/jet-pipelines/src/main/java/org/examples/jet/snapshot/JobV1.java[]
+include::6.0-snapshot@hazelcast:ROOT:example$/jet/operator-jet-job-snapshot/jet-pipelines/src/main/java/org/examples/jet/snapshot/JobV1.java[]
 ----
 
 . Submit the Jet job:
@@ -99,7 +99,7 @@ include::ROOT:example$/operator-jet-job-snapshot/jet-pipelines/src/main/java/org
 [source, shell]
 ----
 kubectl apply -f - <<EOF
-include::ROOT:example$/operator-jet-job-snapshot/job-v1.yaml[]
+include::6.0-snapshot@hazelcast:ROOT:example$/jet/operator-jet-job-snapshot/job-v1.yaml[]
 EOF
 ----
 
@@ -135,7 +135,7 @@ In data pipelines, saving and using computation process states is vital for accu
 [source, shell]
 ----
 kubectl apply -f - <<EOF
-include::ROOT:example$/operator-jet-job-snapshot/snapshot.yaml[]
+include::6.0-snapshot@hazelcast:ROOT:example$/jet/operator-jet-job-snapshot/snapshot.yaml[]
 EOF
 ----
 
@@ -172,7 +172,7 @@ When creating a new version of a data pipeline, it's essential to initialize the
 +
 [source, java]
 ----
-include::ROOT:example$/operator-jet-job-snapshot/jet-pipelines/src/main/java/org/examples/jet/snapshot/JobV2.java[]
+include::6.0-snapshot@hazelcast:ROOT:example$/jet/operator-jet-job-snapshot/jet-pipelines/src/main/java/org/examples/jet/snapshot/JobV2.java[]
 ----
 
 . In contrast to the previous Jet job definition, we will set the 'initialSnapshotResourceName' field to refer to the Snapshot exported in the preceding step. Execute the following command to submit the new Jet job:
@@ -181,7 +181,7 @@ include::ROOT:example$/operator-jet-job-snapshot/jet-pipelines/src/main/java/org
 [source, shell]
 ----
 kubectl apply -f - <<EOF
-include::ROOT:example$/operator-jet-job-snapshot/job-v2.yaml[]
+include::6.0-snapshot@hazelcast:ROOT:example$/jet/operator-jet-job-snapshot/job-v2.yaml[]
 EOF
 ----
 

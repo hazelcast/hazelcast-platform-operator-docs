@@ -1,4 +1,5 @@
 = Connect to Hazelcast from outside Kubernetes
+:github-directory: https://github.com/hazelcast-guides/hazelcast-platform-operator-expose-externally
 :description: Learn how to connect to a Hazelcast cluster running in Kubernetes from outside of the Kubernetes environment.
 
 {description}

@@ -1,4 +1,5 @@
 = Synchronize data between two Hazelcast clusters using WAN Sync
+:github-directory: https://github.com/hazelcast-guides/hazelcast-platform-operator-wan-sync
 :description: Learn how to synchronize data across two Hazelcast clusters using WAN Sync.
 
 {description}

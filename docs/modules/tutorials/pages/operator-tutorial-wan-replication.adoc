@@ -1,4 +1,5 @@
 = Replicate data between two Hazelcast clusters with Platform Operator 
+:github-directory: https://github.com/hazelcast-guides/hazelcast-platform-operator-wan-sync
 :description: Learn how to keep data in sync across two Hazelcast clusters.
 
 {description}
