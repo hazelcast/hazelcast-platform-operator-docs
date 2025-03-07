@@ -255,7 +255,7 @@ m| wan | &#160; m| []<<WANConfig,WANConfig>> | false | -
 | Field | Description | Type | Required | Default
 m| repository | Repository to pull Hazelcast Platform Operator Agent(https://github.com/hazelcast/platform-operator-agent) m| string | false | "docker.io/hazelcast/platform-operator-agent"
 m| version | Version of Hazelcast Platform Operator Agent. m| string | false | "latest-snapshot"
-m| resources | Compute Resources required by the Agent container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | -
+m| resources | Compute Resources required by the Agent container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -355,7 +355,7 @@ Cache is the Schema for the caches API
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
 m| spec | &#160; m| <<CacheSpec,CacheSpec>> | true | -
 m| status | &#160; m| <<CacheStatus,CacheStatus>> | false | -
 |===
@@ -369,7 +369,7 @@ CacheList contains a list of Cache
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#listmeta-v1-meta[metav1.ListMeta] | false | -
 m| items | &#160; m| []<<Cache,Cache>> | true | -
 |===
 
@@ -488,7 +488,7 @@ CronHotBackup is the Schema for the cronhotbackups API
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
 m| spec | &#160; m| <<CronHotBackupSpec,CronHotBackupSpec>> | true | -
 m| status | &#160; m| <<CronHotBackupStatus,CronHotBackupStatus>> | false | -
 |===
@@ -502,7 +502,7 @@ CronHotBackupList contains a list of CronHotBackup
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#listmeta-v1-meta[metav1.ListMeta] | false | -
 m| items | &#160; m| []<<CronHotBackup,CronHotBackup>> | true | -
 |===
 
@@ -660,7 +660,7 @@ ExposeExternallyConfiguration defines how to expose Hazelcast cluster to externa
 |===
 | Field | Description | Type | Required | Default
 m| type | Specifies how members are exposed. Valid values are: - "Smart" (default): each member pod is exposed with a separate external address - "Unisocket": all member pods are exposed with one external address m| <<ExposeExternallyType,ExposeExternallyType>> | false | "Smart"
-m| discoveryServiceType | Type of the service used to discover Hazelcast cluster. m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#servicetype-v1-core[corev1.ServiceType] | false | "LoadBalancer"
+m| discoveryServiceType | Type of the service used to discover Hazelcast cluster. m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#servicetype-v1-core[corev1.ServiceType] | false | "LoadBalancer"
 m| memberAccess | How each member is accessed from the external client. Only available for "Smart" client and valid values are: - "NodePortExternalIP" (default): each member is accessed by the NodePort service and the node external IP/hostname - "NodePortNodeName": each member is accessed by the NodePort service and the node name - "LoadBalancer": each member is accessed by the LoadBalancer service external address m| <<MemberAccess,MemberAccess>> | false | -
 |===
 
@@ -714,7 +714,7 @@ Flow is the Schema for the flows API
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
 m| spec | &#160; m| <<FlowSpec,FlowSpec>> | false | -
 m| status | &#160; m| <<FlowStatus,FlowStatus>> | false | -
 |===
@@ -741,7 +741,7 @@ FlowList contains a list of Flow
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#listmeta-v1-meta[metav1.ListMeta] | false | -
 m| items | &#160; m| []<<Flow,Flow>> | true | -
 |===
 
@@ -757,14 +757,14 @@ FlowSpec defines the desired state of Flow
 m| size | Number of Flow instances. m| &#42;int32 | false | 3
 m| repository | Repository to pull the Flow image from. m| string | false | "docker.io/hazelcast/hazelcast-flow"
 m| version | Version of Flow. m| string | false | "5.5.0"
-m| imagePullPolicy | Pull policy for the Flow image m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#pullpolicy-v1-core[corev1.PullPolicy] | false | "IfNotPresent"
-m| imagePullSecrets | Image pull secrets for the Flow image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
+m| imagePullPolicy | Pull policy for the Flow image m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#pullpolicy-v1-core[corev1.PullPolicy] | false | "IfNotPresent"
+m| imagePullSecrets | Image pull secrets for the Flow image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
 m| licenseKeySecretName | Name of the secret with Hazelcast Enterprise License Key. m| string | true | -
 m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingConfiguration>> | false | -
-m| resources | Compute Resources required by the Hazelcast container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | -
+m| resources | Compute Resources required by the Hazelcast container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | -
 m| externalConnectivity | Configuration to expose Flow to outside. m| &#42;<<FlowExternalConnectivityConfiguration,FlowExternalConnectivityConfiguration>> | false | {}
 m| database | Configuration for Flow database m| <<DatabaseConfig,DatabaseConfig>> | true | -
-m| env | Env configuration of environment variables m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#envvar-v1-core[corev1.EnvVar] | false | -
+m| env | Env configuration of environment variables m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#envvar-v1-core[corev1.EnvVar] | false | -
 m| annotations | Flow Kubernetes resource annotations m| map[string]string | false | -
 m| labels | Flow Kubernetes resource labels m| map[string]string | false | -
 |===
@@ -805,7 +805,7 @@ Hazelcast is the Schema for the hazelcasts API
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
 m| spec | &#160; m| <<HazelcastSpec,HazelcastSpec>> | false | -
 m| status | &#160; m| <<HazelcastStatus,HazelcastStatus>> | false | -
 |===
@@ -846,7 +846,7 @@ HazelcastEndpoint is the Schema for the hazelcastendpoints API
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
 m| spec | &#160; m| <<HazelcastEndpointSpec,HazelcastEndpointSpec>> | false | -
 m| status | &#160; m| <<HazelcastEndpointStatus,HazelcastEndpointStatus>> | false | -
 |===
@@ -860,7 +860,7 @@ HazelcastEndpointList contains a list of HazelcastEndpoint
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#listmeta-v1-meta[metav1.ListMeta] | false | -
 m| items | &#160; m| []<<HazelcastEndpoint,HazelcastEndpoint>> | true | -
 |===
 
@@ -899,7 +899,7 @@ HazelcastList contains a list of Hazelcast
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#listmeta-v1-meta[metav1.ListMeta] | false | -
 m| items | &#160; m| []<<Hazelcast,Hazelcast>> | true | -
 |===
 
@@ -960,13 +960,13 @@ HazelcastSpec defines the desired state of Hazelcast
 m| clusterSize | Number of Hazelcast members in the cluster. m| &#42;int32 | false | 3
 m| repository | Repository to pull the Hazelcast Platform image from. m| string | false | "docker.io/hazelcast/hazelcast-enterprise"
 m| version | Version of Hazelcast Platform. m| string | false | "5.5.3-SNAPSHOT"
-m| imagePullPolicy | Pull policy for the Hazelcast Platform image m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#pullpolicy-v1-core[corev1.PullPolicy] | false | "IfNotPresent"
-m| imagePullSecrets | Image pull secrets for the Hazelcast Platform image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
+m| imagePullPolicy | Pull policy for the Hazelcast Platform image m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#pullpolicy-v1-core[corev1.PullPolicy] | false | "IfNotPresent"
+m| imagePullSecrets | Image pull secrets for the Hazelcast Platform image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
 m| licenseKeySecretName | Name of the secret with Hazelcast Enterprise License Key. m| string | true | -
 m| exposeExternally | Configuration to expose Hazelcast cluster to external clients. m| &#42;<<ExposeExternallyConfiguration,ExposeExternallyConfiguration>> | false | -
 m| clusterName | Name of the Hazelcast cluster. m| string | false | "dev"
 m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingConfiguration>> | false | -
-m| resources | Compute Resources required by the Hazelcast container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | -
+m| resources | Compute Resources required by the Hazelcast container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | -
 m| persistence | Persistence configuration m| &#42;<<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>> | false | -
 m| agent | B&R Agent configurations m| <<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "latest-snapshot"}
 m| jet | Jet Engine configuration m| &#42;<<JetEngineConfiguration,JetEngineConfiguration>> | false | {enabled: true, resourceUploadEnabled: false}
@@ -991,7 +991,7 @@ m| labels | Hazelcast Kubernetes resource labels m| map[string]string | false | 
 m| serviceAccountName | ServiceAccountName is the name of the ServiceAccount to use to run Hazelcast cluster. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/ m| string | false | -
 m| cpSubsystem | CPSubsystem is the configuration of the Hazelcast CP Subsystem. m| &#42;<<CPSubsystem,CPSubsystem>> | false | -
 m| userCodeNamespaces | UserCodeNamespaces provide a container for Java classpath resources, such as user code and accompanying artifacts like property files m| &#42;<<UserCodeNamespacesConfig,UserCodeNamespacesConfig>> | false | -
-m| env | Env configuration of environment variables m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#envvar-v1-core[corev1.EnvVar] | false | -
+m| env | Env configuration of environment variables m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#envvar-v1-core[corev1.EnvVar] | false | -
 m| liteMember | &#160; m| &#42;<<LiteMember,LiteMember>> | false | -
 m| security | &#160; m| &#42;<<Security,Security>> | false | -
 |===
@@ -1031,7 +1031,7 @@ HotBackup is the Schema for the hot backup API
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
 m| spec | &#160; m| <<HotBackupSpec,HotBackupSpec>> | true | -
 m| status | &#160; m| <<HotBackupStatus,HotBackupStatus>> | false | -
 |===
@@ -1045,7 +1045,7 @@ HotBackupList contains a list of HotBackup
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#listmeta-v1-meta[metav1.ListMeta] | false | -
 m| items | &#160; m| []<<HotBackup,HotBackup>> | true | -
 |===
 
@@ -1092,7 +1092,7 @@ m| backupUUIDs | &#160; m| []string | false | -
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | Standard object's metadata of the hot backups created from this template. m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| metadata | Standard object's metadata of the hot backups created from this template. m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
 m| spec | Specification of the desired behavior of the hot backup. m| <<HotBackupSpec,HotBackupSpec>> | true | -
 |===
 
@@ -1251,7 +1251,7 @@ JetJob is the Schema for the jetjobs API
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
 m| spec | &#160; m| <<JetJobSpec,JetJobSpec>> | false | -
 m| status | &#160; m| <<JetJobStatus,JetJobStatus>> | false | -
 |===
@@ -1265,7 +1265,7 @@ JetJobList contains a list of JetJob
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#listmeta-v1-meta[metav1.ListMeta] | false | -
 m| items | &#160; m| []<<JetJob,JetJob>> | true | -
 |===
 
@@ -1278,7 +1278,7 @@ JetJobSnapshot is the Schema for the jetjobsnapshots API
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
 m| spec | &#160; m| <<JetJobSnapshotSpec,JetJobSnapshotSpec>> | true | -
 m| status | &#160; m| <<JetJobSnapshotStatus,JetJobSnapshotStatus>> | false | {state: "Waiting"}
 |===
@@ -1292,7 +1292,7 @@ JetJobSnapshotList contains a list of JetJobSnapshot
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#listmeta-v1-meta[metav1.ListMeta] | false | -
 m| items | &#160; m| []<<JetJobSnapshot,JetJobSnapshot>> | true | -
 |===
 
@@ -1321,7 +1321,7 @@ JetJobSnapshotStatus defines the observed state of JetJobSnapshot
 | Field | Description | Type | Required | Default
 m| state | &#160; m| <<JetJobSnapshotState,JetJobSnapshotState>> | false | -
 m| message | &#160; m| string | false | -
-m| creationTime | &#160; m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#time-v1-meta[metav1.Time] | false | -
+m| creationTime | &#160; m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#time-v1-meta[metav1.Time] | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1355,8 +1355,8 @@ JetJobStatus defines the observed state of JetJob
 | Field | Description | Type | Required | Default
 m| id | &#160; m| int64 | true | -
 m| phase | &#160; m| <<JetJobStatusPhase,JetJobStatusPhase>> | true | -
-m| submissionTime | &#160; m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#time-v1-meta[metav1.Time] | false | -
-m| completionTime | &#160; m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#time-v1-meta[metav1.Time] | false | -
+m| submissionTime | &#160; m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#time-v1-meta[metav1.Time] | false | -
+m| completionTime | &#160; m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#time-v1-meta[metav1.Time] | false | -
 m| failureText | &#160; m| string | false | -
 m| suspensionCause | &#160; m| string | false | -
 |===
@@ -1422,8 +1422,8 @@ m| startTLS | Enable if your LDAP server uses Start TLS operation. m| bool | tru
 m| count | &#160; m| int32 | true | -
 m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingConfiguration>> | false | -
 m| jvm | Hazelcast JVM configuration m| &#42;<<JVMConfiguration,JVMConfiguration>> | false | -
-m| resources | Compute Resources required by the Hazelcast container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | -
-m| env | Env configuration of environment variables m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#envvar-v1-core[corev1.EnvVar] | false | -
+m| resources | Compute Resources required by the Hazelcast container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | -
+m| env | Env configuration of environment variables m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#envvar-v1-core[corev1.EnvVar] | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1478,7 +1478,7 @@ ManagementCenter is the Schema for the managementcenters API
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
 m| spec | &#160; m| <<ManagementCenterSpec,ManagementCenterSpec>> | false | -
 m| status | &#160; m| <<ManagementCenterStatus,ManagementCenterStatus>> | false | -
 |===
@@ -1506,7 +1506,7 @@ ManagementCenterList contains a list of ManagementCenter
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#listmeta-v1-meta[metav1.ListMeta] | false | -
 m| items | &#160; m| []<<ManagementCenter,ManagementCenter>> | true | -
 |===
 
@@ -1521,19 +1521,19 @@ ManagementCenterSpec defines the desired state of ManagementCenter.
 | Field | Description | Type | Required | Default
 m| repository | Repository to pull the Management Center image from. m| string | false | "docker.io/hazelcast/management-center"
 m| version | Version of Management Center. m| string | false | "5.6.0"
-m| imagePullPolicy | Pull policy for the Management Center image m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#pullpolicy-v1-core[corev1.PullPolicy] | false | "IfNotPresent"
-m| imagePullSecrets | Image pull secrets for the Management Center image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
+m| imagePullPolicy | Pull policy for the Management Center image m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#pullpolicy-v1-core[corev1.PullPolicy] | false | "IfNotPresent"
+m| imagePullSecrets | Image pull secrets for the Management Center image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
 m| licenseKeySecretName | Name of the secret with Hazelcast Enterprise License Key. m| string | true | -
 m| hazelcastClusters | Connection configuration for the Hazelcast clusters that Management Center will monitor. m| []<<HazelcastClusterConfig,HazelcastClusterConfig>> | false | -
 m| externalConnectivity | Configuration to expose Management Center to outside. m| &#42;<<ExternalConnectivityConfiguration,ExternalConnectivityConfiguration>> | false | {type: "LoadBalancer"}
 m| persistence | Configuration for Management Center persistence. m| &#42;<<MCPersistenceConfiguration,MCPersistenceConfiguration>> | false | {enabled: true, size: "10Gi"}
 m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingConfiguration>> | false | {}
-m| resources | Compute Resources required by the MC container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | {}
+m| resources | Compute Resources required by the MC container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | {}
 m| jvm | ManagementCenter JVM configuration m| &#42;<<MCJVMConfiguration,MCJVMConfiguration>> | false | -
 m| securityProvider | SecurityProviders to authenticate users in Management Center m| &#42;<<SecurityProviders,SecurityProviders>> | false | -
 m| annotations | ManagementCenter Kubernetes resource annotations m| map[string]string | false | -
 m| labels | ManagementCenter Kubernetes resource labels m| map[string]string | false | -
-m| env | Env configuration of environment variables m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#envvar-v1-core[corev1.EnvVar] | false | -
+m| env | Env configuration of environment variables m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#envvar-v1-core[corev1.EnvVar] | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1560,7 +1560,7 @@ Map is the Schema for the maps API
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
 m| spec | &#160; m| <<MapSpec,MapSpec>> | true | -
 m| status | &#160; m| <<MapStatus,MapStatus>> | false | -
 |===
@@ -1574,7 +1574,7 @@ MapList contains a list of Map
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#listmeta-v1-meta[metav1.ListMeta] | false | -
 m| items | &#160; m| []<<Map,Map>> | true | -
 |===
 
@@ -1659,7 +1659,7 @@ MultiMap is the Schema for the multimaps API
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
 m| spec | &#160; m| <<MultiMapSpec,MultiMapSpec>> | true | -
 m| status | &#160; m| <<MultiMapStatus,MultiMapStatus>> | false | -
 |===
@@ -1673,7 +1673,7 @@ MultiMapList contains a list of MultiMap
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#listmeta-v1-meta[metav1.ListMeta] | false | -
 m| items | &#160; m| []<<MultiMap,MultiMap>> | true | -
 |===
 
@@ -1797,7 +1797,7 @@ m| name | &#160; m| string | false | -
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| accessModes | AccessModes contains the actual access modes of the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1 m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#persistentvolumeaccessmode-v1-core[corev1.PersistentVolumeAccessMode] | false | -
+m| accessModes | AccessModes contains the actual access modes of the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1 m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#persistentvolumeaccessmode-v1-core[corev1.PersistentVolumeAccessMode] | false | -
 m| requestStorage | A description of the PVC request capacity. m| &#42;resource.Quantity | false | "8Gi"
 m| storageClassName | Name of StorageClass which this persistent volume belongs to. m| &#42;string | false | -
 |===
@@ -1811,7 +1811,7 @@ Queue is the Schema for the queues API
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
 m| spec | &#160; m| <<QueueSpec,QueueSpec>> | true | -
 m| status | &#160; m| <<QueueStatus,QueueStatus>> | false | -
 |===
@@ -1825,7 +1825,7 @@ QueueList contains a list of Queue
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#listmeta-v1-meta[metav1.ListMeta] | false | -
 m| items | &#160; m| []<<Queue,Queue>> | true | -
 |===
 
@@ -1911,7 +1911,7 @@ ReplicatedMap is the Schema for the replicatedmaps API
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
 m| spec | &#160; m| <<ReplicatedMapSpec,ReplicatedMapSpec>> | true | -
 m| status | &#160; m| <<ReplicatedMapStatus,ReplicatedMapStatus>> | false | -
 |===
@@ -1925,7 +1925,7 @@ ReplicatedMapList contains a list of ReplicatedMap
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#listmeta-v1-meta[metav1.ListMeta] | false | -
 m| items | &#160; m| []<<ReplicatedMap,ReplicatedMap>> | true | -
 |===
 
@@ -2054,10 +2054,10 @@ SchedulingConfiguration defines the pods scheduling details
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| affinity | Affinity m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#affinity-v1-core[corev1.Affinity] | false | -
-m| tolerations | Tolerations m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#toleration-v1-core[corev1.Toleration] | false | -
+m| affinity | Affinity m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#affinity-v1-core[corev1.Affinity] | false | -
+m| tolerations | Tolerations m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#toleration-v1-core[corev1.Toleration] | false | -
 m| nodeSelector | NodeSelector m| map[string]string | false | -
-m| topologySpreadConstraints | TopologySpreadConstraints m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#topologyspreadconstraint-v1-core[corev1.TopologySpreadConstraint] | false | -
+m| topologySpreadConstraints | TopologySpreadConstraints m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#topologyspreadconstraint-v1-core[corev1.TopologySpreadConstraint] | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -2196,7 +2196,7 @@ Topic is the Schema for the topics API
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
 m| spec | &#160; m| <<TopicSpec,TopicSpec>> | true | -
 m| status | &#160; m| <<TopicStatus,TopicStatus>> | false | -
 |===
@@ -2210,7 +2210,7 @@ TopicList contains a list of Topic
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#listmeta-v1-meta[metav1.ListMeta] | false | -
 m| items | &#160; m| []<<Topic,Topic>> | true | -
 |===
 
@@ -2282,7 +2282,7 @@ UserCodeNamespace is the Schema for the usercodenamespaces API
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
 m| spec | &#160; m| <<UserCodeNamespaceSpec,UserCodeNamespaceSpec>> | false | -
 m| status | &#160; m| <<UserCodeNamespaceStatus,UserCodeNamespaceStatus>> | false | -
 |===
@@ -2296,7 +2296,7 @@ UserCodeNamespaceList contains a list of UserCodeNamespace
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#listmeta-v1-meta[metav1.ListMeta] | false | -
 m| items | &#160; m| []<<UserCodeNamespace,UserCodeNamespace>> | true | -
 |===
 
@@ -2347,7 +2347,7 @@ VectorCollection is the Schema for the vectorcollections API
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
 m| spec | &#160; m| <<VectorCollectionSpec,VectorCollectionSpec>> | false | -
 m| status | &#160; m| <<VectorCollectionStatus,VectorCollectionStatus>> | false | -
 |===
@@ -2361,7 +2361,7 @@ VectorCollectionList contains a list of VectorCollection
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#listmeta-v1-meta[metav1.ListMeta] | false | -
 m| items | &#160; m| []<<VectorCollection,VectorCollection>> | true | -
 |===
 
@@ -2452,7 +2452,7 @@ WanReplication is the Schema for the wanreplications API
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
 m| spec | &#160; m| <<WanReplicationSpec,WanReplicationSpec>> | true | -
 m| status | &#160; m| <<WanReplicationStatus,WanReplicationStatus>> | false | -
 |===
@@ -2466,7 +2466,7 @@ WanReplicationList contains a list of WanReplication
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#listmeta-v1-meta[metav1.ListMeta] | false | -
 m| items | &#160; m| []<<WanReplication,WanReplication>> | true | -
 |===
 
@@ -2527,7 +2527,7 @@ WanSync is the Schema for the wansyncs API
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
 m| spec | &#160; m| <<WanSyncSpec,WanSyncSpec>> | true | -
 m| status | &#160; m| <<WanSyncStatus,WanSyncStatus>> | false | -
 |===
@@ -2541,7 +2541,7 @@ WanSyncList contains a list of WanSync
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#listmeta-v1-meta[metav1.ListMeta] | false | -
+m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#listmeta-v1-meta[metav1.ListMeta] | false | -
 m| items | &#160; m| []<<WanSync,WanSync>> | true | -
 |===
 
