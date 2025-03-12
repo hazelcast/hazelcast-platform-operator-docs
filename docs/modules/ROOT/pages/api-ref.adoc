@@ -1383,7 +1383,7 @@ m| remoteURL | URL from where the file will be downloaded. m| string | false | -
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| url | URL of your LDAP server, including schema (ldap://) and port. m| string | true | -
+m| url | URL of your LDAP server, including schema (ldap:// or ldaps://) and port. m| string | true | -
 m| credentialsSecretName | CredentialsSecretName is the name of the secret that contains username and password of a user that has admin privileges on the LDAP server. The username must be the DN of the user. It is used to connect to the server when authenticating users. m| string | true | -
 m| userDN | DN to be used for searching users. m| string | true | -
 m| groupDN | DN to be used for searching groups. m| string | true | -
@@ -1393,7 +1393,7 @@ m| readonlyUserGroups | Members of these groups and its nested groups have only 
 m| metricsOnlyGroups | Members of these groups and its nested groups have the privilege to see only the metrics on the Management Center. m| []string | true | -
 m| userSearchFilter | LDAP search filter expression to search for the users. For example, uid=\{0} searches for a username that matches with the uid attribute. m| string | true | -
 m| groupSearchFilter | LDAP search filter expression to search for the groups. For example, uniquemember=\{0} searches for a group that matches with the uniquemember attribute. m| string | true | -
-m| nestedGroupSearch | NestedGroupSearch enables searching for nested LDAP groups. m| bool | true | false
+m| nestedGroupSearch | NestedGroupSearch enables searching for nested LDAP groups. m| bool | true | true
 m| tls | TLS configures the TLS connection for LDAP. m| &#42;<<LdapTLS,LdapTLS>> | false | -
 |===
 
