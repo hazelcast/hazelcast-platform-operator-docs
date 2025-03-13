@@ -62,7 +62,7 @@ kubectl create secret generic hazelcast-license-key --from-literal=license-key=<
 [source, yaml]
 ----
 kubectl apply -f - <<EOF
-include::ROOT:example$/hazelcast.yaml[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-tls/docs/modules/ROOT/examples/hazelcast.yaml[]
 EOF
 ----
 
@@ -97,7 +97,7 @@ Apply the Management Center custom resource:
 [source, yaml]
 ----
 kubectl apply -f - <<EOF
-include::ROOT:example$/managementcenter.yaml[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-tls/docs/modules/ROOT/examples/managementcenter.yaml[]
 EOF
 ----
 

@@ -45,7 +45,7 @@ Create the Hazelcast cluster with Persistence enabled:
 [source, shell]
 ----
 kubectl apply -f - <<EOF
-include::ROOT:example$/operator-external-backup/hazelcast-persistence.yaml[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-external-backup-restore/docs/modules/ROOT/examples/operator-external-backup/hazelcast-persistence.yaml[]
 EOF
 ----
 +
@@ -95,7 +95,7 @@ Create the Map resource with Persistence enabled:
 [source, shell]
 ----
 kubectl apply -f - <<EOF
-include::ROOT:example$/operator-external-backup/map-persistence.yaml[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-external-backup-restore/docs/modules/ROOT/examples/operator-external-backup/map-persistence.yaml[]
 EOF
 ----
 
@@ -391,7 +391,7 @@ Run the following command to trigger backup:
 [source, shell]
 ----
 kubectl apply -f - <<EOF
-include::ROOT:example$/operator-external-backup/hot-backup.yaml[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-external-backup-restore/docs/modules/ROOT/examples/operator-external-backup/hot-backup.yaml[]
 EOF
 ----
 +

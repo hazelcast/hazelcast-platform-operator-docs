@@ -39,7 +39,7 @@ kubectl create secret generic hazelcast-license-key --from-literal=license-key=<
 [source, shell]
 ----
 kubectl apply -f - <<EOF
-include::ROOT:example$/operator-wan/hazelcast-first.yaml[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-wan-replication/docs/modules/ROOT/examples/operator-wan/hazelcast-first.yaml[]
 EOF
 ----
 
@@ -48,7 +48,7 @@ EOF
 [source, shell]
 ----
 kubectl apply -f - <<EOF
-include::ROOT:example$/operator-wan/hazelcast-second.yaml[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-wan-replication/docs/modules/ROOT/examples/operator-wan/hazelcast-second.yaml[]
 EOF
 ----
 +
@@ -96,7 +96,7 @@ The `ADDRESS` column displays the external addresses of the Hazelcast clusters.
 [source, shell]
 ----
 kubectl apply -f - <<EOF
-include::ROOT:example$/operator-wan/map.yaml[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-wan-replication/docs/modules/ROOT/examples/operator-wan/map.yaml[]
 EOF
 ----
 
@@ -113,7 +113,7 @@ Apply the configuration:
 [source, shell]
 ----
 kubectl apply -f - <<EOF
-include::ROOT:example$/operator-wan/wanreplication.yaml[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-wan-replication/docs/modules/ROOT/examples/operator-wan/wanreplication.yaml[]
 EOF
 ----
 

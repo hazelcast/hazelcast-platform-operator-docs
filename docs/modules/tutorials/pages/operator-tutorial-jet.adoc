@@ -159,13 +159,13 @@ kubectl create secret generic hazelcast-license-key --from-literal=license-key=<
 
 NOTE: Starting with version 5.13, Hazelcast Platform Operator only supports Hazelcast Enterprise cluster creation. Even if the feature is used in Hazelcast Open Source clusters, Hazelcast Platform Operator requires a license key to run a cluster.
 
-. Run this command to create a Hazelcast cluster with the Jet engine configured.
+. Create a Hazelcast cluster with the Jet engine configured.
 
 +
 [source, shell]
 ----
 kubectl apply -f - <<EOF
-include::ROOT:example$/hazelcast-jet.yaml[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-jet/docs/modules/ROOT/examples/hazelcast-jet.yaml[]
 EOF
 ----
 +
@@ -199,7 +199,7 @@ Replace the <BUCKET-URI> with the appropriate sample bucket URI for your cloud p
 [source, shell]
 ----
 kubectl apply -f - <<EOF
-include::ROOT:example$/jet-running.yaml[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-jet/docs/modules/ROOT/examples/jet-running.yaml[]
 EOF
 ----
 
@@ -251,7 +251,7 @@ a) Cancel the Jet job, using `kubectl apply`:
 [source, shell]
 ----
 kubectl apply -f - <<EOF
-include::ROOT:example$/jet-canceled.yaml[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-jet/docs/modules/ROOT/examples/jet-canceled.yaml[]
 EOF
 ----
 +
