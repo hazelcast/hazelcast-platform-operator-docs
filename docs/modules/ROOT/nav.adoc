@@ -85,3 +85,7 @@
 // Other reference docs
 * xref:phone-homes.adoc[Phone home data]
 * xref:api-ref.adoc[API types]
+
+
+.Release Notes
+* xref:release-notes.adoc[5.15.0]
