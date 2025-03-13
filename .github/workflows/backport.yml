@@ -7,7 +7,7 @@ jobs:
   get-maintenance-branches:
     runs-on: ubuntu-latest
     outputs:
-      branches: "['5.8', '5.9', '5.10', '5.11', '5.12', '5.13', '5.14']"
+      branches: "['5.8', '5.9', '5.10', '5.11', '5.12', '5.13', '5.14','5.15']"
     steps:
       - run: exit 0
 
