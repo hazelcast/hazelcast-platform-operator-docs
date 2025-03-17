@@ -155,7 +155,7 @@ Java::
 --
 [source, java]
 ----
-include::ROOT:example$/operator-wan/java/src/main/java/com/hazelcast/Main.java[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-wan-replication/docs/modules/ROOT/examples/operator-wan/java/src/main/java/com/hazelcast/Main.java[]
 ----
 --
 
@@ -164,7 +164,7 @@ NodeJS::
 --
 [source, javascript]
 ----
-include::ROOT:example$/operator-wan/nodejs/client.js[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-wan-replication/docs/modules/ROOT/examples/operator-wan/nodejs/client.js[]
 ----
 --
 
@@ -173,7 +173,7 @@ Go::
 --
 [source, go]
 ----
-include::ROOT:example$/operator-wan/go/main.go[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-wan-replication/docs/modules/ROOT/examples/operator-wan/go/main.go[]
 ----
 --
 
@@ -182,7 +182,7 @@ Python::
 --
 [source, python]
 ----
-include::ROOT:example$/operator-wan/python/main.py[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-wan-replication/docs/modules/ROOT/examples/operator-wan/python/main.py[]
 ----
 --
 .NET::
@@ -190,7 +190,7 @@ include::ROOT:example$/operator-wan/python/main.py[]
 --
 [source, cs]
 ----
-include::ROOT:example$/operator-wan/dotnet/Program.cs[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-wan-replication/docs/modules/ROOT/examples/operator-wan/dotnet/Program.cs[]
 ----
 --
 

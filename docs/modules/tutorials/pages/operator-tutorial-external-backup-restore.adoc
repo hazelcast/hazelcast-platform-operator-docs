@@ -151,7 +151,7 @@ Java::
 --
 [source, java]
 ----
-include::ROOT:example$/operator-external-backup/java/src/main/java/com/hazelcast/Main.java[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-external-backup-restore/docs/modules/ROOT/examples/operator-external-backup/java/src/main/java/com/hazelcast/Main.java[]
 ----
 --
 
@@ -160,7 +160,7 @@ NodeJS::
 --
 [source, javascript]
 ----
-include::ROOT:example$/operator-external-backup/nodejs/client.js[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-external-backup-restore/docs/modules/ROOT/examples/operator-external-backup/nodejs/client.js[]
 ----
 --
 
@@ -169,7 +169,7 @@ Go::
 --
 [source, go]
 ----
-include::ROOT:example$/operator-external-backup/go/main.go[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-external-backup-restore/docs/modules/ROOT/examples/operator-external-backup/go/main.go[]
 ----
 --
 
@@ -178,7 +178,7 @@ Python::
 --
 [source, python]
 ----
-include::ROOT:example$/operator-external-backup/python/main.py[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-external-backup-restore/docs/modules/ROOT/examples/operator-external-backup/python/main.py[]
 ----
 --
 .NET::
@@ -186,7 +186,7 @@ include::ROOT:example$/operator-external-backup/python/main.py[]
 --
 [source, cs]
 ----
-include::ROOT:example$/operator-external-backup/dotnet/Program.cs[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-external-backup-restore/docs/modules/ROOT/examples/operator-external-backup/dotnet/Program.cs[]
 ----
 --
 
@@ -459,7 +459,7 @@ the Operator starts the agent (as InitContainer) which restores the backup data 
 [source, shell]
 ----
 kubectl apply -f - <<EOF
-include::ROOT:example$/operator-external-backup/hazelcast-persistence-restore.yaml[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-external-backup-restore/docs/modules/ROOT/examples/operator-external-backup/hazelcast-persistence-restore.yaml[]
 EOF
 ----
 +

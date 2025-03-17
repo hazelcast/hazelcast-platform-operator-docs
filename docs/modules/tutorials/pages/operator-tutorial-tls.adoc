@@ -135,7 +135,7 @@ Java::
 --
 [source, java]
 ----
-include::ROOT:example$/java/src/main/java/com/hazelcast/example.java[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-tls/docs/modules/ROOT/examples/java/src/main/java/com/hazelcast/example.java[]
 ----
 --
 NodeJS::
@@ -143,7 +143,7 @@ NodeJS::
 --
 [source, javascript]
 ----
-include::ROOT:example$/nodejs/example.js[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-tls/docs/modules/ROOT/examples/nodejs/example.js[]
 ----
 --
 Go::
@@ -151,7 +151,7 @@ Go::
 --
 [source, go]
 ----
-include::ROOT:example$/go/example.go[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-tls/docs/modules/ROOT/examples/go/example.go[]
 ----
 --
 Python::
@@ -159,7 +159,7 @@ Python::
 --
 [source, python]
 ----
-include::ROOT:example$/python/example.py[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-tls/docs/modules/ROOT/examples/python/example.py[]
 ----
 --
 ====

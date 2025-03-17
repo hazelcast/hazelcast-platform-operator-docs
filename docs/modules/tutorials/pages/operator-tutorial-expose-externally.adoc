@@ -116,7 +116,7 @@ Java::
 --
 [source, java]
 ----
-include::ROOT:example$/operator-expose-externally/java-unisocket/src/main/java/com/hazelcast/Main.java[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-expose-externally/docs/modules/ROOT/examples/operator-expose-externally/java/src/main/java/com/hazelcast/Main.java[]
 ----
 --
 
@@ -125,7 +125,7 @@ NodeJS::
 --
 [source, javascript]
 ----
-include::ROOT:example$/operator-expose-externally/nodejs-unisocket/client.js[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-expose-externally/docs/modules/ROOT/examples/operator-expose-externally/nodejs/client.js[]
 ----
 --
 
@@ -134,7 +134,7 @@ Go::
 --
 [source, go]
 ----
-include::ROOT:example$/operator-expose-externally/go-unisocket/main.go[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-expose-externally/docs/modules/ROOT/examples/operator-expose-externally/go/main.go[]
 ----
 --
 
@@ -143,7 +143,7 @@ Python::
 --
 [source, python]
 ----
-include::ROOT:example$/operator-expose-externally/python-unisocket/main.py[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-expose-externally/docs/modules/ROOT/examples/operator-expose-externally/python/main.py[]
 ----
 --
 .NET::
@@ -151,7 +151,7 @@ include::ROOT:example$/operator-expose-externally/python-unisocket/main.py[]
 --
 [source, cs]
 ----
-include::ROOT:example$/operator-expose-externally/dotnet-unisocket/csharp_example.cs[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-expose-externally/docs/modules/ROOT/examples/operator-expose-externally/dotnet-unisocket/csharp_example.cs[]
 ----
 --
 ====
@@ -384,7 +384,7 @@ Java::
 --
 [source, java]
 ----
-include::ROOT:example$/operator-expose-externally/java/src/main/java/com/hazelcast/Main.java[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-expose-externally/docs/modules/ROOT/examples/operator-expose-externally/java/src/main/java/com/hazelcast/Main.java[]
 ----
 --
 
@@ -393,7 +393,7 @@ NodeJS::
 --
 [source, javascript]
 ----
-include::ROOT:example$/operator-expose-externally/nodejs/client.js[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-expose-externally/docs/modules/ROOT/examples/operator-expose-externally/nodejs/client.js[]
 ----
 --
 
@@ -402,7 +402,8 @@ Go::
 --
 [source, go]
 ----
-include::ROOT:example$/operator-expose-externally/go/main.go[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-expose-externally/docs/modules/ROOT/examples/operator-expose-externally/go/main.go[]
+
 ----
 --
 
@@ -411,7 +412,7 @@ Python::
 --
 [source, python]
 ----
-include::ROOT:example$/operator-expose-externally/python/main.py[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-expose-externally/docs/modules/ROOT/examples/operator-expose-externally/python/main.py[]
 ----
 --
 .Net::
@@ -419,7 +420,7 @@ include::ROOT:example$/operator-expose-externally/python/main.py[]
 --
 [source, cs]
 ----
-include::ROOT:example$/operator-expose-externally/dotnet-unisocket/csharp_example.cs[]
+include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-expose-externally/docs/modules/ROOT/examples/operator-expose-externally/dotnet-unisocket/csharp_example.cs[]
 ----
 --
 ====
