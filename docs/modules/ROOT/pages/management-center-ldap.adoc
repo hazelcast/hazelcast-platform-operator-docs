@@ -11,11 +11,11 @@ For more information about using LDAP in the Management Center, see the link:htt
 
 You can configure either LDAP or LDAP over TLS (or LDAPS). To set up:
 
-* LDAP, configure the `securityProvider.ldap` section in the Management Center CR.
+* LDAP — configure the `securityProvider.ldap` section in the Management Center CR
 
 * LDAP over TLS (or LDAPS)
-** Create the `secretName` (this contains the name of the secret and includes the keyStore, keyStorePassword, trustStore, and trustStorePassword). If you do not create the secretName, a validation error will occur.
-** Configure the `securityProvider.ldap.tls` section in the Management Center CR.
+** Create a secret (the `secretName`) that contains the certificate and key. The operator will set up TrustStore and KeyStore automatically. If you do not create the secretName, a validation error will occur
+** Configure the `securityProvider.ldap.tls` section in the Management Center CR
 
 Use the following fields to configure the LDAP security provider:
 
@@ -26,10 +26,10 @@ Use the following fields to configure the LDAP security provider:
 |`url`
 | URL of your LDAP server, including schema (ldap://) and port.
 
-|tls
+|`tls`
 |Configuration for TLS:
 
-- `secretName`: The name of the secret that contains `keyStore`, `keyStorePassword`, `trustStore`, and `trustStorePassword` for LDAP over TLS (or LDAPS)
+- `secretName`: The name of the secret that contains the certificate and key for LDAP over TLS (or LDAPS)
 - `startTLS`: Enable TLS encryption for LDAP connections to initiate a secure TLS connection over an initially unencrypted channel
 
 |`credentialsSecretName`
@@ -86,7 +86,7 @@ type: Opaque
 The following example shows how to create the secret for LDAP/TLS:
 [source,shell]
 ----
-$ kubectl create secret generic mc-ldap-secret --from-file=trustStore=truststore.p12 --from-literal=trustStorePassword=<password> --from-file=keyStore=keystore.p12 --from-literal=keyStorePassword=<password>
+$ kubectl create secret tls mc-ldap-secret --cert=ca.crt --key=ca.keykgp
 ----
 
 The following is an example configuration for the LDAP security provider:
