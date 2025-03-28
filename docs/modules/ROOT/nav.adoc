@@ -1,10 +1,20 @@
 .Get started
-// Get started, release notes & support info
+// Get started, tutorials, release notes & support info
 * xref:index.adoc[Overview]
 * xref:ask-ai.adoc[Ask AI]
 * xref:release-notes.adoc[Release notes]
 * xref:get-support.adoc[Get support]
 * xref:migrating-from-helm.adoc[Migrate from Helm Chart]
+
+* Tutorials
+** xref:tutorials:operator-tutorial-external-backup-restore.adoc[Restore a cluster with Operator]
+** xref:tutorials:operator-tutorial-wan-replication.adoc[Replicate data between clusters]
+** xref:tutorials:operator-tutorial-wan-sync.adoc[Synchronize data using WAN Sync]
+** xref:tutorials:operator-tutorial-jet.adoc[Run a data pipeline using Jet]
+** xref:tutorials:operator-tutorial-jet-job-snapshot.adoc[Save the state of Jet job]
+** xref:tutorials:operator-tutorial-tls.adoc[Secure a cluster with TLS]
+** xref:tutorials:operator-tutorial-expose-externally.adoc[Connect from outside Kubernetes]
+
 
 .Deploy
 // Deploy options
