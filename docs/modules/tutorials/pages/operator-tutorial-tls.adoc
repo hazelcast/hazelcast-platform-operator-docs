@@ -26,6 +26,7 @@ Before you begin, make sure that you have:
 * Kubernetes command-line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl]
 * Deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator version 5.8 or above]
 * OpenSSL command-line tool, https://www.openssl.org/[openssl]
+* The Hazelcast Code Samples repository https://github.com/hazelcast/hazelcast-code-samples cloned to your local machine
 
 == Create Kubernetes secret with TLS certificate and key
 
