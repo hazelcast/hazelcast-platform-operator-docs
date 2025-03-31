@@ -1,0 +1,50 @@
+= Tiered Storage
+:description: Tiered Storage offers an extension to Hazelcast map, which allows you to store a larger data set than the available memory can accommodate.
+
+{description}
+
+For further information on the configuration and behavior of Tiered Storage in Hazelcast, refer to xref:hazelcast:tiered-storage:overview.adoc[Tiered Storage,window=_blank] in the Platform documentation.
+
+The configuration of Tiered Storage includes setting the local device (local disk) parameters for the Hazelcast CR and providing Tiered Storage details for the Map CR.
+
+== Configuring Local Devices
+
+You must enable the native memory to use Tiered Storage; see xref:native-memory.adoc#example-configuration[Native Memory] to learn how to enable it.
+
+IMPORTANT: Before configuring the native memory and local devices, see xref:hazelcast:tiered-storage:capacity-planning.adoc[Tiered Storage Capacity Planning,window=_blank] for tips on sizing the memory and disk tiers.
+
+You can configure one or more local devices in a single Hazelcast CR. A separate PersistentVolumeClaim (PVC) is created for each local device and used as the local disk for that device. Therefore, the number of created PVCs matches the cluster size for each configured local device.
+
+For example, if you create two local devices (`device1` , `device2`) for a Hazelcast CR called `hazelcast`, and the size of your cluster is 3, a total of six PVCs are created as follows:
+
+- device1-hazelcast-0
+- device1-hazelcast-1
+- device1-hazelcast-2
+- device2-hazelcast-0
+- device2-hazelcast-1
+- device2-hazelcast-2
+
+.Example of a Hazelcast CR
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/hazelcast-tiered-storage.yaml[]
+----
+
+== Configuring a Map with Tiered Storage
+
+In-memory format must be *NATIVE* for the maps with Tiered Storage.
+
+.Example of a Map CR with Tiered Storage
+[source,yaml,subs="attributes+"]
+----
+include::ROOT:example$/map-tiered-store.yaml[]
+----
+
+== Configuration-based Validation
+
+- Native memory must be enabled on the Hazelcast CR. Basically, when you set a size for the native memory, it means it is enabled; see the example Hazelcast CR in <<configuring-local-devices, Configuring Local Devices>>.
+- The *inMemoryFormat* option must be *NATIVE* on the Map CR. See the example Map CR in <<configuring-a-map-with-tiered-storage, Configuring a Map with Tiered Storage>>.
+- Data Persistence and Tiered Storage are mutually exclusive features; you cannot enable both simultaneously in the Map configuration. The *persistenceEnabled* option on the Map CR must be false, which is the default value, when using Tiered Storage.
+- Indexes, eviction, and time-to-live and max-idle expirations are not supported for the maps with Tiered Storage.
+- Configured local device size on the Hazelcast CR (*LocalDevice.PVC.RequestStorage*) must be higher than *MemoryCapacity* on the Map CR.
+- Native Memory size (*NativeMemory.Size*) on the Hazelcast CR must be higher than the sum of memory capacities (*TieredStore.MemoryCapacity*) on all Map CRs.

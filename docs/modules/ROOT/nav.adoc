@@ -22,6 +22,10 @@
 * xref:connect-outside-kubernetes.adoc[Connect to Hazelcast from outside Kubernetes]
 * xref:scheduling-configuration.adoc[Assign pods to nodes]
 
+* Memory & storage
+** xref:native-memory.adoc[High-density memory store]
+** xref:tiered-storage.adoc[Tiered storage]
+
 * xref:backup-restore.adoc[Persistence, backup & restore]
 
 * Data
