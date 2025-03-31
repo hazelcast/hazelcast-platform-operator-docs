@@ -104,15 +104,14 @@ EOF
 
 == Connect to Hazelcast cluster over TLS
 
-. Clone the examples repository to access all sample clients:
+. Open the examples folder to access all sample clients:
 +
 [source, shell]
 ----
-git clone https://github.com/hazelcast-guides/hazelcast-platform-operator-tls.git
 cd hazelcast-platform-operator-tls
 ----
 +
-The sample code(excluding CLC) for this tutorial is in the link:https://github.com/hazelcast-guides/hazelcast-platform-operator-tls/tree/master/docs/modules/ROOT/examples[`docs/modules/ROOT/examples/`] directory.
+The sample code (excluding CLC) for this tutorial is in the link:https://github.com/hazelcast/hazelcast-code-samples/tree/master/platform-operator/hazelcast-platform-operator-tls/tree/master/docs/modules/ROOT/examples[`docs/modules/ROOT/examples/`] directory.
 
 . Configure the Hazelcast client with the TLS certificate:
 +
