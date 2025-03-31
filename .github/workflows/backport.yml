@@ -19,7 +19,7 @@ jobs:
         branch: ${{ fromJSON(needs.get-maintenance-branches.outputs.branches) }}
     uses: hazelcast/hz-docs/.github/workflows/backport-workflow.yml@main
     with:
-      label-to-check-for: '["backport to all versions"]'
+      label-to-check-for: '["backport"]'
       target-branch: v/${{ matrix.branch }}
     secrets: inherit
 
