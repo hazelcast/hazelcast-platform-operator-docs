@@ -23,6 +23,7 @@ Before you begin, make sure that you have:
 * A running https://kubernetes.io/[Kubernetes] cluster
 * The Kubernetes command-line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl]
 * A deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator]
+* The Hazelcast Code Samples repository https://github.com/hazelcast/hazelcast-code-samples cloned to your local machine
 
 == Start the Hazelcast cluster
 
@@ -123,15 +124,14 @@ In this step, you'll fill the maps on the first, source cluster.
 
 . Configure the Hazelcast client to connect to the first cluster, using its address. [[configure-client]]
 +
-To access all sample clients, clone the following repository:
+Open the examples folder to access all sample clients:
 +
 [source, shell]
 ----
-git clone https://github.com/hazelcast-guides/hazelcast-platform-operator-wan-replication.git
 cd hazelcast-platform-operator-wan-replication
 ----
 +
-The sample code(excluding CLC) for this tutorial is in the link:https://github.com/hazelcast-guides/hazelcast-platform-operator-wan-replication/tree/master/docs/modules/ROOT/examples/operator-wan[`docs/modules/ROOT/examples/operator-wan`] directory.
+The sample code (excluding CLC) for this tutorial is in the link:https://github.com/hazelcast/hazelcast-code-samples/tree/master/platform-operator/hazelcast-platform-operator-wan-replication/docs/modules/ROOT/examples/operator-wan[`docs/modules/ROOT/examples/operator-wan`] directory.
 
 +
 [tabs]

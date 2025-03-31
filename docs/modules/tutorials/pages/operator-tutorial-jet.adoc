@@ -28,6 +28,7 @@ Before you begin, make sure that you have:
 * Kubernetes command-line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl]
 * Maven command-line tool, https://maven.apache.org/download.cgi[mvn]
 * Deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator version 5.8 or above]
+* The Hazelcast Code Samples repository https://github.com/hazelcast/hazelcast-code-samples cloned to your local machine
 * Blob storage and access credentials on one of the following cloud providers: https://aws.amazon.com/s3/[AWS], https://cloud.google.com/storage/[GCP], https://azure.microsoft.com/en-us/services/storage/blobs/[Azure]
 
 == Deploy the Jet pipeline JAR to cloud storage

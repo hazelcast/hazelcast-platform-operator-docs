@@ -21,6 +21,7 @@ Before you begin, make sure that you have:
 * An up and running https://kubernetes.io/[Kubernetes] cluster
 * Kubernetes command-line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl]
 * Deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator]
+* The Hazelcast Code Samples repository https://github.com/hazelcast/hazelcast-code-samples cloned to your local machine
 * Created a license secret:
 +
 Create a secret with your link:http://trialrequest.hazelcast.com/[Hazelcast Enterprise License].
@@ -83,17 +84,16 @@ The `ADDRESS` column displays the external address of your Hazelcast cluster.
 
 === Connect Hazelcast Clients to the cluster
 
-To access all sample clients, clone the following repository:
-
-[source,shell]
+. Open the examples folder to access all sample clients:
++
+[source, shell]
 ----
-git clone https://github.com/hazelcast-guides/hazelcast-platform-operator-expose-externally.git
-cd hazelcast-platform-operator-expose-externally/docs/modules/ROOT/examples/operator-expose-externally
+cd hazelcast-platform-operator-expose-externally
 ----
++
+The sample code (excluding CLC) for this tutorial is in the link:https://github.com/hazelcast/hazelcast-code-samples/tree/master/platform-operator/hazelcast-platform-operator-expose-externally/docs/modules/ROOT/examples/operator-expose-externally[`docs/modules/ROOT/examples/operator-expose-externally`] directory.
 
-. The sample code (excluding CLC) for this tutorial is in the link:https://github.com/hazelcast-guides/hazelcast-platform-operator-expose-externally/tree/master/docs/modules/ROOT/examples/operator-expose-externally[`docs/modules/ROOT/examples/operator-expose-externally`] directory.
-
-Configure the Hazelcast client with the external address and disable smart routing to use the unisocket connection.
+. Configure the Hazelcast client with the external address and disable smart routing to use the unisocket connection.
 
 [tabs]
 ====

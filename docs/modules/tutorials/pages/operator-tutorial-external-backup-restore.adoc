@@ -26,6 +26,7 @@ Before you begin, make sure that you have:
 * Kubernetes command-line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl]
 * Deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator]
 * Created blob storage and access credentials in one of the Cloud providers: https://aws.amazon.com/s3/[AWS] - https://cloud.google.com/storage/[GCP] - https://azure.microsoft.com/en-us/services/storage/blobs/[Azure]
+* The Hazelcast Code Samples repository https://github.com/hazelcast/hazelcast-code-samples cloned to your local machine
 
 == Start the Hazelcast cluster
 
@@ -118,16 +119,16 @@ persistent-map   Success
 ----
 
 . Configure the Hazelcast client to connect to the cluster. [[Configure-Client]]
+
 +
-To access all sample clients, clone the following repository:
+Open the examples folder to access all sample clients:
 +
 [source, shell]
 ----
-git clone https://github.com/hazelcast-guides/hazelcast-platform-operator-external-backup-restore.git
 cd hazelcast-platform-operator-external-backup-restore
 ----
 +
-The sample code (excluding CLC) for this tutorial is in the link:https://github.com/hazelcast-guides/hazelcast-platform-operator-external-backup-restore/tree/master/docs/modules/ROOT/examples/operator-external-backup[`docs/modules/ROOT/examples/operator-external-backup`] directory.
+The sample code (excluding CLC) for this tutorial is in the link:https://github.com/hazelcast/hazelcast-code-samples/tree/master/platform-operator/hazelcast-platform-operator-external-backup-restore/docs/modules/ROOT/examples/operator-external-backup[`docs/modules/ROOT/examples/operator-external-backup`] directory.
 
 +
 [tabs]
