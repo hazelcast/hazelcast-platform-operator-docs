@@ -57,6 +57,8 @@ The following information is sent in a phone home:
 * List of allocated resources:
 ** Limit of memory
 ** Limit of CPU
+* Tiered Storage specific:
+** Number of maps with Tiered Storage enabled
 * Number of Hazelcast clusters where SQL is configured
 * Number of CustomConfig declared
 * Jet specific:

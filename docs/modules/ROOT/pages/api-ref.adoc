@@ -183,6 +183,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<SpecAnnotatorLabeler,SpecAnnotatorLabeler>>
 * <<SyncConsistencyCheckStrategy,SyncConsistencyCheckStrategy>>
 * <<TLS,TLS>>
+* <<TieredStore,TieredStore>>
 * <<Topic,Topic>>
 * <<TopicList,TopicList>>
 * <<TopicSpec,TopicSpec>>
@@ -1602,6 +1603,7 @@ m| inMemoryFormat | InMemoryFormat specifies in which format data will be stored
 m| entryListeners | EntryListeners contains the configuration for the map-level or entry-based events listeners provided by the Hazelcast’s eventing framework. You can learn more at https://docs.hazelcast.com/hazelcast/latest/events/object-events. m| []<<EntryListenerConfiguration,EntryListenerConfiguration>> | false | -
 m| nearCache | InMemoryFormat specifies near cache configuration for map m| &#42;<<NearCache,NearCache>> | false | -
 m| eventJournal | EventJournal specifies event journal configuration of the Map m| &#42;<<EventJournal,EventJournal>> | false | -
+m| tieredStore | TieredStore enables the Hazelcast's Tiered-Store feature for the Map m| &#42;<<TieredStore,TieredStore>> | false | -
 m| merkleTree | MerkleTree defines the configuration for the Merkle tree data structure. m| &#42;<<MerkleTreeConfig,MerkleTreeConfig>> | false | -
 |===
 
@@ -2170,6 +2172,19 @@ TLS is used by Hazelcast CR
 m| secretName | Name of the secret with TLS certificate and key. m| string | true | -
 m| clientAuthentication | Mutual authentication configuration for the client. It is None by default which means the client side of connection is not authenticated. m| <<MutualAuthentication,MutualAuthentication>> | false | "None"
 m| memberAuthentication | Mutual authentication configuration between members. It is Required by default which means the connections between members are authenticated. m| <<MutualAuthentication,MutualAuthentication>> | false | "Required"
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== TieredStore
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| memoryCapacity | MemoryCapacity sets Memory tier capacity, i.e., how much main memory should this tier consume at most. m| &#42;resource.Quantity | false | "256M"
+m| diskDeviceName | diskDeviceName defines the name of the device for a given disk tier. m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
