@@ -12,6 +12,9 @@ content:
   - url: .
     branches: HEAD
     start_path: docs
+  - url: https://github.com/hazelcast/hazelcast-code-samples
+    branches: [master]
+    start_path: docs    
 ui: 
   bundle:
     url: https://github.com/hazelcast/hazelcast-docs-ui/releases/latest/download/ui-bundle.zip #../hazelcast-docs-ui/build/ui-bundle.zip
@@ -19,7 +22,7 @@ ui:
 asciidoc:
   attributes:
     # Download images from kroki at build time (does not work for inline images)
-    kroki-fetch-diagram: true
+    # kroki-fetch-diagram: true
     # Inlude next and previous links on each page
     page-pagination: true@
     idprefix: ''
@@ -29,4 +32,4 @@ asciidoc:
     page-survey: https://www.surveymonkey.co.uk/r/NYGJNF9
   extensions:
     - ./docs-tabs-library/tabs-block.js
-    - asciidoctor-kroki
+    # - asciidoctor-kroki
