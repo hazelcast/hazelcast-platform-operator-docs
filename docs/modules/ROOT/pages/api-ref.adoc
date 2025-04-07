@@ -3015,7 +3015,7 @@ m| "LoadBalancer" | MemberAccessLoadBalancer lets the client access Hazelcast me
 |===
 | Value | Description
 m| "None" | Client side of connection is not authenticated.
-m| "Required" | Server asks for client certificate. If the client does not provide a keystore or the provided keystore is not verified against member’s truststore, the client is not authenticated.
+m| "Required" | Server asks for client certificate. If the client does not provide a keystore or the provided keystore is not verified against member's truststore, the client is not authenticated.
 m| "Optional" | Server asks for client certificate, but client is not required to provide any valid certificate.
 |===
 
