@@ -23,7 +23,6 @@
 * xref:lite-members.adoc[Deploy lite members]
 * xref:deploy-management-center.adoc[Deploy Management Center]
 ** xref:remove-management-center.adoc[Remove Management Center]
-* xref:flow.adoc[Deploy Flow]
 * xref:air-gapped-env.adoc[Run in air-gapped environments]
 * xref:scaling-upgrading.adoc[Scale and upgrade]
 
