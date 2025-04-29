@@ -62,17 +62,3 @@ spec:
     - name: < PRIVATE_REGISTRY-SECRET >
 ```
 
-== Setting the image for Flow
-
-[source,yaml]
-```
-apiVersion: hazelcast.com/v1alpha1
-kind: Flow
-metadata:
-  name: flow
-spec:
-  repository: < PRIVATE_REGISTRY >
-  version: < PRIVATE_TAG >
-  imagePullSecrets:
-    - name: < PRIVATE_REGISTRY-SECRET >
-```
