@@ -269,8 +269,8 @@ m| resources | Compute Resources required by the Agent container. m| &#42;https:
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| name | Name of the attribute xref:{page-latest-supported-hazelcast}@hazelcast:query:predicate-overview.adoc#creating-custom-query-attributes m| string | true | -
-m| extractorClassName | Name of the extractor class xref:{page-latest-supported-hazelcast}@hazelcast:query:predicate-overview.adoc#implementing-a-valueextractor m| string | true | -
+m| name | Name of the attribute xref:{page-latest-supported-hazelcast}@hazelcast:query:predicate-overview.adoc#creating-custom-query-attributes[] m| string | true | -
+m| extractorClassName | Name of the extractor class xref:{page-latest-supported-hazelcast}@hazelcast:query:predicate-overview.adoc#implementing-a-valueextractor[] m| string | true | -
 |===
 
 <<Table of Contents,Back to TOC>>
