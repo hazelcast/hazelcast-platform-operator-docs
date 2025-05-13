@@ -140,7 +140,7 @@ The sample code (excluding CLC) for this tutorial is in the link:https://github.
 CLC::
 +
 --
-NOTE: CLC must be installed in your system. See the https://docs.hazelcast.com/clc/5.5.0/install-clc[CLC installation instructions].
+NOTE: CLC must be installed in your system. See the https://docs.hazelcast.com/clc/latest/install-clc[CLC installation instructions].
 
 Add the first cluster config to the CLC:
 

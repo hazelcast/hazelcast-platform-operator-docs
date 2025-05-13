@@ -107,7 +107,7 @@ EOF
 +
 [NOTE]
 ====
-Unsure of whether you need Full or Delta? See https://docs.hazelcast.com/hazelcast/5.5/wan/advanced-features#synchronizing-wan-target-cluster[Full WAN Synchronization] and https://docs.hazelcast.com/hazelcast/5.5/wan/advanced-features#delta-wan-synchronization[Delta WAN Synchronization] for details.
+Unsure of whether you need Full or Delta? See xref:{page-latest-supported-hazelcast}@hazelcast:wan:advanced-features.adoc#synchronizing-wan-target-cluster[Full WAN Synchronization] and xref:{page-latest-supported-hazelcast}@hazelcast:wan:advanced-features.adoc#delta-wan-synchronization[Delta WAN Synchronization] for details.
 ====
 
 . Find the address of the first cluster.
@@ -144,7 +144,7 @@ The sample code (excluding CLC) for this tutorial is in the link:https://github.
 CLC::
 +
 --
-NOTE: CLC must be installed in your system. See the https://docs.hazelcast.com/clc/5.5.0/install-clc[CLC installation instructions].
+NOTE: CLC must be installed in your system. See the https://docs.hazelcast.com/clc/latest/install-clc[CLC installation instructions].
 
 Add the first cluster config to the CLC:
 [source, bash]

@@ -1,6 +1,6 @@
 = Advanced Network Configuration
 
-In Hazelcast, you can configure Hazelcast members with separate server sockets, applying distinct network configurations for various protocols. This feature is known as the  link:https://docs.hazelcast.com/hazelcast/latest/clusters/network-configuration#advanced-network-configuration[Advanced Network] and it supports Member, Client, REST, Memcache, and WAN protocols.
+In Hazelcast, you can configure Hazelcast members with separate server sockets, applying distinct network configurations for various protocols. This feature is known as the  xref:{page-latest-supported-hazelcast}@hazelcast:clusters:network-configuration#advanced-network-configuration.adoc[Advanced Network] and it supports Member, Client, REST, Memcache, and WAN protocols.
 
 In the Hazelcast Platform Operator, advanced networking configuration is enabled by default, and certain protocol properties are pre-configured:
 

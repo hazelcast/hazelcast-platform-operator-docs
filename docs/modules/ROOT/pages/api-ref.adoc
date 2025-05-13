@@ -269,8 +269,8 @@ m| resources | Compute Resources required by the Agent container. m| &#42;https:
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| name | Name of the attribute https://docs.hazelcast.com/hazelcast/latest/query/predicate-overview#creating-custom-query-attributes m| string | true | -
-m| extractorClassName | Name of the extractor class https://docs.hazelcast.com/hazelcast/latest/query/predicate-overview#implementing-a-valueextractor m| string | true | -
+m| name | Name of the attribute xref:{page-latest-supported-hazelcast}@hazelcast:query:predicate-overview.adoc#creating-custom-query-attributes m| string | true | -
+m| extractorClassName | Name of the extractor class xref:{page-latest-supported-hazelcast}@hazelcast:query:predicate-overview.adoc#implementing-a-valueextractor m| string | true | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -991,10 +991,10 @@ m| resources | Compute Resources required by the Hazelcast container. m| &#42;ht
 m| persistence | Persistence configuration m| &#42;<<HazelcastPersistenceConfiguration,HazelcastPersistenceConfiguration>> | false | -
 m| agent | B&R Agent configurations m| <<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "latest-snapshot"}
 m| jet | Jet Engine configuration m| &#42;<<JetEngineConfiguration,JetEngineConfiguration>> | false | {enabled: true, resourceUploadEnabled: false}
-m| executorServices | Java Executor Service configurations, see https://docs.hazelcast.com/hazelcast/latest/computing/executor-service m| []<<ExecutorServiceConfiguration,ExecutorServiceConfiguration>> | false | -
-m| durableExecutorServices | Durable Executor Service configurations, see https://docs.hazelcast.com/hazelcast/latest/computing/durable-executor-service m| []<<DurableExecutorServiceConfiguration,DurableExecutorServiceConfiguration>> | false | -
-m| scheduledExecutorServices | Scheduled Executor Service configurations, see https://docs.hazelcast.com/hazelcast/latest/computing/scheduled-executor-service m| []<<ScheduledExecutorServiceConfiguration,ScheduledExecutorServiceConfiguration>> | false | -
-m| properties | Hazelcast system properties, see https://docs.hazelcast.com/hazelcast/latest/system-properties m| map[string]string | false | -
+m| executorServices | Java Executor Service configurations, see xref:{page-latest-supported-hazelcast}@hazelcast:computing:executor-service.adoc[] m| []<<ExecutorServiceConfiguration,ExecutorServiceConfiguration>> | false | -
+m| durableExecutorServices | Durable Executor Service configurations, see xref:{page-latest-supported-hazelcast}@hazelcast:computing:durable-executor-service.adoc[] m| []<<DurableExecutorServiceConfiguration,DurableExecutorServiceConfiguration>> | false | -
+m| scheduledExecutorServices | Scheduled Executor Service configurations, see xref:{page-latest-supported-hazelcast}@hazelcast:computing:scheduled-executor-service.adoc[] m| []<<ScheduledExecutorServiceConfiguration,ScheduledExecutorServiceConfiguration>> | false | -
+m| properties | Hazelcast system properties, see xref:{page-latest-supported-hazelcast}@hazelcast::system-properties.adoc[] m| map[string]string | false | -
 m| loggingLevel | Logging level for Hazelcast members m| <<LoggingLevel,LoggingLevel>> | false | "INFO"
 m| highAvailabilityMode | Configuration to create clusters resilient to node and zone failures m| <<HighAvailabilityMode,HighAvailabilityMode>> | false | -
 m| jvm | Hazelcast JVM configuration m| &#42;<<JVMConfiguration,JVMConfiguration>> | false | -
@@ -1128,9 +1128,9 @@ m| spec | Specification of the desired behavior of the hot backup. m| <<HotBacku
 |===
 | Field | Description | Type | Required | Default
 m| name | Name of the index config. m| string | false | -
-m| type | Type of the index. See https://docs.hazelcast.com/hazelcast/latest/query/indexing-maps#index-types m| <<IndexType,IndexType>> | true | -
+m| type | Type of the index. See xref:{page-latest-supported-hazelcast}@hazelcast:query:indexing-maps.adoc#index-types[] m| <<IndexType,IndexType>> | true | -
 m| attributes | Attributes of the index. m| []string | false | -
-m| bitMapIndexOptions | Options for "BITMAP" index type. See https://docs.hazelcast.com/hazelcast/latest/query/indexing-maps#configuring-bitmap-indexes m| &#42;<<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>> | false | -
+m| bitMapIndexOptions | Options for "BITMAP" index type. See xref:{page-latest-supported-hazelcast}@hazelcast:query:indexing-maps.adoc#configuring-bitmap-indexes[] m| &#42;<<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1617,12 +1617,12 @@ m| userCodeNamespace | Name of the User Code Namespace applied to this instance 
 m| timeToLiveSeconds | Maximum time in seconds for each entry to stay in the map. If it is not 0, entries that are older than this time and not updated for this time are evicted automatically. It can be updated. m| int32 | false | 0
 m| maxIdleSeconds | Maximum time in seconds for each entry to stay idle in the map. Entries that are idle for more than this time are evicted automatically. It can be updated. m| int32 | false | 0
 m| eviction | Configuration for removing data from the map when it reaches its max size. It can be updated. m| <<EvictionConfig,EvictionConfig>> | false | {maxSize: 0, evictionPolicy: NONE, maxSizePolicy: PER_NODE}
-m| indexes | Indexes to be created for the map data. You can learn more at https://docs.hazelcast.com/hazelcast/latest/query/indexing-maps. It cannot be updated after map config is created successfully. m| []<<IndexConfig,IndexConfig>> | false | -
-m| attributes | Attributes to be used with Predicates API. You can learn more at https://docs.hazelcast.com/hazelcast/latest/query/predicate-overview#creating-custom-query-attributes m| []<<AttributeConfig,AttributeConfig>> | false | -
+m| indexes | Indexes to be created for the map data. You can learn more at xref:{page-latest-supported-hazelcast}@hazelcast:query:indexing-maps.adoc[]. It cannot be updated after map config is created successfully. m| []<<IndexConfig,IndexConfig>> | false | -
+m| attributes | Attributes to be used with Predicates API. You can learn more at xref:{page-latest-supported-hazelcast}@hazelcast:query:predicate-overview.adoc#creating-custom-query-attributes[] m| []<<AttributeConfig,AttributeConfig>> | false | -
 m| persistenceEnabled | When enabled, map data will be persisted. It cannot be updated after map config is created successfully. m| bool | false | false
-m| mapStore | Configuration options when you want to load/store the map entries from/to a persistent data store such as a relational database You can learn more at https://docs.hazelcast.com/hazelcast/latest/data-structures/working-with-external-data m| &#42;<<MapStoreConfig,MapStoreConfig>> | false | -
+m| mapStore | Configuration options when you want to load/store the map entries from/to a persistent data store such as a relational database You can learn more at xref:{page-latest-supported-hazelcast}@hazelcast:data-structures:working-with-external-data.adoc[] m| &#42;<<MapStoreConfig,MapStoreConfig>> | false | -
 m| inMemoryFormat | InMemoryFormat specifies in which format data will be stored in your map m| <<InMemoryFormatType,InMemoryFormatType>> | false | BINARY
-m| entryListeners | EntryListeners contains the configuration for the map-level or entry-based events listeners provided by the Hazelcast’s eventing framework. You can learn more at https://docs.hazelcast.com/hazelcast/latest/events/object-events. m| []<<EntryListenerConfiguration,EntryListenerConfiguration>> | false | -
+m| entryListeners | EntryListeners contains the configuration for the map-level or entry-based events listeners provided by the Hazelcast’s eventing framework. You can learn more at xref:{page-latest-supported-hazelcast}@hazelcast:events:object-events.adoc[]. m| []<<EntryListenerConfiguration,EntryListenerConfiguration>> | false | -
 m| nearCache | InMemoryFormat specifies near cache configuration for map m| &#42;<<NearCache,NearCache>> | false | -
 m| eventJournal | EventJournal specifies event journal configuration of the Map m| &#42;<<EventJournal,EventJournal>> | false | -
 m| tieredStore | TieredStore enables the Hazelcast's Tiered-Store feature for the Map m| &#42;<<TieredStore,TieredStore>> | false | -
@@ -1880,7 +1880,7 @@ m| asyncBackupCount | Number of asynchronous backups. m| int32 | false | 0
 m| userCodeNamespace | Name of the User Code Namespace applied to this instance m| string | false | -
 m| maxSize | Max size of the queue. m| int32 | false | 0
 m| emptyQueueTTLSeconds | Time in seconds after which the Queue will be destroyed if it stays empty or unused. If the values is not provided the Queue will never be destroyed. m| &#42;int32 | false | -1
-m| priorityComparatorClassName | The name of the comparator class. If the class name is provided, the Queue becomes Priority Queue. You can learn more at https://docs.hazelcast.com/hazelcast/latest/data-structures/priority-queue. m| string | false | -
+m| priorityComparatorClassName | The name of the comparator class. If the class name is provided, the Queue becomes Priority Queue. You can learn more at xref:{page-latest-supported-hazelcast}@hazelcast:data-structures:priority-queue.adoc[]. m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>

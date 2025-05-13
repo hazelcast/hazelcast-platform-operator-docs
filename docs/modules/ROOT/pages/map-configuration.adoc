@@ -45,7 +45,7 @@ Below are the configuration options for the `Map` resource. You can find more de
 NOTE: Persistence should be enabled for Hazelcast before enabling it for the map. You can learn about enabling persistence for Hazelcast in xref:backup-restore.adoc#enabling-persistence[Persistence, Backup and Restore].
 
 |mapStore
-|Configuration options when you want to load/store the map entries from/to a persistent data store such as a relational database. You can learn more at link:https://docs.hazelcast.com/hazelcast/latest/data-structures/working-with-external-data[Working With External Data].
+|Configuration options when you want to load/store the map entries from/to a persistent data store such as a relational database. You can learn more at xref:{page-latest-supported-hazelcast}@hazelcast:data-structures:working-with-external-data.adoc[Working With External Data].
 
 - className: Name of your class implementing MapLoader and/or MapStore interface.
 - initialMode: Sets the initial entry loading mode.
@@ -55,14 +55,14 @@ NOTE: Persistence should be enabled for Hazelcast before enabling it for the map
 - propertiesSecretName: Name of the secret holding the properties for the MapStore classes implementing the `MapLoaderLifecycleSupport` interface.
 
 |entryListeners
-|Configuration options for listening for the map-level or entry-based events using the listeners provided by the Hazelcast’s eventing framework. You can learn more at link:https://docs.hazelcast.com/hazelcast/latest/events/object-events[Distributed Object Events].
+|Configuration options for listening for the map-level or entry-based events using the listeners provided by the Hazelcast’s eventing framework. You can learn more at xref:{page-latest-supported-hazelcast}@hazelcast:events:object-events.adoc[Distributed Object Events].
 
 - className: Name of your class implementing a `MapListener` sub-interface.
 - includeValues: An optional attribute that indicates whether the map event should contains the map value.
 - local: An optional attribute that indicates whether you can listen to the map on the local member.
 
 |nearCache
-|Configuration options for server side `Near Cache`. You can learn more at link:https://docs.hazelcast.com/hazelcast/latest/cluster-performance/best-practices#near-cache[Near Cache].
+|Configuration options for server side `Near Cache`. You can learn more at xref:{page-latest-supported-hazelcast}@hazelcast:cluster-performance:best-practices.adoc#near-cache[Near Cache].
 
 - name: name of the near cache.
 - inMemoryFormat: specifies in which format data will be stored in your near cache.

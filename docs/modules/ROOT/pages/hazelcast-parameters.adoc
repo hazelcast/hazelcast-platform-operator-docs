@@ -1,10 +1,10 @@
 = Configuring System Properties
 
-You can configure Hazelcast parameters using the `properties` field in the CRD spec. You can find all properties in link:https://docs.hazelcast.com/hazelcast/latest/system-properties[System Properties] document.
+You can configure Hazelcast parameters using the `properties` field in the CRD spec. You can find all properties in xref:{page-latest-supported-hazelcast}@hazelcast::system-properties.adoc[System Properties] document.
 
 It is worth highlighting the following system properties:
 
-- During a rolling upgrade, the cluster is shutdown gracefully to prevent data loss. You can configure this using the link:https://docs.hazelcast.com/hazelcast/latest/system-properties#hazelcast.graceful.shutdown.max.wait[hazelcast.graceful.shutdown.max.wait system property].
+- During a rolling upgrade, the cluster is shutdown gracefully to prevent data loss. You can configure this using the xref:{page-latest-supported-hazelcast}@hazelcast::system-properties.adoc#hazelcast.graceful.shutdown.max.wait[hazelcast.graceful.shutdown.max.wait system property].
 +
 Example Configuration:
 +
@@ -15,6 +15,6 @@ include::ROOT:example$/properties.yaml[]
 
 Hazelcast Platform Operator sets the following system properties to the default values, which cannot be changed:
 
-- The final step in the link:https://docs.hazelcast.com/hazelcast/latest/maintain-cluster/rolling-upgrades#rolling-upgrade-procedure[rolling upgrade procedure] is to trigger a rolling upgrade on the cluster. Hazelcast Platform Operator triggers it automatically by setting `hazelcast.cluster.version.auto.upgrade.enabled` to `true` by default.
+- The final step in the xref:{page-latest-supported-hazelcast}@hazelcast:maintain-cluster:rolling-upgrades.adoc#rolling-upgrade-procedure[rolling upgrade procedure] is to trigger a rolling upgrade on the cluster. Hazelcast Platform Operator triggers it automatically by setting `hazelcast.cluster.version.auto.upgrade.enabled` to `true` by default.
 
 - `hazelcast.persistence.auto.cluster.state` set to `true` by default.
