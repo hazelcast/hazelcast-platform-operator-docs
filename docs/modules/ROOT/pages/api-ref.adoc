@@ -1819,7 +1819,7 @@ m| name | &#160; m| string | false | -
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| accessModes | AccessModes contains the actual access modes of the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1 m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#persistentvolumeaccessmode-v1-core[corev1.PersistentVolumeAccessMode] | false | -
+m| accessModes | AccessModes contains the actual access modes of the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1 m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#persistentvolumeaccessmode-v1-core[corev1.PersistentVolumeAccessMode] | true | -
 m| requestStorage | A description of the PVC request capacity. m| &#42;resource.Quantity | false | "8Gi"
 m| storageClassName | Name of StorageClass which this persistent volume belongs to. m| &#42;string | false | -
 |===
