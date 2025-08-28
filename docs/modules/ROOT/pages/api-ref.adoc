@@ -47,6 +47,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<DataStructureStatus,DataStructureStatus>>
 * <<DatabaseConfig,DatabaseConfig>>
 * <<Diagnostics,Diagnostics>>
+* <<DiagnosticsFileConfiguration,DiagnosticsFileConfiguration>>
 * <<DiagnosticsOutputType,DiagnosticsOutputType>>
 * <<DurableExecutorServiceConfiguration,DurableExecutorServiceConfiguration>>
 * <<EntryListenerConfiguration,EntryListenerConfiguration>>
@@ -149,6 +150,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<NearCacheEviction,NearCacheEviction>>
 * <<NodeState,NodeState>>
 * <<PVCNamePrefix,PVCNamePrefix>>
+* <<PVCTemplateConfiguration,PVCTemplateConfiguration>>
 * <<PermissionItem,PermissionItem>>
 * <<PermissionWithName,PermissionWithName>>
 * <<PersistenceStartupAction,PersistenceStartupAction>>
@@ -589,13 +591,28 @@ Diagnostics configures the diagnostics logging.
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| outputType | &#160; m| <<DiagnosticsOutputType,DiagnosticsOutputType>> | false | FILE
+m| outputType | &#160; m| <<DiagnosticsOutputType,DiagnosticsOutputType>> | false | STDOUT
 m| includeEpochTime | &#160; m| &#42;bool | false | true
-m| maxRolledFileSizeInMB | &#160; m| int32 | true | 50
+m| maxRolledFileSize | &#160; m| &#42;resource.Quantity | true | "50M"
 m| maxRolledFileCount | &#160; m| int32 | true | 10
 m| fileNamePrefix | FileNamePrefix is the prefix of the diagnostics logs file. m| string | false | -
 m| pluginProperties | PluginProperties specifies the properties for the diagnostics plugin. m| map[string]string | false | -
-m| pvc | PVC is the configuration of PersistenceVolumeClaim. m| &#42;<<PvcConfiguration,PvcConfiguration>> | false | -
+m| autoOffTimerInMinutes | AutoOffTimerInMinutes if present, sets the time in minuter after which the diagnostic logging will be turned off. m| &#42;int32 | false | -
+m| pvcName | PVCName is the name of the PVC. m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== DiagnosticsFileConfiguration
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| maxRolledFileSizeInMB | &#160; m| int32 | true | 50
+m| maxRolledFileCount | &#160; m| int32 | true | 10
+m| fileNamePrefix | FileNamePrefix is the prefix of the diagnostics logs file. m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1016,6 +1033,7 @@ m| env | Env configuration of environment variables m| []https://kubernetes.io/d
 m| liteMember | &#160; m| &#42;<<LiteMember,LiteMember>> | false | -
 m| security | &#160; m| &#42;<<Security,Security>> | false | -
 m| diagnostics | &#160; m| &#42;<<Diagnostics,Diagnostics>> | false | -
+m| persistenceVolumeClaims | PersistenceVolumeClaims specifies the PVCs that will be created and attached to the created StatefulSet. m| []<<PVCTemplateConfiguration,PVCTemplateConfiguration>> | false | -
 |===
 ==== Deprecated
 [cols="4,8,4,2,4"options="header"]
@@ -1777,6 +1795,21 @@ m| cacheLocalEntries | CacheLocalEntries specifies whether the local entries are
 m| evictionPolicy | EvictionPolicy to be applied when near cache reaches its max size according to the max size policy. m| <<EvictionPolicyType,EvictionPolicyType>> | false | "NONE"
 m| maxSizePolicy | MaxSizePolicy for deciding if the maxSize is reached. m| <<MaxSizePolicyType,MaxSizePolicyType>> | false | "ENTRY_COUNT"
 m| size | Size is maximum size of the Near Cache used for max-size-policy m| uint32 | false | 0
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== PVCTemplateConfiguration
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| name | &#160; m| string | true | -
+m| accessModes | AccessModes contains the actual access modes of the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1 m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#persistentvolumeaccessmode-v1-core[corev1.PersistentVolumeAccessMode] | true | -
+m| requestStorage | A description of the PVC request capacity. m| &#42;resource.Quantity | false | "8Gi"
+m| storageClassName | Name of StorageClass which this persistent volume belongs to. m| &#42;string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
