@@ -80,6 +80,7 @@
 ** xref:hazelcast-parameters.adoc[System properties]
 ** xref:custom-config.adoc[Custom configuration]
 ** xref:jvm-parameters.adoc[JVM parameters]
+** xref:mount-pvc.adoc[Mount PVC on a cluster]
 
 * Management Center
 ** xref:management-center-clusters.adoc[Hazelcast clusters]
