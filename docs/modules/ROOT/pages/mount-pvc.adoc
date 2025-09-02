@@ -10,6 +10,8 @@ You can mount one or more Persistent Volume Claims (PVCs) directly to your Hazel
 
 This mechanism decouples the PVC definition from feature configuration, making it easier to manage and reuse storage across different Hazelcast features.
 
+For more information, see the xref:api-ref.adoc#[API].
+
 == Example: Configure diagnostics with a named PVC
 
 Below is an example configuration that shows how to define a PVC and use it for diagnostics logging by specifying the pvcName field. The diagnostics logs will be stored in the PVC mounted at `/data/diagnostics-pvc-volume`.
