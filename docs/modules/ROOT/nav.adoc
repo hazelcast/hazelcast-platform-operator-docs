@@ -74,7 +74,7 @@
 ** xref:user-code-deployment.adoc[User Code Deployment]
 ** xref:user-code-namespaces.adoc[User Code Namespaces]
 
-* xref:configure-diagnostic-logging.adoc[Configure diagnostic logging]
+* xref:configure-diagnostic-logging.adoc[Diagnostic logging]
 
 * Configuration properties
 ** xref:env-vars.adoc[Environment variables]
