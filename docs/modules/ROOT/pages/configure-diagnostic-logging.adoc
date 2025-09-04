@@ -2,7 +2,7 @@
 
 This section explains how to configure diagnostics for Hazelcast clusters managed by the Hazelcast Platform Operator, including enabling diagnostics, forwarding diagnostics to your logging framework, setting auto turn-off to avoid disk overuse, and persisting diagnostics to a Persistent Volume Claim (PVC).
 
-== Enabling diagnostics and basic settings
+== Enable diagnostics and basic settings
 
 Diagnostics are controlled via system properties and can be enabled with rolling log controls and output destination. Set at least the following properties on members:
 
