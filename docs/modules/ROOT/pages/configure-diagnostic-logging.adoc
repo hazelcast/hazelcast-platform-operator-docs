@@ -6,8 +6,6 @@
 
 This section explains how to configure diagnostics for Hazelcast clusters managed by the Hazelcast Platform Operator, including enabling diagnostics, forwarding diagnostics to your logging framework, setting auto turn-off to avoid disk overuse, and persisting diagnostics to a Persistent Volume Claim (PVC).
 
-// question - do we need to say something about security restrictions - for example can only admin users configure and use this feature? 
-
 == Enable diagnostics using the CRD
 
 The Operator exposes a diagnostics configuration you can set in the Hazelcast custom resource:
@@ -43,6 +41,8 @@ You can combine this with rolling limits:
 * Operator diagnostics: maxRolledFileSize, maxRolledFileCount.
 * Hazelcast properties: hazelcast.diagnostics.max.rolled.file.size.mb and hazelcast.diagnostics.max.rolled.file.count.
 
+NOTE: When diagnostics logging is enabled with auto turn-off, members that join the cluster later will start their own timers from zero. As a result, earlier members may stop diagnostics before the last joiner, leading to a temporary inconsistency. To keep the reported state accurate, Operator restarts its diagnostics auto turn-off timer from zero whenever a new member joins while diagnostics is enabled. This ensures Operator shows diagnostics as enabled as long as at least one member is still logging. 
+
 == Persist diagnostics to a PVC
 
 To retain diagnostics across pod restarts and isolate them from container stdout, mount a Persistent Volume Claim and direct diagnostics there:
@@ -59,3 +59,4 @@ NOTE: System log diagnostics (cluster activity and optional partition migration 
 Diagnostics are also controlled via system properties and can be enabled with rolling log controls and output destination. 
 
 However, if you enable or disable diagnostic logging statically via system properties, this will override any configuration settings applied using the CRD and you will be unable to switch logging on and off dynamically at runtime. For more information, see https://docs.hazelcast.com/hazelcast/latest/maintain-cluster/monitoring#diagnostics[Diagnostics]. 
+
