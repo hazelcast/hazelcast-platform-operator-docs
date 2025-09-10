@@ -2,12 +2,18 @@
 
 This section explains how to configure diagnostics for Hazelcast clusters managed by the Hazelcast Platform Operator, including enabling diagnostics, forwarding diagnostics to your logging framework, setting auto turn-off to avoid disk overuse, and persisting diagnostics to a Persistent Volume Claim (PVC).
 
-== Enable diagnostics using the custom resource
+The Operator allows you to switch diagnostic logging on and off at runtime without having to restart the cluster. To prevent diagnostic logs from running indefinitely, you can also turn logging off automatically after a set period using the auto turn-off feature.
+
+== Enable diagnostics using the CRD
 
 The Operator exposes a diagnostics configuration you can set in the Hazelcast custom resource:
 
 * Fields include outputType (STDOUT, LOGGER, FILE), includeEpochTime, maxRolledFileSize, maxRolledFileCount, fileNamePrefix, pluginProperties, autoOffTimerInMinutes, and pvcName. See: https://docs.hazelcast.com/operator/latest-snapshot/api-ref#diagnostics[Diagnostics].
 * File-based rolling limits can also be controlled via DiagnosticsFileConfiguration (maxRolledFileSizeInMB, maxRolledFileCount, fileNamePrefix) where applicable. See: https://docs.hazelcast.com/operator/latest-snapshot/api-ref#diagnosticsfileconfiguration[DiagnosticsFileConfiguration].
+
+// question - is the following in the right place or should it appear later under the system properties section? Please advise
+
+The diagnostics file rolls by default (10 files, 50 MB each) and contains plugin sections such as BuildInfo, SystemProperties, ConfigProperties, Metrics, SlowOperations, and HazelcastInstance. For information, see https://docs.hazelcast.com/hazelcast/latest/maintain-cluster/monitoring#diagnostics-plugins[Diagnostics Plugins].
 
 *Example:*
 
@@ -24,14 +30,7 @@ Instead of file output, you can forward diagnostics to your logging framework by
 
 Then configure the com.hazelcast.diagnostics logger (e.g. a Log4j2 logger and rolling appender) to control size and rollover using time/size policies. For information, see https://docs.hazelcast.com/hazelcast/latest/maintain-cluster/monitoring#diagnostics-using-logging-frameworks[Diagnostics using Logging Frameworks].
 
-== Dynamic diagnostic logging (turn on/off at runtime)
-
-You can use the Operator to enable/disable and control diagnostic properties and plugins without restarting members. 
-// question - so how do you actually enable dynamic logging? What else do we need to tell them here?
-// incorrect link - where should we link to? See https://docs.hazelcast.com/hazelcast/latest/maintain-cluster/monitoring#diagnostics-using-logging-frameworks[Diagnostics using Logging Frameworks].
-The Operator also provides an auto turn-off feature (see below).
-
-== Auto turn-off
+== Configure auto turn-off
 
 To prevent diagnostic logs from running indefinitely, set the Operator's `autoOffTimerInMinutes` to automatically disable diagnostic logging after the specified number of minutes. See https://docs.hazelcast.com/operator/latest-snapshot/api-ref#diagnostics[Diagnostics].
 
@@ -49,21 +48,10 @@ To retain diagnostics across pod restarts and isolate them from container stdout
 
 NOTE: System log diagnostics (cluster activity and optional partition migration details) can be enabled/tuned via `hazelcast.diagnostics.systemlog.enabled` and `hazelcast.diagnostics.systemlog.partitions` if needed. See https://docs.hazelcast.com/hazelcast/latest/maintain-cluster/monitoring#systemlog[SystemLog].
 
-== Enable diagnostics via system properties
+== Configure diagnostics via system properties
 
-// question - is this a better place for this section?
+// question - If you set diagnostics using system properties, does this interfere with the settings configured via the CR? Is there anything else we need to tell them here?
 
-Diagnostics are also controlled via system properties and can be enabled with rolling log controls and output destination. Set at least the following properties on members:
+Diagnostics are also controlled via system properties and can be enabled with rolling log controls and output destination. 
 
-* Enable diagnostics and set plugin intervals/levels:
-** hazelcast.diagnostics.metric.level=info
-** hazelcast.diagnostics.invocation.sample.period.seconds=30
-** hazelcast.diagnostics.pending.invocations.period.seconds=30
-** hazelcast.diagnostics.slowoperations.period.seconds=30
-** hazelcast.diagnostics.storeLatency.period.seconds=60
-
-For more information, see https://docs.hazelcast.com/hazelcast/latest/maintain-cluster/monitoring#diagnostics[Diagnostics]. 
-
-// question - is the following in the right place or should this appear higher up e.g. in "Enable diagnostics using the custom resource"? Please advise
-
-The diagnostics file rolls by default (10 files, 50 MB each) and contains plugin sections such as BuildInfo, SystemProperties, ConfigProperties, Metrics, SlowOperations, and HazelcastInstance. For information, see https://docs.hazelcast.com/hazelcast/latest/maintain-cluster/monitoring#diagnostics-plugins[Diagnostics Plugins].
+However, if you enable or disable diagnostic logging statically via system properties, this will override any configuration settings applied using the CRD and you will be unable to switch logging on and off dynamically at runtime. For more information, see https://docs.hazelcast.com/hazelcast/latest/maintain-cluster/monitoring#diagnostics[Diagnostics]. 
