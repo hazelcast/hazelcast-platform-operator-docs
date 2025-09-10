@@ -1,8 +1,12 @@
 = Configure diagnostic logging
+:description: The Operator allows you to switch diagnostic logging on and off at runtime without having to restart the cluster. To prevent diagnostic logs from running indefinitely, you can also turn logging off automatically after a set period using the auto turn-off feature.
+:page-beta: true
+
+{description}
 
 This section explains how to configure diagnostics for Hazelcast clusters managed by the Hazelcast Platform Operator, including enabling diagnostics, forwarding diagnostics to your logging framework, setting auto turn-off to avoid disk overuse, and persisting diagnostics to a Persistent Volume Claim (PVC).
 
-The Operator allows you to switch diagnostic logging on and off at runtime without having to restart the cluster. To prevent diagnostic logs from running indefinitely, you can also turn logging off automatically after a set period using the auto turn-off feature.
+// question - do we need to say something about security restrictions - for example can only admin users configure and use this feature? 
 
 == Enable diagnostics using the CRD
 
