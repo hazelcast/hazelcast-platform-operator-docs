@@ -34,7 +34,7 @@ Then configure the com.hazelcast.diagnostics logger (e.g. a Log4j2 logger and ro
 
 == Configure auto turn-off
 
-To prevent diagnostic logs from running indefinitely, set the Operator's `autoOffTimerInMinutes` to automatically disable diagnostic logging after the specified number of minutes. See https://docs.hazelcast.com/operator/latest-snapshot/api-ref#diagnostics[Diagnostics].
+To prevent diagnostic logs from running indefinitely and having a performance impact on the cluster, set the Operator's `autoOffTimerInMinutes` to automatically disable diagnostic logging after the specified number of minutes. See https://docs.hazelcast.com/operator/latest-snapshot/api-ref#diagnostics[Diagnostics].
 
 You can combine this with rolling limits:
 
