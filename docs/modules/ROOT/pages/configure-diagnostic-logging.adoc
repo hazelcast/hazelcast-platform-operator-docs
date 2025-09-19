@@ -6,7 +6,7 @@
 
 Using the Operator, you can switch diagnostic logging on and off at runtime (known as dynamic configuration) without having to restart the cluster.
 
-This section explains how to configure diagnostics for Hazelcast clusters managed by the Hazelcast Platform Operator, including enabling diagnostics, forwarding diagnostics to your logging framework, and persisting diagnostics to a Persistent Volume Claim (PVC).
+This section explains how to configure diagnostics for Hazelcast clusters managed by the Hazelcast Platform Operator, including enabling diagnostics, setting auto turn-off to avoid disk overuse, forwarding diagnostics to your logging framework, and persisting diagnostics to a Persistent Volume Claim (PVC).
 
 == Enable diagnostics using the CRD
 
@@ -23,7 +23,7 @@ default plugins, see https://docs.hazelcast.com/hazelcast/latest/maintain-cluste
 * outputType: choose the output destination (e.g. FILE or STDOUT). The default is STDOUT in Operator.
 
 // Sergii - should we say: "We recommend you use the default, STDOUT"
-// Sergii - do we even want to mention the following fields at all?
+// And do we even want to mention all the following fields?
 
 * maxRolledFileSize / maxRolledFileCount: cap file size and retention.
 * pluginProperties: pass the same diagnostics system properties shown above (e.g. enable plugins or adjust their periods).
@@ -43,6 +43,15 @@ spec:
   diagnostics:
     outputType: STDOUT
 ----
+
+== Configure auto turn-off
+
+To prevent diagnostic logs from running indefinitely and having a performance impact on the cluster, set the Operator's `autoOffTimerInMinutes` to automatically disable diagnostic logging after the specified number of minutes. See https://docs.hazelcast.com/operator/latest-snapshot/api-ref#diagnostics[Diagnostics].
+
+You can combine this with rolling limits:
+
+* Operator diagnostics: maxRolledFileSize, maxRolledFileCount.
+* Hazelcast properties: hazelcast.diagnostics.max.rolled.file.size.mb and hazelcast.diagnostics.max.rolled.file.count.
 
 == Forward diagnostics to a logging framework
 
