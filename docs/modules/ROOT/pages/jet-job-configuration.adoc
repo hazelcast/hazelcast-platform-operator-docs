@@ -43,23 +43,39 @@ Below are the configuration options for the `JetJob` resource. You can find more
 
 |===
 
-== Providing the JAR file for Data Pipeline
+=== URL parameters
+
+The `bucketURI` parameter can be used for additional configuration. For example, to specify an AWS S3 URL to send requests to, you can use the `endpoint` parameter: `s3://my-bucket?endpoint=my.endpoint.url&disableSSL=true&s3ForcePathStyle=true`.
+
+The following options are supported:
+
+[cols="20%m,80%a"]
+|===
+|Field|Description
+
+|region
+|The AWS region for requests
+
+|endpoint
+|The endpoint URL (hostname only or fully qualified URI)
+
+|disable_ssl, or disableSSL
+|A value of `true` disables SSL when sending requests
+
+|s3_force_path_style, s3ForcePathStyle
+|A value of `true` forces the request to use path-style addressing
+
+|dualstack
+|A value of `true` enables dual stack (IPv4 and IPv6) endpoints
+
+|fips
+|A value of `true` enables the use of FIPS endpoints
+
+|===
+
+== Providing the JAR file for the Data Pipeline
 To run the Data Pipeline, you need to provide a JAR file that contains the Pipeline. The JAR file can be pre-downloaded before the cluster starts by configuring the `jet.bucketConfig`, `jet.remoteURLs`, or `jet.configMaps` in the `Hazelcast` CR. This way, all the files in the bucket will be accessible to the member when the cluster starts.
 Another option is to configure `bucketConfig` or `remoteURL` in the `JetJob` CR. This way, only the JAR file specified in the `jarName` parameter will be downloaded in the runtime before starting the Data Pipeline.
-
-=== URL Parameters
-
-The query options in the `bucketURI` can be used for additional configuration. For example, to specify the AWS S3 URL to send requests to, you can use the `endpoint` parameter: `s3://my-bucket?endpoint=my.endpoint.url&disableSSL=true&s3ForcePathStyle=true`.
-
-The following query options are supported:
-
-• region: The AWS region for requests
-• endpoint: The endpoint URL (hostname only or fully qualified URI)
-• disable_ssl (or disableSSL): A value of “true” disables SSL when sending requests
-• s3_force_path_style (or s3ForcePathStyle): A value of “true” forces the request to use path-style addressing
-• dualstack: A value of “true” enables dual stack (IPv4 and IPv6) endpoints
-• fips: A value of “true” enables the use of FIPS endpoints
-
 
 == JetJob state management
 Once the job is created, you can use `state` field to manage its lifecycle.
