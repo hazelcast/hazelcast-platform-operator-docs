@@ -12,25 +12,6 @@ This section explains how to configure diagnostics for Hazelcast clusters manage
 
 To enable diagnostics, use the Hazelcast custom resource (CRD):
 
-* Fields include outputType (STDOUT, LOGGER, FILE), includeEpochTime, maxRolledFileSize, maxRolledFileCount, fileNamePrefix, pluginProperties, autoOffTimerInMinutes, and pvcName. For more information, see: https://docs.hazelcast.com/operator/latest-snapshot/api-ref#diagnostics[Diagnostics].
-* File-based rolling limits can also be controlled via DiagnosticsFileConfiguration (maxRolledFileSizeInMB, maxRolledFileCount, fileNamePrefix) where applicable. See: https://docs.hazelcast.com/operator/latest-snapshot/api-ref#diagnosticsfileconfiguration[DiagnosticsFileConfiguration].
-
-The diagnostics file rolls by default (10 files, 50 MB each) and contains plugin sections. For information about the
-default plugins, see https://docs.hazelcast.com/hazelcast/latest/maintain-cluster/monitoring#diagnostics-plugins[Diagnostics Plugins].
-
-*Example:*
-
-* outputType: choose the output destination (e.g. FILE or STDOUT). The default is STDOUT in Operator.
-
-// Sergii - should we say: "We recommend you use the default, STDOUT"
-// And do we even want to mention all the following fields?
-
-* maxRolledFileSize / maxRolledFileCount: cap file size and retention.
-* pluginProperties: pass the same diagnostics system properties shown above (e.g. enable plugins or adjust their periods).
-* autoOffTimerInMinutes: configure automatic turn-off (see below).
-* pvcName: bind diagnostics to a PVC (see below).
-* fileNamePrefix: add a custom prefix.
-
 [source,yaml]
 ----
 apiVersion: hazelcast.com/v1alpha1
@@ -44,29 +25,62 @@ spec:
     outputType: STDOUT
 ----
 
+The following properties are available for configuration:
+
+* outputType: choose the output destination (e.g. FILE or STDOUT). The default is STDOUT in Operator.
+* maxRolledFileSize / maxRolledFileCount: cap file size and retention.
+* pluginProperties: pass the same diagnostics system properties shown above (e.g. enable plugins or adjust their periods).
+* autoOffTimerInMinutes: configure automatic turn-off (see below).
+* pvcName: bind diagnostics to a PVC (see below).
+* fileNamePrefix: add a custom prefix.
+
+For more information, see: https://docs.hazelcast.com/operator/latest-snapshot/api-ref#diagnostics[Diagnostics].
+The diagnostics file rolls by default (10 files, 50 MB each) and contains plugin sections. For information about the
+default plugins, see https://docs.hazelcast.com/hazelcast/latest/maintain-cluster/monitoring#diagnostics-plugins[Diagnostics Plugins].
+
 == Configure auto turn-off
 
 To prevent diagnostic logs from running indefinitely and having a performance impact on the cluster, set the Operator's `autoOffTimerInMinutes` to automatically disable diagnostic logging after the specified number of minutes. See https://docs.hazelcast.com/operator/latest-snapshot/api-ref#diagnostics[Diagnostics].
 
-You can combine this with rolling limits:
-
-* Operator diagnostics: maxRolledFileSize, maxRolledFileCount.
-* Hazelcast properties: hazelcast.diagnostics.max.rolled.file.size.mb and hazelcast.diagnostics.max.rolled.file.count.
+You can combine this with rolling limits: maxRolledFileSize, maxRolledFileCount.
 
 == Forward diagnostics to a logging framework
 
-Instead of file output, you can forward diagnostics to your logging framework by setting `spec.diagnostics.outputType=LOGGER`
+Instead of file output, you can forward diagnostics to your logging framework by setting the value of `outputType` to `LOGGER`.
 
 Then configure the com.hazelcast.diagnostics logger (e.g. a Log4j2 logger and rolling appender) to control size and rollover using time/size policies. For information, see https://docs.hazelcast.com/hazelcast/latest/maintain-cluster/monitoring#diagnostics-using-logging-frameworks[Diagnostics using Logging Frameworks].
 
 == Persist diagnostics to a PVC
 
-To retain diagnostics across pod restarts and isolate them from container stdout, mount a Persistent Volume Claim and direct diagnostics there:
+To retain diagnostics across pod restarts and isolate them from container stdout, mount a Persistent Volume Claim (PVC) and direct diagnostics there:
 
-* Set the diagnostics output to files and point the directory to a mounted path using hazelcast.diagnostics.directory.
-* In the Operator, specify `pvcName` in the diagnostics config to mount a PVC for diagnostics. This instructs the Operator to use the named PVC for diagnostics storage (the detailed mounting YAML is not included in the sources).
+* Set the diagnostics output to files.
+* Specify the `pvcName` in the diagnostics config to a PVC mounted in the `persistenceVolumeClaims`. This instructs the Operator to use the named PVC for diagnostics storage.
 
-NOTE: System log diagnostics (cluster activity and optional partition migration details) can be enabled/tuned via `hazelcast.diagnostics.systemlog.enabled` and `hazelcast.diagnostics.systemlog.partitions` if needed. See https://docs.hazelcast.com/hazelcast/latest/maintain-cluster/monitoring#systemlog[SystemLog].
+=== Example:
+
+[source,yaml]
+----
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+  clusterSize: 3
+  licenseKeySecretName: hazelcast-license-key
+  diagnostics:
+    outputType: FILE
+    maxRolledFileCount: 10
+    maxRolledFileSize: '50M'
+    pvcName: diagnostics-pvc-volume
+  persistenceVolumeClaims:
+    - accessModes: [ "ReadWriteOnce" ]
+      requestStorage: 1Gi
+      storageClassName: "standard"
+      name: diagnostics-pvc-volume
+----
+
+NOTE: System log diagnostics (cluster activity and optional partition migration details) can be enabled/tuned via `hazelcast.diagnostics.systemlog.enabled` and `hazelcast.diagnostics.systemlog.partitions` if needed. For more information, see https://docs.hazelcast.com/hazelcast/latest/maintain-cluster/monitoring#systemlog[SystemLog].
 
 == Configure diagnostics via system properties
 
