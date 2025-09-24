@@ -23,16 +23,14 @@
 * xref:lite-members.adoc[Deploy lite members]
 * xref:deploy-management-center.adoc[Deploy Management Center]
 ** xref:remove-management-center.adoc[Remove Management Center]
-* xref:air-gapped-env.adoc[Run in air-gapped environments]
 * xref:scaling-upgrading.adoc[Scale and upgrade]
+* xref:image-registry.adoc[]
 
 .Configure
 // Configuration options
 * xref:connect-outside-kubernetes.adoc[Connect to Hazelcast from outside Kubernetes]
 * xref:scheduling-configuration.adoc[Assign pods to nodes]
-
 * xref:native-memory.adoc[High-density memory store]
-
 * xref:backup-restore.adoc[Persistence, backup & restore]
 
 * Data
