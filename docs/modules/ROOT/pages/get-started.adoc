@@ -31,7 +31,9 @@ For more information about the Hazelcast Platform Operator CRD, see xref:api-ref
 
 === Install and run Operator
 
-From release 5.6.0 onwards, you can use a Helm chart to install the Hazelcast Platform Operator.
+You can use a Helm chart to install the Hazelcast Platform Operator.
+
+NOTE: Hazelcast images are hosted at `docker.io/hazelcast` and `registry.connect.redhat.com/hazelcast`. The Docker images are used by default. If you need to fetch images from Red Hat or a private mirror, you can xref:image-registry.adoc[change the default image registry].
 
 . Add the Hazelcast Helm Charts repository to your Helm repository list by running the following command:
 

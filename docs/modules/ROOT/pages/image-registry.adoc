@@ -1,0 +1,95 @@
+= Change the default image registry
+:page-aliases: air-gapped-env.adoc
+
+Hazelcast images are hosted at `docker.io/hazelcast` and `registry.connect.redhat.com/hazelcast`. The Docker images are used by default.
+
+When running in an air-gapped or offline environment, you must mirror the images to a private container image registry. To access images hosted in a private registry or the Red Hat registry, you must set the image location for each application explicitly.
+
+NOTE: You will need to authenticate with a Red Hat account to access the Red Hat images.
+
+[cols="l, l"]
+|===
+|Docker image | Red Hat image
+
+|docker.io/hazelcast/platform-operator
+|registry.connect.redhat.com/hazelcast/hazelcast-platform-operator
+
+|docker.io/hazelcast/platform-operator-agent
+|registry.connect.redhat.com/hazelcast/platform-operator-agent
+
+|docker.io/hazelcast/management-center
+|registry.connect.redhat.com/hazelcast/management-center-5-rhel8
+
+|docker.io/hazelcast/hazelcast-enterprise
+|registry.connect.redhat.com/hazelcast/hazelcast-enterprise-5-rhel8
+|===
+
+== Specify a non-default image
+
+To set the image for each application, specify the repository URL, version tag, and authentication secret as shown in the following sections.
+
+=== Platform Operator
+
+Specify the image details when running `helm install`:
+
+[source,shell,subs="attributes"]
+----
+helm install operator hazelcast/hazelcast-platform-operator --version={operator-chart-version} \
+    --set=installCRDs=true \
+    --set=image.repository= <REGISTRY_URL> \
+    --set=image.tag= <IMAGE_TAG> \
+    --set=image.pullSecrets= {<REGISTRY-SECRET>}
+----
+
+=== Hazelcast Platform
+
+Add the image details to the Hazelcast CR configuration:
+
+[source,yaml]
+```
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+  repository: <REGISTRY_URL>
+  version: <IMAGE_TAG>
+  imagePullSecrets:
+    - name: <REGISTRY_SECRET>
+```
+
+=== Sidecar Agent
+
+Add the image details to the Hazelcast CR configuration:
+
+[source,yaml]
+```
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+  imagePullSecrets:
+    - name: <REGISTRY_SECRET>
+  agent:
+    repository: <REGISTRY_URL>
+    version: <IMAGE_TAG>
+```
+
+=== Management Center
+
+Add the image details to the Hazelcast CR configuration:
+
+[source,yaml]
+```
+apiVersion: hazelcast.com/v1alpha1
+kind: ManagementCenter
+metadata:
+  name: managementcenter
+spec:
+  repository: <REGISTRY_URL>
+  version: <IMAGE_TAG>
+  imagePullSecrets:
+    - name: <REGISTRY_SECRET>
+```
+
