@@ -37,7 +37,7 @@ Specify the image details when running `helm install`:
 helm install operator hazelcast/hazelcast-platform-operator --version={operator-chart-version} \
     --set=installCRDs=true \
     --set=image.repository= <REGISTRY_URL> \
-    --set=image.tag= <IMAGE_TAG> \
+    --set=image.tag= {operator-chart-version} \
     --set=image.pullSecrets= {<REGISTRY-SECRET>}
 ----
 
@@ -53,7 +53,7 @@ metadata:
   name: hazelcast
 spec:
   repository: <REGISTRY_URL>
-  version: <IMAGE_TAG>
+  version: {page-latest-supported-hazelcast}
   imagePullSecrets:
     - name: <REGISTRY_SECRET>
 ```
@@ -73,7 +73,7 @@ spec:
     - name: <REGISTRY_SECRET>
   agent:
     repository: <REGISTRY_URL>
-    version: <IMAGE_TAG>
+    version: {operator-chart-version}
 ```
 
 === Management Center
@@ -88,7 +88,7 @@ metadata:
   name: managementcenter
 spec:
   repository: <REGISTRY_URL>
-  version: <IMAGE_TAG>
+  version: {page-latest-supported-mc}
   imagePullSecrets:
     - name: <REGISTRY_SECRET>
 ```
