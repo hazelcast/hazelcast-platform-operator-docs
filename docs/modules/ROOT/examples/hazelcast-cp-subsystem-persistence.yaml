@@ -3,11 +3,13 @@ kind: Hazelcast
 metadata:
   name: hazelcast
 spec:
-  clusterSize: 3
+  clusterSize: 6
   repository: 'docker.io/hazelcast/hazelcast-enterprise'
   licenseKeySecretName: hazelcast-license-key
   persistence:
     pvc:
-      accessModes: ["ReadWriteOnce"]
+      accessModes: [ "ReadWriteOnce" ]
       requestStorage: 8Gi
-  cpSubsystem: {}
+  cpSubsystem:
+    memberCount: 5
+    groupSize: 3

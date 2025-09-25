@@ -9,5 +9,5 @@ spec:
   cpSubsystem:
     sessionTTLSeconds: 30
     pvc:
-      accessModes: ["ReadWriteOnce"]
+      accessModes: [ "ReadWriteOnce" ]
       requestStorage: 8Gi
