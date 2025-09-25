@@ -15,6 +15,8 @@ To enable CP Subsystem you must configure the `cpSubsystem` section in the Hazel
 include::ROOT:example$/hazelcast-cp-subsystem.yaml[]
 ----
 
+If `memberCount` is not specified, every cluster member is automatically designated as a CP member. Similarly, if `groupSize` is not specified, all CP members will be included in each CP group by default.
+
 When CP subsystem is enabled, it always enables CP Subsystem Persistence. This means that a PVC must be configured before enabling CP Subsystem.
 When the `pvc` section is configured in `cpSubsystem`, a PVC is created and mounted for the CP Subsystem. If you want to use the same PVC for both xref:backup-restore.adoc[Persistence] and CP Subsytem, configure the Persistence but do not configure `pvc` for the CP Subsystem.
 
