@@ -32,7 +32,7 @@ To set the image for each application, specify the repository URL, version tag, 
 
 Specify the image details when running `helm install`:
 
-[source,shell,subs="attributes"]
+[source,shell,subs="attributes+"]
 ----
 helm install operator hazelcast/hazelcast-platform-operator --version={operator-chart-version} \
     --set=installCRDs=true \
@@ -45,7 +45,7 @@ helm install operator hazelcast/hazelcast-platform-operator --version={operator-
 
 Add the image details to the Hazelcast CR configuration:
 
-[source,yaml]
+[source,yaml,subs="attributes+"]
 ```
 apiVersion: hazelcast.com/v1alpha1
 kind: Hazelcast
@@ -62,7 +62,7 @@ spec:
 
 Add the image details to the Hazelcast CR configuration:
 
-[source,yaml]
+[source,yaml,subs="attributes+"]
 ```
 apiVersion: hazelcast.com/v1alpha1
 kind: Hazelcast
@@ -80,7 +80,7 @@ spec:
 
 Add the image details to the Hazelcast CR configuration:
 
-[source,yaml]
+[source,yaml,subs="attributes+"]
 ```
 apiVersion: hazelcast.com/v1alpha1
 kind: ManagementCenter
