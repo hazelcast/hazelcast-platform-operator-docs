@@ -57,7 +57,7 @@ To retain diagnostics across pod restarts and isolate them from the container st
 * Set the diagnostics output to files.
 * Specify the `pvcName` in the diagnostics config to a PVC mounted in the `persistenceVolumeClaims`. This instructs the Operator to use the named PVC for diagnostics storage.
 
-=== Example:
+=== Example
 
 [source,yaml]
 ----
