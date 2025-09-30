@@ -34,13 +34,13 @@ The following properties are available for configuration:
 * pvcName: bind diagnostics to a PVC (see below).
 * fileNamePrefix: add a custom prefix.
 
-For more information, see: https://docs.hazelcast.com/operator/latest-snapshot/api-ref#diagnostics[Diagnostics].
+For more information, see: https://docs.hazelcast.com/operator/latest/api-ref#diagnostics[Diagnostics].
 The diagnostics file rolls by default (10 files, 50 MB each) and contains plugin sections. For information about the
 default plugins, see https://docs.hazelcast.com/hazelcast/latest/maintain-cluster/monitoring#diagnostics-plugins[Diagnostics Plugins].
 
 == Configure auto turn-off
 
-To prevent diagnostic logs from running indefinitely and having a performance impact on the cluster, set the Operator's `autoOffTimerInMinutes` to automatically disable diagnostic logging after the specified number of minutes. See https://docs.hazelcast.com/operator/latest-snapshot/api-ref#diagnostics[Diagnostics].
+To prevent diagnostic logs from running indefinitely and having a performance impact on the cluster, set the Operator's `autoOffTimerInMinutes` to automatically disable diagnostic logging after the specified number of minutes. See https://docs.hazelcast.com/operator/latest/api-ref#diagnostics[Diagnostics].
 
 You can combine this with rolling limits: maxRolledFileSize, maxRolledFileCount.
 
@@ -52,12 +52,12 @@ Then configure the com.hazelcast.diagnostics logger (e.g. a Log4j2 logger and ro
 
 == Persist diagnostics to a PVC
 
-To retain diagnostics across pod restarts and isolate them from container stdout, mount a Persistent Volume Claim (PVC) and direct diagnostics there:
+To retain diagnostics across pod restarts and isolate them from the container stdout, mount a Persistent Volume Claim (PVC) and direct diagnostics there:
 
 * Set the diagnostics output to files.
 * Specify the `pvcName` in the diagnostics config to a PVC mounted in the `persistenceVolumeClaims`. This instructs the Operator to use the named PVC for diagnostics storage.
 
-=== Example:
+=== Example
 
 [source,yaml]
 ----
@@ -84,7 +84,7 @@ NOTE: System log diagnostics (cluster activity and optional partition migration 
 
 == Configure diagnostics via system properties
 
-Diagnostic logging can also be configured _statically_ via system properties set in Hazelcast Platform, and enabled with rolling log controls and output destination. 
+Diagnostic logging can also be configured _statically_ via system properties set in Hazelcast Platform, and enabled with rolling log controls and a specified output destination. 
 
 However, if you enable or disable diagnostic logging using system properties, these settings will override any configuration settings applied using the CRD, and you will be unable to switch logging on and off _dynamically_ at runtime. 
 
