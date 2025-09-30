@@ -34,7 +34,7 @@ The following properties are available for configuration:
 * pvcName: bind diagnostics to a PVC (see below).
 * fileNamePrefix: add a custom prefix.
 
-For more information, see: https://docs.hazelcast.com/operator/latest-snapshot/api-ref#diagnostics[Diagnostics].
+For more information, see: https://docs.hazelcast.com/operator/latest/api-ref#diagnostics[Diagnostics].
 The diagnostics file rolls by default (10 files, 50 MB each) and contains plugin sections. For information about the
 default plugins, see https://docs.hazelcast.com/hazelcast/latest/maintain-cluster/monitoring#diagnostics-plugins[Diagnostics Plugins].
 
