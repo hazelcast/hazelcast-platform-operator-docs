@@ -84,7 +84,7 @@ NOTE: System log diagnostics (cluster activity and optional partition migration 
 
 == Configure diagnostics via system properties
 
-Diagnostic logging can also be configured _statically_ via system properties set in Hazelcast Platform, and enabled with rolling log controls and output destination. 
+Diagnostic logging can also be configured _statically_ via system properties set in Hazelcast Platform, and enabled with rolling log controls and a specified output destination. 
 
 However, if you enable or disable diagnostic logging using system properties, these settings will override any configuration settings applied using the CRD, and you will be unable to switch logging on and off _dynamically_ at runtime. 
 
