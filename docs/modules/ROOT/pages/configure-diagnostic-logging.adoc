@@ -52,7 +52,7 @@ Then configure the com.hazelcast.diagnostics logger (e.g. a Log4j2 logger and ro
 
 == Persist diagnostics to a PVC
 
-To retain diagnostics across pod restarts and isolate them from container stdout, mount a Persistent Volume Claim (PVC) and direct diagnostics there:
+To retain diagnostics across pod restarts and isolate them from the container stdout, mount a Persistent Volume Claim (PVC) and direct diagnostics there:
 
 * Set the diagnostics output to files.
 * Specify the `pvcName` in the diagnostics config to a PVC mounted in the `persistenceVolumeClaims`. This instructs the Operator to use the named PVC for diagnostics storage.
