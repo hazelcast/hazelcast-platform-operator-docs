@@ -1,5 +1,5 @@
 = Configure diagnostic logging
-:description: Hazelcast provides powerful diagnostic logging capabilities that generate comprehensive insights for troubleshooting and monitoring.
+:description: Hazelcast provides diagnostic logging capabilities to help with monitoring and troubleshooting.
 :page-beta: true
 
 {description}
