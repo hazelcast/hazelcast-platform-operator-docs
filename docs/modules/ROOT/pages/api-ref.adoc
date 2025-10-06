@@ -61,12 +61,6 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<ExternalConnectivityIngress,ExternalConnectivityIngress>>
 * <<ExternalConnectivityRoute,ExternalConnectivityRoute>>
 * <<ExternalConnectivityType,ExternalConnectivityType>>
-* <<Flow,Flow>>
-* <<FlowExternalConnectivityConfiguration,FlowExternalConnectivityConfiguration>>
-* <<FlowList,FlowList>>
-* <<FlowPhase,FlowPhase>>
-* <<FlowSpec,FlowSpec>>
-* <<FlowStatus,FlowStatus>>
 * <<FullBehaviorSetting,FullBehaviorSetting>>
 * <<GCType,GCType>>
 * <<GlobalSerializer,GlobalSerializer>>
@@ -741,84 +735,6 @@ ExternalConnectivityRoute defines OpenShift route configuration of Management Ce
 |===
 | Field | Description | Type | Required | Default
 m| hostname | Hostname of Management Center exposed by route. Openshift routers will use this hostname to route inbound traffic. m| string | true | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== Flow
-
-Flow is the Schema for the flows API
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta[metav1.ObjectMeta] | false | -
-m| spec | &#160; m| <<FlowSpec,FlowSpec>> | false | -
-m| status | &#160; m| <<FlowStatus,FlowStatus>> | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== FlowExternalConnectivityConfiguration
-
-FlowExternalConnectivityConfiguration defines how to expose Flow pods.
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| ingress | Ingress configuration of Flow m| &#42;<<ExternalConnectivityIngress,ExternalConnectivityIngress>> | false | -
-m| route | OpenShift Route configuration of Flow m| &#42;<<ExternalConnectivityRoute,ExternalConnectivityRoute>> | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== FlowList
-
-FlowList contains a list of Flow
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| metadata | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#listmeta-v1-meta[metav1.ListMeta] | false | -
-m| items | &#160; m| []<<Flow,Flow>> | true | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== FlowSpec
-
-FlowSpec defines the desired state of Flow
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| size | Number of Flow instances. m| &#42;int32 | false | 3
-m| repository | Repository to pull the Flow image from. m| string | false | "docker.io/hazelcast/hazelcast-flow"
-m| version | Version of Flow. m| string | false | "5.5.0"
-m| imagePullPolicy | Pull policy for the Flow image m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#pullpolicy-v1-core[corev1.PullPolicy] | false | "IfNotPresent"
-m| imagePullSecrets | Image pull secrets for the Flow image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
-m| licenseKeySecretName | Name of the secret with Hazelcast Enterprise License Key. m| string | true | -
-m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingConfiguration>> | false | -
-m| resources | Compute Resources required by the Hazelcast container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | -
-m| externalConnectivity | Configuration to expose Flow to outside. m| &#42;<<FlowExternalConnectivityConfiguration,FlowExternalConnectivityConfiguration>> | false | {}
-m| database | Configuration for Flow database m| <<DatabaseConfig,DatabaseConfig>> | true | -
-m| env | Env configuration of environment variables m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#envvar-v1-core[corev1.EnvVar] | false | -
-m| annotations | Flow Kubernetes resource annotations m| map[string]string | false | -
-m| labels | Flow Kubernetes resource labels m| map[string]string | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== FlowStatus
-
-FlowStatus defines the observed state of Flow
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| phase | Phase of the Flow m| <<FlowPhase,FlowPhase>> | false | -
-m| message | Message about the Flow state m| string | false | -
-m| size | Size of Flow members in the cluster. m| int32 | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
