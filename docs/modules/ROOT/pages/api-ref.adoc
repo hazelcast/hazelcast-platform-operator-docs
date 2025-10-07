@@ -45,7 +45,6 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<DataStructureConfigState,DataStructureConfigState>>
 * <<DataStructureSpec,DataStructureSpec>>
 * <<DataStructureStatus,DataStructureStatus>>
-* <<DatabaseConfig,DatabaseConfig>>
 * <<Diagnostics,Diagnostics>>
 * <<DiagnosticsFileConfiguration,DiagnosticsFileConfiguration>>
 * <<DiagnosticsOutputType,DiagnosticsOutputType>>
@@ -562,19 +561,6 @@ m| userCodeNamespace | Name of the User Code Namespace applied to this instance 
 m| state | State of the data structure m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
 m| message | Message explaining the current state m| string | false | -
 m| memberStatuses | Holds status of data structure for each Hazelcast member m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== DatabaseConfig
-
-
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| host | Host to database m| string | true | -
-m| secretName | Name of the secret that contains DB credentials m| string | true | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -2710,21 +2696,6 @@ ExternalConnectivityType describes how Management Center is exposed.
 m| "ClusterIP" | ExternalConnectivityTypeClusterIP exposes Management Center with ClusterIP service.
 m| "NodePort" | ExternalConnectivityTypeNodePort exposes Management Center with NodePort service.
 m| "LoadBalancer" | ExternalConnectivityTypeLoadBalancer exposes Management Center with LoadBalancer service.
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== FlowPhase
-
-FlowPhase represents the current state of the cluster
-
-[cols="5,10"options="header"]
-|===
-| Value | Description
-m| "Running" | FlowRunning phase is the state when the Flow is successfully started
-m| "Failed" | FlowFailed phase is the state of error during the Flow startup
-m| "Pending" | FlowPending phase is the state of starting the cluster when the Flow is not started yet
-m| "Terminating" | FlowTerminating phase is the state where deletion of Flow and dependent resources happen
 |===
 
 <<Table of Contents,Back to TOC>>
