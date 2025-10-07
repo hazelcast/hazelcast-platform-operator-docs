@@ -1,28 +1,24 @@
 = Release notes
-:description: These release notes list any new features, enhancements, fixes, and breaking changes implemented between version 5.14.0 and version 5.15.0 of Hazelcast Operator.
+:description: These release notes list any new features, enhancements, fixes, and breaking changes implemented between version 5.15.0 and version 5.16.0 of Hazelcast Platform Operator.
 
 {description}
 
-**Release date**: 2025-03-13
+**Release date**: 2025-10-09
 
-For help installing and running Operator Hazelcast Platform Operator, see xref:get-started.adoc[Get started].
+For help installing and running Operator, see xref:get-started.adoc[].
 
 == New features
 
-- *Support for xref:configure-jaas.adoc[JAAS Authentication]*: Hazelcast Operator now supports setting up Java Authentication and Authorization Service (JAAS) for the clients, allowing enterprises to deploy Hazelcast securely with JAAS authentication in Kubernetes environments
-- *TLS support for xref:management-center-ldap.adoc[MC LDAP Security Provider]*: Hazelcast Operator now supports authentication and authorization against Lightweight Directory Access Protocol (LDAP) servers over TLS (or LDAPS) for Management Center. Non-SSL LDAP connections continue to work as expected
-- *xref:configure-simple-security.adoc[Simple authentication and authorization for clients]*: Hazelcast Operator now supports simple authentication and authorization for client connections, bringing native security controls to Operator-managed clusters. You can define authentication realms using Kubernetes secrets, assign roles (admin, monitor, application), and configure fine-grained permissions with InstancePermission and ClusterPermission. The Operator retrieves admin credentials directly from `operatorClientSecretName`, eliminating manual configuration. This enhancement ensures secure, role-based access control, simplifies client authentication setup, and aligns with Hazelcast's standard security model for a seamless Kubernetes integration
+- *Dynamic diagnostic logging (Beta)*: Diagnostic logging can now be controlled dynamically with Operator without requiring a cluster restart. Operator also supports an optional auto-off timer, setting log locations, and controlling diagnostic plugins. See xref:configure-diagnostic-logging.adoc[].
 
-== Enhancements 
+== Enhancements
 
-- *Added ability to configure client and member mutual authentication separately*: you can configure mutual authentication of client-to-member and member-to-member communications separately. (Previously mutual authentication for member to member communication was always Required by default)
+- *Certified on Red Hat Container Registry*: Operator has been officially certified on the Red Hat Container Registry. This ensures compatibility and reliability for Red Hat OpenShift users, enabling simplified deployment, seamless upgrades, and automated security scanning when pulling trusted Operator images directly from the certified registry. To start using the Red Hat Container Registry, see xref:image-registry.adoc[].
+- *Support for OpenShift S3 locations*: Operator can now deploy Jet jobs from S3-compatible storage buckets within OpenShift environments. This enhances flexibility for data integration use cases by allowing jobs to access external object storage services such as MinIO, Ceph, or AWS S3 without requiring manual configuration.
+- *Easy identification*: Operator now clearly identifies itself as distinct from other clients connected to the cluster.
 
 == Fixes
 
-- *Static configuration for User Code Namespace (UCN) now correctly generates the configuration in `hazelcast.yaml`*: static configuration for User Code Namespace (UCN) now correctly generates the configuration in `hazelcast.yaml` by including the required `name-spaces` field instead of incorrectly using the `default` key
-- *Fixed the issue when Hazelcast can't be deployed using Compact Serializers*: the provided compact serializer config was passed to Hazelcast with the wrong YAML format. Now Hazelcast throws an `InvalidConfigurationException` since the claimed class is not on the _classpath_, which is expected
-
-== Known Issues
-
-- *Authorization errors logged at incorrect level in Hazelcast Operator*: currently, authorization errors in Hazelcast Operator are logged at the DEBUG level instead of ERROR, making it difficult to identify permission-related issues. When an invalid JAAS authentication configuration is applied (such as an incorrect class name) the logs do not immediately signal a failure. Until this issue is resolved in a future release, you should manually check the logs for authorization failures
-- *Clients continue connecting to cluster with expired or invalid TLS certificates*: currently, when a TLS secret is updated with a new keystore and truststore, clients using outdated certificates can still connect to the Hazelcast cluster instead of being rejected. Even after updating the TLS secret, there is no built-in mechanism to enforce immediate re-authentication, leading to potential security concerns
+- *Compact serializer configuration*: An issue where Operator failed to generate the correct compact serializer syntax within Hazelcast configuration has been resolved. 
+- *Improvements in the way Operator shuts down the cluster*:  Operator now ensures that it initiates a graceful shutdown when requested to stop the cluster whilst scaling.
+- *'managementCenter' properties in Hazelcast custom resource*:  Fixed a bug that prevented the cluster from restarting when `managementCenter` properties are enabled.

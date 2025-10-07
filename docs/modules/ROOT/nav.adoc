@@ -1,37 +1,26 @@
 .Get started
-// Get started, tutorials, release notes & support info
 * xref:index.adoc[Overview]
-* xref:ask-ai.adoc[Ask AI]
 * xref:release-notes.adoc[Release notes]
 * xref:get-support.adoc[Get support]
-* xref:migrating-from-helm.adoc[Migrate from Helm Chart]
-
-* Tutorials
-** xref:tutorials:operator-tutorial-external-backup-restore.adoc[Restore a cluster with Operator]
-** xref:tutorials:operator-tutorial-wan-replication.adoc[Replicate data between clusters]
-** xref:tutorials:operator-tutorial-wan-sync.adoc[Synchronize data using WAN Sync]
-** xref:tutorials:operator-tutorial-jet.adoc[Run a data pipeline using Jet]
-** xref:tutorials:operator-tutorial-jet-job-snapshot.adoc[Save the state of Jet job]
-** xref:tutorials:operator-tutorial-tls.adoc[Secure a cluster with TLS]
-** xref:tutorials:operator-tutorial-expose-externally.adoc[Connect from outside Kubernetes]
-
+* xref:ask-ai.adoc[Ask AI]
 
 .Deploy
-// Deploy options
 * xref:get-started.adoc[Deploy cluster]
-** xref:remove-cluster.adoc[Remove cluster]
+* xref:remove-cluster.adoc[Remove cluster]
 * xref:lite-members.adoc[Deploy lite members]
 * xref:deploy-management-center.adoc[Deploy Management Center]
-** xref:remove-management-center.adoc[Remove Management Center]
+* xref:remove-management-center.adoc[Remove Management Center]
 * xref:scaling-upgrading.adoc[Scale and upgrade]
+* xref:migrating-from-helm.adoc[Migrate from Helm Chart]
 * xref:image-registry.adoc[]
 
 .Configure
-// Configuration options
 * xref:connect-outside-kubernetes.adoc[Connect to Hazelcast from outside Kubernetes]
+* xref:tutorials:operator-tutorial-expose-externally.adoc[Connect from outside Kubernetes]
 * xref:scheduling-configuration.adoc[Assign pods to nodes]
 * xref:native-memory.adoc[High-density memory store]
 * xref:backup-restore.adoc[Persistence, backup & restore]
+* xref:tutorials:operator-tutorial-external-backup-restore.adoc[Restore a cluster]
 
 * Data
 ** Data structures
@@ -46,7 +35,9 @@
 ** Data pipelines
 *** xref:jet-engine-configuration.adoc[Configure the Jet Engine]
 *** xref:jet-job-configuration.adoc[Run data pipelines]
+*** xref:tutorials:operator-tutorial-jet.adoc[Run a data pipeline using Jet]
 *** xref:jet-job-snapshot.adoc[Save state of data pipelines]
+*** xref:tutorials:operator-tutorial-jet-job-snapshot.adoc[Save the state of Jet job]
 
 ** xref:serialization-configuration.adoc[Data serialization]
 ** xref:cp-subsystem.adoc[Enable CP subsystem]
@@ -58,10 +49,13 @@
 
 ** Synchronize data across clusters
 *** xref:wan-replication.adoc[Configure WAN replication]
+*** xref:tutorials:operator-tutorial-wan-replication.adoc[Replicate data between clusters]
 *** xref:wan-sync.adoc[Synchronize WAN replicated data]
+*** xref:tutorials:operator-tutorial-wan-sync.adoc[Synchronize data using WAN Sync]
 
 * Security
 ** xref:tls.adoc[Configure TLS]
+** xref:tutorials:operator-tutorial-tls.adoc[Secure a cluster with TLS]
 ** xref:configure-simple-security.adoc[Configure simple authentication and authorization]
 ** xref:configure-jaas.adoc[Configure JAAS]
 ** xref:authorization.adoc[Authorization Methods to Access Cloud Storage]
@@ -90,6 +84,5 @@
 ** xref:management-center-ldap.adoc[LDAP security provider]
 
 .Reference
-// Other reference docs
 * xref:phone-homes.adoc[Phone home data]
 * xref:api-ref.adoc[API types]
