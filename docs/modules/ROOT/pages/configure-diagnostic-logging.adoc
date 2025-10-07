@@ -1,10 +1,12 @@
 = Configure diagnostic logging
-:description: Hazelcast offers an extended set of diagnostics plugins for both Hazelcast members and clients. A dedicated log file is used to write the diagnostics content, and a rolling file approach is used to prevent taking up too much disk space.
+:description: Hazelcast provides diagnostic logging capabilities to help with monitoring and troubleshooting.
 :page-beta: true
 
 {description}
 
-Using the Operator, you can switch diagnostic logging on and off at runtime (known as dynamic configuration) without having to restart the cluster.
+Using the Operator, you can switch diagnostic logging on and off at runtime (known as _dynamic_ configuration) without having to restart the cluster. You can also configure an auto turn-off feature to terminate diagnostic logging after a set period.
+
+Hazelcast offers an extended set of diagnostic plugins for both Hazelcast members and clients. A dedicated log file is used to write the diagnostics content, and a rolling file approach is used to prevent taking up too much disk space. Operator also allows you to control these diagnostic plugins _dynamically_ without having to restart the cluster.
 
 This section explains how to configure diagnostics for Hazelcast clusters managed by the Hazelcast Platform Operator, including enabling diagnostics, setting auto turn-off to avoid disk overuse, forwarding diagnostics to your logging framework, and persisting diagnostics to a Persistent Volume Claim (PVC).
 
