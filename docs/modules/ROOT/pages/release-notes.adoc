@@ -22,3 +22,8 @@ For help installing and running Operator, see xref:get-started.adoc[].
 - *Compact serializer configuration*: An issue where Operator failed to generate the correct compact serializer syntax within Hazelcast configuration has been resolved. 
 - *Improvements in the way Operator shuts down the cluster*:  Operator now ensures that it initiates a graceful shutdown when requested to stop the cluster whilst scaling.
 - *'managementCenter' properties in Hazelcast custom resource*:  Fixed a bug that prevented the cluster from restarting when `managementCenter` properties are enabled.
+
+== Known Issues
+
+- *Authorization errors logged at incorrect level in Hazelcast Operator*: Authorization errors in Operator are logged at the DEBUG level instead of ERROR, making it difficult to identify permission-related issues. When an invalid JAAS authentication configuration is applied (such as an incorrect class name) the logs do not immediately signal a failure. Until this issue is resolved, you should manually check the logs for authorization failures.
+- *Clients continue connecting to cluster with expired or invalid TLS certificates*: When a TLS secret is updated with a new keystore and truststore, clients using outdated certificates can still connect to the Hazelcast cluster instead of being rejected. There is no built-in mechanism to enforce immediate re-authentication after updating the TLS secret, leading to potential security concerns.
