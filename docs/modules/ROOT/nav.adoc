@@ -16,11 +16,11 @@
 
 .Configure
 * xref:connect-outside-kubernetes.adoc[Connect to Hazelcast from outside Kubernetes]
-* xref:tutorials:operator-tutorial-expose-externally.adoc[Connect from outside Kubernetes]
+** xref:tutorials:operator-tutorial-expose-externally.adoc[]
 * xref:scheduling-configuration.adoc[Assign pods to nodes]
 * xref:native-memory.adoc[High-density memory store]
 * xref:backup-restore.adoc[Persistence, backup & restore]
-* xref:tutorials:operator-tutorial-external-backup-restore.adoc[Restore a cluster]
+** xref:tutorials:operator-tutorial-external-backup-restore.adoc[]
 
 * Data
 ** Data structures
@@ -35,9 +35,9 @@
 ** Data pipelines
 *** xref:jet-engine-configuration.adoc[Configure the Jet Engine]
 *** xref:jet-job-configuration.adoc[Run data pipelines]
-*** xref:tutorials:operator-tutorial-jet.adoc[Run a data pipeline using Jet]
+**** xref:tutorials:operator-tutorial-jet.adoc[]
 *** xref:jet-job-snapshot.adoc[Save state of data pipelines]
-*** xref:tutorials:operator-tutorial-jet-job-snapshot.adoc[Save the state of Jet job]
+**** xref:tutorials:operator-tutorial-jet-job-snapshot.adoc[]
 
 ** xref:serialization-configuration.adoc[Data serialization]
 ** xref:cp-subsystem.adoc[Enable CP subsystem]
@@ -49,13 +49,13 @@
 
 ** Synchronize data across clusters
 *** xref:wan-replication.adoc[Configure WAN replication]
-*** xref:tutorials:operator-tutorial-wan-replication.adoc[Replicate data between clusters]
+**** xref:tutorials:operator-tutorial-wan-replication.adoc[]
 *** xref:wan-sync.adoc[Synchronize WAN replicated data]
-*** xref:tutorials:operator-tutorial-wan-sync.adoc[Synchronize data using WAN Sync]
+**** xref:tutorials:operator-tutorial-wan-sync.adoc[]
 
 * Security
 ** xref:tls.adoc[Configure TLS]
-** xref:tutorials:operator-tutorial-tls.adoc[Secure a cluster with TLS]
+*** xref:tutorials:operator-tutorial-tls.adoc[]
 ** xref:configure-simple-security.adoc[Configure simple authentication and authorization]
 ** xref:configure-jaas.adoc[Configure JAAS]
 ** xref:authorization.adoc[Authorization Methods to Access Cloud Storage]
