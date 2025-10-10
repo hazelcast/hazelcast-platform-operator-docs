@@ -1,4 +1,4 @@
-= Run a data pipeline using Jet with Platform Operator
+= Tutorial: Run a data pipeline using Jet
 :github-directory: https://github.com/hazelcast-guides/hazelcast-platform-operator-jet
 :description: Learn how to run a data pipeline in Hazelcast using Jet.
 

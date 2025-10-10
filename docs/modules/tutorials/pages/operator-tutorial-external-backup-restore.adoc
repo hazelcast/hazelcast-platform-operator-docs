@@ -1,4 +1,4 @@
-= Restore a cluster from cloud storage with Platform Operator
+= Tutorial: Restore a cluster from cloud storage
 :github-directory: https://github.com/hazelcast-guides/hazelcast-platform-operator-external-backup-restore
 :description: Learn how to back up data in Hazelcast maps to cloud storage and restore a cluster from that backup data.
 

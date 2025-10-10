@@ -1,4 +1,4 @@
-= Configure TLS with Platform Operator
+= Tutorial: Configure TLS
 :github-directory: https://github.com/hazelcast-guides/hazelcast-platform-operator-tls
 :description: Learn how to secure Hazelcast cluster with TLS and Hazelcast Platform Operator.
 
