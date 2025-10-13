@@ -938,6 +938,7 @@ m| liteMember | &#160; m| &#42;<<LiteMember,LiteMember>> | false | -
 m| security | &#160; m| &#42;<<Security,Security>> | false | -
 m| diagnostics | &#160; m| &#42;<<Diagnostics,Diagnostics>> | false | -
 m| persistenceVolumeClaims | PersistenceVolumeClaims specifies the PVCs that will be created and attached to the created StatefulSet. m| []<<PVCTemplateConfiguration,PVCTemplateConfiguration>> | false | -
+m| kubernetesMaster | KubernetesMaster is the URL of the Kubernetes master used by the Hazelcast discovery plugin to discover other members. Defaults to https://kubernetes.default.svc. m| string | false | -
 |===
 ==== Deprecated
 [cols="4,8,4,2,4"options="header"]
