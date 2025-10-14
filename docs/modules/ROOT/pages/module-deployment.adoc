@@ -39,7 +39,7 @@ The example configuration below:
 * downloads the JAR files from the specified external bucket and places them under the classpath of each of the Hazelcast members
 * puts all the files specified in the ConfigMap objects under the classpath of each of the Hazelcast members. 
 
-WARNING: Currently, mounted persistent volumes are not supported; only cloud provider external buckets are supported.
+WARNING: Mounted persistent volumes are not supported; only cloud provider external buckets are supported.
 
 [tabs]
 ====
