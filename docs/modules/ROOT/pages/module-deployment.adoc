@@ -74,7 +74,7 @@ include::ROOT:example$/hazelcast-module-deployment-azure.yaml[]
 ----
 --
 ====
-<1> Name of the secret with credentials for accessing the bucket URI 
+<1> Name of the secret with credentials for accessing the bucket URI.
 <2> URI of the bucket where backup data will be stored.
 
 == Configuring an External Data Store with Hazelcast Platform Operator
