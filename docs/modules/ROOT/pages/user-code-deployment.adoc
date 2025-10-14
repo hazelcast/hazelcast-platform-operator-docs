@@ -1,7 +1,7 @@
 = User Code Deployment
 :description: Hazelcast allows you to deploy your own custom and domain classes to cluster members. From Hazelcast Platform Operator, you can deploy your application code from external buckets and ConfigMap objects in Kubernetes.
 
-WARNING: User Code Deployment is deprecated. Use xref:user-code-namespaces.adoc[User Code Namespaces] instead.
+WARNING: User Code Deployment is deprecated. Use xref:user-code-namespaces.adoc[User Code Namespaces] or xref:module-deployment.adoc[Module Deployment] instead.
 
 {description}
 
