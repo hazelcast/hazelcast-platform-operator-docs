@@ -10,20 +10,24 @@ For help installing and running Operator, see xref:get-started.adoc[].
 == New features
 
 - *Dynamic diagnostic logging (Beta)*: Diagnostic logging can now be controlled dynamically with Operator without requiring a cluster restart. Operator also supports an optional auto-off timer, setting log locations, and controlling diagnostic plugins. See xref:configure-diagnostic-logging.adoc[].
+- *Module deployment*: Hazelcast Operator supports a new feature for uploading custom JARs and Classes to the CLASSPATH, replacing the deprecated User Code Deployment feature. See xref:module-deployment.adoc[].
 
 == Enhancements
 
 - *Certified on Red Hat Container Registry*: Operator has been officially certified on the Red Hat Container Registry. This ensures compatibility and reliability for Red Hat OpenShift users, enabling simplified deployment, seamless upgrades, and automated security scanning when pulling trusted Operator images directly from the certified registry. To start using the Red Hat Container Registry, see xref:image-registry.adoc[].
 - *Support for OpenShift S3 locations*: Operator can now deploy Jet jobs from S3-compatible storage buckets within OpenShift environments. This enhances flexibility for data integration use cases by allowing jobs to access external object storage services such as MinIO, Ceph, or AWS S3 without requiring manual configuration.
+- *Custom Kubernetes API server*: You can now specify a custom Kubernetes API server URL to use with Operator.
 - *Easy identification*: Operator now clearly identifies itself as distinct from other clients connected to the cluster.
 
 == Fixes
 
 - *Compact serializer configuration*: An issue where Operator failed to generate the correct compact serializer syntax within Hazelcast configuration has been resolved. 
 - *Improvements in the way Operator shuts down the cluster*:  Operator now ensures that it initiates a graceful shutdown when requested to stop the cluster whilst scaling.
-- *'managementCenter' properties in Hazelcast custom resource*:  Fixed a bug that prevented the cluster from restarting when `managementCenter` properties are enabled.
+- *Management Center properties in Hazelcast custom resource*:  Fixed a bug that prevented the cluster from restarting when `managementCenter` properties are enabled.
+- *Authorization errors logged at incorrect level*: Authorization errors in Operator were logged at the DEBUG level instead of ERROR, making it difficult to identify permission-related issues. There are now logged at ERROR level.
+- *OLM operator name updated*: A namespace clash has been resolved by replacing the generic `controller-manager` name with `hazelcast-platform-operator-controller`.
+
 
 == Known issues
 
-- *Authorization errors logged at incorrect level*: Authorization errors in Operator are logged at the DEBUG level instead of ERROR, making it difficult to identify permission-related issues. When an invalid JAAS authentication configuration is applied (such as an incorrect class name) the logs do not immediately signal a failure. Until this issue is resolved, you should manually check the logs for authorization failures.
 - *Clients continue connecting to cluster with expired or invalid TLS certificates*: When a TLS secret is updated with a new keystore and truststore, clients using outdated certificates can still connect to the Hazelcast cluster instead of being rejected. There is no built-in mechanism to enforce immediate re-authentication after updating the TLS secret, leading to potential security concerns.
