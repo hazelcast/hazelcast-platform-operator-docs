@@ -132,6 +132,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<MaxSizePolicyType,MaxSizePolicyType>>
 * <<MemberAccess,MemberAccess>>
 * <<MerkleTreeConfig,MerkleTreeConfig>>
+* <<ModuleDeploymentConfiguration,ModuleDeploymentConfiguration>>
 * <<MultiMap,MultiMap>>
 * <<MultiMapList,MultiMapList>>
 * <<MultiMapSpec,MultiMapSpec>>
@@ -939,6 +940,7 @@ m| security | &#160; m| &#42;<<Security,Security>> | false | -
 m| diagnostics | &#160; m| &#42;<<Diagnostics,Diagnostics>> | false | -
 m| persistenceVolumeClaims | PersistenceVolumeClaims specifies the PVCs that will be created and attached to the created StatefulSet. m| []<<PVCTemplateConfiguration,PVCTemplateConfiguration>> | false | -
 m| kubernetesMaster | KubernetesMaster is the URL of the Kubernetes master used by the Hazelcast discovery plugin to discover other members. Defaults to https://kubernetes.default.svc. m| string | false | -
+m| moduleDeployment | User Codes to Download into CLASSPATH m| &#42;<<ModuleDeploymentConfiguration,ModuleDeploymentConfiguration>> | false | -
 |===
 ==== Deprecated
 [cols="4,8,4,2,4"options="header"]
@@ -1593,6 +1595,21 @@ m| propertiesSecretName | Properties can be used for giving information to the M
 |===
 | Field | Description | Type | Required | Default
 m| depth | Depth of the merkle tree. m| int32 | false | 10
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ModuleDeploymentConfiguration
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| triggerSequence | A string for triggering a rolling restart for re-downloading the user code. m| string | false | -
+m| bucketConfig | Bucket config from where the JAR files will be downloaded. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
+m| configMaps | Names of the list of ConfigMaps. Files in each ConfigMap will be downloaded. m| []string | false | -
+m| remoteURLs | List of URLs from where the files will be downloaded. m| []string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
