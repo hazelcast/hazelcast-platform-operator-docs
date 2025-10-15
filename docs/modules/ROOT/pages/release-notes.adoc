@@ -10,7 +10,7 @@ For help installing and running Operator, see xref:get-started.adoc[].
 == New features
 
 - *Dynamic diagnostic logging (Beta)*: Diagnostic logging can now be controlled dynamically with Operator without requiring a cluster restart. Operator also supports an optional auto-off timer, setting log locations, and controlling diagnostic plugins. See xref:configure-diagnostic-logging.adoc[].
-- *Module deployment*: Hazelcast Operator supports a new feature for uploading custom JARs and Classes to the CLASSPATH, replacing the deprecated User Code Deployment feature. See xref:module-deployment.adoc[].
+- *Module deployment*: Operator supports a new feature for uploading custom JARs and Classes to the CLASSPATH, replacing the deprecated User Code Deployment feature. See xref:module-deployment.adoc[].
 
 == Enhancements
 
