@@ -1,22 +1,17 @@
-= User Code Deployment
-:description: Hazelcast allows you to deploy your own custom and domain classes to cluster members. From Hazelcast Platform Operator, you can deploy your application code from external buckets and ConfigMap objects in Kubernetes.
-
-WARNING: User Code Deployment is deprecated. Use xref:user-code-namespaces.adoc[User Code Namespaces] or xref:module-deployment.adoc[Module Deployment] instead.
+= Module Deployment
+:description: Hazelcast Platform Operator allows you to deploy your own custom and domain classes to Hazelcast Plaftorm cluster members. You can deploy your application code from external buckets, ConfigMap objects, and URLs in Kubernetes.
 
 {description}
 
-This topic explains how to configure code deployments. It also brings together examples of when you might use code deployments as part of the configuration of other features, such as the xref:hazelcast:data-structures:working-with-external-data.adoc[implementation of an external data store] or an xref:hazelcast:computing:executor-service.adoc[executor service] for the asynchronous execution of tasks.
+This topic explains how to configure module deployment. It also brings together examples of when you might use module deployments as part of the configuration of other features, such as the xref:hazelcast:data-structures:working-with-external-data.adoc[implementation of an external data store] or an xref:hazelcast:computing:executor-service.adoc[executor service] for the asynchronous execution of tasks.
 
-== Configuring User Code Deployment
+== Configuring Module Deployment
 
-Below are the configuration options for the User Code Deployment feature. For more information, see the xref:api-ref.adoc#usercodedeploymentconfig[API Reference].
+Below are the configuration options for the Module Deployment feature. For more information, see the xref:api-ref.adoc#moduledeploymentconfiguration[API Reference].
 
 [cols="20%m,80%a"]
 |===
 |Field|Description
-
-|`clientEnabled`
-|When set to true, this option enables custom code deployment from Hazelcast clients.
 
 |`bucketConfig`
 |JAR files from an external bucket are placed under the Java classpath when the following parameter values are supplied:
@@ -44,7 +39,7 @@ The example configuration below:
 * downloads the JAR files from the specified external bucket and places them under the classpath of each of the Hazelcast members
 * puts all the files specified in the ConfigMap objects under the classpath of each of the Hazelcast members. 
 
-WARNING: Currently, mounted persistent volumes are not supported; only cloud provider external buckets are supported.
+WARNING: Mounted persistent volumes are not supported; only cloud provider external buckets are supported.
 
 [tabs]
 ====
@@ -52,34 +47,34 @@ WARNING: Currently, mounted persistent volumes are not supported; only cloud pro
 AWS::
 +
 --
-User Code Deployment in AWS S3:
+Module Deployment in AWS S3:
 [source,yaml,subs="attributes+"]
 ----
-include::ROOT:example$/hazelcast-user-code-deployment-aws.yaml[]
+include::ROOT:example$/hazelcast-module-deployment-aws.yaml[]
 ----
 --
 
 GCP::
 +
 --
-User Code Deployment in GCP:
+Module Deployment in GCP:
 [source,yaml,subs="attributes+"]
 ----
-include::ROOT:example$/hazelcast-user-code-deployment-gcp.yaml[]
+include::ROOT:example$/hazelcast-module-deployment-gcp.yaml[]
 ----
 --
 
 Azure::
 +
 --
-User Code Deployment in Azure Blob:
+Module Deployment in Azure Blob:
 [source,yaml,subs="attributes+"]
 ----
-include::ROOT:example$/hazelcast-user-code-deployment-azure.yaml[]
+include::ROOT:example$/hazelcast-module-deployment-azure.yaml[]
 ----
 --
 ====
-<1> Name of the secret with credentials for accessing the bucket URI 
+<1> Name of the secret with credentials for accessing the bucket URI.
 <2> URI of the bucket where backup data will be stored.
 
 == Configuring an External Data Store with Hazelcast Platform Operator
