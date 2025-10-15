@@ -3,7 +3,7 @@
 
 {description}
 
-**Release date**: 2025-10-14
+**Release date**: 2025-10-15
 
 For help installing and running Operator, see xref:get-started.adoc[].
 
