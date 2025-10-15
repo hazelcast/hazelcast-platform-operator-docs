@@ -69,6 +69,7 @@
 *** xref:client-simple-auth.adoc[Simple Authentication]
 
 * Compute
+** xref:module-deployment.adoc[Module Deployment]
 ** xref:user-code-deployment.adoc[User Code Deployment]
 ** xref:user-code-namespaces.adoc[User Code Namespaces]
 
