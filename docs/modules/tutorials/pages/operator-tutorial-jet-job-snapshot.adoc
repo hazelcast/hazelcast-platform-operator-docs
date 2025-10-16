@@ -1,4 +1,4 @@
-= Save the state of a Jet job with Platform Operator
+= Tutorial: Save the state of a Jet job
 :github-directory: https://github.com/hazelcast-guides/hazelcast-platform-operator-jet-job-snapshot
 :description: Learn how to save the state of your data pipelines and initiate a data pipeline from an existing state using the Hazelcast Platform Operator.
 
