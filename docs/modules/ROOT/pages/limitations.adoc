@@ -127,7 +127,7 @@ The following data structure Custom Resources have their entire spec immutable a
 
 Modifying the following parameters in the Hazelcast Custom Resource will trigger a rolling update (RU) of the cluster. These parameters affect the StatefulSet pod template and require pod restarts to apply changes:
 
-==== Hazelcast CR
+=== Hazelcast CR
 
 **Cluster Configuration:**
 
@@ -257,7 +257,7 @@ Modifying the following parameters in the Hazelcast Custom Resource will trigger
 * `spec.annotations` - Kubernetes resource annotations (applied to pods and other resources)
 * `spec.labels` - Kubernetes resource labels (applied to pods)
 
-==== Management Center CR
+=== Management Center CR
 
 The following parameters in the `ManagementCenter` CR will trigger a rolling update:
 
