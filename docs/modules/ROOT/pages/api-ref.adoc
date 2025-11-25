@@ -378,30 +378,11 @@ CacheSpec defines the desired state of Cache It cannot be updated after the Cach
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| name | Name of the data structure config to be created. If empty, CR name will be used. It cannot be updated after the config is created successfully. m| string | false | -
-m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource that this resource is created for. m| string | true | -
-m| backupCount | Number of synchronous backups. m| &#42;int32 | false | 1
-m| asyncBackupCount | Number of asynchronous backups. m| int32 | false | 0
-m| userCodeNamespace | Name of the User Code Namespace applied to this instance m| string | false | -
 m| keyType | Class name of the key type m| string | false | -
 m| valueType | Class name of the value type m| string | false | -
 m| persistenceEnabled | When enabled, cache data will be persisted. m| bool | false | false
 m| inMemoryFormat | InMemoryFormat specifies in which format data will be stored in your cache m| <<InMemoryFormatType,InMemoryFormatType>> | false | BINARY
 m| eventJournal | EventJournal specifies event journal configuration of the Cache m| &#42;<<EventJournal,EventJournal>> | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== CacheStatus
-
-CacheStatus defines the observed state of Cache
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| state | State of the data structure m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
-m| message | Message explaining the current state m| string | false | -
-m| memberStatuses | Holds status of data structure for each Hazelcast member m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -899,7 +880,7 @@ HazelcastSpec defines the desired state of Hazelcast
 | Field | Description | Type | Required | Default
 m| clusterSize | Number of Hazelcast members in the cluster. m| &#42;int32 | false | 3
 m| repository | Repository to pull the Hazelcast Platform image from. m| string | false | "docker.io/hazelcast/hazelcast-enterprise"
-m| version | Version of Hazelcast Platform. m| string | false | "5.6.0-SNAPSHOT"
+m| version | Version of Hazelcast Platform. m| string | false | "5.7.0-SNAPSHOT"
 m| imagePullPolicy | Pull policy for the Hazelcast Platform image m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#pullpolicy-v1-core[corev1.PullPolicy] | false | "IfNotPresent"
 m| imagePullSecrets | Image pull secrets for the Hazelcast Platform image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
 m| licenseKeySecretName | Name of the secret with Hazelcast Enterprise License Key. m| string | true | -
@@ -1464,7 +1445,7 @@ ManagementCenterSpec defines the desired state of ManagementCenter.
 |===
 | Field | Description | Type | Required | Default
 m| repository | Repository to pull the Management Center image from. m| string | false | "docker.io/hazelcast/management-center"
-m| version | Version of Management Center. m| string | false | "5.8.0"
+m| version | Version of Management Center. m| string | false | "5.10.0-SNAPSHOT"
 m| imagePullPolicy | Pull policy for the Management Center image m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#pullpolicy-v1-core[corev1.PullPolicy] | false | "IfNotPresent"
 m| imagePullSecrets | Image pull secrets for the Management Center image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
 m| licenseKeySecretName | Name of the secret with Hazelcast Enterprise License Key. m| string | true | -
@@ -1531,11 +1512,6 @@ MapSpec defines the desired state of Hazelcast Map Config
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| name | Name of the data structure config to be created. If empty, CR name will be used. It cannot be updated after the config is created successfully. m| string | false | -
-m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource that this resource is created for. m| string | true | -
-m| backupCount | Number of synchronous backups. m| &#42;int32 | false | 1
-m| asyncBackupCount | Number of asynchronous backups. m| int32 | false | 0
-m| userCodeNamespace | Name of the User Code Namespace applied to this instance m| string | false | -
 m| timeToLiveSeconds | Maximum time in seconds for each entry to stay in the map. If it is not 0, entries that are older than this time and not updated for this time are evicted automatically. It can be updated. m| int32 | false | 0
 m| maxIdleSeconds | Maximum time in seconds for each entry to stay idle in the map. Entries that are idle for more than this time are evicted automatically. It can be updated. m| int32 | false | 0
 m| eviction | Configuration for removing data from the map when it reaches its max size. It can be updated. m| <<EvictionConfig,EvictionConfig>> | false | {maxSize: 0, evictionPolicy: NONE, maxSizePolicy: PER_NODE}
@@ -1645,27 +1621,8 @@ MultiMapSpec defines the desired state of MultiMap
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| name | Name of the data structure config to be created. If empty, CR name will be used. It cannot be updated after the config is created successfully. m| string | false | -
-m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource that this resource is created for. m| string | true | -
-m| backupCount | Number of synchronous backups. m| &#42;int32 | false | 1
-m| asyncBackupCount | Number of asynchronous backups. m| int32 | false | 0
-m| userCodeNamespace | Name of the User Code Namespace applied to this instance m| string | false | -
 m| binary | Specifies in which format data will be stored in your MultiMap. false: OBJECT true: BINARY m| bool | false | false
 m| collectionType | Type of the value collection m| <<CollectionType,CollectionType>> | false | SET
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== MultiMapStatus
-
-MultiMapStatus defines the observed state of MultiMap
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| state | State of the data structure m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
-m| message | Message explaining the current state m| string | false | -
-m| memberStatuses | Holds status of data structure for each Hazelcast member m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1825,28 +1782,9 @@ QueueSpec defines the desired state of Queue It cannot be updated after the Queu
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| name | Name of the data structure config to be created. If empty, CR name will be used. It cannot be updated after the config is created successfully. m| string | false | -
-m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource that this resource is created for. m| string | true | -
-m| backupCount | Number of synchronous backups. m| &#42;int32 | false | 1
-m| asyncBackupCount | Number of asynchronous backups. m| int32 | false | 0
-m| userCodeNamespace | Name of the User Code Namespace applied to this instance m| string | false | -
 m| maxSize | Max size of the queue. m| int32 | false | 0
 m| emptyQueueTTLSeconds | Time in seconds after which the Queue will be destroyed if it stays empty or unused. If the values is not provided the Queue will never be destroyed. m| &#42;int32 | false | -1
 m| priorityComparatorClassName | The name of the comparator class. If the class name is provided, the Queue becomes Priority Queue. You can learn more at https://docs.hazelcast.com/hazelcast/latest/data-structures/priority-queue. m| string | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== QueueStatus
-
-QueueStatus defines the observed state of Queue
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| state | State of the data structure m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
-m| message | Message explaining the current state m| string | false | -
-m| memberStatuses | Holds status of data structure for each Hazelcast member m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1917,20 +1855,6 @@ m| asyncFillup | AsyncFillup specifies whether the ReplicatedMap is available fo
 m| inMemoryFormat | InMemoryFormat specifies in which format data will be stored in the ReplicatedMap m| <<RMInMemoryFormatType,RMInMemoryFormatType>> | false | OBJECT
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource. m| string | true | -
 m| userCodeNamespace | Name of the User Code Namespace applied to this instance m| string | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== ReplicatedMapStatus
-
-ReplicatedMapStatus defines the observed state of ReplicatedMap
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| state | State of the data structure m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
-m| message | Message explaining the current state m| string | false | -
-m| memberStatuses | Holds status of data structure for each Hazelcast member m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -2206,20 +2130,6 @@ m| userCodeNamespace | Name of the User Code Namespace applied to this instance 
 
 <<Table of Contents,Back to TOC>>
 
-=== TopicStatus
-
-TopicStatus defines the observed state of Topic
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| state | State of the data structure m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
-m| message | Message explaining the current state m| string | false | -
-m| memberStatuses | Holds status of data structure for each Hazelcast member m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
 === User
 
 
@@ -2351,20 +2261,6 @@ VectorCollectionSpec defines the desired state of VectorCollection
 m| name | Name of the data structure config to be created. If empty, CR name will be used. It cannot be updated after the config is created successfully. m| string | false | -
 m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource that this resource is created for. m| string | true | -
 m| indexes | Information about indexes configuration m| []<<VectorIndex,VectorIndex>> | true | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== VectorCollectionStatus
-
-VectorCollectionStatus defines the observed state of VectorCollection
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| state | State of the data structure m| <<DataStructureConfigState,DataStructureConfigState>> | false | -
-m| message | Message explaining the current state m| string | false | -
-m| memberStatuses | Holds status of data structure for each Hazelcast member m| map[string]<<DataStructureConfigState,DataStructureConfigState>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
