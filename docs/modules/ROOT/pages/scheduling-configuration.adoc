@@ -1,22 +1,15 @@
-= Scheduling Hazelcast Pods
-:description: You can make sure that pods for Hazelcast members are run on certain nodes, using the following scheduling principles of Kubernetes: node selector, node affinity, taints, and tolerations.
-
-Kubernetes allows assigning Pods to certain nodes.
-Hazelcast Platform operator also accepts same policies to explicitly allow or disallow certain assignments.
-Detailed documentation about scheduling policies can be found link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/[in Kubernetes docs].
-
-NOTE: The Management Center specification also supports the same capabilities.
+= Schedule Hazelcast pods
+:description: Kubernetes supports several policies for assigning pods to nodes. Operator uses the same policies to allow or disallow specified assignments for Hazelcast members and Management Center.
 
 {description}
 
-== Node Selector
+For more information about scheduling policies, see the link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/[Kubernetes documentation].
 
-A node selector is a hard requirement that defines the nodes on which pods should run.
-If no node matches the requirements then the pods are not scheduled to be run. For example, you may want to make sure that Hazelcast pods are run only on nodes in a specific region.
-To define the nodes on which Hazelcast pods should run, you can use the `nodeSelector`.
+== Node selector
 
-For example, to run Hazelcast pods on a node in the us-west1 region, you can use the following example.
-This example uses the built-in link:https://kubernetes.io/docs/reference/labels-annotations-taints/#topologykubernetesioregion[`topology.kubernetes.io/region` label] to specify that the pod should be run on nodes in the us-west1 region.
+A node selector is a hard requirement that defines the nodes on which pods should run. If no node matches the requirements then the pods are not scheduled to run. To define the nodes on which Hazelcast pods should run, use the `nodeSelector` field.
+
+For example, to run Hazelcast pods on a node in the us-west1 region, apply the following configuration. This uses the built-in link:https://kubernetes.io/docs/reference/labels-annotations-taints/#topologykubernetesioregion[`topology.kubernetes.io/region` label] to specify that the pod should be run on nodes in the us-west1 region.
 
 [tabs]
 ====
@@ -39,20 +32,13 @@ include::ROOT:example$/management-center-node-selector.yaml[]
 --
 ====
 
-For more information about node selectors see the link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector[Kubernetes docs].
+For more information about node selectors, see the link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector[Kubernetes documentation].
 
-== Node Affinity
+== Node affinity
 
-Node affinity allows you to define both hard and soft requirements for the nodes on which pods should run. For example, you can set a hard requirement for Hazelcast pods to run only on nodes with AMD64 architecture
-and Linux operating system, and a soft requirement to prefer nodes in us-west1 or us-west2 regions.
+Node affinity allows you to define both hard and soft requirements for the nodes on which pods should run. To define a node affinity, use the `nodeAffinity` field.
 
-NOTE: This example is not supported by the node selector because of the soft requirement.
-
-To define a node affinity, use the `nodeAffinity` field of PodSpec.
-
-
-
-The example below will satisfy the scenario above:
+For example, you can set a hard requirement for Hazelcast pods to run only on nodes with AMD64 architecture and Linux operating system, and a soft requirement to prefer nodes in us-west1 or us-west2 regions. 
 
 [tabs]
 ====
@@ -75,16 +61,13 @@ include::ROOT:example$/management-center-node-affinity.yaml[]
 --
 ====
 
-For more information about node affinity see the link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity[Kubernetes docs].
+For more information about node affinity, see the link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity[Kubernetes documentation].
 
-== Pod Affinity and Pod Anti-Affinity
+== Pod affinity and anti-affinity
 
-You can specify pod affinity and pod anti-affinity to define on which nodes Hazelcast instances
-run with respect to other pods.
-For example, you may want to run Hazelcast pods on the same nodes as the pods of Deployment `app1` because
-your application's performance will be improved if the pods are co-located. You may also prefer that Hazelcast pods run on different
-nodes with respect to each other but since there might be small number of nodes, you don't want to block
-the scheduler if the number of Hazelcast pods is greater than the number of nodes.
+You can specify pod affinity and pod anti-affinity to define which nodes Hazelcast instances should run on with respect to other pods. To define a pod affinity, use the `podAffinity` field.
+
+For example, you may want to run Hazelcast pods on the same nodes as your application to improve performance. You may also prefer that Hazelcast pods run on separate nodes, but you don't want to block the scheduler if the number of Hazelcast pods is greater than the number of nodes.
 
 [tabs]
 ====
@@ -107,42 +90,18 @@ include::ROOT:example$/management-center-pod-affinity.yaml[]
 --
 ====
 
-For more information about pod affinity see the link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity[Kubernetes docs].
+For more information about pod affinity, see the link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity[Kubernetes documentation].
 
 == Tolerations
 
-Tolerations and corresponding taints are mechanisms to repel pods from certain nodes.
-Nodes can be tainted with key, value and particular effect.
+Tolerations and corresponding taints are mechanisms to repel pods from certain nodes. Nodes can be tainted with key, value and an effect.
 
-This example taints the node `node1`:
+This example taints the node `node1`, preventing any Hazelcast pods from being scheduled on `node1`:
 
 [source,shell]
 ----
 kubectl taint nodes node1 forbidden:NoSchedule
 ----
-
-The following configuration cannot schedule any Hazelcast pods on `node1`:
-
-[tabs]
-====
-Hazelcast::
-+
---
-[source,yaml,subs="attributes+"]
-----
-include::ROOT:example$/hazelcast.yaml[]
-----
---
-
-Management Center::
-+
---
-[source,yaml,subs="attributes+"]
-----
-include::ROOT:example$/management-center.yaml[]
-----
---
-====
 
 To allow the pods to run on the node `node1`, you need to add tolerations to the Hazelcast pods:
 
@@ -167,13 +126,13 @@ include::ROOT:example$/management-center-pod-tolerations.yaml[]
 --
 ====
 
-For more information about tolerations and taints see the link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/[Kubernetes docs].
+For more information about tolerations and taints, see the link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/[Kubernetes documentation].
 
-== Topology Spread Constraints
+== Topology spread constraints
 
 Topology spread constraints control how pods are spread across the cluster. 
 
-The following configuration will ensure that Hazelcast pods will be spread across all the nodes evenly with at most 1 pod difference between the nodes.
+The following configuration will ensure that Hazelcast pods will be spread across all the nodes evenly with at most one pod difference between the nodes.
 
 [tabs]
 ====
@@ -188,6 +147,6 @@ include::ROOT:example$/hazelcast-topology-spread-constraints.yaml[]
 
 ====
 
-NOTE: Management Center has only one instance, so it is not sensible to use topology spread constraints for the `ManagementCenter` Custom Resource.
+Note that Management Center has only one instance, so it is not sensible to use topology spread constraints for the `ManagementCenter` Custom Resource.
 
-For more information about topology spread constraints see the link:https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/[Kubernetes docs].
+For more information about topology spread constraints, see the link:https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/[Kubernetes documentation].

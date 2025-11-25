@@ -6,17 +6,17 @@
 
 == Overview
 
-In this tutorial, you'll do the following:
+In this tutorial, you'll:
 
-- Build and deploy a custom Jet pipeline implementation to cloud storage
+- Build and deploy a custom Jet pipeline implementation to cloud storage.
 
-- Deploy Hazelcast with the Jet engine configured
+- Deploy Hazelcast with the Jet engine configured.
 
-- Start the Jet pipeline
+- Start the Jet pipeline.
 
-- Check the Jet pipeline
+- Check the Jet pipeline.
 
-- Cancel the Jet pipeline
+- Cancel the Jet pipeline.
 
 The tutorial should take approximately 20 minutes to complete. 
 
@@ -24,12 +24,12 @@ The tutorial should take approximately 20 minutes to complete.
 
 Before you begin, make sure that you have:
 
-* A running https://kubernetes.io/[Kubernetes] cluster
-* Kubernetes command-line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl]
-* Maven command-line tool, https://maven.apache.org/download.cgi[mvn]
-* Deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator version 5.8 or above]
-* The Hazelcast Code Samples repository https://github.com/hazelcast/hazelcast-code-samples cloned to your local machine
-* Blob storage and access credentials on one of the following cloud providers: https://aws.amazon.com/s3/[AWS], https://cloud.google.com/storage/[GCP], https://azure.microsoft.com/en-us/services/storage/blobs/[Azure]
+* A running https://kubernetes.io/[Kubernetes] cluster.
+* The Kubernetes command line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl].
+* The Maven command line tool, https://maven.apache.org/download.cgi[mvn].
+* Deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator].
+* The Hazelcast Code Samples repository https://github.com/hazelcast/hazelcast-code-samples cloned to your local machine.
+* Blob storage and access credentials on one of the following cloud providers: https://aws.amazon.com/s3/[AWS], https://cloud.google.com/storage/[GCP], https://azure.microsoft.com/en-us/services/storage/blobs/[Azure].
 
 == Deploy the Jet pipeline JAR to cloud storage
 
@@ -61,7 +61,7 @@ cd hazelcast-platform-operator-jet
 ====
 
 +
-The sample code for this tutorial is in the link:{github-directory}/tree/master/jet-pipeline/src/main/java/org/example/run[`jet-pipeline/src/main/java/org/example/run/`] directory:
+The sample code for this tutorial is in the link:{github-directory}/tree/master/jet-pipeline/src/main/java/org/example/run[`jet-pipeline/src/main/java/org/example/run/`] directory.
 
 . Build the Jet pipeline JAR.
 
@@ -106,7 +106,7 @@ az storage blob upload --account-name <ACCOUNT_NAME> --container-name <CONTAINER
 
 ====
 
-. Create a secret for your cloud storage by running one of the following commands. Remember to replace the placeholder values.
+. Create a secret for your cloud storage.
 
 +
 [tabs]
@@ -145,7 +145,7 @@ kubectl create secret generic <SECRET-NAME> \
 
 ====
 
-NOTE: If you want to learn more about other authentication methods, check the xref:operator:ROOT:authorization.adoc[Authorization Methods to Access Cloud Storage] documentation.
+TIP: If you want to learn more about other authentication methods, see xref:operator:ROOT:authorization.adoc[Authorization Methods to Access Cloud Storage].
 
 == Start the Hazelcast cluster
 
@@ -156,9 +156,6 @@ NOTE: If you want to learn more about other authentication methods, check the xr
 ----
 kubectl create secret generic hazelcast-license-key --from-literal=license-key=<hz-license-key>
 ----
-+
-
-NOTE: Starting with version 5.13, Hazelcast Platform Operator only supports Hazelcast Enterprise cluster creation. Even if the feature is used in Hazelcast Open Source clusters, Hazelcast Platform Operator requires a license key to run a cluster.
 
 . Create a Hazelcast cluster with the Jet engine configured.
 
@@ -171,14 +168,14 @@ EOF
 ----
 +
 
-NOTE: If you want to specify the Hazelcast version explicitly, you need to use Hazelcast 5.3 or above to submit Jet jobs with the Hazelcast Platform Operator.
+NOTE: You need to use Hazelcast 5.3 or above to submit Jet jobs with Operator.
 
-. Now check the cluster status to make sure that it's up and running.
+. Check the cluster status to make sure that it's up and running.
 
 +
 [source, shell]
 ----
-$ kubectl get hazelcast my-hazelcast
+kubectl get hazelcast my-hazelcast
 NAME           STATUS    MEMBERS
 my-hazelcast   Running   3/3
 ----
@@ -221,7 +218,7 @@ my-jet-job   Starting  0
 my-jet-job   Running   732187341048774657   2023-07-14T10:51:06Z
 ----
 
-. To see the output of the Jet pipeline in the logs, run the following command:
+. Check the output of the Jet pipeline in the logs:
 
 +
 [source,bash]
@@ -244,10 +241,10 @@ The logs of the Jet pipeline are displayed in the output.
 ....
 ----
 
-. Now, cancel the Jet job by setting the `spec.state` to `Canceled`. Use one of the following options.
+. Cancel the Jet job by setting the `spec.state` to `Canceled`. Use one of the following options.
 
 +
-a) Cancel the Jet job, using `kubectl apply`:
+.. Cancel the Jet job using `kubectl apply`:
 +
 [source, shell]
 ----
@@ -256,7 +253,7 @@ include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-j
 EOF
 ----
 +
-b) Cancel the Jet job, using `kubectl patch`:
+.. Cancel the Jet job using `kubectl patch`:
 +
 [source,bash]
 ----
@@ -264,7 +261,7 @@ kubectl patch jetjob my-jet-job -p '{"spec":{"state":"Canceled"}}' --type=merge
 ----
 +
 
-. Now check the Jet job status to make sure the job was cancelled.
+. Check the Jet job status to make sure the job was cancelled.
 
 +
 [source,bash]
@@ -315,17 +312,17 @@ NOTE: Deleting the Hazelcast CR also deletes the Jet jobs linked to it.
 
 == Summary
 
-In this tutorial, you've learned how to:
+In this tutorial, you learned how to:
 
-- Build and deploy a custom Jet pipeline implementation to cloud storage
+- Build and deploy a custom Jet pipeline implementation to cloud storage.
 
-- Deploy Hazelcast with the Jet engine configured
+- Deploy Hazelcast with the Jet engine configured.
 
-- Start the Jet pipeline
+- Start a Jet pipeline.
 
-- Check the Jet pipeline
+- Check a Jet pipeline.
 
-- Cancel the Jet pipeline
+- Cancel a Jet pipeline.
 
 == Next steps
 

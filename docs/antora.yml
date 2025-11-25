@@ -1,5 +1,5 @@
 name: operator
-title: Hazelcast Operator
+title: Hazelcast Platform Operator
 # Version in the URL
 version: 'latest-snapshot'
 # Version in the version selector (we display only the latest major.minor version)

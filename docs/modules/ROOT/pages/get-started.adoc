@@ -1,41 +1,42 @@
-= Deploy a Cluster with the Hazelcast Platform Operator for Kubernetes
-:description: This topic explains how to deploy a Hazelcast cluster using Hazelcast Platform Operator for Kubernetes.
+= Install Operator and deploy a Hazelcast cluster
+:description: This topic explains how to deploy a Hazelcast cluster using Operator for Kubernetes.
 
 {description}
 
-== Prerequisites
+NOTE: If you want to migrate from the Hazelcast Helm Chart, see xref:migrating-from-helm.adoc[].
 
-* A Kubernetes or OpenShift cluster
-* The link:https://kubernetes.io/docs/tasks/tools/#kubectl[`kubectl`] or link:https://docs.openshift.com/container-platform/latest/cli_reference/openshift_cli/getting-started-cli.html[`oc`] command-line tools, configured to communicate with your cluster
-* link:https://helm.sh/docs/intro/install[`Helm`]
+== Overview
 
-NOTE: If you want to migrate from the Hazelcast Helm Chart, please follow the guidance in xref:migrating-from-helm.adoc[Migrating from Helm] document.
+As part of the deployment process, you will install the custom resource definitions (CRDs) that describe the Hazelcast resource types.
 
-== Step 1. Deploy Hazelcast Platform Operator
+A CRD is a Kubernetes feature that allows you to create custom resources that extend the Kubernetes API. CRDs allow new types of resources tailored to specific use cases to be created, without adding another API server. They also provide detailed reports on the configuration content of a CRD to any authorized Kubernetes API consumer. Using CRDs, you can:
 
-As part of the deployment process, you will install the custom resource definitions (CRD) that describe the Hazelcast resource types.
-
-A CRD is a Kubernetes feature that allows you to create custom resources that extend the Kubernetes API.
-CRDs allow new types of resources tailored to specific use cases to be created, without adding another API server. 
-They also provide detailed reports on the configuration content of a CRD to any authorized Kubernetes API consumer. Using CRDs, you can:
-
-* Introduce unique objects or types into the Kubernetes cluster
-* Create platform resources on top of Kubernetes
-* Build and use platforms through self-service activity
+* Introduce unique objects or types into the Kubernetes cluster.
+* Create platform resources on top of Kubernetes.
+* Build and use platforms through self-service activity.
 
 For example, the `clusterName` field in the Hazelcast CRD can be used to rename a cluster.
 
 CRDs are expressed in YAML format, just like standard Kubernetes entities. The Kubernetes API server processes and manages CRDs the same way it does with built-in resources.
 
-For more information about the Hazelcast Platform Operator CRD, see xref:api-ref.adoc[API types].
+For more information about the Operator CRD, see xref:api-ref.adoc[].
 
-=== Install and run Operator
+== Prerequisites
 
-You can use a Helm chart to install the Hazelcast Platform Operator.
+* A Kubernetes or OpenShift cluster.
+* The link:https://kubernetes.io/docs/tasks/tools/#kubectl[`kubectl`] or link:https://docs.openshift.com/container-platform/latest/cli_reference/openshift_cli/getting-started-cli.html[`oc`] command line tools, configured to communicate with your cluster.
+* link:https://helm.sh/docs/intro/install[`Helm`].
+* A Hazelcast Enterprise license key. If you don't have a license key, you can request one from the link:http://trialrequest.hazelcast.com/[Hazelcast website].
+
+NOTE: Because CRDs are global resources, they may need to be installed by an administrator.
+
+== Install and run Operator
+
+Operator is installed using a Helm chart.
 
 NOTE: Hazelcast images are hosted at `docker.io/hazelcast` and `registry.connect.redhat.com/hazelcast`. The Docker images are used by default. If you need to fetch images from Red Hat or a private mirror, you can xref:image-registry.adoc[change the default image registry].
 
-. Add the Hazelcast Helm Charts repository to your Helm repository list by running the following command:
+. Add the Hazelcast Helm Charts repository to your Helm repository list:
 
 +
 [source,shell]
@@ -44,18 +45,15 @@ helm repo add hazelcast https://hazelcast-charts.s3.amazonaws.com/
 helm repo update
 ----
 
-. You can either deploy the Hazelcast Platform Operator at the same time as CRDs or separately.
-
-+
-NOTE: Since CRDs are global resources, they may need to be installed by an administrator.
+. You can either deploy Operator at the same time as the CRDs or separately.
 
 +
 [tabs]
 ====
-Cluster Wide Installation::
+Cluster-wide installation::
 +
 --
-Run the following command to *deploy the Operator and the CRDs together*. By default, the Hazelcast Platform Operator watches all namespaces. Use the `watchedNamespaces` variable to update this configuration.
+Run the following command to *deploy Operator and the CRDs together*. By default, Operator watches all namespaces. Use the `watchedNamespaces` variable to change this configuration if needed.
 
 [source,shell,subs="attributes"]
 ----
@@ -64,17 +62,17 @@ helm install operator hazelcast/hazelcast-platform-operator --version={operator-
 ----
 --
 
-Restricted Installation::
+Restricted installation::
 +
 --
-Run the following commands to *deploy the Operator and the CRDs separately*. An administrator may need to do this.
+Run the following commands to *deploy Operator and the CRDs separately*.
 
 [source,shell,subs="attributes"]
 ----
 helm install operator-crds hazelcast/hazelcast-platform-operator-crds --version={operator-chart-version}
 ----
 
-After installing CRDs, install the Operator by running the following command. This operation requires only namespace-scoped permissions for `hz-system`, `ns-1` and `ns-2` namespaces which should already exist.
+After installing CRDs, install Operator by running the following command. This operation requires only namespace-scoped permissions for `hz-system`, `ns-1` and `ns-2` namespaces, which should already exist.
 
 [source,shell,subs="attributes+"]
 ----
@@ -85,17 +83,17 @@ helm install operator hazelcast/hazelcast-platform-operator --version={operator-
     --set=installCRDs=false \
     --set=watchedNamespaces="{ns-1, ns-2}"
 ----
-<1> Disabling `createClusterScopedResources` means that the management of resources by Operator is constrained to specified namespaces. This enhances both security and compliance.
-<2> Disabling `webhook.enabled` means that webhooks cannot be used. This is needed as the cluster-wide permissions required for webhooks conflict with our restrictions on cluster-scoped resource creation.
+<1> Disabling `createClusterScopedResources` means that the management of resources by Operator is constrained to specified namespaces, improving security.
+<2> Disabling `webhook.enabled` means that webhooks cannot be used. The cluster-wide permissions required for webhooks conflict with the restrictions on cluster-scoped resource creation.
 <3> Disabling `enableHazelcastNodeDiscovery` means that Operator does not automatically discover nodes across all namespaces. This limits the use of `NODE_AWARE` in `highAvailabilityMode` and of `NodePort` in `discoveryServiceType`, both of which depend on broader node discovery.
 --
 ====
 
 +
-NOTE: You can view all configuration options by running the following command: `helm show values hazelcast/hazelcast-platform-operator`
+TIP: You can view all configuration options by running the following command: `helm show values hazelcast/hazelcast-platform-operator`
 
 +
-. Monitor the operator logs. At this point, the Hazelcast Platform Operator should be up and running. You can check it with the command below.
+. Monitor the Operator logs. At this point, Operator should be up and running. To check:
 
 +
 [tabs]
@@ -118,11 +116,9 @@ oc logs deployment.apps/operator-hazelcast-platform-operator -n hz-system
 --
 ====
 
-== Step 2. Start the Hazelcast Cluster
+== Start the Hazelcast cluster
 
-After installing and running the Hazelcast Platform Operator, you can create a Hazelcast cluster. 
-
-Hazelcast Enterprise requires a license key. If you don't have a license key, you can request one from the link:http://trialrequest.hazelcast.com/[Hazelcast website].
+After installing and running Operator, you can create a Hazelcast cluster. 
 
 . Create a Kubernetes secret to hold your license key.
 +
@@ -183,11 +179,9 @@ Members {size:3, ver:3} [
 ]
 ```
 
-== Step 3. Check that the Hazelcast Cluster is running
+== Check that the Hazelcast cluster is running
 
-To check if a cluster is running, see the `status` field of the Hazelcast resource.
-
-The status can be checked using the `get hazelcast` command.
+To check if a cluster is running, see the `status` field of the Hazelcast resource. You can check the status using `get hazelcast`:
 
 [tabs]
 ====
@@ -214,8 +208,9 @@ NAME               STATUS    MEMBERS
 hazelcast-sample   Running   3/3
 ```
 
-You can use the following command for the long format.
+You can also see the status in YAML format:
 
+// RJS: Does this provide more info or is it just a different format?
 
 [tabs]
 ====
@@ -251,11 +246,10 @@ The `phase` field represents the current status of the cluster, and can contain 
 * `Pending`: The cluster is in the process of starting.
 * `Failed`: An error occurred while starting the cluster.
 
-Any additional information such as validation errors will be provided in the `message` field.
+Any additional information, such as validation errors, will be provided in the `message` field.
 
 The `readyMembers` field represents the number of Hazelcast members that are connected to the cluster.
 
+== Next steps
 
-== Next Steps
-
-Learn how to xref:connect-outside-kubernetes.adoc[expose Hazelcast clusters outside Kubernetes] so you can connect external clients to them.
+xref:connect-outside-kubernetes.adoc[Expose Hazelcast clusters outside Kubernetes] so you can connect external clients to them.

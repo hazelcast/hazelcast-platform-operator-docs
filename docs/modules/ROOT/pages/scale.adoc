@@ -1,0 +1,48 @@
+= Scale a Hazelcast deployment
+:page-aliases: scaling-upgrading.adoc
+
+To scale an existing Hazelcast deployment, there are two options:
+
+- Modify the YAML definition you used to deploy Hazelcast cluster by updating `clusterSize` field and re-apply it again:
++
+For example, if the existing configuration has a cluster size of three:
++
+[source,yaml]
+----
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast-sample
+spec:
+  clusterSize: 3
+----
++
+You can scale your deployment to five replicas by updating the `clusterSize` field and applying:
++
+[source,yaml]
+----
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast-sample
+spec:
+  clusterSize: 5
+----
+
+// RJS: How do you apply YAML config changes?
+
+- Alternatively, you can use the `scale` command:
++
+[source,shell]
+----
+kubectl scale hazelcast <name> --replicas <replica-count>
+----
++
+For example:
++
+[source,shell]
+----
+kubectl scale hazelcast hazelcast-sample --replicas 5
+----
+
+// RJS: How do you verify it's worked? What's the behavior / service interruption when you scale up/down?

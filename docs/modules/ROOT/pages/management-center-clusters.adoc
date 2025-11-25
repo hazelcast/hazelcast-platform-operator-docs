@@ -1,13 +1,13 @@
-= Connecting to a Hazelcast Cluster
-:description: You can connect Management Center to multiple clusters.
+= Connect Management Center to a Hazelcast cluster
+:description: You can connect an instance of Management Center to multiple Hazelcast clusters.
 
-To connect Management Center to a Hazelcast cluster, you need to configure at least the name of the cluster and the addresses of one or more members.
+{description}
 
-You can connect Management Center to a cluster that is configured to use TLS.
+To connect Management Center to a Hazelcast cluster, you need to configure the name of the cluster and the addresses of one or more members. You can connect Management Center to a cluster that is configured to use TLS by providing the Kubernetes secret.
 
-See xref:management-center:deploy-manage:cluster-connections.adoc[Management Center Documentation] for more detailed information.
+See the xref:management-center:deploy-manage:cluster-connections.adoc[Management Center documentation] for more information.
 
-== Configuring Cluster Connections
+== Configure cluster connections
 
 Connection configuration for the Hazelcast clusters that Management Center will monitor.
 
@@ -16,44 +16,37 @@ Connection configuration for the Hazelcast clusters that Management Center will 
 |Field|Description
 
 |`hazelcastClusters[].address`
-| IP address or DNS name of the Hazelcast cluster. If the cluster is exposed with a service name in a different namespace, use the following syntax `<service-name>.<service-namespace>`.
+| IP address or DNS name of the Hazelcast cluster. If the cluster is exposed with a service name in a different namespace, use the following syntax: `<service-name>.<service-namespace>`.
 
 |`hazelcastClusters[].name`
-| Name of the Hazelcast cluster that Management Center will connect to, default is `dev`.
+| Name of the Hazelcast cluster that Management Center will connect to. Default is `dev`.
 
 |`hazelcastClusters[].tls.secretName`
-| Specifies the name of Kubernetes TLS secret.
+| Name of the Kubernetes TLS secret.
 
 |===
 
-WARNING: `hazelcastClusters` field does not support deleting clusters from the custom resource. If you want to remove a cluster from the Management Center, you can do it from the Management Center UI.
+WARNING: The `hazelcastClusters` field does not support deleting clusters from the custom resource. If you want to remove a cluster from the Management Center, use the Management Center UI.
 
 === Example Management Center configuration
 
-The example configuration below does the following:
-
-- Configuring connection to a Hazelcast cluster using `hazelcast` DNS name
-- Use `dev` Hazelcast cluster name
+The example configuration creates a connection to a Hazelcast cluster `dev` with `hazelcast` as the DNS name.
 
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/management-center-clusters.yaml[]
 ----
 
-=== Example Management Center with TLS Configuration
+=== Example Management Center configuration with TLS
 
-The example configuration below does the following:
-
-- Configuring connection to a Hazelcast cluster using `hazelcast` DNS name
-- Use `dev` Hazelcast cluster name
-- Connect to Hazelcast cluster with TLS certificate defined in `example` secret
+The example configuration creates a TLS-secured connection to a Hazelcast cluster `dev` with `hazelcast` as the DNS name. It uses a secret named `example` for the TLS certificate.
 
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/management-center-tls.yaml[]
 ----
 
-You can create TLS secret from existing PEM certificate:
+If required, you can create a TLS secret from an existing PEM certificate:
 
 [source,shell]
 ----
@@ -61,3 +54,7 @@ kubectl create secret generic example \
   --from-file=tls.crt=example.crt \
   --from-file=tls.key=example.key
 ----
+
+== Next steps
+
+xref:management-center-external-access.adoc[].

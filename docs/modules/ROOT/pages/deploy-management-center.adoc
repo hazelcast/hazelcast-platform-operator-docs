@@ -1,42 +1,40 @@
-= Deploy Management Center with the Hazelcast Platform Operator for Kubernetes
-:description: In this tutorial, you'll deploy an instance of Management Center using Hazelcast Platform Operator for Kubernetes.
+= Deploy Management Center
+:description: In this tutorial, you'll deploy an instance of Management Center using Operator.
 
 {description}
 
-== Before you Begin
+For more information about Management Center, see link:https://docs.hazelcast.com/management-center/latest/getting-started/overview[].
 
-You need a Kubernetes or Openshift cluster, and the `kubectl` or `oc` command-line tool must be configured to communicate with your cluster.
+== Prerequisites
 
-Please make sure xref:get-started.adoc[Hazelcast Platform Operator for Kubernetes] is up and running.
+* A Kubernetes or OpenShift cluster.
+* The link:https://kubernetes.io/docs/tasks/tools/#kubectl[`kubectl`] or link:https://docs.openshift.com/container-platform/latest/cli_reference/openshift_cli/getting-started-cli.html[`oc`] command line tools, configured to communicate with your cluster.
+* Operator xref:get-started.adoc[installed and running].
 
 == Deploy Management Center
 
-You can monitor the Hazelcast cluster by starting Management Center.
-
-To enable some features or dashboard at Management Center, you need a license key. If you don't have a license key, you can request one from the link:http://trialrequest.hazelcast.com/[Hazelcast website].
-
-. Create a Kubernetes secret to hold your license key.
+. Create a Kubernetes secret to hold your license key:
 +
 .For Kubernetes
 [source,shell]
 ----
-kubectl create secret generic hazelcast-license-key --from-literal=license-key=<YOUR LICENSE KEY>
+kubectl create secret generic hazelcast-license-key --from-literal=license-key=<YOUR_LICENSE_KEY>
 ----
 +
 .For Openshift
 [source,shell]
 ----
-oc create secret generic hazelcast-license-key --from-literal=license-key=<YOUR LICENSE KEY>
+oc create secret generic hazelcast-license-key --from-literal=license-key=<YOUR_LICENSE_KEY>
 ----
 
-. Create the `ManagementCenter` custom resource file and name it `management-center.yaml`.
+. Create the `ManagementCenter` custom resource file and name it `management-center.yaml`:
 +
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/management-center-with-license-key.yaml[]
 ----
 
-. Apply it with the following command to start Management Center.
+. Apply the custom resource file to start Management Center:
 +
 .For Kubernetes
 [source,shell]
@@ -51,7 +49,7 @@ oc apply -f management-center.yaml
 ----
 
 
-. After a moment, you can verify that Management Center is up and running by checking the Management Center logs.
+. After a moment, you can verify that Management Center is up and running by checking the Management Center logs:
 +
 .For Kubernetes
 [source,shell]
@@ -73,7 +71,11 @@ oc logs pod/managementcenter-sample-0
 2021-08-26 15:21:07,234 [ INFO] [main] [c.h.w.Launcher]: Hazelcast Management Center successfully started at http://localhost:8080/
 ```
 
-To access the Management Center dashboard, open the browser at address `http://$MANCENTER_IP:8080`.
+. To access the Management Center dashboard, navigate to `http://$MANCENTER_IP:8080` in a browser.
+
+// RJS: Web browser? Or some Kubernetes browser? That looks like an environment variable, which won't work in a web browser?
+
+// RJS: What do these commands do?
 
 [tabs]
 ====
@@ -95,7 +97,7 @@ MANCENTER_IP=$( oc get service managementcenter-sample -o jsonpath='{.status.loa
 --
 ====
 
-If EXTERNAL-IP of the service is hostname, not IP, you can run command below:
+Or if the external IP address of the service is a hostname:
 
 [tabs]
 ====
@@ -117,6 +119,8 @@ MANCENTER_IP=$( oc get service managementcenter-sample -o jsonpath='{.status.loa
 --
 ====
 
-== Next Steps
+== Next steps
 
-Learn how to xref:connect-outside-kubernetes.adoc[expose Hazelcast clusters outside Kubernetes] so you can connect external clients to them.
+You must xref:connect-outside-kubernetes.adoc[expose Hazelcast clusters outside Kubernetes] so you can connect external clients to them.
+
+// RJS: Do you need to do this so MC can connect to the cluster too?

@@ -1,11 +1,7 @@
-= Remove Management Center using the Operator
-:description: This topic describes how to remove Management Center using the Hazelcast Platform Operator for Kubernetes.
+= Remove Management Center
+:description: You can remove Management Center using Operator.
 
 {description}
-
-== Remove Management Center
-
-To remove the Management Center, run the commands below.
 
 [tabs]
 ====

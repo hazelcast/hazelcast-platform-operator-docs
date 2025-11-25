@@ -1,5 +1,5 @@
-= Configuring WAN Replication
-:description: pass:q[WAN replication allows you to keep Hazelcast clusters in sync across multiple sites or cloud deployments. In Hazelcast Platform Operator, you can create a `WanReplication` resource to replicate multiple maps from multiple source clusters to a single target Hazelcast cluster. ]
+= Configure WAN replication
+:description: pass:q[WAN replication allows you to keep Hazelcast clusters in sync across multiple sites or cloud deployments. Using Operator, you can create a `WanReplication` resource to replicate multiple maps from multiple source clusters to a single target Hazelcast cluster.]
 
 {description}
 
@@ -7,16 +7,16 @@ See xref:hazelcast:wan:wan.adoc[WAN replication] for more detailed information a
 
 TIP: For a worked example, see the xref:tutorials:operator-tutorial-wan-replication.adoc[Replicate data between clusters tutorial].
 
-== Prerequisites for WAN Replication
+== Prerequisites
 
 Before you create and configure a `WanReplication` resource, you need to create the following:
 
 - At least one `Hazelcast` resource and one `Map` resource for the source Hazelcast cluster.
-- A target Hazelcast cluster that is accessible from the source cluster.      
+- A target Hazelcast cluster that is accessible from the source cluster.
 
-== Configuring the WanReplication Resource
+== Configure the WAN replication resource
 
-You can use the following configuration options in your `WanReplication` resource. For more detailed information, see the xref:api-ref.adoc#wanreplicationspec[API Reference].
+You can use the following configuration options in your `WanReplication` resource. For more detailed information, see the xref:api-ref.adoc#wanreplicationspec[API reference].
 
 [cols="25%m,75%a"]
 |===
@@ -26,7 +26,7 @@ You can use the following configuration options in your `WanReplication` resourc
 |The list of custom `Map` or `Hazelcast` resources to which WAN replication applies.
 
 - `name`: The name of custom resource to which WAN replication applies.
-- `kind`: The type of custom resource. Either `Map`(default) or `Hazelcast`. Use the `Hazelcast` kind to apply WAN replication to all custom maps created under the given `Hazelcast` resource. Wan Replication will be started automatically for newly created Map resources as well. 
+- `kind`: The type of custom resource. Either `Map`(default) or `Hazelcast`. Use the `Hazelcast` type to apply WAN replication to all custom maps created under the given `Hazelcast` resource. WAN replication will also be started automatically for newly created Map resources. 
 
 |`targetClusterName`
 |The name of the Hazelcast cluster that is the target of replication.
@@ -50,11 +50,11 @@ You can use the following configuration options in your `WanReplication` resourc
 |Configuration of the acknowledgement sent after a batch of replication events is received by the target cluster:
 
 - `type`: Whether an acknowledgement is sent as soon as the batch of events is received (`ACK_ON_RECEIPT`) or after each update is applied to the target cluster (`ACK_ON_OPERATION_COMPLETE`).
-- `timeout`: The period of time the source cluster waits for the acknowledgement. If the confirmation is not received before the timeout, the replication events are resent.
+- `timeout`: The period of time the source cluster waits for the acknowledgement. If the confirmation is not received before the timeout, the replication events are re-sent.
 
 |===
 
-== Example Configuration
+== Example configuration
 
 The following `WanReplication` resource creates the WAN replication configuration for the `Hazelcast` and `Map` resources on the source Hazelcast cluster.
 
@@ -64,7 +64,7 @@ The following `WanReplication` resource creates the WAN replication configuratio
 include::ROOT:example$/wan-replication-example.yaml[]
 ----
 
-NOTE: If port number is not specified in the endpoints, the default Hazelcast port '5710' is joined to the endpoints.
+NOTE: If a port number is not specified in the endpoints, the default Hazelcast port '5710' is joined to the endpoints.
 
 == Checking the Status of a WAN Replication
 
@@ -75,7 +75,7 @@ After creating the `WanReplication` resource, run the following command to find 
 kubectl get wanreplication wanreplication-sample -o wide
 ----
 
-The returned status message will look something like this:
+The returned status message will look something like the following:
 
 ----
 NAME                     STATUS    MESSAGE
@@ -83,7 +83,6 @@ wanreplication-sample    Success
 ----
 
 You can also monitor the status of WAN replications in xref:deploy-management-center.adoc[Management Center].
-
 
 == Deleting the WanReplication Custom Resource
 

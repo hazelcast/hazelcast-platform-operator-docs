@@ -1,31 +1,33 @@
-= Advanced Network Configuration
+= Advanced network configuration
 
-In Hazelcast, you can configure Hazelcast members with separate server sockets, applying distinct network configurations for various protocols. This feature is known as the  link:https://docs.hazelcast.com/hazelcast/latest/clusters/network-configuration#advanced-network-configuration[Advanced Network] and it supports Member, Client, REST, Memcache, and WAN protocols.
+You can configure Hazelcast members with separate server sockets, applying distinct network configurations for various protocols. This is known as link:https://docs.hazelcast.com/hazelcast/latest/clusters/network-configuration#advanced-network-configuration[advanced network configuration] and supports Member, Client, REST, Memcache, and WAN protocols.
 
-In the Hazelcast Platform Operator, advanced networking configuration is enabled by default, and certain protocol properties are pre-configured:
+In Operator, advanced network configuration is enabled by default, and certain protocol properties are pre-configured:
 
-- For Client protocol the port number is `5701`.
-- For Member protocol the port number is `5702`.
-- For REST, port number is `8081` and `Persistence`, `HealthCheck` and `ClusterWrite` endpoint groups enabled by default.
-- For WAN, default port number is `5710`.
+- For the Client protocol, the port number is `5701`.
+- For the Member protocol, the port number is `5702`.
+- For REST, the port number is `8081` and `Persistence`, `HealthCheck` and `ClusterWrite` endpoint groups are enabled by default.
+- For WAN, the port number is `5710`.
 
-You can configure Member and Client Protocol interfaces as well as WAN Protocol socket ports using the Hazelcast Platform Operator.
+You can configure Member and Client Protocol interfaces as well as WAN Protocol socket ports using Operator.
 
-== Configuring Member and Client Protocol Interfaces
+// RJS: So you can't configure REST or Memcache with Operator? Should be more explicit than just leaving them out.
 
-This is an example configuration for setting up interfaces using the Hazelcast Platform Operator:
+== Configure Member and Client protocol interfaces
 
-.Example Configuration
+The following example sets up interfaces using Operator:
+
+.Example configuration
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/advanced-networking-interfaces.yaml[]
 ----
 
-== Configuring WAN Protocol Sockets
+== Configure WAN sockets
+W
+The following example sets up WAN sockets using Operator:
 
-The following example shows a configuration for setting up WAN sockets using the Hazelcast Platform Operator:
-
-.Example Configuration
+.Example configuration
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/advanced-networking-wan.yaml[]
@@ -33,13 +35,13 @@ include::ROOT:example$/advanced-networking-wan.yaml[]
 
 After applying this example configuration, a single service is created with a type of `LoadBalancer`, which exposes port `5710`. If you don't provide a `serviceType`, it is set to `LoadBalancer` by default.
 
-NOTE: In case WAN Replication endpoint configuration is not provided in `advancedNetwork` configuration, port number `5710` will be configured for WAN Replication endpoint by default. It will be exposed on the discovery service only.
+NOTE: If a WAN Replication endpoint configuration is not provided in the `advancedNetwork` configuration, port number `5710` will be configured by default and exposed on the discovery service only.
 
 Possible values for `serviceType` are: `ClusterIP`, `NodePort`, `LoadBalancer`, and `WithExposeExternally`. The values of `ClusterIP`, `NodePort`, and `LoadBalancer` create a new dedicated service for the WAN and expose the provided ports through this service. In contrast, `WithExposeExternally` exposes WAN ports on the existing member services, allowing WAN clients to use the service-per-pod topology.
 
-WARNING: The `WithExposeExternally` serviceType requires Hazelcast version 5.5 or later.
+NOTE: The `WithExposeExternally` service type requires Hazelcast Platform version 5.5 or later.
 
-You can use the following command to list the external addresses of the WAN endpoints of the cluster.
+You can use `kubectl` to list the external addresses of the WAN endpoints of the cluster:
 
 [source,shell]
 ----
@@ -48,5 +50,5 @@ kubectl get hazelcastendpoint --selector="app.kubernetes.io/instance=hazelcast-s
 
 ```
 NAME                        TYPE   ADDRESS
-hazelcast-sample-istanbul   WAN    34.72.248.220:5710
+hazelcast-sample-istanbul   WAN    198.51.100.220:5710
 ```

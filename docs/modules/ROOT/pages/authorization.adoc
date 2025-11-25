@@ -1,12 +1,13 @@
-= Authorization Methods to Access Cloud Storage
+= Authorization methods to access cloud storage
+:description: You can use either a secret or Service Accounts to access your cloud storage.
 
-You can use either a secret or Service Accounts to access your cloud storage, as detailed below.
+{description}
 
-== Using Secrets
+== Use secrets
 
-You can create a secret to access cloud provider resources. You can find the secret creation examples for different cloud providers in the next sections:
+You can create a secret to access cloud provider resources.
 
-=== Accessing Resources on AWS
+=== Access resources on AWS
 
 [source,shell]
 ----
@@ -18,7 +19,7 @@ kubectl create secret generic <secret-name> \
 
 See https://docs.aws.amazon.com/sdk-for-go/api/aws/session/[AWS Session] to learn about the authentication procedure.
 
-=== Accessing Resources on GCP
+=== Access resources on GCP
 
 [source,bash]
 ----
@@ -28,7 +29,7 @@ kubectl create secret generic <secret-name> \
 
 See https://cloud.google.com/docs/authentication/production/[Application Default Credentials] to learn about the authentication procedure.
 
-=== Accessing Resources on Azure
+=== Access resources on Azure
 
 [source,bash]
 ----
@@ -39,28 +40,29 @@ kubectl create secret generic <secret-name> \
 
 See https://docs.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage?tabs=azure-portal/[Azure Storage Account Keys] to learn about the authentication procedure.
 
-== Using Service Accounts
+== Use Service Accounts
 
-You can use `Service Accounts` to access cloud provider resources without providing `secretName` in `HotBackup`, `JetJob`, `UCN` custom resources. To use this approach, you must provide `serviceAccountName` in your Hazelcast CR.
+You can use `Service Accounts` to access cloud provider resources without providing `secretName` in `HotBackup`, `JetJob`, and `UCN` custom resources. To use this approach, you must provide `serviceAccountName` in your Hazelcast CR.
 
-.Example of Service Account Configuration
+.Example of Service Account configuration
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/service-account.yaml[]
 ----
 
-=== Accessing GCP Resources using Workload Identity
+=== Access GCP resources using Workload Identity
+
 Google Kubernetes Engine (GKE) Workload Identity is a feature that allows you to map a Kubernetes Service Account to a Google Cloud IAM (Identity and Access Management) Service Account so that users can manage pods permissions using IAM.
 
-Create a Service Account using the following command:
-
+. Create a Service Account:
++
 [source,shell]
 ----
 kubectl create serviceaccount myServiceAccount --namespace <NAMESPACE>
 ----
 
-To use it, you must annotate the service account you created with the following command:
-
+. To use it, you must annotate the Service Account:
++
 [source,shell]
 ----
 kubectl annotate serviceaccount myServiceAccount \
@@ -68,20 +70,21 @@ kubectl annotate serviceaccount myServiceAccount \
 iam.gke.io/gcp-service-account=<GCP_SA_NAME>@<GCP_PROJECT>.iam.gserviceaccount.com
 ----
 
-See https://cloud.google.com/docs/authentication#service-accounts[Service Accounts] to learn more about it.
+See https://cloud.google.com/docs/authentication#service-accounts[Service Accounts] to learn more.
 
-=== Accessing AWS Resources using IAM Roles for Service Accounts
-IAM roles for service accounts is a feature that allows you to map a Kubernetes Service Account to an AWS IAM Role so that users can manage pods permissions using IAM.
+=== Access AWS resources using IAM roles for Service Accounts
 
-Create a Service Account using the following command:
+IAM roles for service accounts is a feature that allows you to map a Kubernetes Service Account to an AWS IAM role so that users can manage pods permissions using IAM.
 
+. Create a Service Account:
++
 [source,shell]
 ----
 kubectl create serviceaccount myServiceAccount --namespace <NAMESPACE>
 ----
 
-To use it, you must annotate the service account you created with the following command:
-
+. To use it, you must annotate the Service Account:
++
 [source,shell]
 ----
 kubectl annotate serviceaccount myServiceAccount \
@@ -89,4 +92,4 @@ kubectl annotate serviceaccount myServiceAccount \
 eks.amazonaws.com/role-arn=arn:aws:iam::<AWS_ACCOUNT_ID>:role/my-role
 ----
 
-See https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html[IAM Roles for Service Accounts] to learn more about it.
+See https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html[IAM Roles for Service Accounts] to learn more.

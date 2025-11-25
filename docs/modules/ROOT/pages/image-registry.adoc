@@ -3,9 +3,13 @@
 
 Hazelcast images are hosted at `docker.io/hazelcast` and `registry.connect.redhat.com/hazelcast`. The Docker images are used by default.
 
-When running in an air-gapped or offline environment, you must mirror the images to a private container image registry. To access images hosted in a private registry or the Red Hat registry, you must set the image location for each application explicitly.
+When running in an air-gapped or offline environment, you must mirror the images to a private container image registry.
+
+To access images hosted in a private registry or the Red Hat registry, you must set the image location for each application.
 
 NOTE: You will need to authenticate with a Red Hat account to access the Red Hat images.
+
+Hazelcast provides the following images.
 
 [cols="l, l"]
 |===
