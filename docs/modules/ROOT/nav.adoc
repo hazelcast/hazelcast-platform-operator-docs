@@ -84,6 +84,8 @@
 ** xref:management-center-jvm-args.adoc[JVM arguments]
 ** xref:management-center-ldap.adoc[LDAP security provider]
 
+* xref:limitations.adoc[Limitations]
+
 .Reference
 * xref:phone-homes.adoc[Phone home data]
 * xref:api-ref.adoc[API types]
