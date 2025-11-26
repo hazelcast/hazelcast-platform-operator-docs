@@ -109,7 +109,6 @@ NOTE: This document was generated from comments in the Go code in the `api/`` di
 * <<LDAPProvider,LDAPProvider>>
 * <<LdapTLS,LdapTLS>>
 * <<LiteMember,LiteMember>>
-* <<LocalDeviceConfig,LocalDeviceConfig>>
 * <<LoggingLevel,LoggingLevel>>
 * <<LoginModuleUsage,LoginModuleUsage>>
 * <<MCJVMConfiguration,MCJVMConfiguration>>
@@ -178,7 +177,6 @@ NOTE: This document was generated from comments in the Go code in the `api/`` di
 * <<SpecAnnotatorLabeler,SpecAnnotatorLabeler>>
 * <<SyncConsistencyCheckStrategy,SyncConsistencyCheckStrategy>>
 * <<TLS,TLS>>
-* <<TieredStore,TieredStore>>
 * <<Topic,Topic>>
 * <<TopicList,TopicList>>
 * <<TopicSpec,TopicSpec>>
@@ -906,7 +904,6 @@ m| serialization | Hazelcast serialization configuration m| &#42;<<Serialization
 m| customConfigCmName | Name of the ConfigMap with the Hazelcast custom configuration. This configuration from the ConfigMap might be overridden by the Hazelcast CR configuration. m| string | false | -
 m| customConfigSecretName | Name of the Secret with the Hazelcast custom configuration. This configuration from the ConfigMap might be overridden by the Hazelcast CR configuration. m| string | false | -
 m| sql | Hazelcast SQL configuration m| &#42;<<SQL,SQL>> | false | -
-m| localDevices | Hazelcast LocalDevice configuration m| []<<LocalDeviceConfig,LocalDeviceConfig>> | false | -
 m| annotations | Hazelcast Kubernetes resource annotations m| map[string]string | false | -
 m| labels | Hazelcast Kubernetes resource labels m| map[string]string | false | -
 m| serviceAccountName | ServiceAccountName is the name of the ServiceAccount to use to run Hazelcast cluster. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/ m| string | false | -
@@ -918,7 +915,7 @@ m| security | &#160; m| &#42;<<Security,Security>> | false | -
 m| diagnostics | &#160; m| &#42;<<Diagnostics,Diagnostics>> | false | -
 m| persistenceVolumeClaims | PersistenceVolumeClaims specifies the PVCs that will be created and attached to the created StatefulSet. m| []<<PVCTemplateConfiguration,PVCTemplateConfiguration>> | false | -
 m| kubernetesMaster | KubernetesMaster is the URL of the Kubernetes master used by the Hazelcast discovery plugin to discover other members. Defaults to https://kubernetes.default.svc. m| string | false | -
-m| moduleDeployment | User Codes to Download into CLASSPATH m| &#42;<<ModuleDeploymentConfiguration,ModuleDeploymentConfiguration>> | false | -
+m| moduleDeployment | ModuleDeployment defines the modules to Download into CLASSPATH m| &#42;<<ModuleDeploymentConfiguration,ModuleDeploymentConfiguration>> | false | -
 |===
 ==== Deprecated
 [cols="4,8,4,2,4"options="header"]
@@ -1353,22 +1350,6 @@ m| env | Env configuration of environment variables m| []https://kubernetes.io/d
 
 <<Table of Contents,Back to TOC>>
 
-=== LocalDeviceConfig
-
-
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| name | Name represents the name of the local device m| string | true | -
-m| blockSize | BlockSize defines Device block/sector size in bytes. m| &#42;int32 | false | 4096
-m| readIOThreadCount | ReadIOThreadCount is Read IO thread count. m| &#42;int32 | false | 4
-m| writeIOThreadCount | WriteIOThreadCount is Write IO thread count. m| &#42;int32 | false | 4
-m| pvc | Configuration of PersistenceVolumeClaim. m| &#42;<<PvcConfiguration,PvcConfiguration>> | false | -
-|===
-
-<<Table of Contents,Back to TOC>>
-
 === MCJVMConfiguration
 
 MCJVMConfiguration is a ManagementCenter JVM configuration
@@ -1459,6 +1440,9 @@ m| securityProvider | SecurityProviders to authenticate users in Management Cent
 m| annotations | ManagementCenter Kubernetes resource annotations m| map[string]string | false | -
 m| labels | ManagementCenter Kubernetes resource labels m| map[string]string | false | -
 m| env | Env configuration of environment variables m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#envvar-v1-core[corev1.EnvVar] | false | -
+m| moduleDeployment | ModuleDeployment defines the modules to Download into MC_CLASSPATH m| &#42;<<ModuleDeploymentConfiguration,ModuleDeploymentConfiguration>> | false | -
+m| agent | Agent configurations is the configuration for the InitContainer. m| <<AgentConfiguration,AgentConfiguration>> | false | {repository: "docker.io/hazelcast/platform-operator-agent", version: "latest-snapshot"}
+m| serviceAccountName | ServiceAccountName is the name of the ServiceAccount to use to run InitContainer for ManagementCenter. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/ m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1523,7 +1507,6 @@ m| inMemoryFormat | InMemoryFormat specifies in which format data will be stored
 m| entryListeners | EntryListeners contains the configuration for the map-level or entry-based events listeners provided by the Hazelcast’s eventing framework. You can learn more at https://docs.hazelcast.com/hazelcast/latest/events/object-events. m| []<<EntryListenerConfiguration,EntryListenerConfiguration>> | false | -
 m| nearCache | InMemoryFormat specifies near cache configuration for map m| &#42;<<NearCache,NearCache>> | false | -
 m| eventJournal | EventJournal specifies event journal configuration of the Map m| &#42;<<EventJournal,EventJournal>> | false | -
-m| tieredStore | TieredStore enables the Hazelcast's Tiered-Store feature for the Map m| &#42;<<TieredStore,TieredStore>> | false | -
 m| merkleTree | MerkleTree defines the configuration for the Merkle tree data structure. m| &#42;<<MerkleTreeConfig,MerkleTreeConfig>> | false | -
 |===
 
@@ -2070,19 +2053,6 @@ TLS is used by Hazelcast CR
 m| secretName | Name of the secret with TLS certificate and key. m| string | true | -
 m| clientAuthentication | Mutual authentication configuration for the client. It is None by default which means the client side of connection is not authenticated. m| <<MutualAuthentication,MutualAuthentication>> | false | "None"
 m| memberAuthentication | Mutual authentication configuration between members. It is Required by default which means the connections between members are authenticated. m| <<MutualAuthentication,MutualAuthentication>> | false | "Required"
-|===
-
-<<Table of Contents,Back to TOC>>
-
-=== TieredStore
-
-
-
-[cols="4,8,4,2,4"options="header"]
-|===
-| Field | Description | Type | Required | Default
-m| memoryCapacity | MemoryCapacity sets Memory tier capacity, i.e., how much main memory should this tier consume at most. m| &#42;resource.Quantity | false | "256M"
-m| diskDeviceName | diskDeviceName defines the name of the device for a given disk tier. m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
