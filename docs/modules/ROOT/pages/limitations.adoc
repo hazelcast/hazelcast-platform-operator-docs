@@ -179,7 +179,7 @@ Modifying the following parameters in the Hazelcast Custom Resource will trigger
 
 * `spec.advancedNetwork.*` - Advanced network configuration
 
-**User Code Deployment:**
+**Module Deployment:**
 
 * `spec.moduleDeployment.*` - Module deployment configuration
 * `spec.moduleDeployment.bucketConfiguration.*` - Bucket configuration for module deployment
