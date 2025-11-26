@@ -39,7 +39,7 @@ The following properties are supported:
 For more information, see: https://docs.hazelcast.com/operator/latest/api-ref#diagnostics[Diagnostics].
 
 The diagnostics file rolls by default (10 files, 50MB each) and contains plugin sections. For information about the
-default plugins, see https://docs.hazelcast.com/hazelcast/latest/maintain-cluster/monitoring#diagnostics-plugins[Diagnostics plugins].
+default plugins, see xref:hazelcast:maintain-cluster:monitoring.adoc#diagnostics-plugins[Diagnostics plugins].
 
 == Configure auto turn-off
 
@@ -51,7 +51,7 @@ You can combine this with rolling limits: `maxRolledFileSize` and `maxRolledFile
 
 Instead of file output, you can forward diagnostics to your logging framework by setting `outputType` to `LOGGER`.
 
-You can then configure the `com.hazelcast.diagnostics` logger (e.g. a Log4j2 logger and rolling appender) to control size and rollover using time/size policies. For more information, see https://docs.hazelcast.com/hazelcast/latest/maintain-cluster/monitoring#diagnostics-using-logging-frameworks[Diagnostics using logging frameworks].
+You can then configure the `com.hazelcast.diagnostics` logger (e.g. a Log4j2 logger and rolling appender) to control size and rollover using time/size policies. For more information, see xref:hazelcast:maintain-cluster:monitoring.adoc#diagnostics-using-logging-frameworks[Diagnostics using logging frameworks].
 
 == Persist diagnostics to a persistent volume
 
@@ -83,7 +83,7 @@ spec:
       name: diagnostics-pvc-volume
 ----
 
-NOTE: System log diagnostics (cluster activity and optional partition migration details) can be enabled and tuned using `hazelcast.diagnostics.systemlog.enabled` and `hazelcast.diagnostics.systemlog.partitions` if needed. For more information, see https://docs.hazelcast.com/hazelcast/latest/maintain-cluster/monitoring#systemlog[SystemLog].
+NOTE: System log diagnostics (cluster activity and optional partition migration details) can be enabled and tuned using `hazelcast.diagnostics.systemlog.enabled` and `hazelcast.diagnostics.systemlog.partitions` if needed. For more information, see xref:hazelcast:maintain-cluster:monitoring.adoc#systemlog[SystemLog].
 
 == Configure diagnostics using system properties
 
@@ -91,4 +91,4 @@ Diagnostic logging can also be configured _statically_ using system properties s
 
 However, if you enable or disable diagnostic logging _statically_, this will override any configuration settings applied using the CRD and you will be unable to switch logging on and off _dynamically_ at runtime. 
 
-For more information about system properties, see https://docs.hazelcast.com/hazelcast/latest/maintain-cluster/monitoring#diagnostics[Enable diagnostics]. 
+For more information about system properties, see xref:hazelcast:maintain-cluster:monitoring.adoc#diagnostics[Enable diagnostics]. 

@@ -3,7 +3,7 @@
 
 {description}
 
-Management Center collects and report metrics data for connected Hazelcast clusters. See xref:hazelcast:maintain-cluter:monitoring.adoc[Monitoring] for more information.
+Management Center collects and report metrics data for connected Hazelcast clusters. See xref:hazelcast:maintain-cluster:monitoring.adoc[Monitoring] for more information.
 
 == Configure Management Center persistence
 
