@@ -208,9 +208,7 @@ NAME               STATUS    MEMBERS
 hazelcast-sample   Running   3/3
 ```
 
-You can also see the status in YAML format:
-
-// RJS: Does this provide more info or is it just a different format?
+You can also view a more detailed status report in YAML format:
 
 [tabs]
 ====
@@ -249,6 +247,8 @@ The `phase` field represents the current status of the cluster, and can contain 
 Any additional information, such as validation errors, will be provided in the `message` field.
 
 The `readyMembers` field represents the number of Hazelcast members that are connected to the cluster.
+
+For more information, see the xref:api-ref.adoc#hazelcaststatus[API reference].
 
 == Next steps
 

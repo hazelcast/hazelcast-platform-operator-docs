@@ -36,11 +36,9 @@ Operator only supports Enterprise Edition deployments of Hazelcast Platform. Com
 
 Operator supports Kubernetes versions 1.26 - 1.33.
 
-// RJS: Can we just say "from 1.26" and "from 4.13"?
-
 === OpenShift versions
 
-Operator supports OpenShift versions 4.13 - 4.18
+Operator supports OpenShift versions 4.13 - 4.18.
 
 == Get started
 

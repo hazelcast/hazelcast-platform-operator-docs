@@ -71,11 +71,9 @@ oc logs pod/managementcenter-sample-0
 2021-08-26 15:21:07,234 [ INFO] [main] [c.h.w.Launcher]: Hazelcast Management Center successfully started at http://localhost:8080/
 ```
 
-. To access the Management Center dashboard, navigate to `http://$MANCENTER_IP:8080` in a browser.
+. To access the Management Center dashboard, navigate to `http://<management-center-ip-address>:8080` in a browser.
 
-// RJS: Web browser? Or some Kubernetes browser? That looks like an environment variable, which won't work in a web browser?
-
-// RJS: What do these commands do?
+// RJS: What do these kubectl get service commands do? Just find the IP address / hostname to use to access MC?
 
 [tabs]
 ====
@@ -121,6 +119,4 @@ MANCENTER_IP=$( oc get service managementcenter-sample -o jsonpath='{.status.loa
 
 == Next steps
 
-You must xref:connect-outside-kubernetes.adoc[expose Hazelcast clusters outside Kubernetes] so you can connect external clients to them.
-
-// RJS: Do you need to do this so MC can connect to the cluster too?
+xref:management-center-external-access.adoc[].

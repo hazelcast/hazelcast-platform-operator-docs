@@ -8,9 +8,9 @@ To migrate, you can either restore from a backup or attach new pods to existing 
 
 Both options require xref:backup-restore.adoc[persistence] to be enabled. You should also set the `cluster-data-recovery-policy` parameter's value to `PARTIAL_RECOVERY_MOST_COMPLETE` to avoid any issues during the restore process.
 
-// RJS: How?
-
 Restoring from a backup requires xref:deploy-management-center.adoc[Management Center].
+
+// How do you set that parameter value?
 
 == Restore from a backup
 
@@ -26,8 +26,4 @@ To create a new cluster from a backup of your current cluster:
 
 You can also restore your data to a new cluster created by Operator without creating a backup by using the newly created Hazelcast CR's name.
 
-The name of the new CR must be in the following format: `<name>-hazelcast-persistence`.
-
-For example, if the older cluster was installed with the command `helm install hz hazelcast/hazelcast-enterprise`, the new CR name must be `hz-hazelcast-enterprise`. This means that PVCs created by the Helm Chart will attach to the pods created by Operator correctly.
-
-// RJS: This is contradictory - hz-hazelcast-enterprise does not match the format name-hazelcast-persistence!
+The name of the new CR must be in the following format: `<name>-hazelcast-persistence`. This means that PVCs created by the Helm Chart will attach to the pods created by Operator correctly.

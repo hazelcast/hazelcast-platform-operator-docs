@@ -29,7 +29,17 @@ spec:
   clusterSize: 5
 ----
 
-// RJS: How do you apply YAML config changes?
+.For Kubernetes
+[source,shell]
+----
+kubectl apply -f hazelcast-sample.yaml
+----
++
+.For Openshift
+[source,shell]
+----
+oc apply -f hazelcast-sample.yaml
+----
 
 - Alternatively, you can use the `scale` command:
 +
@@ -45,4 +55,33 @@ For example:
 kubectl scale hazelcast hazelcast-sample --replicas 5
 ----
 
-// RJS: How do you verify it's worked? What's the behavior / service interruption when you scale up/down?
+== Check the cluster status
+
+You can check that the operation has completed by checking the cluster status:
+
+[tabs]
+====
+Kubernetes::
++
+--
+[source,shell]
+----
+kubectl get hazelcast
+----
+--
+Openshift::
++
+--
+[source,shell]
+----
+oc get hazelcast
+----
+--
+====
+
+```
+NAME               STATUS    MEMBERS
+hazelcast-sample   Running   5/5
+```
+
+// RJS: Can you check the version with Operator or do you need to use the MC cluster dashboard? What's the behavior / service impact during scaling up/down?

@@ -9,9 +9,7 @@ In Operator, advanced network configuration is enabled by default, and certain p
 - For REST, the port number is `8081` and `Persistence`, `HealthCheck` and `ClusterWrite` endpoint groups are enabled by default.
 - For WAN, the port number is `5710`.
 
-You can configure Member and Client Protocol interfaces as well as WAN Protocol socket ports using Operator.
-
-// RJS: So you can't configure REST or Memcache with Operator? Should be more explicit than just leaving them out.
+You can configure Member and Client Protocol interfaces as well as WAN Protocol socket ports using Operator. Operator does not support updating REST or Memcache configuration.
 
 == Configure Member and Client protocol interfaces
 

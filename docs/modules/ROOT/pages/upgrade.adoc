@@ -2,17 +2,13 @@
 
 Before upgrading, you should read the information in the xref:hazelcast:maintain-cluster:rolling-upgrades.adoc#hazelcast-members-compatibility-guarantees[rolling upgrade documentation] for Hazelcast Platform.
 
+// RJS: Do you need to do any of the steps from this procedure, like triggering a rolling upgrade, or does Operator handle everything automatically?
+
 Each Operator version has been tested with a specific Hazelcast Platform version as listed in the following table. You should use the appropriate version to avoid problems.
 
 [cols="1,1"options="header"]
 |===
 | Operator version | Hazelcast Platform version
-| 5.5 | 5.1.4
-| 5.6 | 5.2.1
-| 5.7 | 5.2.3
-| 5.8 | 5.3.1
-| 5.9 | 5.3.2
-| 5.10 | 5.3.5
 | 5.11 | 5.4.0
 | 5.12 | 5.4.0
 | 5.13 | 5.5.0
@@ -20,8 +16,6 @@ Each Operator version has been tested with a specific Hazelcast Platform version
 | 5.15 | 5.5.4
 | 5.16 | 5.6.0
 |===
-
-// RJS: Can we trim some older versions? Do we still provide images for them? Maybe we could just list the Platform version in the Operator release notes instead?
 
 == Upgrade the deployment
 
@@ -41,4 +35,33 @@ Apply the following to upgrade your Hazelcast version to {page-latest-supported-
 include::ROOT:example$/hazelcast.yaml[]
 ----
 
-// RJS: How do you verify it's worked? What's the behavior / service interruption during upgrade?
+== Check the cluster status
+
+You can check that the upgrade has completed by checking the cluster status:
+
+[tabs]
+====
+Kubernetes::
++
+--
+[source,shell]
+----
+kubectl get hazelcast
+----
+--
+Openshift::
++
+--
+[source,shell]
+----
+oc get hazelcast
+----
+--
+====
+
+```
+NAME               STATUS    MEMBERS
+hazelcast-sample   Running   3/3
+```
+
+// RJS: Can you check the version with Operator or do you need to use the MC cluster dashboard? What's the behavior / service impact during upgrade?
