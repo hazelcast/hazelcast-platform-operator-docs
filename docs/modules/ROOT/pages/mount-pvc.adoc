@@ -1,20 +1,21 @@
 = Mount Persistent Volume Claims for Hazelcast clusters
+:description: You can mount one or more Persistent Volume Claims (PVCs) directly to your Hazelcast cluster.
 
-You can mount one or more Persistent Volume Claims (PVCs) directly to your Hazelcast cluster. Each PVC defined in the `persistenceVolumeClaims` section will be mounted under the path `/data/<name-of-pvc>`. This approach allows you to use PVCs for any Hazelcast feature that requires persistent storage, simply by referencing the PVC by its name.
+{description}
 
-== How it works
+Each PVC defined in the `persistenceVolumeClaims` section will be mounted under the path `/data/<name-of-pvc>`. This allows you to use PVCs for any Hazelcast feature that requires persistent storage by referencing the PVC name. It also decouples the PVC definition from feature configuration, making it easier to manage and reuse storage across different Hazelcast features.
 
-- Define one or more PVCs in the `persistenceVolumeClaims` section of your Hazelcast custom resource (CR).
-- Each PVC will be mounted at `/data/<name>`, where `<name>` is the value of the name field in your PVC configuration.
-- Features that require persistent storage (such as diagnostics, persistence, or the CP Subsystem) can reference the PVC by specifying its name, using the appropriate field (e.g., `pvcName`).
+== Configure a PVC
 
-This mechanism decouples the PVC definition from feature configuration, making it easier to manage and reuse storage across different Hazelcast features.
+. Define one or more PVCs in the `persistenceVolumeClaims` section of your Hazelcast custom resource (CR).
+. Each PVC will be mounted at `/data/<name>`, where `<name>` is the value of the name field in your PVC configuration.
+. Features that require persistent storage (such as diagnostics, persistence, or the CP Subsystem) can reference the PVC by specifying its in the appropriate field (e.g. `pvcName`).
 
-For more information, see the xref:api-ref.adoc#[API]. For a tutorial on enabling persistence, see link:https://docs.hazelcast.com/hazelcast/latest/getting-started/persistence[Persist Map Entries on Disk]
+For more information, see the xref:api-ref.adoc#[API]. For a tutorial on enabling persistence, see link:https://docs.hazelcast.com/hazelcast/latest/getting-started/persistence[Persist map entries on disk].
 
 == Example: Configure diagnostics with a named PVC
 
-Below is an example configuration that shows how to define a PVC and use it for diagnostics logging by specifying the `pvcName` field. The diagnostics logs will be stored in the PVC mounted at `/data/diagnostics-pvc-volume`.
+The following example configuration shows how to define a PVC and use it for diagnostics logging by specifying the `pvcName` field. The diagnostics logs will be stored in the PVC mounted at `/data/diagnostics-pvc-volume`.
 
 [source,yaml]
 ----
@@ -38,4 +39,3 @@ spec:
      storageClassName: "standard"
      name: diagnostics-pvc-volume
 ----
-

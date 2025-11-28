@@ -1,7 +1,7 @@
 {
   "name": "hazelcast-docs-playbook",
   "version": "1.0.0",
-  "description": "Hazelcast Operator Antora project.",
+  "description": "Operator Antora project.",
   "author": "Hazelcast Docs",
   "license": "ISC",
   "scripts": {

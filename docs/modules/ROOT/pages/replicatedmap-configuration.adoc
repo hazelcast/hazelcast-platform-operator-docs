@@ -1,31 +1,31 @@
-= Configuring Replicated Maps
-:description: pass:q[A replicated map is a distributed key-value data structure where the data is replicated to all members in the cluster. It provides full replication of entries to all members for high-speed access. You can create and configure replicated maps using the `ReplicatedMap` custom resource.]
+= Configure replicated maps
+:description: pass:q[A replicated map is a distributed key-value data structure in which the data is replicated to all members in the cluster. It provides full replication of entries to all members for quick access. You can create and configure replicated maps using the `ReplicatedMap` custom resource.]
 
 {description}
 
-== Configuring a ReplicatedMap Resource
+== Configure a ReplicatedMap Resource
 
-You can use any of the following configuration options in the `ReplicatedMap` resource. For more information, see the xref:api-ref.adoc#replicatedmapspec[API Reference].
+You can use any of the following configuration options in the `ReplicatedMap` resource. For more information, see the xref:api-ref.adoc#replicatedmapspec[API reference].
 
 [cols="20%m,80%a"]
 |===
 |Field|Description
 
 |name
-|Name of the ReplicatedMap configuration that you're creating. If empty, the custom resource (CR) name is used.
+|Name of the ReplicatedMap that you're creating. If empty, the custom resource (CR) name is used.
 
 |hazelcastResourceName
-|Defines the name of the Hazelcast resource.
+|Name of the Hazelcast resource.
 
 |inMemoryFormat
 |Internal storage format. Use either `OBJECT` or `BINARY`.
 
 |asyncFillup
-|Specifies whether the ReplicatedMap is filled with entries asynchronously. The default value is true, in which case calls to the ReplicatedMap during the initial replication may return `null` values. If set to false, calls to the ReplicatedMap are blocked until the initial replication is complete, and no exceptions are thrown.
+|Specifies whether the ReplicatedMap is filled with entries asynchronously. The default value is true, meaning calls to the ReplicatedMap during the initial replication may return `null` values. If set to false, calls to the ReplicatedMap are blocked until the initial replication is complete, and no exceptions are thrown.
 
 |===
 
-== Example Configuration
+== Example configuration
 
 The following `ReplicatedMap` custom resource creates a ReplicatedMap configuration for the `Hazelcast` resource that is defined in the `hazelcastResourceName` field.
 
@@ -35,7 +35,7 @@ The following `ReplicatedMap` custom resource creates a ReplicatedMap configurat
 include::ROOT:example$/replicatedmap.yaml[]
 ----
 
-After creating the `ReplicatedMap` resource, use the following command to check its status:
+After creating the `ReplicatedMap` resource, you can check its status:
 
 [source,shell]
 ----

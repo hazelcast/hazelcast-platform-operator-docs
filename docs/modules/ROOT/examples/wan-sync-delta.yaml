@@ -16,7 +16,7 @@ spec:
   - name: map-sample
     kind: Map
   targetClusterName: dev
-  endpoints: "35.192.33.252"
+  endpoints: "198.51.100.252"
   syncConsistencyCheckStrategy: "MERKLE_TREES"
 ---
 apiVersion: hazelcast.com/v1alpha1

@@ -1,16 +1,13 @@
 
-= Hazelcast Platform Operator API Docs
-
-A reference guide to the Hazelcast Platform Operator CRD types.
-
-== Hazelcast Platform Operator API Docs
+= Hazelcast Platform Operator API reference
 
 This is a reference for the Hazelcast Platform Operator API types.
-These are all the types and fields that are used in the Hazelcast Platform Operator CRDs. 
+These are all the types and fields that are used in Operator CRDs. 
 
-TIP: This document was generated from comments in the Go code in the api/ directory.
+NOTE: This document was generated from comments in the Go code in the `api/`` directory.
 
-=== Table of Contents
+== Table of contents
+
 * <<AcknowledgementSetting,AcknowledgementSetting>>
 * <<AcknowledgementType,AcknowledgementType>>
 * <<AdvancedNetwork,AdvancedNetwork>>

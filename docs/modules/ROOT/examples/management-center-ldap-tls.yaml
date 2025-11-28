@@ -14,7 +14,7 @@ spec:
       groupDN: ou=users,dc=example,dc=org
       groupSearchFilter: member=\{0}
       nestedGroupSearch: false
-      url: ldap://34.118.236.200:1389
+      url: ldap://198.51.100.200:1389
       userDN: ou=users,dc=example,dc=org
       userGroups:
         - readers

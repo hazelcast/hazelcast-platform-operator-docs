@@ -1,11 +1,11 @@
-= Configuring the Native Memory Store
-:description: The Native Memory Store is a pluggable memory manager. It allows you to set up different configurations, or stores, for your application’s data structures on a single JVM. These memory stores form part of a common access layer which scales up to use a configured amount of memory on the JVM.
+= Configure the Native Memory Store
+:description: The Native Memory Store is a pluggable memory manager. It allows you to set up different configurations, or stores, for your application's data structures on a single JVM. These memory stores form part of a common access layer that scales up to use a configured amount of memory on the JVM.
 
 {description}
 
 As well as providing more predictable application scaling, using a Native Memory Store boosts performance, reduces latency, and minimizes garbage collection pauses. 
 
-== Configuring a Native Memory Store
+== Configure a Native Memory Store
 
 Below are the configuration options for the Native Memory Store.
 
@@ -30,7 +30,7 @@ Below are the configuration options for the Native Memory Store.
 
 |===
 
-=== Example Configuration
+=== Example configuration
 
 The example configuration does the following:
 

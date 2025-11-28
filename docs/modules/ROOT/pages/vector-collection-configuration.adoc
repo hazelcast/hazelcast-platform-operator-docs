@@ -1,28 +1,28 @@
-= Configuring Vector Collections
-:description: pass:q[The primary object for interacting with vector storage is a Vector Collection. A Vector Collection holds information about the vectors and associated metadata (user values).]
+= Configure vector collections
+:description: pass:q[The primary object for interacting with vector storage is a vector collection. A vector collection holds information about the vectors and associated metadata (user values).]
 
 {description}
 
-== Configuring a VectorCollection Resource
+== Configure a vector collection resource
 
-You can use any of the following configuration options in the `VectorCollection` resource. For more information, see the xref:api-ref.adoc#vectorcollectionspec[API Reference].
+You can use any of the following configuration options in the `VectorCollection` resource. For more information, see the xref:api-ref.adoc#vectorcollectionspec[API reference].
 
 [cols="20%m,80%a"]
 |===
 |Field|Description
 
 |name
-|Name of the vector collection configuration that you're creating. If empty, the custom resource (CR) name is used.
+|Name of the vector collection that you're creating. If empty, the custom resource (CR) name is used.
 
 |hazelcastResourceName
-|Defines the name of the Hazelcast resource for which the vector collection configuration is created.
+|Name of the Hazelcast resource for which the vector collection configuration is created.
 
 |indexes
 |Information about configuration for indexes.
 
 |===
 
-== Example Configuration
+== Example configuration
 
 The following `VectorCollection` custom resource creates a vector collection configuration for the `Hazelcast` custom resource that is defined in the `hazelcastResourceName` field.
 
@@ -32,7 +32,7 @@ The following `VectorCollection` custom resource creates a vector collection con
 include::ROOT:example$/vector-collection.yaml[]
 ----
 
-After creating the `VectorCollection` resource, use the following command to check its status:
+After creating the `VectorCollection` resource, you can check its status:
 
 [source,shell]
 ----
