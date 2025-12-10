@@ -7,15 +7,6 @@ Modifying the following parameters in the Hazelcast CR will not trigger a rollin
 * `spec.customConfigCmName` - Name of ConfigMap containing custom Hazelcast configuration
 * `spec.customConfigSecretName` - Name of Secret containing custom Hazelcast configuration
 
-=== Serialization Configuration
-
-* `spec.serialization.*` - All serialization configuration fields
-
-=== Persistence Configuration
-
-* `spec.persistence.clusterDataRecoveryPolicy` - Policy for cluster data recovery
-* `spec.persistence.dataRecoveryTimeout` - Timeout for data recovery validation (in seconds)
-
 == Manual Actions not Recognized by The Operator
 
 The following actions performed manually or through Management Center (MC) are **not recognized** by the operator and will not be reflected in the Custom Resource status or configuration:
