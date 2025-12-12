@@ -1,22 +1,25 @@
-== Parameters That Not Trigger Rolling Updates
+== Limitations
+:description: Operator supports the majority of Hazelcast configuration but does not recognize all changes made by other methods. In addition, some changes require a manual restart.
 
-Modifying the following parameters in the Hazelcast CR will not trigger a rolling update of the cluster. To apply configuration changes, you need to manually restart the Hazelcast pods.
+{description}
 
-=== Custom Configuration
+== Custom configuration
 
-* `spec.customConfigCmName` - Name of ConfigMap containing custom Hazelcast configuration
-* `spec.customConfigSecretName` - Name of Secret containing custom Hazelcast configuration
+Modifying the following parameters in the Hazelcast Custom Resource will not trigger a rolling update of the cluster. To apply changes to this configuration, you must restart the Hazelcast pods manually.
 
-== Manual Actions not Recognized by The Operator
+* `spec.customConfigCmName` - Name of a ConfigMap containing custom Hazelcast configuration.
+* `spec.customConfigSecretName` - Name of a Secret containing custom Hazelcast configuration.
 
-The following actions performed manually or through Management Center (MC) are **not recognized** by the operator and will not be reflected in the Custom Resource status or configuration:
+== Manual actions
 
-* **Data Structure Operations:** Creating, modifying, or deleting data structures (Maps, Queues, Topics, MultiMaps, etc.) through Management Center or client APIs will not be tracked by the operator. Use the appropriate Custom Resources (e.g., `Map`, `Queue`, `Topic`, `MultiMap`) to manage data structures.
+The following actions performed manually or through Management Center are **not recognized** by Operator and will not be reflected in the Custom Resource status or configuration.
 
-* **Changing Cluster State:** Changing the cluster state (e.g., from ACTIVE to PASSIVE or vice versa) through Management Center or Hazelcast REST API will not be recognized by the operator. Cluster state changes should be managed through appropriate Custom Resources (e.g., `HotBackup` CR for backup operations).
+* **Data structure operations:** Creating, modifying, or deleting data structures (Maps, Queues, Topics, MultiMaps, etc.) through Management Center or client APIs will not be tracked by Operator. Use the appropriate Custom Resources (e.g., `Map`, `Queue`, `Topic`, `MultiMap`) to manage data structures.
 
-* **Management Center Diagnostic Logs Limitation:** Management Center cannot enable diagnostic logs in Operator, Kubernetes, and Docker deployments because the default diagnostic log location (`/opt/hazelcast`) is read-only in these environments. To work around this, users can direct diagnostic logs to STDOUT via Management Center, where they will mix with standard logs and can be picked up by log scraping services for persistence.
+* **Changing cluster state:** Changing the cluster state (e.g., from ACTIVE to PASSIVE) through Management Center or the Hazelcast REST API will not be recognized by Operator. Cluster state changes should be managed through appropriate Custom Resources (e.g., `HotBackup` CR for backup operations).
 
-* **Starting JetJobs:** Starting Jet jobs directly through Management Center UI or REST API will not be recognized by the operator. Jet jobs should be managed using the `JetJob` Custom Resource.
+* **Management Center diagnostic logs limitation:** Management Center cannot enable diagnostic logs in Operator, Kubernetes, and Docker deployments because the default diagnostic log location (`/opt/hazelcast`) is read-only in these environments. To work around this, you can direct diagnostic logs to STDOUT via Management Center, where they will mix with standard logs and can be picked up by log scraping services for persistence.
 
-* **Demoting/Promoting Lite Members:** Changing the lite member status (demoting full members to lite members or promoting lite members to full members) through Management Center or Hazelcast REST API will not be recognized by the operator. Lite member configuration should be managed through the `Hazelcast` CR `spec.liteMember` field.
+* **Starting Jet jobs:** Starting Jet jobs directly through the Management Center UI or REST API will not be recognized by Operator. Jet jobs should be managed using the `JetJob` Custom Resource.
+
+* **Demoting/promoting Lite members:** Changing the Lite member status (demoting full members to Lite members or promoting Lite members to full members) through Management Center or Hazelcast REST API will not be recognized by Operator. Lite member configuration should be managed through the `Hazelcast` CR `spec.liteMember` field.

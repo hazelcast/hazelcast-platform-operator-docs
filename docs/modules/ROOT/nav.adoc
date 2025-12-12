@@ -82,7 +82,7 @@
 ** xref:management-center-jvm-args.adoc[]
 ** xref:management-center-ldap.adoc[]
 
-* xref:limitations.adoc[Limitations]
+* xref:limitations.adoc[]
 
 .Reference
 * xref:api-ref.adoc[]
