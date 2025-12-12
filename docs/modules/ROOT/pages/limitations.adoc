@@ -15,7 +15,7 @@ The following actions performed manually or through Management Center (MC) are *
 
 * **Changing Cluster State:** Changing the cluster state (e.g., from ACTIVE to PASSIVE or vice versa) through Management Center or Hazelcast REST API will not be recognized by the operator. Cluster state changes should be managed through appropriate Custom Resources (e.g., `HotBackup` CR for backup operations).
 
-* **Management Center Diagnostic Logs Limitation.** Management Center cannot enable diagnostic logs in Operator, Kubernetes, and Docker deployments because the default diagnostic log location (`/opt/hazelcast`) is read-only in these environments. To work around this, users can direct diagnostic logs to STDOUT via Management Center, where they will mix with standard logs and can be picked up by log scraping services for persistence.
+* **Management Center Diagnostic Logs Limitation:** Management Center cannot enable diagnostic logs in Operator, Kubernetes, and Docker deployments because the default diagnostic log location (`/opt/hazelcast`) is read-only in these environments. To work around this, users can direct diagnostic logs to STDOUT via Management Center, where they will mix with standard logs and can be picked up by log scraping services for persistence.
 
 * **Starting JetJobs:** Starting Jet jobs directly through Management Center UI or REST API will not be recognized by the operator. Jet jobs should be managed using the `JetJob` Custom Resource.
 
