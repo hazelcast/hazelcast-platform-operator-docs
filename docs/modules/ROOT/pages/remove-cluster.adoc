@@ -1,11 +1,9 @@
-= Remove a Cluster with the Hazelcast Platform Operator for Kubernetes
-:description: This topic explains how to remove a cluster using the Hazelcast Platform Operator for Kubernetes.
+= Remove a cluster and uninstall Operator
+:description: This topic explains how to remove a Hazelcast cluster and uninstall Operator.
 
 {description}
 
-== Remove a cluster
-
-To remove a Hazelcast cluster and Hazelcast License Key Secret, run the following commands:
+. Delete the Hazelcast cluster and license key secret:
 
 [tabs]
 ====
@@ -29,14 +27,14 @@ oc delete secret hazelcast-license-key
 --
 ====
 
-Finally, run the command below to delete the Hazelcast Platform Operator deployment.
+. Uninstall Operator:
 
 [source,shell]
 ----
 helm uninstall operator
 ----
 
-If you installed the CRDs separately from the operator, you need to remove them by running the following command:
+. If you installed the CRDs separately from Operator, you must remove them separately:
 
 [source,shell]
 ----

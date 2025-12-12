@@ -1,11 +1,11 @@
-= Custom Configuration of Hazelcast cluster
-:description: pass:q[Hazelcast Platform Operator's Custom Config allows users to provide a raw Hazelcast Configuration that can be directly utilized. It is perfect for those who want to take complete control over their configuration or to use new features that are not yet present in the Operator.]
+= Custom configuration
+:description: pass:q[Operator's custom configuration allows you to provide a raw Hazelcast configuration that can be directly utilized. It allows you to take complete control over your configuration or to use new features that are not yet supported in Operator.]
 
 {description}
 
-== Configuring Hazelcast using Custom Config
+== Configure Hazelcast using custom configuration
 
-To use the Custom Config as a method of configuring the Hazelcast cluster, you need to create a `ConfigMap` or a `Secret` with the member configuration. The configuration must be in YAML format and consist of valid xref:hazelcast:configuration:configuring-declaratively.adoc[Hazelcast configuration].
+To use custom configuration as a method of configuring the Hazelcast cluster, you need to create a `ConfigMap` or a `Secret` with the member configuration. The configuration must be in YAML format and consist of valid xref:hazelcast:configuration:configuring-declaratively.adoc[Hazelcast configuration]. For example:
 
 [tabs]
 ====
@@ -18,7 +18,7 @@ ConfigMap::
 kubectl create configmap custom-config-cm --from-file=<path-to-file>
 ----
 
-The name of the `ConfigMap` should be set to the Hazelcast CR's `customConfigCmName` field.
+The name of the `ConfigMap` must be set to the Hazelcast CR's `customConfigCmName` field.
 
 [source,yaml]
 ```
@@ -40,7 +40,7 @@ Secret::
 kubectl create secret generic custom-config-secret --from-file=<path-to-file>
 ```
 
-The name of the `Secret` should be set to the Hazelcast CR's `customConfigSecretName` field.
+The name of the `Secret` must be set to the Hazelcast CR's `customConfigSecretName` field.
 
 [source,yaml]
 ```
@@ -55,35 +55,32 @@ spec:
 --
 ====
 
-== Custom Config and Hazelcast CR
+== Custom configuration and Hazelcast CR
 
-The Custom Config is not designed as an alternative to the Hazelcast CR configuration, and it is not recommended to use it as the main source of the configuration. That said, Custom Config can and should be used together with the Hazelcast CR configuration.
+The custom configuration is not designed as an alternative to the Hazelcast CR configuration, and it is not recommended to use it as the main source of the configuration. Instead, custom configuration should be used together with the Hazelcast CR configuration.
 
-The configuration from the Hazelcast CR and the Custom Config will be merged into one structure that will be used as the Hazelcast member configuration.
-If the same feature is configured with Custom Config `ConfigMap` and in the Hazelcast CR, the configuration from the Hazelcast CR will take precedence and will override the one from the Custom Config.
-
+The configuration from the Hazelcast CR and the custom configuration will be merged into one structure that will be used as the Hazelcast member configuration. If the same feature is configured with a custom configuration `ConfigMap` and in the Hazelcast CR, the configuration from the Hazelcast CR will take precedence and will override the custom configuration.
 
 == Cautions and limitations
 
-The Custom Config feature contains raw Hazelcast configuration that is not being managed by the Hazelcast Platform Operator. Thus its usage has some cautions and limitations.
+Custom configuration contains raw Hazelcast configuration that is not being managed by Operator and has some limitations.
 
-=== Combining ConfigMap and Secred based Custom Configs
+=== Combining ConfigMap and Secred based custom configuration
 
-It is not possible to use both `ConfigMap` and `Secret` based Custom Config. You must choose only one type of custom configuration.
+It is not possible to use both `ConfigMap` and `Secret` based custom configuration. You must choose only one type of custom configuration.
 
+=== Combining Hazelcast CR and custom configuration
 
-=== Combining Hazelcast CR and Custom Config
-
-It is not possible to combine the configuration of one feature in the Hazelcast CR and the Custom Config. The configuration from the Hazelcast CR will override the partial configuration from the Custom Config.
+It is not possible to combine the configuration of one feature in the Hazelcast CR and the custom configuration. The configuration from the Hazelcast CR will override the partial configuration from the custom configuration.
 
 === Operator-managed features
 
-Some Hazelcast features require the management of additional K8s resources (e.g., xref:hazelcast:storage:persistence.adoc[Persistence] requires PVCs). Custom Config does not allow configuring Kubernetes deployments, only the Hazelcast configuration. Therefore it is not possible to use Custom Config for such features; only the Hazelcast CR config is supported.
+Some Hazelcast features require the management of additional Kubernetes resources (for example, xref:hazelcast:storage:persistence.adoc[persistence] requires PVCs). Custom configuration does not allow configuring Kubernetes resources, only the Hazelcast configuration. Therefore it is not possible to use custom configuration for such features; only Hazelcast CR configuration is supported.
 
 === Networking configuration
 
-The Hazelcast Platform Operator communicates with the Hazelcast cluster, requiring a specific networking configuration. Reconfiguring it using Custom Config might break communication between the Operator and the cluster. To avoid such cases, the Operator will always override the networking section of the Custom Config. If you require any specific networking setup, please use Hazelcast CR.
+Operator communicates with the Hazelcast cluster, requiring a specific networking configuration. Reconfiguring it using custom configuration might break communication between Operator and the cluster. To avoid such cases, Operator will always override the networking section of the custom configuration. You should use the Hazelcast CR for networking configuration.
 
 === Security configuration
 
-The security configuration is not accessible through custom configuration. To configure xref:client-simple-auth.adoc[Simple Authentication] use `Security` section of the Hazelcast CR.
+Security configuration is not accessible through custom configuration. To configure xref:client-simple-auth.adoc[simple authentication], use the `Security` section of the Hazelcast CR.

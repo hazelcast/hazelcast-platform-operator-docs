@@ -1,5 +1,5 @@
 = User Code Deployment
-:description: Hazelcast allows you to deploy your own custom and domain classes to cluster members. From Hazelcast Platform Operator, you can deploy your application code from external buckets and ConfigMap objects in Kubernetes.
+:description: Hazelcast allows you to deploy your own custom and domain classes to cluster members. From Operator, you can deploy your application code from external buckets and ConfigMap objects in Kubernetes.
 
 WARNING: User Code Deployment is deprecated. Use xref:user-code-namespaces.adoc[User Code Namespaces] or xref:module-deployment.adoc[Module Deployment] instead.
 
@@ -7,9 +7,9 @@ WARNING: User Code Deployment is deprecated. Use xref:user-code-namespaces.adoc[
 
 This topic explains how to configure code deployments. It also brings together examples of when you might use code deployments as part of the configuration of other features, such as the xref:hazelcast:data-structures:working-with-external-data.adoc[implementation of an external data store] or an xref:hazelcast:computing:executor-service.adoc[executor service] for the asynchronous execution of tasks.
 
-== Configuring User Code Deployment
+== Configure User Code Deployment
 
-Below are the configuration options for the User Code Deployment feature. For more information, see the xref:api-ref.adoc#usercodedeploymentconfig[API Reference].
+Operator provides the following configuration options for the User Code Deployment feature. For more information, see the xref:api-ref.adoc#usercodedeploymentconfig[API reference].
 
 [cols="20%m,80%a"]
 |===
@@ -25,26 +25,26 @@ Below are the configuration options for the User Code Deployment feature. For mo
   - `bucketURI`: Full path for the external bucket. For example: `gs://your-bucket/path/to/jars`.
 
 |`configMaps`
-|Files specified in the ConfigMaps are placed under the Java classpath.
+|Files specified are placed under the Java classpath.
 
 WARNING: The data stored in a ConfigMap cannot exceed 1 MiB. For more info, see link:https://kubernetes.io/docs/concepts/configuration/configmap/#motivation[Kubernetes Documentation for Config Map].
 
 |`remoteURLs`
-|Files downloaded from the URLS will be placed under the Java classpath.
+|Files downloaded from these URLS will be placed under the Java classpath.
 
 |`triggerSequence`
 |Triggers a rolling restart to begin another download of the custom code.
 
 |===
 
-=== Example Configuration
+=== Example configuration
 
 The example configuration below:
 
-* downloads the JAR files from the specified external bucket and places them under the classpath of each of the Hazelcast members
-* puts all the files specified in the ConfigMap objects under the classpath of each of the Hazelcast members. 
+* Downloads the JAR files from the specified external bucket and places them under the classpath of each of the Hazelcast members.
+* Puts all the files specified in the ConfigMap objects under the classpath of each of the Hazelcast members. 
 
-WARNING: Currently, mounted persistent volumes are not supported; only cloud provider external buckets are supported.
+WARNING: Mounted persistent volumes are not supported; only cloud provider external buckets are supported.
 
 [tabs]
 ====
@@ -79,19 +79,19 @@ include::ROOT:example$/hazelcast-user-code-deployment-azure.yaml[]
 ----
 --
 ====
-<1> Name of the secret with credentials for accessing the bucket URI 
+<1> Name of the secret with credentials for accessing the bucket URI.
 <2> URI of the bucket where backup data will be stored.
 
-== Configuring an External Data Store with Hazelcast Platform Operator
+== Configure an external data store
 
-The `MapLoader` and `MapStore` interfaces in Hazelcast allow you to load map entries from and save map entries to an external data store. See xref:hazelcast:data-structures:working-with-external-data.adoc[Working with an External Data Store] for implementation details.
+The `MapLoader` and `MapStore` interfaces in Hazelcast allow you to load map entries from and save map entries to an external data store. See xref:hazelcast:data-structures:working-with-external-data.adoc[Working with an external data store] for implementation details.
 
-To use an external data store, you need to create `MapLoader` and/or `MapStore` classes and add configuration. In Hazelcast Platform Operator:
+To use an external data store, you need to create `MapLoader` and/or `MapStore` classes and add configuration. In Operator:
 
 . Deploy the `MapLoader` and/or `MapStore` classes to the classpath of each Hazelcast member.
 . Configure a `Map` resource for the MapLoader or MapStore.
 
-Use the following configuration options in the `Map` resource for a MapStore. The example shows how you might implement these options. For more detailed information,  see the xref:api-ref.adoc#mapstoreconfig[API Reference].
+Use the following configuration options in the `Map` resource for a MapStore. The example shows how you might implement these options. For more detailed information, see the xref:api-ref.adoc#mapstoreconfig[API reference].
 
 |===
 |Field|Description
@@ -116,7 +116,7 @@ Use the following configuration options in the `Map` resource for a MapStore. Th
 
 |===
 
-=== Example MapStore Configuration
+=== Example MapStore configuration
 
 An example `Map` resource with MapStore configuration. 
 
@@ -126,11 +126,11 @@ An example `Map` resource with MapStore configuration.
 include::ROOT:example$/map-map-store.yaml[]
 ----
 
-== Configuring Executor Services with the Hazelcast Platform Operator
+== Configure executor services
 
 Hazelcast offers an executor service (`IExecutorService`), which is an implementation of `java.util.concurrent.ExecutorService`. With `IExecutorService`, you can execute tasks asynchronously and perform other useful tasks.
 
-To use the executor service, you need to create `Callable` and/or `Runnable` classes and add configuration. In Hazelcast Platform Operator:
+To use the executor service, you need to create `Callable` and/or `Runnable` classes and add configuration. In Operator:
 
 . Deploy your `Callable` or `Runnable` classes to the classpath of each Hazelcast member.
 . Configure a `Hazelcast` resource for the `Callable` or `Runnable` interface.
@@ -139,17 +139,17 @@ There are three variants of the executor service:
 
 - Executor Service
 - Durable Executor Service
-- Scheduled Executor Service.
+- Scheduled Executor Service
 
-Configuration options for a `Hazelcast` resource to work with all three variants are shown in this section, along with examples of how you might implement these options. For more detailed implementation information, see xref:hazelcast:computing:executor-service.adoc[Java Executor Service]. 
+Configuration options for a `Hazelcast` resource to work with all three variants are shown in this section, along with examples of how you might implement these options. For more detailed information, see xref:hazelcast:computing:executor-service.adoc[Java executor service]. 
 
 
 [tabs]
 ====
-Executor Service::
+Executor service::
 +
 --
-See xref:api-ref.adoc#executorserviceconfiguration[API Reference] for more information.
+See the xref:api-ref.adoc#executorserviceconfiguration[API reference] for more information.
 
 |===
 |Field|Description
@@ -166,10 +166,10 @@ See xref:api-ref.adoc#executorserviceconfiguration[API Reference] for more infor
 |===
 --
 
-Durable Executor Service::
+Durable executor service::
 +
 --
-See xref:api-ref.adoc#durableexecutorserviceconfiguration[API Reference] for more information.
+See the xref:api-ref.adoc#durableexecutorserviceconfiguration[API reference] for more information.
 
 |===
 |Field|Description
@@ -190,10 +190,10 @@ See xref:api-ref.adoc#durableexecutorserviceconfiguration[API Reference] for mor
 --
 
 
-Scheduled Executor Service::
+Scheduled executor service::
 +
 --
-See xref:api-ref.adoc#scheduledexecutorserviceconfiguration[API Reference] for more information.
+See the xref:api-ref.adoc#scheduledexecutorserviceconfiguration[API reference] for more information.
 
 |===
 |Field|Description
@@ -219,13 +219,13 @@ See xref:api-ref.adoc#scheduledexecutorserviceconfiguration[API Reference] for m
 ====
 
 
-=== Example Executor Services
+=== Example executor services
 
-An example `Hazelcast` resource with Executor Services configured.
+An example `Hazelcast` resource with executor services configured:
 
 [tabs]
 ====
-Executor Service::
+Executor service::
 +
 --
 [source,yaml,subs="attributes+"]
@@ -234,7 +234,7 @@ include::ROOT:example$/hazelcast-executor-service.yaml[]
 ----
 --
 
-Durable Executor Service::
+Durable executor service::
 +
 --
 [source,yaml,subs="attributes+"]
@@ -244,7 +244,7 @@ include::ROOT:example$/hazelcast-durable-executor-service.yaml[]
 --
 
 
-Scheduled Executor Service::
+Scheduled executor service::
 +
 --
 [source,yaml,subs="attributes+"]
@@ -255,6 +255,6 @@ include::ROOT:example$/hazelcast-scheduled-executor-service.yaml[]
 
 ====
 
-== Configuring an Entry Processor with Hazelcast Platform Operator
+== Configure an entry processor with operator
 
-An entry processor executes your code on a map entry in an atomic way. To implement the `EntryProcessor` interface, you can deploy an `EntryProcessor` class from the Hazelcast Platform Operator to the classpath of a Hazelcast member. See xref:hazelcast:data-structures:entry-processor.adoc[Entry Processor] for more detailed information.
+An entry processor executes your code on a map entry in an atomic way. To implement the `EntryProcessor` interface, you can deploy an `EntryProcessor` class from Operator to the classpath of a Hazelcast member. See xref:hazelcast:data-structures:entry-processor.adoc[Entry processor] for more information.

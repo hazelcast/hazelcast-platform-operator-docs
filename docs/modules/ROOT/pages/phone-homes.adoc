@@ -1,25 +1,27 @@
-= Phone Homes
-:description: Each instance of Hazelcast Platform Operator reports usage data to the Hazelcast phone home server when a Custom Resource is successfully deployed and every 24 hours after that. Hazelcast uses this data to learn about the usage of Hazelcast Platform Operator.
+= Phone home data
+:description: Each instance of Hazelcast Platform Operator reports usage data to the Hazelcast phone home server when a Custom Resource is successfully deployed and every 24 hours after that. Hazelcast uses this data to learn about the usage of Operator.
 
 {description}
 
-== Usage Data
+Usage data is sent to the following URL: http://phonehome.hazelcast.com/pingOp.
+
+== Usage data
 
 The following information is sent in a phone home:
 
 * Operator version
-* K8s distribution such as EKS, GKE, AKS
-* K8s version
+* Kubernetes distribution, such as EKS, GKE, AKS
+* Kubernetes version
 * Operator uptime
-* UID of the operator
-* Operator installation origin such as Dockerhub or Red Hat Connect
-* Type of watched namespace scope such as single, all, multi, own etc.
+* Operator UID
+* Operator installation origin, such as Dockerhub or Red Hat Connect
+* Type of watched namespace scope, such as single, all, multi, own
 * Number of created Hazelcast Enterprise clusters
 * List of created Hazelcast cluster UUIDs
-* List of High Availability Modes of Hazelcast clusters
+* List of High Availability modes of Hazelcast clusters
 * Number of created Management Center instances
 * Number of created Hazelcast members
-* Number of created Wan Replications
+* Number of created WAN replications
 * Number of created CronHotBackup resources
 * Number of created MultiMap resources
 * Number of created Topic resources
@@ -48,7 +50,7 @@ The following information is sent in a phone home:
 * HotHackup specific:
 ** Number of local backups
 ** Number of external backups
-** Number of backups using K8s persistence Volume Claim
+** Number of backups using Kubernetes Persistent Volume Claims
 ** Number of clusters with enabled persistence restore feature
 ** Number of external backups to AWS S3
 ** Number of external backups to Google Storage
@@ -73,16 +75,11 @@ The following information is sent in a phone home:
 ** Number of Ingresses routing to Management Center
 ** Number of OpenShift routes created for Management Center resources
 
-== Disabling Phone Homes
+== Disable phone homes
 
-To disable phone homes, set `phoneHomeEnabled` value to `false` with your helm release:
-
+To disable phone homes, set `phoneHomeEnabled` value to `false` with your Helm release:
 
 [source,shell]
 ----
 helm install operator hazelcast/hazelcast-platform-operator --set phoneHomeEnabled=false
 ----
-
-== Phone Home URL
-
-Usage data is sent to the following URL: http://phonehome.hazelcast.com/pingOp.

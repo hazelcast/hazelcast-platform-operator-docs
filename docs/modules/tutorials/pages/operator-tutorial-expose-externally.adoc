@@ -6,11 +6,11 @@
 
 == Overview
 
-In this tutorial, we'll look at two available options for the Expose Externally feature of Hazelcast Platform Operator:
+In this tutorial, you'll configure two available options for exposing your Hazelcast cluster to clients outside Kubernetes:
 
-- *Unisocket* - client requests are load balanced between Hazelcast members
+- *Unisocket* - client requests are load balanced between Hazelcast members.
 
-- *Smart* - the client connects to all members and sends requests directly to the members owning the data
+- *Smart* - the client connects to all members and sends requests directly to the members owning the data.
 
 The tutorial should take approximately 5 to 10 minutes to complete. 
 
@@ -18,23 +18,21 @@ The tutorial should take approximately 5 to 10 minutes to complete.
 
 Before you begin, make sure that you have:
 
-* An up and running https://kubernetes.io/[Kubernetes] cluster
-* Kubernetes command-line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl]
-* Deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator]
-* The Hazelcast Code Samples repository https://github.com/hazelcast/hazelcast-code-samples cloned to your local machine
-* Created a license secret:
+* An up and running https://kubernetes.io/[Kubernetes] cluster.
+* The Kubernetes command line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl].
+* Deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator].
+* The Hazelcast Code Samples repository https://github.com/hazelcast/hazelcast-code-samples cloned to your local machine.
+* Created a license secret.
 +
-Create a secret with your link:http://trialrequest.hazelcast.com/[Hazelcast Enterprise License].
-
+To create a secret with your link:http://trialrequest.hazelcast.com/[Hazelcast Enterprise License]:
 +
 [source, shell]
 ----
 kubectl create secret generic hazelcast-license-key --from-literal=license-key=<hz-license-key>
 ----
+* If you want to use the Hazelcast Command Line Client (CLC) to manage cluster configuration, it must be installed on your system. See the https://docs.hazelcast.com/clc/latest/install-clc[CLC installation instructions].
 
-NOTE: Starting with version 5.13, Hazelcast Platform Operator only supports Hazelcast Enterprise cluster creation. Even when the feature is used in Hazelcast Open Source clusters, Hazelcast Platform Operator requires a license key to run a cluster.
-
-WARNING: This tutorial uses LoadBalancer services to connect to Hazelcast from outside of the Kubernetes cluster. Therefore, it is essential to ensure that your Kubernetes cluster can assign public IPs to LoadBalancer services. This is particularly important if you are using a local Kubernetes cluster such as Minikube or Kind.
+This tutorial uses load balancer services to connect to Hazelcast from outside of the Kubernetes cluster. Therefore, it is essential to ensure that your Kubernetes cluster can assign public IP addresses to load balancer services. This is particularly important if you are using a local Kubernetes cluster such as Minikube or Kind.
 
 == Unisocket
 
@@ -45,7 +43,7 @@ The first option is to use the `Unisocket` type. This option uses the standard K
 
 === Start the Hazelcast cluster
 
-Create the Hazelcast cluster with the Expose Externally feature enabled using Unisocket type:
+Create the Hazelcast cluster and enable exposing externally using the unisocket type:
 
 [source, shell]
 ----
@@ -56,17 +54,16 @@ EOF
 
 For `discoveryServiceType` you can use:
 
-* `LoadBalancer` - will create an external `LoadBalancer` for discovery service;
-* `NodePort` - will expose the discovery service via `NodePort`.
-
+* `LoadBalancer` - create an external `LoadBalancer` for discovery service;
+* `NodePort` - expose the discovery service via `NodePort`.
 
 === Verify the Hazelcast cluster
 
-Check the cluster status by running the following command.
+Check the cluster status:
 
 [source, shell]
 ----
-$ kubectl get hazelcast my-hazelcast-unisocket
+kubectl get hazelcast my-hazelcast-unisocket
 NAME           STATUS    MEMBERS
 my-hazelcast   Running   3/3
 ----
@@ -75,12 +72,12 @@ After verifying that the cluster is `Running` and all the members are ready (`3/
 
 [source, shell]
 ----
-$ kubectl get hazelcastendpoint my-hazelcast-unisocket
+kubectl get hazelcastendpoint my-hazelcast-unisocket
 NAME                     TYPE        ADDRESS
-my-hazelcast-unisocket   Discovery   34.135.7.75:5701
+my-hazelcast-unisocket   Discovery   192.0.2.0:5701
 ----
 
-The `ADDRESS` column displays the external address of your Hazelcast cluster.
+The `ADDRESS` column shows the external address of your Hazelcast cluster.
 
 === Connect Hazelcast Clients to the cluster
 
@@ -91,7 +88,7 @@ The `ADDRESS` column displays the external address of your Hazelcast cluster.
 cd hazelcast-platform-operator-expose-externally
 ----
 +
-The sample code (excluding CLC) for this tutorial is in the link:https://github.com/hazelcast/hazelcast-code-samples/tree/master/platform-operator/hazelcast-platform-operator-expose-externally/docs/modules/ROOT/examples/operator-expose-externally[`docs/modules/ROOT/examples/operator-expose-externally`] directory.
+The sample code for this tutorial is in the link:https://github.com/hazelcast/hazelcast-code-samples/tree/master/platform-operator/hazelcast-platform-operator-expose-externally/docs/modules/ROOT/examples/operator-expose-externally[`docs/modules/ROOT/examples/operator-expose-externally`] directory.
 
 . Configure the Hazelcast client with the external address and disable smart routing to use the unisocket connection.
 
@@ -101,10 +98,6 @@ The sample code (excluding CLC) for this tutorial is in the link:https://github.
 CLC::
 +
 --
-NOTE: CLC must be installed in your system. See the https://docs.hazelcast.com/clc/latest/install-clc[CLC installation instructions].
-
-Add the cluster config to the CLC:
-
 [source, bash]
 ----
 clc config add hz cluster.name=dev cluster.address=<EXTERNAL-IP>
@@ -302,16 +295,16 @@ Current map size: 4
 
 ====
 
-== Smart Client
+== Smart client
 
-The second option is to use the `Smart` type. With this option, each Hazelcast member is exposed with its own service (it can be either `LoadBalancer` or `NodePort`). Hazelcast smart client is capable of mapping the given key with its owner member, which means that it sends the data directly to the member which contains the right data partition.
+The second option is to use the `Smart` type. With this option, each Hazelcast member is exposed with its own service (it can be either `LoadBalancer` or `NodePort`). Hazelcast maps keys to members and sends data directly to the member that contains the right data partition.
 
 // .Hazelcast Smart Client
 // image::smart.jpg[Hazelcast Smart Client]
 
 === Start the Hazelcast cluster
 
-Create the Hazelcast cluster with the Expose Externally feature enabled using Smart type:
+Create the Hazelcast cluster and enable exposing externally using the smart type:
 
 [source, shell]
 ----
@@ -320,26 +313,26 @@ include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-e
 EOF
 ----
 
-This creates the Hazelcast cluster and one `LoadBalancer` service for discovery and one `LoadBalancer` service for each pod.
+This creates the Hazelcast cluster along with one `LoadBalancer` service for discovery and one `LoadBalancer` service for each pod.
 
 For `discoveryServiceType` you can use:
 
-* `LoadBalancer` - creates an external `LoadBalancer` for discovery service;
+* `LoadBalancer` - creates an external `LoadBalancer` for discovery service.
 * `NodePort` - exposes the discovery service via `NodePort`.
 
-For `memberAccess` you can use the following options:
+For `memberAccess` you can use:
 
-* `LoadBalancer` - lets the client access Hazelcast member with the `LoadBalancer` service;
-* `NodePortNodeName` - lets the client access Hazelcast member with the `NodePort` service and the node name;
-* `NodePortExternalIP` - lets the client access Hazelcast member with the `NodePort` service and the node external IP/hostname
+* `LoadBalancer` - lets the client access Hazelcast member with the `LoadBalancer` service.
+* `NodePortNodeName` - lets the client access Hazelcast member with the `NodePort` service and the node name.
+* `NodePortExternalIP` - lets the client access Hazelcast member with the `NodePort` service and the node external IP/hostname.
 
 === Verify the Hazelcast cluster
 
-Check the cluster status by running the following command:
+Check the cluster status:
 
 [source, shell]
 ----
-$ kubectl get hazelcast my-hazelcast-smart
+kubectl get hazelcast my-hazelcast-smart
 NAME           STATUS    MEMBERS
 my-hazelcast   Running   3/3
 ----
@@ -348,13 +341,13 @@ After verifying that the cluster is `Running` and all the members are ready (`3/
 
 [source, shell]
 ----
-$ kubectl get hazelcastendpoint --selector="app.kubernetes.io/instance=my-hazelcast-smart"
+kubectl get hazelcastendpoint --selector="app.kubernetes.io/instance=my-hazelcast-smart"
 NAME               TYPE        ADDRESS
-my-hazelcast       Discovery   35.184.21.18:5701
-my-hazelcast-0     Member      34.121.197.134:5701
-my-hazelcast-1     Member      35.238.20.134:5701
-my-hazelcast-2     Member      34.30.60.128:5701
-my-hazelcast-wan   WAN         35.184.21.18:5701
+my-hazelcast       Discovery   198.51.100.0:5701
+my-hazelcast-0     Member      203.0.113.134:5701
+my-hazelcast-1     Member      203.0.113.134:5701
+my-hazelcast-2     Member      203.0.113.128:5701
+my-hazelcast-wan   WAN         198.51.100.0:5701
 ----
 
 The `ADDRESS` column displays the external addresses of your Hazelcast cluster and members.
@@ -369,9 +362,6 @@ Configure the Hazelcast client to connect to the cluster external address.
 CLC::
 +
 --
-NOTE: CLC must be installed in your system. See the https://docs.hazelcast.com/clc/latest/install-clc[CLC installation instructions].
-
-Add the cluster config to the CLC:
 
 [source, bash]
 ----
@@ -424,7 +414,6 @@ include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-e
 ----
 --
 ====
-
 
 Now you can start the application.
 
@@ -574,7 +563,7 @@ Current map size: 4
 
 == Clean up
 
-To clean up the created resources remove the Hazelcast Custom Resources.
+When you've finished, clean up the created resources remove the Hazelcast Custom Resources:
 
 [source, shell]
 ----
@@ -584,12 +573,10 @@ kubectl delete hazelcast my-hazelcast-smart
 
 == Summary
 
-In this tutorial, you've learned how to connect to a Hazelcast cluster running in Kubernetes from outside of the Kubernetes environment, using both the Unisocket and Smart options. 
+In this tutorial, you learned how to connect to a Hazelcast cluster running in Kubernetes from outside of the Kubernetes environment, using both the Unisocket and Smart options. 
 
 == Next steps
 
 See also:
 
-- xref:operator:ROOT:index.adoc[]
-// - xref:kubernetes-external-client.adoc[]
 - xref:operator:ROOT:connect-outside-kubernetes.adoc[Connect to Hazelcast from outside Kubernetes]

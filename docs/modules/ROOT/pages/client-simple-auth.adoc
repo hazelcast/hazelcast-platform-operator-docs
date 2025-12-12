@@ -1,59 +1,20 @@
-= Client Authentication and Authorization
+= Client authentication and authorization
 
-Use the Hazelcast Platform Operator to configure xref:hazelcast:security:authentication-overview.adoc[Client Authentication] and xref:hazelcast:security:client-authorization.adoc[Client Authorization].
+You can use Operator to configure xref:hazelcast:security:authentication-overview.adoc[client authentication] and xref:hazelcast:security:client-authorization.adoc[client authorization].
 
-== Simple Authentication
+== Simple authentication
 
-You can easily use xref:hazelcast:security:simple-authentication.adoc[Hazelcast Simple Authentication] by making minimal changes in the original configuration.
+You can enable xref:hazelcast:security:simple-authentication.adoc[Hazelcast simple authentication] with minimal changes to the original configuration.
+
+To enable simple authentication:
+
+* Remove `security.enabled`.
+* Convert kebab case to camel case:
+** `client-authentication` -> `clientAuthentication`
+** `client-permissions` -> `clientPermissions`
+* Add a `permissions` node to `clientPermissions` to wrap permissions other than `all`.
 
 For example:
-
-[source,yaml]
-----
-security:
-  enabled: true
-  realms:
-    - name: simpleRealm-clients
-      authentication:
-        simple:
-          users:
-          - secretName: user1-secret
-            roles:
-              - admin
-          - secretName: user2-secret
-            roles:
-              - monitor
-              - application
-  client-authentication:
-    realm: simpleRealm-clients
-  client-permissions:
-    all:
-      principal: admin
-      endpoints:
-        - 127.0.0.1
-    map:
-      - name: playground
-        actions:
-          - all
-      - name: accounts
-        principal: monitor
-        actions:
-          - read
-      - name: accounts
-        principal: application
-        endpoints:
-          - 192.168.1.*
-          - 192.168.2.*
-        actions:
-          - create
-          - destroy
-          - put
-          - read
-          - remove
-          - lock
-----
-
-This can be converted as:
 
 [source,yaml]
 ----
@@ -106,19 +67,11 @@ spec:
                   - lock
 ----
 
-Required Changes:
+NOTE: `operatorClientSecretName` is a mandatory field required for Operator to establish a connection with the Hazelcast cluster. The given user in the `operatorClientSecretName` field must have a role that has all the client permissions. Otherwise, Operator will fail with a validation error.
 
-* `security.enabled` should be removed.
-* convert kebab cases to camel cases:
-** `client-authentication` -> `clientAuthentication`
-** `client-permissions` -> `clientPermissions`
-* add `permissions` node to `clientPermissions` to wrap permissions other than `all`.
+=== Configure Management Center
 
-NOTE:  The `operatorClientSecretName` is a mandatory field required for the Operator to establish a connection with the Hazelcast cluster. The given user in the `operatorClientSecretName` field must have a role that has all the client permissions. Otherwise, the Operator will fail with a validation error.
-
-=== Management Center Configuration
-
-As the Management Center serves as a client of the Hazelcast cluster, it must be properly configured to connect to the cluster. The `security.clientSecretName` field in the `hazelcastClusters` section is utilized for this configuration.
+Because Management Center serves as a client of the Hazelcast cluster, it must be properly configured to connect to the cluster. The `security.clientSecretName` field in the `hazelcastClusters` section is used for this configuration.
 
 .Management Center Simple Authentication Example
 [source,yaml,subs="attributes+"]
@@ -126,4 +79,4 @@ As the Management Center serves as a client of the Hazelcast cluster, it must be
 include::ROOT:example$/management-center-simple-auth.yaml[]
 ----
 
-NOTE: The given user in the `clientSecretName` field have a role that has all the client permissions.
+NOTE: The given user in the `ClientSecretName` field must have a role that has all the client permissions. Otherwise, Operator will fail with a validation error.
