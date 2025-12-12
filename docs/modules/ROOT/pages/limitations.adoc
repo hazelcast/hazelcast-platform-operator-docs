@@ -1,6 +1,6 @@
 == Parameters That Not Trigger Rolling Updates
 
-Modifying the following parameters in the Hazelcast CR will not trigger a rolling update of the cluster.
+Modifying the following parameters in the Hazelcast CR will not trigger a rolling update of the cluster. To apply configuration changes, you need to manually restart the Hazelcast pods.
 
 === Custom Configuration
 
