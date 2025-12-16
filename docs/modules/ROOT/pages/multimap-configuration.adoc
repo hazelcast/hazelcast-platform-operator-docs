@@ -20,6 +20,9 @@ You can use any of the following configuration options in the `MultiMap` resourc
 |backupCount
 |Count of synchronous backups.
 
+|asyncBackupCount
+|Number of asynchronous backups.
+
 |binary
 |When true, stores all MultiMap values in BINARY format. When false, values are stored in OBJECT format.
 
