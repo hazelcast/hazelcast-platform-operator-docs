@@ -1,0 +1,87 @@
+= Scale a Hazelcast deployment
+:page-aliases: scaling-upgrading.adoc
+
+To scale an existing Hazelcast deployment, there are two options:
+
+- Modify the YAML definition you used to deploy Hazelcast cluster by updating `clusterSize` field and re-apply it again:
++
+For example, if the existing configuration has a cluster size of three:
++
+[source,yaml]
+----
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast-sample
+spec:
+  clusterSize: 3
+----
++
+You can scale your deployment to five replicas by updating the `clusterSize` field and applying:
++
+[source,yaml]
+----
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast-sample
+spec:
+  clusterSize: 5
+----
+
+.For Kubernetes
+[source,shell]
+----
+kubectl apply -f hazelcast-sample.yaml
+----
++
+.For Openshift
+[source,shell]
+----
+oc apply -f hazelcast-sample.yaml
+----
+
+- Alternatively, you can use the `scale` command:
++
+[source,shell]
+----
+kubectl scale hazelcast <name> --replicas <replica-count>
+----
++
+For example:
++
+[source,shell]
+----
+kubectl scale hazelcast hazelcast-sample --replicas 5
+----
+
+== Check the cluster status
+
+You can check that the operation has completed by checking the cluster status:
+
+[tabs]
+====
+Kubernetes::
++
+--
+[source,shell]
+----
+kubectl get hazelcast
+----
+--
+Openshift::
++
+--
+[source,shell]
+----
+oc get hazelcast
+----
+--
+====
+
+```
+NAME               STATUS    MEMBERS
+hazelcast-sample   Running   5/5
+```
+
+// RJS: Can you check the version with Operator or do you need to use the MC cluster dashboard? What's the behavior / service impact during scaling up/down?

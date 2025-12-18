@@ -1,89 +1,89 @@
 .Get started
-* xref:index.adoc[Overview]
-* xref:release-notes.adoc[Release notes]
-* xref:get-support.adoc[Get support]
-* xref:ask-ai.adoc[Ask AI]
+* xref:index.adoc[]
+* xref:release-notes.adoc[]
+* xref:get-support.adoc[]
 
-.Deploy
-* xref:get-started.adoc[Deploy cluster]
-* xref:remove-cluster.adoc[Remove cluster]
-* xref:lite-members.adoc[Deploy lite members]
-* xref:deploy-management-center.adoc[Deploy Management Center]
-* xref:remove-management-center.adoc[Remove Management Center]
-* xref:scaling-upgrading.adoc[Scale and upgrade]
-* xref:migrating-from-helm.adoc[Migrate from Helm Chart]
+.Install and upgrade
+* xref:get-started.adoc[]
+** xref:remove-cluster.adoc[]
+* xref:lite-members.adoc[]
+* xref:deploy-management-center.adoc[]
+** xref:remove-management-center.adoc[]
+* xref:scale.adoc[]
+* xref:upgrade.adoc[]
+* xref:migrating-from-helm.adoc[]
+* xref:connect-outside-kubernetes.adoc[]
+** xref:tutorials:operator-tutorial-expose-externally.adoc[]
+* xref:scheduling-configuration.adoc[]
 * xref:image-registry.adoc[]
 
-.Configure
-* xref:connect-outside-kubernetes.adoc[Connect to Hazelcast from outside Kubernetes]
-** xref:tutorials:operator-tutorial-expose-externally.adoc[]
-* xref:scheduling-configuration.adoc[Assign pods to nodes]
-* xref:native-memory.adoc[High-density memory store]
-* xref:backup-restore.adoc[Persistence, backup & restore]
-** xref:tutorials:operator-tutorial-external-backup-restore.adoc[]
-
+.Operate and manage
 * Data
 ** Data structures
-*** xref:map-configuration.adoc[Map]
-*** xref:multimap-configuration.adoc[MultiMap]
-*** xref:topic-configuration.adoc[Topic]
-*** xref:queue-configuration.adoc[Queue]
-*** xref:cache-configuration.adoc[Cache]
-*** xref:vector-collection-configuration.adoc[Vector collection]
-*** xref:replicatedmap-configuration.adoc[ReplicatedMap]
+*** xref:map-configuration.adoc[]
+*** xref:multimap-configuration.adoc[]
+*** xref:topic-configuration.adoc[]
+*** xref:queue-configuration.adoc[]
+*** xref:cache-configuration.adoc[]
+*** xref:vector-collection-configuration.adoc[]
+*** xref:replicatedmap-configuration.adoc[]
 
 ** Data pipelines
-*** xref:jet-engine-configuration.adoc[Configure the Jet Engine]
-*** xref:jet-job-configuration.adoc[Run data pipelines]
+*** xref:jet-engine-configuration.adoc[]
+*** xref:jet-job-configuration.adoc[]
 **** xref:tutorials:operator-tutorial-jet.adoc[]
-*** xref:jet-job-snapshot.adoc[Save state of data pipelines]
+*** xref:jet-job-snapshot.adoc[]
 **** xref:tutorials:operator-tutorial-jet-job-snapshot.adoc[]
 
-** xref:serialization-configuration.adoc[Data serialization]
-** xref:cp-subsystem.adoc[Enable CP subsystem]
+** xref:native-memory.adoc[]
+** xref:serialization-configuration.adoc[]
+** xref:cp-subsystem.adoc[]
 
 * Resilience
-** Partition groups & networking
-*** xref:high-availability-mode.adoc[High Availability Mode]
-*** xref:advanced-networking.adoc[Advanced network configuration]
+** Partition groups and networking
+*** xref:high-availability-mode.adoc[]
+*** xref:advanced-networking.adoc[]
 
 ** Synchronize data across clusters
-*** xref:wan-replication.adoc[Configure WAN replication]
+*** xref:wan-replication.adoc[]
 **** xref:tutorials:operator-tutorial-wan-replication.adoc[]
-*** xref:wan-sync.adoc[Synchronize WAN replicated data]
+*** xref:wan-sync.adoc[]
 **** xref:tutorials:operator-tutorial-wan-sync.adoc[]
 
+** xref:backup-restore.adoc[]
+*** xref:tutorials:operator-tutorial-external-backup-restore.adoc[]
+
 * Security
-** xref:tls.adoc[Configure TLS]
+** xref:tls.adoc[]
 *** xref:tutorials:operator-tutorial-tls.adoc[]
-** xref:configure-simple-security.adoc[Configure simple authentication and authorization]
-** xref:configure-jaas.adoc[Configure JAAS]
-** xref:authorization.adoc[Authorization Methods to Access Cloud Storage]
-** Configuring Client Authentication
-*** xref:client-simple-auth.adoc[Simple Authentication]
+** xref:configure-simple-security.adoc[]
+** xref:configure-jaas.adoc[]
+** xref:authorization.adoc[]
+** xref:client-simple-auth.adoc[]
 
 * Compute
-** xref:module-deployment.adoc[Module Deployment]
-** xref:user-code-deployment.adoc[User Code Deployment]
-** xref:user-code-namespaces.adoc[User Code Namespaces]
-
-* xref:configure-diagnostic-logging.adoc[Diagnostic logging]
+** xref:module-deployment.adoc[]
+** xref:user-code-deployment.adoc[]
+** xref:user-code-namespaces.adoc[]
 
 * Configuration properties
-** xref:env-vars.adoc[Environment variables]
-** xref:resource-configuration.adoc[Container resources]
-** xref:hazelcast-parameters.adoc[System properties]
-** xref:custom-config.adoc[Custom configuration]
-** xref:jvm-parameters.adoc[JVM parameters]
-** xref:mount-pvc.adoc[Mount PVC on a cluster]
+** xref:env-vars.adoc[]
+** xref:resource-configuration.adoc[]
+** xref:hazelcast-parameters.adoc[]
+** xref:custom-config.adoc[]
+** xref:jvm-parameters.adoc[]
+** xref:mount-pvc.adoc[]
+** xref:configure-diagnostic-logging.adoc[]
 
 * Management Center
-** xref:management-center-clusters.adoc[Hazelcast clusters]
-** xref:management-center-external-access.adoc[External access]
-** xref:management-center-persistence.adoc[Persistence]
-** xref:management-center-jvm-args.adoc[JVM arguments]
-** xref:management-center-ldap.adoc[LDAP security provider]
+** xref:management-center-clusters.adoc[]
+** xref:management-center-external-access.adoc[]
+** xref:management-center-persistence.adoc[]
+** xref:management-center-jvm-args.adoc[]
+** xref:management-center-ldap.adoc[]
+
+* xref:limitations.adoc[]
 
 .Reference
-* xref:phone-homes.adoc[Phone home data]
-* xref:api-ref.adoc[API types]
+* xref:api-ref.adoc[]
+* xref:phone-homes.adoc[]

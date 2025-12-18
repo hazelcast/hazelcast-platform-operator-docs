@@ -1,28 +1,29 @@
-= Configuring JVM Parameters
-:description: pass:q[You can configure the JVM in the `hazelcast` container using the `jvm` field of the CRD spec.]
+= Configure JVM arameters
+:description: pass:q[You can configure the JVM in the `hazelcast` container using the `jvm` field of the CRD.]
 
 {description}
 
-== Configuring a JVM Parameter
+== Configure a JVM parameter
 
-Use any of the following configuration options in the `Hazelcast` resource. For more information, see the xref:api-ref.adoc#jvmconfiguration[API Reference].
+Operator supports the following JVM configuration options in the `Hazelcast` resource. For more information, see the xref:api-ref.adoc#jvmconfiguration[API reference].
 
 [cols="25%m,75%a"]
 |===
 |Field|Description
 
 |initialRAMPercentage
-|Configures the initial heap size of the Hazelcast process as a percentage of the total memory of a container.
+|Initial heap size of the Hazelcast process as a percentage of the total memory of a container.
 
 |maxRAMPercentage
-|Sets the maximum heap size for a JVM running with a large amount of memory.
+|Maximum heap size for a JVM running with a large amount of memory.
 
 |minRAMPercentage
-|Unlike its name, this parameter sets the maximum heap size for a JVM running with a small amount of memory.
+|Maximum heap size for a JVM running with a small amount of memory.
 
 |===
 
-=== Setting Arbitrary JVM Arguments
+=== Set arbitrary JVM arguments
+
 You can provide a list of JVM arguments.
 
 .Example configuration
@@ -31,7 +32,7 @@ You can provide a list of JVM arguments.
 include::ROOT:example$/jvm_args.yaml[]
 ----
 
-== Example Configuration
+== Example configuration
 
 The following `Hazelcast` custom resource creates a cluster that uses all three parameters.
 
@@ -41,9 +42,11 @@ The following `Hazelcast` custom resource creates a cluster that uses all three 
 include::ROOT:example$/jvm.yaml[]
 ----
 
-== GC Parameters
-=== Enabling Logging
-To enable Garbage Collector Logging, you can use the following configuration:
+== Garbage collector parameters
+
+=== Enable logging
+
+To enable garbage collector logging, you can use the following configuration:
 
 .Example configuration
 [source,yaml,subs="attributes+"]
@@ -51,12 +54,13 @@ To enable Garbage Collector Logging, you can use the following configuration:
 include::ROOT:example$/jvm_gc_logging.yaml[]
 ----
 
-It is going to set the following JVM argument: `-verbose:gc`
+This sets the JVM argument `-verbose:gc`.
 
-=== Setting the Garbage Collector
-WARNING: Before making Garbage Collector related changes using the Hazelcast Platform Operator, it is highly recommended to read link:https://docs.hazelcast.com/hazelcast/latest/capacity-planning#garbage-collection-considerations[Garbage Collector Considerations section of Capacity Planning Document] to decide which Garbage Collector to use.
+=== Set the garbage collector
 
-To set the Garbage Collector, following configuration can be used:
+WARNING: Before making garbage collector-related changes using Operator, read link:https://docs.hazelcast.com/hazelcast/latest/capacity-planning#garbage-collection-considerations[Garbage collector considerations] to decide which garbage collector to use.
+
+To set the garbage collector:
 
 .Example configuration
 [source,yaml,subs="attributes+"]
@@ -81,8 +85,9 @@ include::ROOT:example$/jvm_gc_collector.yaml[]
 
 |===
 
-== Enabling IPv6 Stack
-Hazelcast supports IPv6 addresses seamlessly, although IPv6 support is switched off by default. To enable IPv6 addressing in Hazelcast and set up a Hazelcast cluster on an IPv6-stack Kubernetes Cluster, you'll need extra configurations. These configurations can be passed through JVM arguments. The provided example below shows how to create an IPv6 Hazelcast cluster using the Hazelcast Platform Operator.
+== Enable IPv6 stack
+
+You can use JVM arguments to enable IPv6 addressing in Hazelcast and set up a Hazelcast cluster on an IPv6-stack Kubernetes Cluster. The following example creates an IPv6 Hazelcast cluster:
 
 .IPv6 Example configuration
 [source,yaml,subs="attributes+"]

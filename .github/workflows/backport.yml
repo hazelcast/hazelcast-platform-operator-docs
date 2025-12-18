@@ -5,33 +5,7 @@ on:
    - main
    - v/*
 jobs:
-  get-maintenance-branches:
-    runs-on: ubuntu-latest
-    outputs:
-      branches: "['5.8', '5.9', '5.10', '5.11', '5.12', '5.13', '5.14','5.15']"
-    steps:
-      - run: exit 0
-
-  backport-to-all-branch:
-    needs: get-maintenance-branches
-    strategy:
-      fail-fast: false
-      matrix:
-        branch: ${{ fromJSON(needs.get-maintenance-branches.outputs.branches) }}
-    uses: hazelcast/hz-docs/.github/workflows/backport-workflow.yml@main
+  backport:
+    uses: hazelcast/backport/.github/workflows/backport.yml@master
     with:
-      label-to-check-for: '["backport"]'
-      target-branch: v/${{ matrix.branch }}
-    secrets: inherit
-
-  backport-to-specified-branch:
-    needs: get-maintenance-branches
-    strategy:
-      fail-fast: false
-      matrix:
-        branch: ${{ fromJSON(needs.get-maintenance-branches.outputs.branches) }}
-    uses: hazelcast/hz-docs/.github/workflows/backport-workflow.yml@main
-    with:
-      label-to-check-for: '["backport to ${{ matrix.branch }}"]'
-      target-branch: v/${{ matrix.branch }}
-    secrets: inherit
+      BACKPORT_PREFIX: "backport to"

@@ -1,85 +1,54 @@
-= Hazelcast Platform Operator
+= What is Hazelcast Platform Operator?
 :!page-pagination:
-:description: Hazelcast Platform Operator simplifies working with Hazelcast clusters on Kubernetes and Red Hat OpenShift by eliminating the need for manual deployment and life-cycle management.
+:description: Operator simplifies working with Hazelcast clusters on Kubernetes and Red Hat OpenShift by eliminating the need for manual deployment and lifecycle management.
 
-== Overview
+{description}
 
-Hazelcast Operator simplifies the deployment and management of Hazelcast clusters on Kubernetes and Red Hat OpenShift platforms. It automates common management tasks, making it easier for Development and DevOps teams to work with Hazelcast clusters in cloud-native environments.
+Operator automates common management tasks, making it easier to work with Hazelcast clusters in cloud-native environments.
 
-For example, you can use Hazelcast Platform Operator to automate the following tasks:
+For example, you can use Operator to automate the following tasks:
 
-* Configuration
 * Creation
+* Configuration
 * Scaling
 * Recovery
 
-Hazelcast and Kubernetes are complex systems which you will need a good understanding of before you use Operator. Refer to the Platform documentation for more information about Hazelcast. 
+Hazelcast, Kubernetes and OpenShift are complex systems that you will need a good understanding of before you use Operator. For more information about Hazelcast, see the link:https://docs.hazelcast.com/hazelcast/latest/what-is-hazelcast[Hazelcast Platform documentation].
 
-NOTE: Hazelcast Operator only supports Enterprise deployments of Hazelcast clusters. 
-The Community Edition does not provide support for the Operator.  
+== Features and benefits
 
-=== Key features and benefits
+By using Operator, teams can benefit from a more streamlined, automated, and Kubernetes-native approach to managing Hazelcast clusters. This helps to reduce complexity and improve operational efficiency. Operator enables:
 
-The aim of Operator is to manage a Hazelcast deployment on Kubernetes and Red Hat OpenShift so that you do not need to worry about the operational complexities of running Hazelcast. It offers:
+* Kubernetes-native experience: Makes Hazelcast Platform Kubernetes-native by using Custom Resource Definitions (CRDs).
+* Automated configuration and management: Handles creation, configuration, scaling and recovery tasks automatically.
+* Simplified persistence, backup and restore: Makes it easier to enable persistence on Hazelcast and manage backup and restore on Kubernetes.
+* Support for WAN Replication: Simplifies the configuration and management of WAN Replication.
+* Dynamic configuration: Allows updating configuration without cluster restarts.
+* Rich API: Provides an intuitive API that abstracts complex Hazelcast configuration, focusing on features rather than specific settings.
+* Automatic feature lifecycle control: Simplifies advanced operations such as cluster backups without manual intervention.
+* Platform-specific optimizations: Automatically applies optimal configurations based on the runtime environment.
 
-* Kubernetes-native experience: Hazelcast Operator makes the Hazelcast Platform truly Kubernetes-native by using Custom Resource Definitions (CRDs)
-* Automated configuration and management: It handles configuration, creation, scaling, and recovery tasks automatically
-* Simplified persistence, backup and restore: Makes it easier to enable persistence on Hazelcast and manage backup and restore on Kubernetes
-* Support for WAN Replication: Simplifies the configuration and management of WAN Replication in Kubernetes environments
-* Dynamic configuration: Allows updating configurations without cluster restarts, enhancing flexibility
-* Rich API: Provides an intuitive API that abstracts complex Hazelcast configurations, focusing on features rather than on specific settings
-* Automatic feature lifecycle control: Simplifies advanced operations such as cluster backups without manual intervention
-* Platform-specific optimizations: Automatically applies optimal configurations based on the runtime environment
+== Supported versions
 
-By using Hazelcast Operator, teams can benefit from a more streamlined, automated, and Kubernetes-native approach to managing Hazelcast clusters. This helps to reduce complexity and improve operational efficiency in cloud environments.
+Operator only supports Enterprise Edition deployments of Hazelcast Platform. Community Edition does not support Operator.  
 
-== Supported Platform Versions
+=== Kubernetes versions
 
-=== Kubernetes Versions
+Operator supports Kubernetes versions 1.26 - 1.33.
 
-Hazelcast Platform Operator supports the following Kubernetes versions:
+=== OpenShift versions
 
-- 1.26
-- 1.27
-- 1.28
-- 1.29
-- 1.30
-- 1.31
-- 1.32
-- 1.33
+Operator supports OpenShift versions 4.13 - 4.18.
 
-Every Hazelcast Platform Operator version is tested against these Kubernetes versions.
+== Get started
 
-=== OpenShift Versions
-
-Hazelcast Platform Operator supports following OpenShift versions:
-
-- 4.13
-- 4.14
-- 4.15
-- 4.16
-- 4.17
-- 4.18
+To get started, xref:get-started.adoc[].
 
 ////
 Content to consider for this page:
 
 Requirements (supported versions of Platform, Kubernetes, Openshift, supported managed services such as GKE)
 High-level architectural diagram of components, workflow
-Short discussion of the difference between the Helm chart and the operator
+Short discussion of the difference between Helm charts and Operator
 Known limitations
 ////
-
-== Get Started
-
-For information on how to install Operator and deploy a Hazelcast cluster, see: xref:get-started.adoc[].
-
-Step-by-step tutorials are also provided to show you how to:
-
-* xref:tutorials:operator-tutorial-external-backup-restore.adoc[Restore a cluster with Operator]
-* xref:tutorials:operator-tutorial-wan-replication.adoc[Replicate data between clusters with Operator]
-* xref:tutorials:operator-tutorial-wan-sync.adoc[Synchronize data between clusters using WAN Sync]
-* xref:tutorials:operator-tutorial-jet.adoc[Run a data pipeline using Jet with Operator]
-* xref:tutorials:operator-tutorial-jet-job-snapshot.adoc[Save the state of Jet job with Operator]
-* xref:tutorials:operator-tutorial-tls.adoc[Secure a cluster with TLS using Operator]
-* xref:tutorials:operator-tutorial-expose-externally.adoc[Connect to a cluster from outside of Kubernetes]

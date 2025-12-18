@@ -9,7 +9,7 @@ spec:
     - name: hz-sample
       kind: Hazelcast
   targetClusterName: dev
-  endpoints: "35.192.33.252,35.192.33.255"
+  endpoints: "198.51.100.252,198.51.100.255"
   queue:
     capacity: 10000
     fullBehavior: DISCARD_AFTER_MUTATION

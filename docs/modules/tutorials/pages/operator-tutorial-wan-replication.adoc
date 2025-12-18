@@ -8,11 +8,11 @@
 
 In this tutorial, you'll do the following:
 
-- Deploy two Hazelcast clusters
+- Deploy two Hazelcast clusters.
 
-- Create two Hazelcast map configurations on one of the clusters
+- Create two Hazelcast map configurations on one of the clusters.
 
-- Synchronize map data between the two Hazelcast clusters
+- Synchronize map data between the two Hazelcast clusters.
 
 The tutorial should take approximately 10 minutes to complete. 
 
@@ -20,10 +20,10 @@ The tutorial should take approximately 10 minutes to complete.
 
 Before you begin, make sure that you have:
 
-* A running https://kubernetes.io/[Kubernetes] cluster
-* The Kubernetes command-line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl]
-* A deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator]
-* The Hazelcast Code Samples repository https://github.com/hazelcast/hazelcast-code-samples cloned to your local machine
+* A running https://kubernetes.io/[Kubernetes] cluster.
+* The Kubernetes command line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl].
+* A deployed xref:operator:ROOT:get-started.adoc[Operator].
+* The Hazelcast Code Samples repository https://github.com/hazelcast/hazelcast-code-samples cloned to your local machine.
 
 == Start the Hazelcast cluster
 
@@ -103,13 +103,9 @@ EOF
 
 . Create the configuration for WAN replication:
 
-+
-- Use the first cluster as the source cluster by adding its name as a resource in the WAN Replication configuration.
-Adding the cluster name as a resource starts WAN replication for both the maps that you created earlier.
-+
-- Add the second cluster as the target cluster to receive the WAN Replication events.
-+
-Apply the configuration:
+- Use the first cluster as the source cluster by adding its name as a resource in the WAN replication configuration. Adding the cluster name as a resource starts WAN replication for both the maps that you created earlier.
+- Add the second cluster as the target cluster to receive the WAN replication events.
+- Apply the configuration:
 +
 [source, shell]
 ----
@@ -118,11 +114,11 @@ include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-w
 EOF
 ----
 
-== Put entries to the maps on the first cluster
+== Put entries to the maps on the source cluster
 
-In this step, you'll fill the maps on the first, source cluster.
+In this step, you'll fill the maps on the source cluster.
 
-. Configure the Hazelcast client to connect to the first cluster, using its address. [[configure-client]]
+. Configure the Hazelcast client to connect to the source cluster, using its address. [[configure-client]]
 +
 Open the examples folder to access all sample clients:
 +
@@ -131,7 +127,7 @@ Open the examples folder to access all sample clients:
 cd hazelcast-platform-operator-wan-replication
 ----
 +
-The sample code (excluding CLC) for this tutorial is in the link:https://github.com/hazelcast/hazelcast-code-samples/tree/master/platform-operator/hazelcast-platform-operator-wan-replication/docs/modules/ROOT/examples/operator-wan[`docs/modules/ROOT/examples/operator-wan`] directory.
+The sample code  for this tutorial is in the link:https://github.com/hazelcast/hazelcast-code-samples/tree/master/platform-operator/hazelcast-platform-operator-wan-replication/docs/modules/ROOT/examples/operator-wan[`docs/modules/ROOT/examples/operator-wan`] directory.
 
 +
 [tabs]
@@ -482,13 +478,13 @@ kubectl delete $(kubectl get wanreplications,map,hazelcast -o name)
 
 == Summary
 
-In this tutorial, you've learned how to:
+In this tutorial, you learned how to:
 
-- Deploy two Hazelcast clusters
+- Deploy two Hazelcast clusters.
 
-- Create two Hazelcast map configurations on one of the clusters
+- Create two Hazelcast map configurations on one of the clusters.
 
-- Synchronize map data between the two Hazelcast clusters
+- Synchronize map data between the two Hazelcast clusters.
 
 == Next steps
 

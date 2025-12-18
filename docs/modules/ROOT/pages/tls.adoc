@@ -1,17 +1,19 @@
-= Configuring TLS
+= Configure TLS
 :description: Hazelcast TLS is a security feature that provides encryption and authentication of data transmitted between Hazelcast nodes, preventing unauthorized access and eavesdropping.
 
 {description}
 
-Hazelcast TLS uses standard SSL/TLS certificates, which can be obtained from trusted Certificate Authorities (CA) or self-signed. The certificates are used to establish trust between the communicating parties and ensure the authenticity of the communication channel.
+Hazelcast TLS uses standard SSL/TLS certificates, which can be obtained from trusted Certificate Authorities (CAs) or self-signed. The certificates are used to establish trust between the communicating parties and ensure the authenticity of the communication channel.
 
-See xref:hazelcast:security:tls-ssl.adoc[TLS/SSL Basics] for more detailed information about the configuration and behavior of TLS in Hazelcast.
+See xref:hazelcast:security:tls-ssl.adoc[TLS/SSL basics] for more detailed information about the configuration and behavior of TLS in Hazelcast.
 
 TIP: For a worked example, see the xref:tutorials:operator-tutorial-tls.adoc[Secure a cluster with TLS tutorial].
 
-== Prerequisites for TLS
+== Prerequisites
 
-Before you create and configure TLS, you need to create a Kubernetes secret. The Operator uses the secret to create a truststore and keystore, and it modifies the Hazelcast configuration accordingly.
+Before you configure TLS, you need to create a Kubernetes secret. Operator uses the secret to create a truststore and keystore, and it modifies the Hazelcast configuration accordingly.
+
+WARNING: The provided `tls.key` must be unencrypted.
 
 Example:
 
@@ -22,7 +24,7 @@ kubectl create secret generic example \
   --from-file=tls.key=example.key
 ----
 
-`ca.crt` is optional. You can also provide it to create the truststore:
+If you provide a CA certificate, Operator creates a separate truststore for it in link:https://en.wikipedia.org/wiki/PKCS_12[PKCS12] format. Otherwise, the truststore and keystore will be the same. To create a truststore with `ca.crt`:
 
 [source,shell]
 ----
@@ -32,34 +34,26 @@ kubectl create secret generic example \
   --from-file=ca.crt=ca.crt
 ----
 
-NOTE: If you provide `ca.crt`, it creates a truststore using it, if you don't create it, the truststore and keystore will be the same.
+== Configure Hazelcast TLS
 
-NOTE: The Operator creates the keystore and truststore in link:https://en.wikipedia.org/wiki/PKCS_12[PKCS12] format.
-
-WARNING: The provided `tls.key` must be unencrypted.
-
-== Configuring Hazelcast TLS
-
-Below are the configuration options for the TLS.
+Operator provides the following options for configuring TLS.
 
 [cols="25%m,75%a"]
 |===
 |Field|Description
 
 |`secretName`
-| Specifies the name of Kubernetes TLS secret.
-
-
+| Name of the Kubernetes TLS secret.
 
 |`clientAuthentication`
-|  Mutual authentication configuration for client to member communication, available values are:
+|  Mutual authentication configuration for client to member communication:
 
 - `None` (default): The client side of the connection is not authenticated.
 - `Required`:  Server forces usage of a trusted client certificate.
-- `Optional`: Server asks for a client certificate, but it doesn't require it.
+- `Optional`: Server asks for a client certificate, but doesn't require it.
 
 |`memberAuthentication`
-|  Mutual authentication configuration for member to member communication, available values are:
+|  Mutual authentication configuration for member to member communication:
 
 - `None`: The client side of the connection is not authenticated.
 - `Required`(default):  Server forces usage of a trusted client certificate.
@@ -67,12 +61,12 @@ Below are the configuration options for the TLS.
 
 |===
 
-=== Example Configuration
+=== Example configuration
 
-The example configuration does the following:
+The following example configuration does the following:
 
-- Enables member to member and member-client Hazelcast TLS connections
-- Enforces mutual TLS authentication for cluster members
+- Enables member to member and member to client Hazelcast TLS connections.
+- Enforces mutual TLS authentication for cluster members.
 
 .Example Hazelcast configuration
 [source,yaml,subs="attributes+"]

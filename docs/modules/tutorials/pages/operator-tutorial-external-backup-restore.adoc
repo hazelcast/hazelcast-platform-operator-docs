@@ -8,13 +8,13 @@
 
 In this tutorial, you'll do the following:
 
-- Deploy Hazelcast with persistence enabled
+- Deploy Hazelcast with persistence enabled.
 
-- Create a Hazelcast map that has persistence enabled
+- Create a Hazelcast map that has persistence enabled.
 
-- Back up all map entries to external storage in the Cloud
+- Back up all map entries to external storage in the cloud.
 
-- Restart the Hazelcast cluster and restore the backup map entries from the Cloud
+- Restart the Hazelcast cluster and restore the backup map entries from the cloud.
 
 The tutorial should take approximately 20 minutes to complete. 
 
@@ -22,26 +22,25 @@ The tutorial should take approximately 20 minutes to complete.
 
 Before you begin, make sure that you have:
 
-* An up and running https://kubernetes.io/[Kubernetes] cluster
-* Kubernetes command-line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl]
-* Deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator]
-* Created blob storage and access credentials in one of the Cloud providers: https://aws.amazon.com/s3/[AWS] - https://cloud.google.com/storage/[GCP] - https://azure.microsoft.com/en-us/services/storage/blobs/[Azure]
-* The Hazelcast Code Samples repository https://github.com/hazelcast/hazelcast-code-samples cloned to your local machine
+* An up and running https://kubernetes.io/[Kubernetes] cluster.
+* Kubernetes command line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl].
+* Deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator].
+* Created blob storage and access credentials in one of the Cloud providers:
+- https://aws.amazon.com/s3/[AWS]
+- https://cloud.google.com/storage/[GCP]
+- https://azure.microsoft.com/en-us/services/storage/blobs/[Azure]
+* The Hazelcast Code Samples repository https://github.com/hazelcast/hazelcast-code-samples cloned to your local machine.
 
 == Start the Hazelcast cluster
 
-. Create a license secret
-+
-Create a secret with your link:http://trialrequest.hazelcast.com/[Hazelcast Enterprise License].
+. Create a secret with your link:http://trialrequest.hazelcast.com/[Hazelcast Enterprise License].
 +
 [source, shell]
 ----
 kubectl create secret generic hazelcast-license-key --from-literal=license-key=<hz-license-key>
 ----
 
-. Create the Hazelcast cluster
-+
-Create the Hazelcast cluster with Persistence enabled:
+. Create a Hazelcast cluster with Persistence enabled:
 +
 [source, shell]
 ----
@@ -51,20 +50,18 @@ EOF
 ----
 +
 
-. Check the cluster status
-+
-Run the following commands to see the cluster status:
+. Check the cluster status:
 +
 [source, shell]
 ----
-$ kubectl get hazelcast my-hazelcast
+kubectl get hazelcast my-hazelcast
 NAME           STATUS    MEMBERS
 my-hazelcast   Running   3/3
 ----
 +
 [source, shell]
 ----
-$ kubectl get pods -l app.kubernetes.io/instance=my-hazelcast
+kubectl get pods -l app.kubernetes.io/instance=my-hazelcast
 NAME             READY   STATUS    RESTARTS   AGE
 my-hazelcast-0   2/2     Running   0          3m43s
 my-hazelcast-1   2/2     Running   0          3m16s
@@ -73,25 +70,21 @@ my-hazelcast-2   2/2     Running   0          2m50s
 +
 As you can see from the pod states, the agent container will be deployed with the Hazelcast container in the same Pod. The agent is responsible for backing data up into the external storage.
 
-. Get the address of the Hazelcast cluster
-+
-After verifying that the cluster is `Running` and all the members are ready, find the discovery address:
+. After verifying that the cluster is `Running` and all the members are ready, find the discovery address:
 
 +
 [source, shell]
 ----
-$ kubectl get hazelcastendpoint my-hazelcast
+kubectl get hazelcastendpoint my-hazelcast
 NAME               TYPE        ADDRESS
-my-hazelcast       Discovery   34.30.60.128:5701
+my-hazelcast       Discovery   198.51.100.128:5701
 ----
 +
 The `ADDRESS` column displays the external address of your Hazelcast cluster.
 
 == Create persistent map and put data
 
-. Create persistent map
-+
-Create the Map resource with Persistence enabled:
+. Create a Map resource with persistence enabled:
 +
 [source, shell]
 ----
@@ -101,9 +94,7 @@ EOF
 ----
 
 
-. Check the status of the backup
-+
-Check the status of the map configuration:
+. Check the status of the map configuration:
 +
 [source,bash]
 ----
@@ -128,7 +119,7 @@ Open the examples folder to access all sample clients:
 cd hazelcast-platform-operator-external-backup-restore
 ----
 +
-The sample code (excluding CLC) for this tutorial is in the link:https://github.com/hazelcast/hazelcast-code-samples/tree/master/platform-operator/hazelcast-platform-operator-external-backup-restore/docs/modules/ROOT/examples/operator-external-backup[`docs/modules/ROOT/examples/operator-external-backup`] directory.
+The sample code for this tutorial is in the link:https://github.com/hazelcast/hazelcast-code-samples/tree/master/platform-operator/hazelcast-platform-operator-external-backup-restore/docs/modules/ROOT/examples/operator-external-backup[`docs/modules/ROOT/examples/operator-external-backup`] directory.
 
 +
 [tabs]
@@ -139,7 +130,7 @@ CLC::
 --
 NOTE: CLC must be installed in your system. See the https://docs.hazelcast.com/clc/latest/install-clc[CLC installation instructions].
 
-Add the cluster config to the CLC:
+Add the cluster configuration to CLC:
 
 [source, bash]
 ----
@@ -338,13 +329,11 @@ Current map size: 4
 
 ====
 
-== Trigger external backup
+== Trigger an external backup
 
-For triggering backup, you need `bucketURI` where backup data will be stored in, and a `secret` with credentials for accessing the given Bucket URI.
+To trigger a backup, you need a `bucketURI` where backup data will be stored and a `secret` with credentials for accessing the bucket URI.
 
-. Create Secret
-+
-Run one of the following commands to create the secret according to the Cloud provider you want to backup:
+. Run one of the following commands to create the secret according to the cloud provider you want to back up:
 
 +
 [tabs]
@@ -381,13 +370,11 @@ kubectl create secret generic <external-bucket-secret-name> \
 ----
 --
 
-NOTE: If you want to learn more about other authentication methods, check the xref:operator:ROOT:authorization.adoc[Authorization Methods to Access Cloud Storage] documentation.
+NOTE: If you want to learn more about other authentication methods, see the xref:operator:ROOT:authorization.adoc[Authorization Methods to Access Cloud Storage] documentation.
 
 ====
 
-. Trigger backup
-+
-Run the following command to trigger backup:
+. Trigger a backup:
 +
 [source, shell]
 ----
@@ -399,9 +386,7 @@ EOF
 *Example URI -> "s3://operator-backup?prefix=hazelcast/2022-06-08-17-01-20/"*
 
 +
-. Check the status of the backup
-+
-Run the following command to check the status of the backup:
+. Check the status of the backup:
 +
 [source,bash]
 ----
@@ -416,26 +401,24 @@ NAME         STATUS
 hot-backup   Success
 ----
 
-== Restore from external backup
+== Restore from an external backup
 
-. Delete the Hazelcast cluster
-+
-Run the following command to delete the Hazelcast cluster:
+. Delete the Hazelcast cluster:
 +
 [source,bash]
 ----
 kubectl delete hazelcast my-hazelcast
 ----
 
-. Delete the PersistentVolumeClaims
+. Delete the PersistentVolumeClaims.
 +
 The data is restored from external buckets, so you don't keep persistent volumes during a restore operation.
 +
-List PVCs which were created for the Hazelcast cluster:
+List PVCs that were created for the Hazelcast cluster:
 +
 [source,bash]
 ----
-$ kubectl get pvc -l "app.kubernetes.io/managed-by=hazelcast-platform-operator"
+kubectl get pvc -l "app.kubernetes.io/managed-by=hazelcast-platform-operator"
 NAME                         STATUS   VOLUME                                     CAPACITY
 persistence-my-hazelcast-0   Bound    pvc-a77fcd6e-e64d-4aeb-9708-835d66b4c5b9   8Gi
 persistence-my-hazelcast-1   Bound    pvc-8548a4a5-fa8e-45bd-9909-8e6bb6a6c3e8   8Gi
@@ -450,12 +433,12 @@ Delete the PVCs:
 kubectl delete pvc -l "app.kubernetes.io/managed-by=hazelcast-platform-operator"
 ----
 
-. Create new Hazelcast cluster
+. Create a new Hazelcast cluster.
 +
 For restoring, you will use the `HotBackup` resource you have created.
 +
 Create the Hazelcast cluster. Before the Hazelcast cluster is started,
-the Operator starts the agent (as InitContainer) which restores the backup data from the external bucket.
+Operator starts the agent (as `InitContainer`), which restores the backup data from the external bucket.
 +
 [source, shell]
 ----
@@ -464,15 +447,13 @@ include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-e
 EOF
 ----
 +
-As you may see, the agent configuration is not set. Thus, the Operator directly uses the latest stable version of the agent.
+As you may see, the agent configuration is not set. Operator therefore uses the latest stable version of the agent.
 
-. Check the cluster status
-+
-Run the following commands to see the cluster status:
+. Check the cluster status:
 +
 [source, shell]
 ----
-$ kubectl get hazelcast my-hazelcast
+kubectl get hazelcast my-hazelcast
 NAME           STATUS    MEMBERS
 my-hazelcast   Running   3/3
 ----
@@ -481,18 +462,18 @@ After verifying that the cluster is `Running` and all the members are ready, fin
 +
 [source, shell]
 ----
-$ kubectl get hazelcastendpoint my-hazelcast
+kubectl get hazelcastendpoint my-hazelcast
 NAME           TYPE        ADDRESS
 my-hazelcast   Discovery   34.28.159.226:5701
 ----
 +
-Since we recreate the Hazelcast cluster, services are also recreated. The `ADDRESS` may change.
+Since we recreated the Hazelcast cluster, services are also recreated. The `ADDRESS` may change.
 
-. Check the map size
+. Check the map size.
 +
 Configure the Hazelcast client to connect to the cluster external address as you did in <<Configure-Client, Configure the Hazelcast Client>>.
 +
-Start the client to check the map size and see if the restore is successful.
+Start the client to check the map size and check the restore is successful.
 +
 [tabs]
 ====
@@ -614,15 +595,15 @@ kubectl delete pvc -l "app.kubernetes.io/managed-by=hazelcast-platform-operator"
 
 == Summary
 
-In this tutorial, you've learned how to:
+In this tutorial, you learned how to:
 
-- Deploy Hazelcast with persistence enabled
+- Deploy Hazelcast with persistence enabled.
 
-- Create a Hazelcast map that has persistence enabled
+- Create a Hazelcast map that has persistence enabled.
 
-- Back up all map entries to external storage in the Cloud
+- Back up all map entries to external storage in the cloud.
 
-- Restart the Hazelcast cluster and restore the backup map entries from the Cloud
+- Restart the Hazelcast cluster and restore the backup map entries from the cloud.
 
 == Next steps
 

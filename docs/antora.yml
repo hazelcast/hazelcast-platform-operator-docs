@@ -1,5 +1,5 @@
 name: operator
-title: Hazelcast Operator
+title: Hazelcast Platform Operator
 # Version in the URL
 version: 'latest-snapshot'
 # Version in the version selector (we display only the latest major.minor version)
@@ -15,5 +15,6 @@ asciidoc:
     # page-latest-supported versions are used for sample YAML files.
     page-latest-supported-mc: '5.9.0'
     page-latest-supported-hazelcast: '5.6.0'
+    snapshot: true
 nav:
 - modules/ROOT/nav.adoc

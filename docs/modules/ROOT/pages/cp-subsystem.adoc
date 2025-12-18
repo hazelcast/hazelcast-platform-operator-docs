@@ -1,27 +1,28 @@
-= Enabling CP Subsystem
-:description: CP Subsystem is a component of a Hazelcast cluster that builds a strongly consistent layer for a set of distributed data structures. As well as network partitions, the CP Subsystem withstands server and client failures.
+= Enable the CP Subsystem
+:description: The CP Subsystem is a component of a Hazelcast cluster that builds a strongly consistent layer for a set of distributed data structures. The CP Subsystem prefers consistency to availability during network partitions. Other Hazelcast data structures are AP, preferring availability.
 
 {description}
 
-See xref:hazelcast:cp-subsystem:cp-subsystem.adoc[CP Subsystem] for more detailed information about the configuration and behavior of CP Subsystem component of Hazelcast.
+See xref:hazelcast:cp-subsystem:cp-subsystem.adoc[CP Subsystem] for more information.
 
-== Configuring CP Subsystem
+== Configure the CP Subsystem
 
-To enable CP Subsystem you must configure the `cpSubsystem` section in the Hazelcast custom resource. All the cluster members will be configured as CP Members.
+To enable the CP Subsystem you must configure the `cpSubsystem` section in the Hazelcast custom resource. By default, all the cluster members will be configured as CP members.
 
-.Example of CP Subsystem
+.Example CP Subsystem configuration
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hazelcast-cp-subsystem.yaml[]
 ----
 
-When CP subsystem is enabled, it always enables CP Subsystem Persistence. This means that a PVC must be configured before enabling CP Subsystem.
-When the `pvc` section is configured in `cpSubsystem`, a PVC is created and mounted for the CP Subsystem. If you want to use the same PVC for both xref:backup-restore.adoc[Persistence] and CP Subsytem, configure the Persistence but do not configure `pvc` for the CP Subsystem.
+When the CP Subsystem is enabled, it always enables CP Subsystem persistence. This means that a persistent volume claim (PVC) must be configured before enabling CP Subsystem.
 
-.Example of CP Subsystem with Persistence
+When the `pvc` section is configured in `cpSubsystem`, a PVC is created and mounted for the CP Subsystem. If you want to use the same PVC for both xref:backup-restore.adoc[persistence] and CP Subsytem, configure persistence but do not configure `pvc` for the CP Subsystem.
+
+.Example CP Subsystem configuration with Persistence
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/hazelcast-cp-subsystem-persistence.yaml[]
 ----
 
-NOTE: The cluster cannot be scaled up or down if the CP subsystem is enabled. However, you can pause the cluster by scaling it to 0 when starting the cluster. When scaling up again, you must only scale to the original cluster size or the cluster will fail to start. For example, after scaling a cluster with an original size of 3 to a size of 0, you can only scale it up to 3; if you scale up to a different size, the cluster will not start.
+NOTE: The cluster cannot be scaled up or down if the CP Subsystem is enabled. You can pause the cluster by scaling it to 0 when starting the cluster. When scaling up again, you must only scale to the original cluster size or the cluster will fail to start. For example, after scaling a cluster with an original size of 3 to a size of 0, you can only scale it up to 3; if you scale up to a different size, the cluster will not start.

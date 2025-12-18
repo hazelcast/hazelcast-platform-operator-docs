@@ -1,13 +1,13 @@
-= Syncronizing WAN replicated data
-:description: pass:q[WAN Syncronization allows you to overcome out-of-sync issues with the WAN replicated data. ]
+= Syncronize WAN replicated data
+:description: pass:q[WAN syncronization allows you to overcome out-of-sync issues with WAN replicated data.]
 
 {description}
 
-See xref:hazelcast:wan:advanced-features#synchronizing-wan-clusters.adoc[Synchronizing WAN Clusters] for more detailed information about the configuration and behavior of WAN replication in Hazelcast.
+See xref:hazelcast:wan:advanced-features#synchronizing-wan-clusters.adoc[Synchronizing WAN clusters] for more detailed information about the configuration and behavior of WAN syncronization in Hazelcast.
 
-TIP: For a worked example, see the xref:tutorials:operator-tutorial-wan-sync.adoc[Synchronize data using WAN Sync tutorial].
+TIP: For a worked example, see the xref:tutorials:operator-tutorial-wan-sync.adoc[Synchronize WAN replicated data tutorial].
 
-== Prerequisites for WAN Sync
+== Prerequisites for WAN syncronization
 
 Before you create and configure a `WanSync` resource, you must create the following:
 
@@ -15,11 +15,11 @@ Before you create and configure a `WanSync` resource, you must create the follow
 - A target Hazelcast cluster that is accessible from the source cluster.   
 - A `WanReplication` CR that points to the target cluster.
 
-== Configuring the WanSync Resource
+== Configure the WAN syncronization resource
 
-To configure WAN Syncronization, you must create `WanSync` resource. For more detailed information, see the xref:api-ref.adoc#wansyncspec[API Reference].
+To configure WAN syncronization, you must create a `WanSync` resource. For more detailed information, see the xref:api-ref.adoc#wansyncspec[API reference].
 
-To create `WanSync` resource you must use the existing `WanReplication` CR. This means that the `WanSync` reuses the existing and running WAN replication process.
+To create a `WanSync` resource you must use the existing `WanReplication` CR. This means that the `WanSync` resource reuses the existing and running WAN replication process.
 
 .Example of WanSync using the existing WanReplication
 [source,yaml,subs="attributes+"]
@@ -27,22 +27,21 @@ To create `WanSync` resource you must use the existing `WanReplication` CR. This
 include::ROOT:example$/wan-sync-full.yaml[]
 ----
 
-== Configuring Delta WanSync
+== Configure delta WAN syncronization
 
-To configure xref:hazelcast:wan:advanced-features#delta-wan-synchronization.adoc[Delta WAN Sync] for the Hazelcast cluster, do the following:
+To configure xref:hazelcast:wan:advanced-features#delta-wan-synchronization.adoc[delta WAN syncronization] for the Hazelcast cluster, do the following:
 
-* Configure Merkle Tree for the `Map` resource.
+* Configure Merkle tree for the `Map` resource.
 * Set `syncConsistencyCheckStrategy` to `MERKLE_TREES` in the `WanReplication` resource.
 * Create the `WanSync` resource. The created `WanSync` automatically uses Delta WAN Synchronization.
 
-.Example of Delta WanSync
+.Example of delta WAN syncronization
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/wan-sync-delta.yaml[]
 ----
 
-
-== Checking the Status of a WAN Sync
+== Checking the status of a WAN syncronization
 
 After creating the `WanSync` resource, run the following command to see the WAN syncronization status:
 

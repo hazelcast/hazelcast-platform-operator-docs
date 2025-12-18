@@ -1,6 +1,6 @@
-= Tutorial: Synchronize data between two Hazelcast clusters using WAN Sync
+= Tutorial: Synchronize data between two Hazelcast clusters using WAN synchronization
 :github-directory: https://github.com/hazelcast-guides/hazelcast-platform-operator-wan-sync
-:description: Learn how to synchronize data across two Hazelcast clusters using WAN Sync.
+:description: Learn how to synchronize data across two Hazelcast clusters using WAN synchronization.
 
 {description}
 
@@ -8,9 +8,9 @@
 
 In this tutorial, you'll do the following:
 
-- Deploy two Hazelcast clusters
-- Create a Hazelcast map configuration on one of the clusters
-- Synchronize map data between the two Hazelcast clusters using Full and Delta WAN Sync
+- Deploy two Hazelcast clusters.
+- Create a Hazelcast map configuration on one of the clusters.
+- Synchronize map data between the two Hazelcast clusters using both full and delta WAN synchronization.
 
 The tutorial should take approximately 10 minutes to complete. 
 
@@ -18,10 +18,10 @@ The tutorial should take approximately 10 minutes to complete.
 
 Before you begin, make sure that you have:
 
-* A running https://kubernetes.io/[Kubernetes] cluster
-* The Kubernetes command-line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl]
-* A deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator]
-* The Hazelcast Code Samples repository https://github.com/hazelcast/hazelcast-code-samples cloned to your local machine
+* A running https://kubernetes.io/[Kubernetes] cluster.
+* The Kubernetes command line tool, https://kubernetes.io/docs/tasks/tools/#kubectl[kubectl].
+* A deployed xref:operator:ROOT:get-started.adoc[Hazelcast Platform Operator].
+* The Hazelcast Code Samples repository https://github.com/hazelcast/hazelcast-code-samples cloned to your local machine.
 
 == Start the Hazelcast clusters
 
@@ -80,14 +80,13 @@ hazelcast-first     Running   3/3
 hazelcast-second    Running   3/3
 ----
 
-
 == Create and populate a map for WAN replication
 
 In this step, you will create and populate a map on the `hazelcast-first` cluster. This map will be the source for WAN replication.
 
 . Create the configuration for a map called `map-sync` on the `hazelcast-first` cluster.
 +
-If you need *Full WAN Synchronization*, use the following command.
+If you need *full WAN synchronization*, use the following command.
 +
 [source, shell]
 ----
@@ -96,7 +95,7 @@ include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-w
 EOF
 ----
 +
-If you need *Delta WAN Synchronization*, use the following command.
+If you need *delta WAN synchronization*, use the following command.
 +
 [source, shell]
 ----
@@ -105,9 +104,9 @@ include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-w
 EOF
 ----
 +
-[NOTE]
+[TIP]
 ====
-Unsure of whether you need Full or Delta? See https://docs.hazelcast.com/hazelcast/5.5/wan/advanced-features#synchronizing-wan-target-cluster[Full WAN Synchronization] and https://docs.hazelcast.com/hazelcast/5.5/wan/advanced-features#delta-wan-synchronization[Delta WAN Synchronization] for details.
+Unsure of whether you need full or delta? See https://docs.hazelcast.com/hazelcast/5.5/wan/advanced-features#synchronizing-wan-target-cluster[Full WAN synchronization] and https://docs.hazelcast.com/hazelcast/5.5/wan/advanced-features#delta-wan-synchronization[Delta WAN synchronization] for details.
 ====
 
 . Find the address of the first cluster.
@@ -133,7 +132,7 @@ The `ADDRESS` column displays the external address of the first Hazelcast cluste
 cd hazelcast-platform-operator-wan-sync
 ----
 +
-The sample code (excluding CLC) for this tutorial is in the link:https://github.com/hazelcast/hazelcast-code-samples/tree/master/platform-operator/hazelcast-platform-operator-wan-sync/docs/modules/ROOT/examples/operator-wan-sync[`docs/modules/ROOT/examples/operator-wan-sync`] directory.
+The sample code  for this tutorial is in the link:https://github.com/hazelcast/hazelcast-code-samples/tree/master/platform-operator/hazelcast-platform-operator-wan-sync/docs/modules/ROOT/examples/operator-wan-sync[`docs/modules/ROOT/examples/operator-wan-sync`] directory.
 
 . Configure the Hazelcast client to connect to the first cluster using its address. [[configure-client]]
 
@@ -146,7 +145,7 @@ CLC::
 --
 NOTE: CLC must be installed in your system. See the https://docs.hazelcast.com/clc/latest/install-clc[CLC installation instructions].
 
-Add the first cluster config to the CLC:
+Add the first cluster configuration to the CLC:
 [source, bash]
 ----
 clc config add hz-1 cluster.name=dev cluster.address=<FIRST-CLUSTER-EXTERNAL-IP>
@@ -207,13 +206,13 @@ include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-w
 CLC::
 +
 --
-Execute the following command to populate the map with entries, replacing `<MAP-NAME>` with the actual map name, `map-sync`.
+Populate the map with entries.
 
 [source, bash]
 ----
 for i in {1..10};
 do
-   clc -c hz-1 map set --name <MAP-NAME> key-$i value-$i;
+   clc -c hz-1 map set --name map-sync key-$i value-$i;
 done
 ----
 
@@ -221,20 +220,20 @@ Verify that the map has the expected number of entries.
 
 [source, bash]
 ----
-clc -c hz-1 map size --name <MAP-NAME>
+clc -c hz-1 map size --name map-sync
 ----
 --
 
 Java::
 +
 --
-Start the application to populate the map with entries, replacing `<MAP-NAME>` with the actual map name, `map-sync`.
+Start the application to populate the map with entries.
 
 [source, bash]
 ----
 cd java
 mvn package
-java -jar target/*jar-with-dependencies*.jar fill <MAP-NAME>
+java -jar target/*jar-with-dependencies*.jar fill map-sync
 ----
 
 You should see the following output.
@@ -254,13 +253,13 @@ Current map size: 4
 NodeJS::
 +
 --
-Start the application to populate the map with entries, replacing `<MAP-NAME>` with the actual map name, `map-sync`.
+Start the application to populate the map with entries.
 
 [source, bash]
 ----
 cd nodejs
 npm install
-npm start fill <MAP-NAME>
+npm start fill map-sync
 ----
 
 You should see the following output.
@@ -268,7 +267,7 @@ You should see the following output.
 [source, shell]
 ----
 Successful connection!
-Starting to fill the map (<MAP-NAME>) with random entries.
+Starting to fill the map (map-sync) with random entries.
 Current map size: 2
 Current map size: 3
 Current map size: 4
@@ -280,12 +279,12 @@ Current map size: 4
 Go::
 +
 --
-Start the application to populate the map with entries, replacing `<MAP-NAME>` with the actual map name, `map-sync`.
+Start the application to populate the map with entries.
 
 [source, bash]
 ----
 cd go
-go run main.go fill <MAP-NAME>
+go run main.go fill map-sync
 ----
 
 You should see the following output.
@@ -293,7 +292,7 @@ You should see the following output.
 [source, shell]
 ----
 Successful connection!
-Starting to fill the map (<MAP-NAME>) with random entries.
+Starting to fill the map (map-sync) with random entries.
 Current map size: 2
 Current map size: 3
 Current map size: 4
@@ -305,13 +304,13 @@ Current map size: 4
 Python::
 +
 --
-Start the application to populate the map with entries, replacing `<MAP-NAME>` with the actual map name, `map-sync`.
+Start the application to populate the map with entries.
 
 [source, bash]
 ----
 cd python
 pip install -r requirements.txt
-python main.py fill <MAP-NAME>
+python main.py fill map-sync
 ----
 
 You should see the following output.
@@ -319,7 +318,7 @@ You should see the following output.
 [source, shell]
 ----
 Successful connection!
-Starting to fill the map (<MAP-NAME>) with random entries.
+Starting to fill the map (map-sync) with random entries.
 Current map size: 2
 Current map size: 3
 Current map size: 4
@@ -331,13 +330,13 @@ Current map size: 4
 .NET::
 +
 --
-Start the application to populate the map with entries, replacing `<MAP-NAME>` with the actual map name, `map-sync`.
+Start the application to populate the map with entries.
 
 [source, bash]
 ----
 cd dotnet
 dotnet build
-dotnet run fill <MAP-NAME>
+dotnet run fill map-sync
 ----
 
 You should see the following output.
@@ -345,7 +344,7 @@ You should see the following output.
 [source, shell]
 ----
 Successful connection!
-Starting to fill the map (<MAP-NAME>) with random entries.
+Starting to fill the map (map-sync) with random entries.
 Current map size: 2
 Current map size: 3
 Current map size: 4
@@ -370,8 +369,8 @@ kubectl get hazelcastendpoint --selector="app.kubernetes.io/instance in (hazelca
 [source, shell]
 ----
 NAME                   TYPE        ADDRESS
-hazelcast-second       Discovery   34.16.0.16:5701
-hazelcast-second-wan   WAN         34.16.0.16:5710
+hazelcast-second       Discovery   198.51.100.16:5701
+hazelcast-second-wan   WAN         198.51.100.16:5710
 ----
 +
 The `ADDRESS` column displays the external address of the second Hazelcast cluster.
@@ -389,7 +388,7 @@ CLC::
 --
 [source, bash]
 ----
-clc -c hz-2 map size --name <MAP-NAME>
+clc -c hz-2 map size --name map-sync
 ----
 --
 
@@ -400,7 +399,7 @@ Java::
 ----
 cd clients/java
 mvn package
-java -jar target/*jar-with-dependencies*.jar size <MAP-NAME>
+java -jar target/*jar-with-dependencies*.jar size map-sync
 ----
 
 You should see the following output:
@@ -408,7 +407,7 @@ You should see the following output:
 [source, shell]
 ----
 Successful connection!
-Current map (<MAP-NAME>) size: 0
+Current map (map-sync) size: 0
 ----
 --
 
@@ -419,7 +418,7 @@ NodeJS::
 ----
 cd clients/nodejs
 npm install
-npm start size <MAP-NAME>
+npm start size map-sync
 ----
 
 You should see the following output:
@@ -427,7 +426,7 @@ You should see the following output:
 [source, shell]
 ----
 Successful connection!
-Current map (<MAP-NAME>) size: 0
+Current map (map-sync) size: 0
 ----
 --
 
@@ -437,7 +436,7 @@ Go::
 [source, bash]
 ----
 cd clients/go
-go run main.go size <MAP-NAME>
+go run main.go size map-sync
 ----
 
 You should see the following output:
@@ -445,7 +444,7 @@ You should see the following output:
 [source, shell]
 ----
 Successful connection!
-Current map (<MAP-NAME>) size: 0
+Current map (map-sync) size: 0
 ----
 --
 
@@ -456,7 +455,7 @@ Python::
 ----
 cd clients/python
 pip install -r requirements.txt
-python main.py size <MAP-NAME>
+python main.py size map-sync
 ----
 
 You should see the following output:
@@ -464,7 +463,7 @@ You should see the following output:
 [source, shell]
 ----
 Successful connection!
-Current map (<MAP-NAME>) size: 0
+Current map (map-sync) size: 0
 ----
 --
 .NET::
@@ -474,7 +473,7 @@ Current map (<MAP-NAME>) size: 0
 ----
 cd clients/dotnet
 dotnet build
-dotnet run size <MAP-NAME>
+dotnet run size map-sync
 ----
 
 You should see the following output:
@@ -482,7 +481,7 @@ You should see the following output:
 [source, shell]
 ----
 Successful connection!
-Current map (<MAP-NAME>) size: 0
+Current map (map-sync) size: 0
 ----
 --
 
@@ -490,7 +489,7 @@ Current map (<MAP-NAME>) size: 0
 
 . Modify the configuration of the first cluster to add the address of the second cluster as the WAN replication event target. 
 +
-If you need a *Full WAN Sync*, run the following command to apply the configuration:
+If you need a *full WAN synchronization*, run the following command to apply the configuration:
 +
 [source, shell]
 ----
@@ -498,7 +497,7 @@ kubectl apply -f - <<EOF
 include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-wan-sync/docs/modules/ROOT/examples/operator-wan-sync/full-sync-wanreplication.yaml[]
 EOF
 ----
-If you need a *Delta WAN Sync*, run the following to apply the configuration:
+If you need a *delta WAN synchronization*, run the following to apply the configuration:
 +
 [source, shell]
 ----
@@ -507,7 +506,7 @@ include::templates:ROOT:example$/platform-operator/hazelcast-platform-operator-w
 EOF
 ----
 
-. Create a WAN Sync resource within the Kubernetes cluster, using the existing `WanReplication` CR.
+. Create a WAN synchronization resource within the Kubernetes cluster, using the existing `WanReplication` CR.
 +
 [source, shell]
 ----
@@ -518,10 +517,10 @@ EOF
 +
 [NOTE]
 ====
-WAN Sync ensures data consistency between the two Hazelcast clusters. Full WAN Sync transmits all data from the source cluster to the target cluster, aligning the state of the target `IMap` with the source `IMap`. This method is particularly beneficial when the synchronization between two remote clusters is lost due to WAN queue overflows or cluster restarts.
+WAN synchronization ensures data consistency between the two Hazelcast clusters. Full WAN synchronization transmits all data from the source cluster to the target cluster, aligning the state of the target `IMap` with the source `IMap`. This method is particularly beneficial when the synchronization between two remote clusters is lost due to WAN queue overflows or cluster restarts.
 ====
 
-. See the WAN synchronization status:
+. Check the WAN synchronization status:
 +
 [source, shell]
 ----
@@ -550,11 +549,11 @@ kubectl delete $(kubectl get wansync,wanreplications,map,hazelcast -o name)
 
 == Summary
 
-In this tutorial, you've learned how to:
+In this tutorial, you learned how to:
 
-- Deploy two Hazelcast clusters
-- Create a Hazelcast map configuration on one of the clusters
-- Synchronize map data between the two Hazelcast clusters using Full and Delta WAN Sync
+- Deploy two Hazelcast clusters.
+- Create a Hazelcast map configuration on one of the clusters.
+- Synchronize map data between the two Hazelcast clusters using full and delta WAN synchronization.
 
 == Next steps
 
