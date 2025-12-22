@@ -18,7 +18,7 @@ You can use any of the following configuration options in the `MultiMap` resourc
 |Name of the Hazelcast resource.
 
 |backupCount
-|Count of synchronous backups.
+|Number of synchronous backups.
 
 |asyncBackupCount
 |Number of asynchronous backups.
