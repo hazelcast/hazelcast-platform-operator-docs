@@ -110,6 +110,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<LDAPProvider,LDAPProvider>>
 * <<LdapTLS,LdapTLS>>
 * <<LiteMember,LiteMember>>
+* <<LoggingConfiguration,LoggingConfiguration>>
 * <<LoggingLevel,LoggingLevel>>
 * <<LoginModuleUsage,LoginModuleUsage>>
 * <<MCJVMConfiguration,MCJVMConfiguration>>
@@ -913,6 +914,7 @@ m| durableExecutorServices | Durable Executor Service configurations, see https:
 m| scheduledExecutorServices | Scheduled Executor Service configurations, see https://docs.hazelcast.com/hazelcast/latest/computing/scheduled-executor-service m| []<<ScheduledExecutorServiceConfiguration,ScheduledExecutorServiceConfiguration>> | false | -
 m| properties | Hazelcast system properties, see https://docs.hazelcast.com/hazelcast/latest/system-properties m| map[string]string | false | -
 m| loggingLevel | Logging level for Hazelcast members m| <<LoggingLevel,LoggingLevel>> | false | "INFO"
+m| loggingConfiguration | LoggingConfiguration specify the logging configuration file to be mounted to the Hazelcast members. m| &#42;<<LoggingConfiguration,LoggingConfiguration>> | false | -
 m| highAvailabilityMode | Configuration to create clusters resilient to node and zone failures m| <<HighAvailabilityMode,HighAvailabilityMode>> | false | -
 m| jvm | Hazelcast JVM configuration m| &#42;<<JVMConfiguration,JVMConfiguration>> | false | -
 m| nativeMemory | Hazelcast Native Memory (HD Memory) configuration m| &#42;<<NativeMemoryConfiguration,NativeMemoryConfiguration>> | false | -
@@ -1365,6 +1367,18 @@ m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingC
 m| jvm | Hazelcast JVM configuration m| &#42;<<JVMConfiguration,JVMConfiguration>> | false | -
 m| resources | Compute Resources required by the Hazelcast container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | -
 m| env | Env configuration of environment variables m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#envvar-v1-core[corev1.EnvVar] | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== LoggingConfiguration
+
+LoggingConfiguration specify the file to be mounted as logging configuration.
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| configMapKeyRef | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#configmapkeyselector-v1-core[corev1.ConfigMapKeySelector] | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
