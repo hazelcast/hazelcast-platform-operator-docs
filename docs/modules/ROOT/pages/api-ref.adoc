@@ -147,6 +147,10 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<PermissionWithName,PermissionWithName>>
 * <<PersistenceStartupAction,PersistenceStartupAction>>
 * <<Phase,Phase>>
+* <<PrometheusExporter,PrometheusExporter>>
+* <<PrometheusFilterMetrics,PrometheusFilterMetrics>>
+* <<PrometheusMonitoring,PrometheusMonitoring>>
+* <<PrometheusPrinter,PrometheusPrinter>>
 * <<PvcConfiguration,PvcConfiguration>>
 * <<Queue,Queue>>
 * <<QueueList,QueueList>>
@@ -1476,6 +1480,7 @@ m| env | Env configuration of environment variables m| []https://kubernetes.io/d
 m| moduleDeployment | ModuleDeployment defines the modules to Download into MC_CLASSPATH m| &#42;<<ModuleDeploymentConfiguration,ModuleDeploymentConfiguration>> | false | -
 m| agent | Agent configurations is the configuration for the InitContainer. m| <<AgentConfiguration,AgentConfiguration>> | false | -
 m| serviceAccountName | ServiceAccountName is the name of the ServiceAccount to use to run InitContainer for ManagementCenter. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/ m| string | false | -
+m| prometheusMonitoring | PrometheusMonitoring configures the integration with Prometheus. m| &#42;<<PrometheusMonitoring,PrometheusMonitoring>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1757,6 +1762,46 @@ m| endpoints | &#160; m| []string | false | -
 m| deny | &#160; m| &#42;bool | false | -
 m| actions | &#160; m| []string | false | -
 m| name | &#160; m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== PrometheusExporter
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| timestampEnabled | TimestampEnabled configures whether to send timestamp of the individual members' metrics to Prometheus. m| bool | true | true
+m| filterMetrics | FilterMetrics configure metrics in the /metrics endpoint. m| <<PrometheusFilterMetrics,PrometheusFilterMetrics>> | false | -
+m| printers | Printers configure the set of metrics to expose. m| []<<PrometheusPrinter,PrometheusPrinter>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== PrometheusFilterMetrics
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| included | Included configure metrics to include in the /metrics endpoint. m| []string | false | -
+m| excluded | Excluded configure metrics to exclude from the /metrics endpoint. m| []string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== PrometheusMonitoring
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| credentialsSecretName | CredentialsSecretName is the name of the secret that contains username and password basic authentication to secure the scrape endpoint. If the CredentialsSecretName is not set, the basic authentication on the scrape endpoint will be disabled. m| string | false | -
+m| exporter | Exporter configures the reformating of all Hazelcast cluster metrics for compatibility with Prometheus. m| <<PrometheusExporter,PrometheusExporter>> | true | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -3043,6 +3088,19 @@ m| "Running" | Running phase is the state when all the members of the cluster ar
 m| "Failed" | Failed phase is the state of error during the cluster startup
 m| "Pending" | Pending phase is the state of starting the cluster when not all the members are started yet
 m| "Terminating" | Terminating phase is the state where deletion of cluster scoped resources and Hazelcast dependent resources happen
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== PrometheusPrinter
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "V1" | &#160;
+m| "V2" | &#160;
 |===
 
 <<Table of Contents,Back to TOC>>
