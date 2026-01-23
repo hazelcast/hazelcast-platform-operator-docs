@@ -90,6 +90,23 @@ Once a job is created, you can use `state` field to manage its lifecycle. The fo
 
 Deleting the `JetJob` resource will forcefully cancel the job.
 
+== Jet Job logs
+
+When running Jet jobs on Kubernetes with Operator, the sidecar agent is responsible for performing CRD operations.
+During submission, the sidecar agent downloads the required Jet job JARs, places them in the appropriate directories inside the pod, and coordinates the submission of jobs to the Hazelcast cluster.
+As a result, additional information related to job operation -- such as resource availability, authentication issues, or client failures -- is recorded in the sidecar agent logs.
+
+For troubleshooting or verifying job deployments, you should review the sidecar agent logs in addition to the main Hazelcast member logs.
+
+The sidecar agent container logs can be viewed with `kubectl`:
+
+[source,bash]
+----
+kubectl logs <hazelcast-platform-pod> -c <sidecar-container-name>
+----
+
+For production deployments, you should ensure that sidecar logs are collected by the cluster logging system (for example, Fluent Bit or Logstash).
+
 == Example configuration
 
 The following `JetJob` resource runs the Data Pipeline for the `Hazelcast` resources on the source Hazelcast cluster from `my-data-pipeline.jar`.
