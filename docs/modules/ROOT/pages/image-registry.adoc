@@ -44,9 +44,9 @@ Specify the image details when running `helm install`:
 ----
 helm install operator hazelcast/hazelcast-platform-operator --version={operator-chart-version} \
     --set=installCRDs=true \
-    --set=image.repository= <REGISTRY_URL> \
-    --set=image.tag= {operator-chart-version} \
-    --set=image.pullSecrets= {<REGISTRY-SECRET>}
+    --set=image.repository=<REGISTRY_URL> \
+    --set=image.tag={operator-chart-version} \
+    --set=image.pullSecrets={<REGISTRY-SECRET>}
 ----
 
 === Hazelcast Platform
