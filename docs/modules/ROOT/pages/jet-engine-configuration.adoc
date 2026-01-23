@@ -100,8 +100,25 @@ You can also set configuration using Java system properties. See xref:jvm-parame
 include::ROOT:example$/jet-engine-properties.yaml[]
 ----
 
+== Jet Job Submission Logs
+When running Hazelcast Jet jobs on Kubernetes via the Hazelcast Platform Operator,
+the Hazelcast sidecar agent is responsible for downloading the required Jet job JARs, placing them in the appropriate
+directories inside the pod, and coordinating the submission of jobs to the Hazelcast cluster.
+As a result, additional information related to job submission and artifact management—such as resource availability,
+authentication issues, or client failures—is recorded in the sidecar agent logs.
+
+For troubleshooting or verifying job deployments, it is therefore recommended to review the sidecar agent logs in addition to the main Hazelcast member logs.
+
+The logs of the sidecar agent container can be viewed with the following command:
+[source,bash,subs="attributes+"]
+----
+kubectl logs <hazelcast-platform-pod> -c <sidecar-container-name>
+----
+NOTE: For production setups, ensure that sidecar logs are collected by the cluster logging system (for example, Fluent Bit, Logstash etc).
+
 == Next steps
 
 Once you have configured the Jet engine, you can xref:jet-job-configuration.adoc[submit Jet jobs].
 
 For a worked example, see the xref:jet-job-configuration.adoc[Run a data pipeline using Jet tutorial].
+
