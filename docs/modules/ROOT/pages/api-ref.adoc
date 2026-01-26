@@ -140,6 +140,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<NativeMemoryConfiguration,NativeMemoryConfiguration>>
 * <<NearCache,NearCache>>
 * <<NearCacheEviction,NearCacheEviction>>
+* <<NearCacheMaxSizePolicyType,NearCacheMaxSizePolicyType>>
 * <<NodeState,NodeState>>
 * <<PVCNamePrefix,PVCNamePrefix>>
 * <<PVCTemplateConfiguration,PVCTemplateConfiguration>>
@@ -1713,8 +1714,8 @@ m| cacheLocalEntries | CacheLocalEntries specifies whether the local entries are
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| evictionPolicy | EvictionPolicy to be applied when near cache reaches its max size according to the max size policy. m| <<EvictionPolicyType,EvictionPolicyType>> | false | "NONE"
-m| maxSizePolicy | MaxSizePolicy for deciding if the maxSize is reached. m| <<MaxSizePolicyType,MaxSizePolicyType>> | false | "ENTRY_COUNT"
+m| evictionPolicy | EvictionPolicy to be applied when near cache reaches its max size according to the max size policy. m| <<EvictionPolicyType,EvictionPolicyType>> | false | "LRU"
+m| maxSizePolicy | MaxSizePolicy for deciding if the maxSize is reached. m| <<NearCacheMaxSizePolicyType,NearCacheMaxSizePolicyType>> | false | "ENTRY_COUNT"
 m| size | Size is maximum size of the Near Cache used for max-size-policy m| uint32 | false | 0
 |===
 
@@ -2704,7 +2705,7 @@ m| "LOGGER" | &#160;
 
 === EvictionPolicyType
 
-
+EvictionPolicyType represents the eviction policy to be applied.
 
 [cols="5,10"options="header"]
 |===
@@ -3032,6 +3033,22 @@ NativeMemoryAllocatorType is one of 2 types of mechanism for allocating HD Memor
 | Value | Description
 m| "STANDARD" | NativeMemoryStandard allocate memory using default OS memory manager
 m| "POOLED" | NativeMemoryPooled is Hazelcast own pooling memory allocator
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== NearCacheMaxSizePolicyType
+
+NearCacheMaxSizePolicyType represents the max-size policy for NearCache. Only supports policies compatible with NearCache (excludes heap-based policies).
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "ENTRY_COUNT" | NearCacheMaxSizePolicyEntryCount Maximum size based on the entry count in the Near Cache
+m| "USED_NATIVE_MEMORY_SIZE" | NearCacheMaxSizePolicyUsedNativeMemorySize Maximum used native memory size in megabytes per map for each Hazelcast instance. Available only in Hazelcast Enterprise HD.
+m| "USED_NATIVE_MEMORY_PERCENTAGE" | NearCacheMaxSizePolicyUsedNativeMemoryPercentage Maximum used native memory size percentage per map for each Hazelcast instance. Available only in Hazelcast Enterprise HD.
+m| "FREE_NATIVE_MEMORY_SIZE" | NearCacheMaxSizePolicyFreeNativeMemorySize Minimum free native memory size in megabytes for each Hazelcast instance. Available only in Hazelcast Enterprise HD.
+m| "FREE_NATIVE_MEMORY_PERCENTAGE" | NearCacheMaxSizePolicyFreeNativeMemoryPercentage Minimum free native memory size percentage for each Hazelcast instance. Available only in Hazelcast Enterprise HD.
 |===
 
 <<Table of Contents,Back to TOC>>
