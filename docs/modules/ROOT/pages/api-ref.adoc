@@ -1703,7 +1703,7 @@ m| invalidateOnChange | InvalidateOnChange specifies whether the cached entries 
 m| timeToLiveSeconds | TimeToLiveSeconds maximum number of seconds for each entry to stay in the Near Cache m| uint | false | 0
 m| maxIdleSeconds | MaxIdleSeconds Maximum number of seconds each entry can stay in the Near Cache as untouched (not read) m| uint | false | 0
 m| eviction | NearCacheEviction specifies the eviction behavior in Near Cache m| <<NearCacheEviction,NearCacheEviction>> | true | -
-m| cacheLocalEntries | CacheLocalEntries specifies whether the local entries are cached m| &#42;bool | false | true
+m| cacheLocalEntries | CacheLocalEntries specifies whether the local entries are cached m| &#42;bool | false | false
 |===
 
 <<Table of Contents,Back to TOC>>
