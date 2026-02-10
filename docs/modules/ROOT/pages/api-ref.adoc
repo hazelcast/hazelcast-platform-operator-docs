@@ -1029,6 +1029,7 @@ HotBackupStatus defines the observed state of HotBackup
 m| state | &#160; m| <<HotBackupState,HotBackupState>> | false | -
 m| message | &#160; m| string | false | -
 m| backupUUIDs | &#160; m| []string | false | -
+m| catalogPersistenceEnabled | &#160; m| bool | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
