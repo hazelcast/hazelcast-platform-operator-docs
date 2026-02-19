@@ -187,7 +187,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<TopicList,TopicList>>
 * <<TopicSpec,TopicSpec>>
 * <<TopicStatus,TopicStatus>>
-* <<UniqueKeyTransition,UniqueKeyTransition>>
+* <<UniqueKeyTransformation,UniqueKeyTransformation>>
 * <<User,User>>
 * <<UserCodeDeploymentConfig,UserCodeDeploymentConfig>>
 * <<UserCodeNamespace,UserCodeNamespace>>
@@ -306,7 +306,7 @@ m| maximumDelay | MaximumDelay represents the maximum delay in milliseconds. If 
 |===
 | Field | Description | Type | Required | Default
 m| uniqueKey | &#160; m| string | true | -
-m| uniqueKeyTransition | &#160; m| <<UniqueKeyTransition,UniqueKeyTransition>> | true | -
+m| uniqueKeyTransformation | &#160; m| <<UniqueKeyTransformation,UniqueKeyTransformation>> | true | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1056,8 +1056,8 @@ m| spec | Specification of the desired behavior of the hot backup. m| <<HotBacku
 | Field | Description | Type | Required | Default
 m| name | Name of the index config. m| string | false | -
 m| type | Type of the index. See https://docs.hazelcast.com/hazelcast/latest/query/indexing-maps#index-types m| <<IndexType,IndexType>> | true | -
-m| attributes | Attributes of the index. m| []string | false | -
-m| bitMapIndexOptions | Options for "BITMAP" index type. See https://docs.hazelcast.com/hazelcast/latest/query/indexing-maps#configuring-bitmap-indexes m| &#42;<<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>> | false | -
+m| attributes | Attributes of the index. At least one attribute is required; duplicates are not allowed. m| []string | true | -
+m| bitMapIndexOptions | Options for "BITMAP" index type only. See https://docs.hazelcast.com/hazelcast/latest/query/indexing-maps#configuring-bitmap-indexes m| &#42;<<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -3175,7 +3175,7 @@ m| "Succeeded" | &#160;
 
 <<Table of Contents,Back to TOC>>
 
-=== UniqueKeyTransition
+=== UniqueKeyTransformation
 
 
 
