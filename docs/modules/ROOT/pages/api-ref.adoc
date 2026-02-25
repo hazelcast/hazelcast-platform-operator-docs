@@ -458,6 +458,7 @@ ClientTLS is used by Management Center CR, MC has nothing to do with MemberAuthe
 | Field | Description | Type | Required | Default
 m| secretName | Name of the secret with TLS certificate and key. m| string | true | -
 m| clientAuthentication | Mutual authentication configuration for the client. It is None by default which means the client side of connection is not authenticated. m| <<MutualAuthentication,MutualAuthentication>> | false | "None"
+m| keyMaterialDuration | &#160; m| string | false | -
 |===
 ==== Deprecated
 [cols="4,8,4,2,4"options="header"]
@@ -2189,6 +2190,7 @@ TLS is used by Hazelcast CR
 | Field | Description | Type | Required | Default
 m| secretName | Name of the secret with TLS certificate and key. m| string | true | -
 m| clientAuthentication | Mutual authentication configuration for the client. It is None by default which means the client side of connection is not authenticated. m| <<MutualAuthentication,MutualAuthentication>> | false | "None"
+m| keyMaterialDuration | &#160; m| string | false | -
 m| memberAuthentication | Mutual authentication configuration between members. It is Required by default which means the connections between members are authenticated. m| <<MutualAuthentication,MutualAuthentication>> | false | "Required"
 |===
 
