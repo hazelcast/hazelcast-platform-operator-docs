@@ -113,6 +113,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<LoggingConfiguration,LoggingConfiguration>>
 * <<LoggingLevel,LoggingLevel>>
 * <<LoginModuleUsage,LoginModuleUsage>>
+* <<MCClientTLS,MCClientTLS>>
 * <<MCJVMConfiguration,MCJVMConfiguration>>
 * <<MCPersistenceConfiguration,MCPersistenceConfiguration>>
 * <<MCPhase,MCPhase>>
@@ -451,14 +452,14 @@ m| clientSecretName | &#160; m| string | false | -
 
 === ClientTLS
 
-ClientTLS is used by Management Center CR, MC has nothing to do with MemberAuthentication
+ClientTLS is used for client TLS configuration in Hazelcast CR
 
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
 m| secretName | Name of the secret with TLS certificate and key. m| string | true | -
 m| clientAuthentication | Mutual authentication configuration for the client. It is None by default which means the client side of connection is not authenticated. m| <<MutualAuthentication,MutualAuthentication>> | false | "None"
-m| keyMaterialDuration | &#160; m| string | false | -
+m| keyMaterialDuration | &#160; m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#duration-v1-meta[metav1.Duration] | false | -
 |===
 ==== Deprecated
 [cols="4,8,4,2,4"options="header"]
@@ -764,7 +765,7 @@ m| status | &#160; m| <<HazelcastStatus,HazelcastStatus>> | false | -
 | Field | Description | Type | Required | Default
 m| name | Name of the Hazelcast cluster that Management Center will connect to, default is dev. m| string | false | "dev"
 m| address | IP address or DNS name of the Hazelcast cluster. If the cluster is exposed with a service name in a different namespace, use the following syntax "<service-name>.<service-namespace>". m| string | true | -
-m| tls | TLS client configuration. m| &#42;<<ClientTLS,ClientTLS>> | false | -
+m| tls | TLS client configuration. m| &#42;<<MCClientTLS,MCClientTLS>> | false | -
 m| security | Security client configuration. m| &#42;<<ClientSecurity,ClientSecurity>> | false | -
 |===
 
@@ -1386,6 +1387,25 @@ LoggingConfiguration specify the file to be mounted as logging configuration.
 |===
 | Field | Description | Type | Required | Default
 m| configMapKeyRef | &#160; m| https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#configmapkeyselector-v1-core[corev1.ConfigMapKeySelector] | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== MCClientTLS
+
+MCClientTLS is used by Management Center CR, MC has nothing to do with MemberAuthentication
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| secretName | Name of the secret with TLS certificate and key. m| string | true | -
+m| clientAuthentication | Mutual authentication configuration for the client. It is None by default which means the client side of connection is not authenticated. m| <<MutualAuthentication,MutualAuthentication>> | false | "None"
+|===
+==== Deprecated
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| mutualAuthentication | mutualAuthentication is deprecated. Use clientAuthentication field instead. Mutual authentication configuration. It’s None by default which means the client side of connection is not authenticated. m| <<MutualAuthentication,MutualAuthentication>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -2190,7 +2210,7 @@ TLS is used by Hazelcast CR
 | Field | Description | Type | Required | Default
 m| secretName | Name of the secret with TLS certificate and key. m| string | true | -
 m| clientAuthentication | Mutual authentication configuration for the client. It is None by default which means the client side of connection is not authenticated. m| <<MutualAuthentication,MutualAuthentication>> | false | "None"
-m| keyMaterialDuration | &#160; m| string | false | -
+m| keyMaterialDuration | &#160; m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#duration-v1-meta[metav1.Duration] | false | -
 m| memberAuthentication | Mutual authentication configuration between members. It is Required by default which means the connections between members are authenticated. m| <<MutualAuthentication,MutualAuthentication>> | false | "Required"
 |===
 
