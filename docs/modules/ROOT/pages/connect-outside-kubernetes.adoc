@@ -25,6 +25,8 @@ If you use EKS, consider the following:
 
 - Having the VPC of the EKS cluster configured only with private subnets is not recommended.
 - If you plan on using NodePorts, (`discoveryServiceType: NodePort` or `memberAccess: NodePortExternalIP`), the VPC of the EKS cluster should be configured only with public subnets. Additionally, inbound rules for the node ports should be added to the nodes' security groups.
+
+TIP: For **Smart** clients with **LoadBalancer** discovery and member access, the default in-tree controller may create a **Classic Load Balancer** with TCP health checks that can cause noisy member logs. The <<eks-nlb-ip,recommended approach>> is to use the **AWS Load Balancer Controller** with **Network Load Balancer (NLB) IP targets** and HTTP health checks on `/hazelcast/health`. Install the controller using https://kubernetes-sigs.github.io/aws-load-balancer-controller/[AWS Load Balancer Controller documentation] or your EKS add-on workflow; configuration of the Hazelcast custom resource is described in <<eks-nlb-ip>>.
 ====
 
 .Azure Kubernetes Service (AKS)
@@ -81,6 +83,69 @@ NOTE: For non-partitioned data, smart clients can communicate with any cluster m
 To support smart clients, configure the `type` property as `smart`.
 
 In this configuration, the standard Kubernetes mechanism routes client traffic to the correct member. Or, if the client is not accessing partitioned data, the traffic is automatically load balanced.
+
+[[eks-nlb-ip]]
+== Amazon EKS: Network Load Balancer with IP targets (recommended)
+
+On Amazon EKS, when you use **Smart** clients with `discoveryServiceType: LoadBalancer` and `memberAccess: LoadBalancer`, the default cloud controller may provision a **Classic Load Balancer** that performs **TCP** health checks on the member port. That can produce noisy member logs (for example `connectionType=NONE`) and does not use HTTP health checks on the Hazelcast REST endpoint.
+
+**Recommended:** Install the **AWS Load Balancer Controller** in your cluster (see https://kubernetes-sigs.github.io/aws-load-balancer-controller/[AWS Load Balancer Controller documentation] or the EKS add-ons console). Then add the following annotations under `spec.annotations` on the `Hazelcast` custom resource. The operator copies `spec.annotations` to every `Service` it creates for that cluster (the discovery service and each per-member service when using Smart + LoadBalancer).
+
+With **NLB IP targets**, health checks reach each pod on port **8081** (REST) directly. You do not need to expose REST as a NodePort on nodes for load balancer health checks.
+
+.Prerequisites
+* EKS cluster with **AWS Load Balancer Controller** installed and able to reconcile `LoadBalancer` Services.
+* Hazelcast **Enterprise** and `exposeExternally` configured for Smart + LoadBalancer as shown below.
+
+[source,yaml]
+----
+apiVersion: hazelcast.com/v1alpha1
+kind: Hazelcast
+metadata:
+  name: hazelcast
+spec:
+  clusterSize: 3
+  repository: "docker.io/hazelcast/hazelcast-enterprise"
+  version: <your-version>
+  licenseKeySecretName: hazelcast-license-key
+  exposeExternally:
+    type: Smart
+    discoveryServiceType: LoadBalancer
+    memberAccess: LoadBalancer
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol: HTTP
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-port: "8081"
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-path: /hazelcast/health
+----
+
+.Annotation summary
+[cols="35m,65a"]
+|===
+|Annotation |Purpose
+
+|`service.beta.kubernetes.io/aws-load-balancer-type: external`
+|Defers provisioning to the AWS Load Balancer Controller instead of the in-tree AWS cloud controller.
+
+|`service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip`
+|Registers **pod IPs** as NLB targets (not EC2 instance / NodePort targets).
+
+|`service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol: HTTP`
+|Uses HTTP for the load balancer health check.
+
+|`service.beta.kubernetes.io/aws-load-balancer-healthcheck-port: "8081"`
+|Health checks use the Hazelcast REST port on the pod.
+
+|`service.beta.kubernetes.io/aws-load-balancer-healthcheck-path: /hazelcast/health`
+|Standard Hazelcast health endpoint.
+|===
+
+NOTE: If the AWS Load Balancer Controller is **not** installed, Services using `aws-load-balancer-type: external` may not receive an external hostname or IP. Use annotation sets supported by your cluster’s cloud integration only.
+
+NOTE: Some clusters use the GA prefix `service.kubernetes.io/` instead of `service.beta.kubernetes.io/` for the same keys; follow your Kubernetes and AWS documentation for the correct prefix.
+
+You can combine these annotations with other Service annotations supported by AWS (subnets, internal scheme, cross-zone load balancing, and so on) in the same `spec.annotations` map.
 
 == Expose Hazelcast to unisocket clients
 
