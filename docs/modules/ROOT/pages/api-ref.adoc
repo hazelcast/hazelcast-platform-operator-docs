@@ -1273,6 +1273,7 @@ JetJobSnapshotStatus defines the observed state of JetJobSnapshot
 m| state | &#160; m| <<JetJobSnapshotState,JetJobSnapshotState>> | false | -
 m| message | &#160; m| string | false | -
 m| creationTime | &#160; m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#time-v1-meta[metav1.Time] | false | -
+m| hazelcastResourceName | HazelcastResourceName defines the name of the Hazelcast resource that JetJobSnapshot is applied to. m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
