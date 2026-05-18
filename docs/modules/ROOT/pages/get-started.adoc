@@ -5,6 +5,8 @@
 
 NOTE: If you want to migrate from the Hazelcast Helm Chart, see xref:migrating-from-helm.adoc[].
 
+NOTE: Unless the deployment is pinned to a specific Java version, the Operator defaults to the latest supported Java version.
+
 == Overview
 
 As part of the deployment process, you will install the custom resource definitions (CRDs) that describe the Hazelcast resource types.
