@@ -9,12 +9,6 @@ For help installing and running Operator, see xref:get-started.adoc[].
 
 == New features
 
-- *Added support for Java 25*: Hazelcast Platform Operator now supports Java 25 alongside the existing Java 17 and 21 versions. 
-
-NOTE: Unless the deployment is pinned to a specific Java version, the Operator defaults to Java 25.
-
-- *Dynamic Diagnostic Logs are now Generally Available*: First introduced as BETA in 5.16, Dynamic Diagnostic Logs are now GA. Diagnostic logging can be controlled dynamically via Hazelcast Operator without requiring a cluster restart. It supports configuring log locations, enabling or disabling diagnostic plugins, and setting an optional auto-off timer, improving operational flexibility in production environments.
-
 - *Prometheus Exporter configuration support for Management Center*: Management Center Prometheus Exporter properties can now be configured directly via the custom resource, giving Operator-managed deployments fine-grained control over Prometheus metric exposure and filtering without requiring manual Management Center configuration.
 
 - *Custom logging configuration support*: Custom `log4j2.properties` logging configurations can now be specified via a ConfigMap, allowing users to manage logging behavior directly through the custom resource.
@@ -22,6 +16,12 @@ NOTE: Unless the deployment is pinned to a specific Java version, the Operator d
 - *`ModuleDeploy` support for Management Center*: `ModuleDeploy` can now be used to download custom modules and add them to the Management Center classpath, enabling greater customization and extensibility.
 
 == Enhancements
+
+- *Added support for Java 25*: Hazelcast Platform Operator now supports Java 25 alongside the existing Java 17 and 21 versions. 
+
+NOTE: Unless the deployment is pinned to a specific Java version, the Operator defaults to Java 25.
+
+- *Dynamic Diagnostic Logs are now Generally Available*: First introduced as BETA in 5.16, Dynamic Diagnostic Logs are now GA. Diagnostic logging can be controlled dynamically via Hazelcast Operator without requiring a cluster restart. It supports configuring log locations, enabling or disabling diagnostic plugins, and setting an optional auto-off timer, improving operational flexibility in production environments.
 
 - *Resource limits and requests configuration for init containers*: CPU and memory resource limits and requests can now be configured for init containers. Previously, deployments in Kubernetes environments with enforced resource quotas could fail with a "Forbidden: failed quota" error because init containers lacked resource settings. Users can now specify these settings through the custom resource to ensure successful deployments in quota-restricted namespaces.
 
