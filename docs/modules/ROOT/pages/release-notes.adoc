@@ -3,7 +3,7 @@
 
 These release notes list any new features, enhancements, fixes, and breaking changes implemented between version 5.16.0 and version 5.17.0 of Hazelcast Platform Operator.
 
-*Release date*: TBD
+*Release date*: 2026-05-18
 
 For help installing and running Operator, see xref:get-started.adoc[].
 
