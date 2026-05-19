@@ -34,7 +34,7 @@ Operator only supports Enterprise Edition deployments of Hazelcast Platform. Com
 
 === Kubernetes versions
 
-Operator supports Kubernetes versions 1.26 - 1.33.
+Operator supports Kubernetes versions 1.26 - 1.35.
 
 === OpenShift versions
 
