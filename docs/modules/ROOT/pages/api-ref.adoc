@@ -527,6 +527,19 @@ m| suspend | When true, CronHotBackup will stop creating HotBackup CRs until it 
 
 <<Table of Contents,Back to TOC>>
 
+=== CronHotBackupStatus
+
+CronHotBackupStatus defines the observed state of CronHotBackup
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| hazelcastReady | &#160; m| bool | false | -
+m| state | &#160; m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
 === CustomConfig
 
 CustomConfig contains the name of the custom configuration object
