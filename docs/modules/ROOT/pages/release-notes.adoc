@@ -1,56 +1,22 @@
 = Release notes
 :description: These release notes list any new features, enhancements, fixes, and breaking changes implemented in Hazelcast Platform Operator.
 
-These release notes list any new features, enhancements, fixes, and breaking changes implemented between version 5.16.0 and version 5.17.0 of Hazelcast Platform Operator.
+These release notes list any new features, enhancements, fixes, and breaking changes implemented between version 5.17.0 and version 5.18.0 of Hazelcast Platform Operator.
 
-*Release date*: 2026-05-18
+*Release date*: 2026-05-22
 
 For help installing and running Operator, see xref:get-started.adoc[].
 
-== New features
-
-- *Prometheus Exporter configuration support for Management Center*: Management Center Prometheus Exporter properties can now be configured directly via the custom resource, giving Operator-managed deployments fine-grained control over Prometheus metric exposure and filtering without requiring manual Management Center configuration.
-
-- *Custom logging configuration support*: Custom `log4j2.properties` logging configurations can now be specified via a ConfigMap, allowing users to manage logging behavior directly through the custom resource.
-
-- *`ModuleDeploy` support for Management Center*: `ModuleDeploy` can now be used to download custom modules and add them to the Management Center classpath, enabling greater customization and extensibility.
-
 == Enhancements
 
-- *Added support for Java 25*: Hazelcast Platform Operator now supports Java 25 alongside the existing Java 17 and 21 versions. 
+- *Added support for overriding cluster configuration in Management Center*: The Operator now passes the `--force` flag when applying Management Center configuration, enabling cluster configuration overrides on connected Hazelcast clusters without requiring multiple restarts of Management Center.
 
-NOTE: Unless the deployment is pinned to a specific Java version, the Operator defaults to Java 25.
+- *Added automatic synchronization of image versions to Operator defaults on upgrade*: When the Operator is upgraded or rolled back, it now automatically updates the default image versions and repositories for Hazelcast Platform, Management Center, Agent, and the init container in custom resources where no explicit version has been specified.
 
-- *Dynamic Diagnostic Logs are now Generally Available*: First introduced as BETA in 5.16, Dynamic Diagnostic Logs are now GA. Diagnostic logging can be controlled dynamically via Hazelcast Operator without requiring a cluster restart. It supports configuring log locations, enabling or disabling diagnostic plugins, and setting an optional auto-off timer, improving operational flexibility in production environments.
-
-- *Resource limits and requests configuration for init containers*: CPU and memory resource limits and requests can now be configured for init containers. Previously, deployments in Kubernetes environments with enforced resource quotas could fail with a "Forbidden: failed quota" error because init containers lacked resource settings. Users can now specify these settings through the custom resource to ensure successful deployments in quota-restricted namespaces.
-
-- *`serializeKeys` parameter support in near cache configuration for Map CR*: The `serializeKeys` parameter can now be configured within the `nearCache` section of the Map custom resource. When enabled, near cache keys are stored in serialized form, which is required for correctness in certain distributed scenarios.
-
-- *Management Center instance naming updated to include namespace*: The Kubernetes namespace is now included as part of the Management Center instance name, preventing naming collisions when multiple Management Center instances with the same name are deployed across different namespaces.
-
-- *Improved pod error reporting*: The reconciler's error handling now deduplicates repeated identical errors in logs, includes additional context in error messages to aid troubleshooting, and correctly differentiates between actual errors and transient pod initialization states.
-
-- *`hazelcast-resources` category label added to Custom Resource Definitions*: CRDs are now annotated with the `hazelcast-resources` Kubernetes resource category, allowing users to list all Hazelcast-managed resources using standard `kubectl get hazelcast-resources` commands.
-
-- *Dynamic label management for Operator-managed resources*: Labels applied to Hazelcast custom resources are now dynamically propagated and kept in sync across all managed Kubernetes resources. Previously, label changes were reverted by the Operator, requiring workarounds to maintain consistent labeling across resources.
-
-- *Validation to prevent `nativeMemory.size` from exceeding pod memory limits*: The configured `nativeMemory.size` is now validated against the memory limits defined for the Hazelcast pod, preventing misconfigured deployments that could lead to out-of-memory errors at runtime.
+- *Extended OLM bundle support to OpenShift 4.19–4.21*: The supported OpenShift version range for Operator bundles published to the certified OLM catalog has been extended from 4.18 to 4.21 (full range: 4.12–4.21).
 
 == Fixes
 
-- *Fixed TLS keystore not reloaded for Hazelcast clients after secret update*: Resolved an issue where clients continued to connect to the cluster using outdated TLS certificates after the TLS secret was updated. The Operator now correctly reloads the updated keystore, ensuring that certificate changes are enforced and clients using invalid certificates are rejected after a secret update.
+- *Fixed stale external member addresses causing Smart client connection failures*: Resolved an issue where Hazelcast Smart operation mode clients experienced connection timeouts and degraded throughput.
 
-- *Fixed near cache validation logic*: Resolved an issue where certain invalid near cache configurations in the Map CR were accepted by the Operator's validation logic and silently passed to the cluster, potentially causing unexpected runtime behavior. The fix ensures that invalid configurations are rejected at CR application time.
-
-- *Fixed unnecessary JAR redownloads on pod restart when multiple download sources are configured*: Resolved an issue where JARs were unnecessarily re-downloaded on every pod restart when multiple download options were configured for user code deployment. The fix ensures that already-downloaded artifacts are correctly detected and reused, reducing pod startup time and avoiding redundant network operations.
-
-- *Fixed Lite members failing to start due to missing partition count configuration*: Resolved an issue where Lite members could not start because the partition count configuration was not included in their generated Hazelcast configuration. This caused Lite member pods to fail on startup. The fix ensures partition count is consistently applied to all member types.
-
-- *Fixed missing validation for `maxSize` parameter with `PER_NODE` eviction policy*: Added validation to reject invalid `maxSize` values when the `PER_NODE` eviction policy is configured in the Map CR, preventing misconfigurations from being silently applied to the cluster.
-
-- *Fixed Map CR update handling and recreation after deletion*: Resolved two related issues with Map CR lifecycle management: updates to an existing Map CR could fail to apply configuration changes correctly, and applying a new Map CR with the same name as a previously deleted one could fail if additional configuration fields were present. The fix ensures reliable Map CR updates and recreation.
-
-- *Fixed SQL catalog persistence property to prevent unintended cluster recreation from backup*: Resolved an issue where the `catalogPersistenceEnabled` property was not handled correctly during backup restore operations, potentially causing the cluster to recreate its SQL catalog unexpectedly. The fix ensures the property is correctly preserved and respected when restoring from a backup.
-
-- *Fixed incorrect field name `UniqueKeyTransition`*: Corrected a naming inconsistency where the index configuration field was incorrectly referenced as `UniqueKeyTransition` instead of the correct `UniqueKeyTransformation`. This mismatch caused index configurations relying on this field to be silently ignored.
+- *Prevented Hot Backup restore from being initiated against a cluster in a pending or unready state*: Resolved an issue where a `HotBackup` restore could be triggered by referencing a backup resource that was still in a `Pending` status. The fix introduces a validation check that blocks restore operations referencing backups that have not yet successfully completed.
