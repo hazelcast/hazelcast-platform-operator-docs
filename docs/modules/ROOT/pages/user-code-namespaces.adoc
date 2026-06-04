@@ -3,7 +3,7 @@
 
 {description}
 
-See xref:hazelcast:clusters:user-code-namespaces.adoc[User Code Namespaces] for more detailed information about the configuration and behavior of User Code Namespaces in Hazelcast.
+See xref:hazelcast:clusters:user-code-namespaces.adoc[User Code Namespaces] for more detailed information about the configuration and behavior of User Code Namespaces in Hazelcast, including how updates to deployed resources affect running members.
 
 == Enabling User Code Namespaces
 
@@ -58,13 +58,48 @@ include::ROOT:example$/user-code-namespace-azure.yaml[]
 NOTE: For further information about accessing resources on different cloud providers, see xref:authorization.adoc[Authorization Methods to Access Cloud Provider Resources].
 --
 ====
-<1> Name of the secret with credentials for accessing the Bucket URI.
-<2> The bucket URI in which to store backup data
+<1> Name of the secret with credentials for accessing the bucket URI.
+<2> The bucket URI from which user code JAR files are loaded.
 
-To allow your data structures to resolve your user code, you must reference the required namespace in the data structure configuration. You can configure the same namespace for multiple data structures.
+To allow your data structures to resolve your user code, set `spec.userCodeNamespace` on the data structure CR to the name of the `UserCodeNamespace` CR. You can use the same namespace name on multiple data structures.
 
 .Example of Map with User Code Namespace
 [source,yaml,subs="attributes+"]
 ----
 include::ROOT:example$/map-ucn.yaml[]
 ----
+
+== Delete a User Code Namespace
+
+Deleting a `UserCodeNamespace` CR removes only that resource from Kubernetes. It does not delete `Map`, `Cache`, or other CRs that set `spec.userCodeNamespace` to the same name.
+
+To remove a User Code Namespace:
+
+. Delete any `Map`, `Cache`, `Queue`, `Topic`, `MultiMap`, or `ReplicatedMap` CR that sets `spec.userCodeNamespace` to that namespace, and any executor services on the `Hazelcast` CR that use the same name.
+. Delete the `UserCodeNamespace` CR.
+. Restart Hazelcast members.
+
+[CAUTION]
+====
+Restart Hazelcast members after deleting the `UserCodeNamespace` CR. Deleting the CR does not unload the namespace from members that are already running.
+====
+
+[tabs]
+====
+Kubernetes::
++
+--
+[source,shell]
+----
+kubectl delete usercodenamespace <namespace-cr-name>
+----
+--
+Openshift::
++
+--
+[source,shell]
+----
+oc delete usercodenamespace <namespace-cr-name>
+----
+--
+====
