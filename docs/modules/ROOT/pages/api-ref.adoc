@@ -31,6 +31,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<ClientOnJoinOperation,ClientOnJoinOperation>>
 * <<ClientPermissions,ClientPermissions>>
 * <<ClientSecurity,ClientSecurity>>
+* <<ClientServerSocketEndpointConfig,ClientServerSocketEndpointConfig>>
 * <<ClientTLS,ClientTLS>>
 * <<CollectionType,CollectionType>>
 * <<CompactSerializationConfig,CompactSerializationConfig>>
@@ -241,7 +242,7 @@ m| timeout | Timeout represents the time in milliseconds the source cluster wait
 |===
 | Field | Description | Type | Required | Default
 m| memberServerSocketEndpointConfig | &#160; m| <<ServerSocketEndpointConfig,ServerSocketEndpointConfig>> | false | -
-m| clientServerSocketEndpointConfig | &#160; m| <<ServerSocketEndpointConfig,ServerSocketEndpointConfig>> | false | -
+m| clientServerSocketEndpointConfig | &#160; m| <<ClientServerSocketEndpointConfig,ClientServerSocketEndpointConfig>> | false | -
 m| wan | &#160; m| []<<WANConfig,WANConfig>> | false | -
 |===
 
@@ -447,6 +448,19 @@ m| permissions | &#160; m| map[string][]<<PermissionWithName,PermissionWithName>
 |===
 | Field | Description | Type | Required | Default
 m| clientSecretName | &#160; m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== ClientServerSocketEndpointConfig
+
+
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| interfaces | &#160; m| []string | false | -
+m| port | &#160; m| &#42;uint | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
