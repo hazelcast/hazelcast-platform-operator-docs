@@ -82,6 +82,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<HotBackupState,HotBackupState>>
 * <<HotBackupStatus,HotBackupStatus>>
 * <<HotBackupTemplateSpec,HotBackupTemplateSpec>>
+* <<IPFamily,IPFamily>>
 * <<InMemoryFormatType,InMemoryFormatType>>
 * <<IndexConfig,IndexConfig>>
 * <<IndexType,IndexType>>
@@ -973,6 +974,7 @@ m| security | &#160; m| &#42;<<Security,Security>> | false | -
 m| diagnostics | &#160; m| &#42;<<Diagnostics,Diagnostics>> | false | -
 m| persistenceVolumeClaims | PersistenceVolumeClaims specifies the PVCs that will be created and attached to the created StatefulSet. m| []<<PVCTemplateConfiguration,PVCTemplateConfiguration>> | false | -
 m| kubernetesMaster | KubernetesMaster is the URL of the Kubernetes master used by the Hazelcast discovery plugin to discover other members. Defaults to https://kubernetes.default.svc. m| string | false | -
+m| ipFamily | IPFamily selects the network stack for Hazelcast members. m| <<IPFamily,IPFamily>> | false | IPv4
 m| moduleDeployment | ModuleDeployment defines the modules to Download into CLASSPATH m| &#42;<<ModuleDeploymentConfiguration,ModuleDeploymentConfiguration>> | false | -
 |===
 ==== Deprecated
@@ -2881,6 +2883,19 @@ m| "NotStarted" | &#160;
 m| "InProgress" | &#160;
 m| "Failure" | &#160;
 m| "Success" | &#160;
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== IPFamily
+
+
+
+[cols="5,10"options="header"]
+|===
+| Value | Description
+m| "IPv4" | &#160;
+m| "IPv6" | &#160;
 |===
 
 <<Table of Contents,Back to TOC>>
