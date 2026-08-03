@@ -20,6 +20,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<BatchSetting,BatchSetting>>
 * <<BitmapIndexOptionsConfig,BitmapIndexOptionsConfig>>
 * <<BucketConfiguration,BucketConfiguration>>
+* <<BucketSource,BucketSource>>
 * <<ByteOrder,ByteOrder>>
 * <<CPSubsystem,CPSubsystem>>
 * <<Cache,Cache>>
@@ -323,13 +324,26 @@ m| uniqueKeyTransformation | &#160; m| <<UniqueKeyTransformation,UniqueKeyTransf
 |===
 | Field | Description | Type | Required | Default
 m| secretName | Name of the secret with credentials for cloud providers. m| string | false | -
-m| bucketURI | URL of the bucket to download HotBackup folders. AWS S3, GCP Bucket and Azure Blob storage buckets are supported. Example bucket URIs: - AWS S3     -> s3://bucket-name/path/to/folder - GCP Bucket -> gs://bucket-name/path/to/folder - Azure Blob -> azblob://bucket-name/path/to/folder m| string | true | -
+m| bucketURI | URL of the bucket to download folders. AWS S3, GCP Bucket and Azure Blob storage buckets are supported. Example bucket URIs: - AWS S3     -> s3://bucket-name/path/to/folder - GCP Bucket -> gs://bucket-name/path/to/folder - Azure Blob -> azblob://bucket-name/path/to/folder m| string | true | -
 |===
 ==== Deprecated
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
 m| secret | secret is a deprecated alias for secretName. m| string | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== BucketSource
+
+BucketSource defines the configuration for a single cloud storage bucket.
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| secretName | Name of the secret with credentials for cloud providers. m| string | false | -
+m| bucketURI | URL of the bucket to download folders. AWS S3, GCP Bucket and Azure Blob storage buckets are supported. Example bucket URIs: - AWS S3     -> s3://bucket-name/path/to/folder - GCP Bucket -> gs://bucket-name/path/to/folder - Azure Blob -> azblob://bucket-name/path/to/folder m| string | true | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1213,7 +1227,7 @@ m| receiveWindowMultiplier | Sets the scaling factor used by the adaptive receiv
 | Field | Description | Type | Required | Default
 m| enabled | When false, disables Jet Engine. m| &#42;bool | false | true
 m| resourceUploadEnabled | When true, enables resource uploading for Jet jobs. m| bool | false | false
-m| bucketConfig | Bucket config from where the JAR files will be downloaded. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
+m| bucketConfigs | Bucket configs from where the JAR files will be downloaded. m| []<<BucketSource,BucketSource>> | false | -
 m| configMaps | Names of the list of ConfigMaps. Files in each ConfigMap will be downloaded. m| []string | false | -
 m| remoteURLs | List of URLs from where the files will be downloaded. m| []string | false | -
 m| instance | Jet Instance Configuration m| &#42;<<JetInstance,JetInstance>> | false | {}
@@ -1675,7 +1689,7 @@ m| depth | Depth of the merkle tree. m| int32 | false | 10
 |===
 | Field | Description | Type | Required | Default
 m| triggerSequence | A string for triggering a rolling restart for re-downloading the user code. m| string | false | -
-m| bucketConfig | Bucket config from where the JAR files will be downloaded. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
+m| bucketConfigs | Bucket configs from where the JAR files will be downloaded. m| []<<BucketSource,BucketSource>> | false | -
 m| configMaps | Names of the list of ConfigMaps. Files in each ConfigMap will be downloaded. m| []string | false | -
 m| remoteURLs | List of URLs from where the files will be downloaded. m| []string | false | -
 |===
@@ -1983,9 +1997,15 @@ m| authentication | &#160; m| &#42;<<Authentication,Authentication>> | false | -
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| bucketConfig | Bucket config from where the JAR files will be downloaded. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
+m| bucketConfigs | Bucket configs from where the JAR files will be downloaded. m| []<<BucketSource,BucketSource>> | false | -
 m| configMaps | Names of the list of ConfigMaps. Files in each ConfigMap will be downloaded. m| []string | false | -
 m| remoteURLs | List of URLs from where the files will be downloaded. m| []string | false | -
+|===
+==== Deprecated
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| bucketConfig | bucketConfig is deprecated. Use bucketConfigs instead. Bucket config from where the JAR files will be downloaded. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -2342,7 +2362,7 @@ UserCodeDeploymentConfig contains the configuration for User Code download opera
 | Field | Description | Type | Required | Default
 m| clientEnabled | When true, allows user code deployment from clients. m| &#42;bool | false | -
 m| triggerSequence | A string for triggering a rolling restart for re-downloading the user code. m| string | false | -
-m| bucketConfig | Bucket config from where the JAR files will be downloaded. m| &#42;<<BucketConfiguration,BucketConfiguration>> | false | -
+m| bucketConfigs | Bucket configs from where the JAR files will be downloaded. m| []<<BucketSource,BucketSource>> | false | -
 m| configMaps | Names of the list of ConfigMaps. Files in each ConfigMap will be downloaded. m| []string | false | -
 m| remoteURLs | List of URLs from where the files will be downloaded. m| []string | false | -
 |===
