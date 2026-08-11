@@ -93,6 +93,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<JAASPropertiesSource,JAASPropertiesSource>>
 * <<JAASPropertyFromSource,JAASPropertyFromSource>>
 * <<JVMConfiguration,JVMConfiguration>>
+* <<JVMDebugConfiguration,JVMDebugConfiguration>>
 * <<JVMGCConfiguration,JVMGCConfiguration>>
 * <<JVMMemoryConfiguration,JVMMemoryConfiguration>>
 * <<JavaFilterConfig,JavaFilterConfig>>
@@ -1160,6 +1161,22 @@ JVMConfiguration is a Hazelcast JVM configuration
 m| memory | Memory is a JVM memory configuration m| &#42;<<JVMMemoryConfiguration,JVMMemoryConfiguration>> | false | -
 m| gc | GC is for configuring JVM Garbage Collector m| &#42;<<JVMGCConfiguration,JVMGCConfiguration>> | false | -
 m| args | Args is for arbitrary JVM arguments m| []string | false | -
+m| debug | Debug configures remote JVM debugging. m| &#42;<<JVMDebugConfiguration,JVMDebugConfiguration>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== JVMDebugConfiguration
+
+JVMDebugConfiguration configures remote JVM debugging via JDWP.
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| enabled | Enabled turns on JVM debug mode. m| &#42;bool | false | -
+m| port | Port is the TCP port the JVM listens on for debugger connections (listen mode) m| &#42;int32 | false | 5005
+m| suspend | Suspend when true blocks JVM startup until a debugger connects. Pods may remain NotReady until a debugger attaches m| &#42;bool | false | -
+m| attach | Attach is the host:port of a listening debugger (attach mode). When set, the JVM connects out to the debugger instead of listening in the pod m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
