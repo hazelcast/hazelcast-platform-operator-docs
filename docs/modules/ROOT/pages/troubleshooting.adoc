@@ -1,0 +1,26 @@
+= Finding logs
+:description: This page describes how to find logs for a Hazelcast cluster deployed with Operator.
+
+{description}
+
+The relevant logs may be in one of several places, depending on the issue you are troubleshooting.
+
+By default, `kubectl logs <pod>` shows only the first container. To see logs for the helper containers (see xref:index.adoc[What Operator deploys]), name them explicitly with `-c`:
+
+[source,bash]
+----
+kubectl logs <hazelcast-pod> -c sidecar-agent
+kubectl logs <hazelcast-pod> -c init-container
+----
+
+To diagnose problems with Management Center, use:
+
+[source,bash]
+----
+kubectl logs <management-center-pod> -c management-center
+----
+
+== See also
+
+* xref:configure-diagnostic-logging.adoc[] -- for enabling detailed diagnostics on the Hazelcast _member_ (a separate feature from the container logs above).
+* xref:get-support.adoc[]

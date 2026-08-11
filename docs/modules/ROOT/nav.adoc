@@ -84,6 +84,9 @@
 
 * xref:limitations.adoc[Limitations]
 
+.Troubleshoot
+* xref:troubleshooting.adoc[]
+
 .Reference
 * xref:api-ref.adoc[]
 * xref:phone-homes.adoc[]

@@ -30,7 +30,7 @@ By using Operator, teams can benefit from a more streamlined, automated, and Kub
 
 == Supported versions
 
-Operator only supports Enterprise Edition deployments of Hazelcast Platform. Community Edition does not support Operator.  
+Operator only supports Enterprise Edition deployments of Hazelcast Platform. Community Edition does not support Operator.
 
 === Kubernetes versions
 
@@ -39,6 +39,18 @@ Operator supports Kubernetes versions 1.26 - 1.35.
 === OpenShift versions
 
 Operator supports OpenShift versions 4.12 - 4.21.
+
+== What Operator deploys
+
+When you apply a `Hazelcast` custom resource (CR), Operator creates member pods containing these containers:
+
+* `hazelcast`: the Hazelcast Platform member itself. It handles clustering, data storage, and query processing.
+* `sidecar-agent`: a long-running helper that Operator communicates with at runtime to download Jet job JARs, download User Code Namespace bundles, and upload backups to external buckets (AWS S3, GCP, and Azure Blob).
+* `init-container`: a helper that runs once before the member starts, to download user code and modules from external buckets, URLs, and ConfigMaps, and to restore backups into the member's storage.
+
+The `sidecar-agent` and `init-container` run from the same agent image, which you can configure through the `agent` configuration field. See xref:image-registry.adoc[] and xref:resource-configuration.adoc[].
+
+Because these helper containers perform tasks such as authenticating to buckets and downloading files, some errors -- particularly failures downloading Jet job JARs or User Code Namespace bundles -- are recorded only in the container logs, and not in the custom resource status. For guidance on reading these logs, see xref:troubleshooting.adoc[].
 
 == Get started
 
