@@ -20,6 +20,13 @@ To diagnose problems with Management Center, use:
 kubectl logs <management-center-pod> -c management-center
 ----
 
+The Operator can sometimes fail to reconcile the CR. To troubleshoot problems related to this, see the Operator's own logs. Replace `<operator-namespace>` with the namespace where you deployed Operator, for example `hz-system`:
+
+[source,bash]
+----
+kubectl logs -l app.kubernetes.io/name=hazelcast-platform-operator -n <operator-namespace>
+----
+
 == See also
 
 * xref:configure-diagnostic-logging.adoc[] -- for enabling detailed diagnostics on the Hazelcast _member_ (a separate feature from the container logs above).
