@@ -1,0 +1,33 @@
+= Finding logs
+:description: This page describes how to find logs for a Hazelcast cluster deployed with Operator.
+
+{description}
+
+The relevant logs may be in one of several places, depending on the issue you are troubleshooting.
+
+By default, `kubectl logs <pod>` shows only the first container. To see logs for the helper containers (see xref:index.adoc[What Operator deploys]), name them explicitly with `-c`:
+
+[source,bash]
+----
+kubectl logs <hazelcast-pod> -c sidecar-agent
+kubectl logs <hazelcast-pod> -c init-container
+----
+
+To diagnose problems with Management Center, use:
+
+[source,bash]
+----
+kubectl logs <management-center-pod> -c management-center
+----
+
+The Operator can sometimes fail to reconcile the CR. To troubleshoot problems related to this, see the Operator's own logs. Replace `<operator-namespace>` with the namespace where you deployed Operator, for example `hz-system`:
+
+[source,bash]
+----
+kubectl logs -l app.kubernetes.io/name=hazelcast-platform-operator -n <operator-namespace>
+----
+
+== See also
+
+* xref:configure-diagnostic-logging.adoc[] -- for enabling detailed diagnostics on the Hazelcast _member_ (a separate feature from the container logs above).
+* xref:get-support.adoc[]
