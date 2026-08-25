@@ -13,7 +13,12 @@ kubectl logs <hazelcast-pod> -c sidecar-agent
 kubectl logs <hazelcast-pod> -c init-container
 ----
 
-NOTE: The `init-container` runs once and exits before the member starts. If it has already completed, or a container has restarted, add `--previous` to view the logs from the terminated instance, for example `kubectl logs <hazelcast-pod> -c init-container --previous`.
+The `init-container` runs once and exits before the member starts. If it has already completed, or a container has restarted, add `--previous` to view the logs from the terminated instance:
+
+[source,bash]
+----
+kubectl logs <hazelcast-pod> -c init-container --previous
+----
 
 To diagnose problems with Management Center, use:
 
