@@ -85,7 +85,7 @@
 * xref:limitations.adoc[Limitations]
 
 .Troubleshoot
-* xref:troubleshooting.adoc[]
+* xref:logs.adoc[]
 
 .Reference
 * xref:api-ref.adoc[]

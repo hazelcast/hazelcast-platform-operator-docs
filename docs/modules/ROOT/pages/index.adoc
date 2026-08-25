@@ -50,7 +50,7 @@ When you apply a `Hazelcast` custom resource (CR), Operator creates member pods 
 
 The `sidecar-agent` and `init-container` run from the same agent image, which you can configure through the `agent` configuration field. See xref:image-registry.adoc[] and xref:resource-configuration.adoc[].
 
-Because these helper containers perform tasks such as authenticating to buckets and downloading files, some errors -- particularly failures downloading Jet job JARs or User Code Namespace bundles -- are recorded only in the container logs, and not in the custom resource status. For guidance on reading these logs, see xref:troubleshooting.adoc[].
+Because these helper containers perform tasks such as authenticating to buckets and downloading files, some errors -- particularly failures downloading Jet job JARs or User Code Namespace bundles -- are recorded only in the container logs, and not in the custom resource status. For guidance on reading these logs, see xref:logs.adoc[].
 
 == Get started
 
