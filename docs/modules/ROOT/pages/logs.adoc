@@ -1,4 +1,4 @@
-= Logging
+= Viewing logs
 :description: This page describes how to view logs for a Hazelcast cluster deployed with Operator, and how to centralize them in production.
 
 {description}

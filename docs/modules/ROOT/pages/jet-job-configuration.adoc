@@ -96,7 +96,7 @@ When running Jet jobs on Kubernetes with Operator, the sidecar agent is responsi
 During submission, the sidecar agent downloads the required Jet job JARs, places them in the appropriate directories inside the pod, and coordinates the submission of jobs to the Hazelcast cluster.
 As a result, additional information related to job operation -- such as resource availability, authentication issues, or client failures -- is recorded in the sidecar agent logs.
 
-For troubleshooting or verifying job deployments, you should review the sidecar agent logs in addition to the main Hazelcast member logs. See xref:logs.adoc[Logging].
+For troubleshooting or verifying job deployments, you should review the sidecar agent logs in addition to the main Hazelcast member logs. See xref:logs.adoc[Viewing logs].
 
 == Example configuration
 
