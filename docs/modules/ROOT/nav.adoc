@@ -1,5 +1,6 @@
 .Get started
 * xref:index.adoc[]
+* xref:deployed-containers.adoc[]
 * xref:release-notes.adoc[]
 * xref:get-support.adoc[]
 

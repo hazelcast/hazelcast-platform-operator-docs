@@ -1,13 +1,11 @@
-= Viewing logs
+= View logs
 :description: This page describes how to view logs for a Hazelcast cluster deployed with Operator, and how to centralize them in production.
 
 {description}
 
 The relevant logs may be in one of several places, depending on the issue you are troubleshooting.
 
-== View logs
-
-By default, `kubectl logs <pod>` shows only the first container. To see logs for the helper containers (see xref:index.adoc[What Operator deploys]), name them explicitly with `-c`:
+By default, `kubectl logs <pod>` shows only the first container. To see logs for the helper containers (see xref:deployed-containers.adoc[What Operator deploys]), name them explicitly with `-c`:
 
 [source,bash]
 ----
