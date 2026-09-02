@@ -1,22 +1,26 @@
 = Release notes
 :description: These release notes list any new features, enhancements, fixes, and breaking changes implemented in Hazelcast Platform Operator.
 
-These release notes list any new features, enhancements, fixes, and breaking changes implemented between version 5.17.0 and version 5.18.0 of Hazelcast Platform Operator.
+These release notes list any new features, enhancements, fixes, and breaking changes implemented between version 5.18.0 and version 5.19.0 of Hazelcast Platform Operator.
 
-*Release date*: 2026-05-22
+*Release date*: 2026-08-21
 
 For help installing and running Operator, see xref:get-started.adoc[].
 
+== New features
+
+- *Added JVM debug configuration support*: The Hazelcast CR now supports configuring JVM remote debugging for Hazelcast members, including the debug port and suspend behavior, making it possible to attach a JVM debugger to a running cluster for troubleshooting.
+
+- *Added IPv6 support for Kubernetes clusters*: The Hazelcast CR now allows enabling IPv6, and the Operator automatically applies all configuration required to run a Hazelcast cluster on IPv6-based Kubernetes clusters.
+
+- *Made the client port configurable*: The port that Hazelcast clients use to connect to the cluster can now be configured in the Hazelcast CR, providing more flexibility in cluster network configuration.
+
 == Enhancements
 
-- *Added support for overriding cluster configuration in Management Center*: The Operator now passes the `--force` flag when applying Management Center configuration, enabling cluster configuration overrides on connected Hazelcast clusters without requiring multiple restarts of Management Center.
-
-- *Added automatic synchronization of image versions to Operator defaults on upgrade*: When the Operator is upgraded or rolled back, it now automatically updates the default image versions and repositories for Hazelcast Platform, Management Center, Agent, and the init container in custom resources where no explicit version has been specified.
-
-- *Extended OLM bundle support to OpenShift 4.19–4.21*: The supported OpenShift version range for Operator bundles published to the certified OLM catalog has been extended from 4.18 to 4.21 (full range: 4.12–4.21).
+- *Added support for multiple buckets for user code deployment*: Users can now configure multiple remote storage buckets, each with its own secret, when downloading user code files, instead of being limited to a single bucket.
 
 == Fixes
 
-- *Fixed stale external member addresses causing Smart client connection failures*: Resolved an issue where Hazelcast Smart operation mode clients experienced connection timeouts and degraded throughput.
+- *Fixed updating Jet jobs created from a snapshot*: Resolved an issue where a `JetJob` created from a named snapshot could not be updated because the `initialSnapshotResourceName` field could not be cleared. Jet jobs with the `EXACTLY_ONCE` processing guarantee can now be restarted without an initial named snapshot resource.
 
-- *Prevented Hot Backup restore from being initiated against a cluster in a pending or unready state*: Resolved an issue where a `HotBackup` restore could be triggered by referencing a backup resource that was still in a `Pending` status. The fix introduces a validation check that blocks restore operations referencing backups that have not yet successfully completed.
+- *Fixed Management Center not applying clientSecret updates*: Resolved an issue where Management Center continued connecting to the cluster with outdated credentials after the content of the `clientSecretName` was updated. The Operator now watches the Secrets referenced by the `ManagementCenter` resource and applies `clientSecret` updates automatically.

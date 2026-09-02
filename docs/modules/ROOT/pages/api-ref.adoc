@@ -59,6 +59,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<ExternalConnectivityConfiguration,ExternalConnectivityConfiguration>>
 * <<ExternalConnectivityIngress,ExternalConnectivityIngress>>
 * <<ExternalConnectivityRoute,ExternalConnectivityRoute>>
+* <<ExternalConnectivityServiceType,ExternalConnectivityServiceType>>
 * <<ExternalConnectivityType,ExternalConnectivityType>>
 * <<FullBehaviorSetting,FullBehaviorSetting>>
 * <<GCType,GCType>>
@@ -93,6 +94,7 @@ TIP: This document was generated from comments in the Go code in the api/ direct
 * <<JAASPropertiesSource,JAASPropertiesSource>>
 * <<JAASPropertyFromSource,JAASPropertyFromSource>>
 * <<JVMConfiguration,JVMConfiguration>>
+* <<JVMDebugConfiguration,JVMDebugConfiguration>>
 * <<JVMGCConfiguration,JVMGCConfiguration>>
 * <<JVMMemoryConfiguration,JVMMemoryConfiguration>>
 * <<JavaFilterConfig,JavaFilterConfig>>
@@ -738,9 +740,15 @@ ExternalConnectivityConfiguration defines how to expose Management Center pod.
 [cols="4,8,4,2,4"options="header"]
 |===
 | Field | Description | Type | Required | Default
-m| type | How Management Center is exposed. Valid values are: - "ClusterIP" - "NodePort" - "LoadBalancer" (default) m| <<ExternalConnectivityType,ExternalConnectivityType>> | false | "LoadBalancer"
+m| serviceType | How Management Center is exposed. Valid values are: - "ClusterIP" - "NodePort" - "LoadBalancer" (default) m| <<ExternalConnectivityServiceType,ExternalConnectivityServiceType>> | false | -
 m| ingress | Ingress configuration of Management Center m| &#42;<<ExternalConnectivityIngress,ExternalConnectivityIngress>> | false | -
 m| route | OpenShift Route configuration of Management Center m| &#42;<<ExternalConnectivityRoute,ExternalConnectivityRoute>> | false | -
+|===
+==== Deprecated
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| type | type is a deprecated alias for serviceType. m| <<ExternalConnectivityServiceType,ExternalConnectivityServiceType>> | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1160,6 +1168,22 @@ JVMConfiguration is a Hazelcast JVM configuration
 m| memory | Memory is a JVM memory configuration m| &#42;<<JVMMemoryConfiguration,JVMMemoryConfiguration>> | false | -
 m| gc | GC is for configuring JVM Garbage Collector m| &#42;<<JVMGCConfiguration,JVMGCConfiguration>> | false | -
 m| args | Args is for arbitrary JVM arguments m| []string | false | -
+m| debug | Debug configures remote JVM debugging. m| &#42;<<JVMDebugConfiguration,JVMDebugConfiguration>> | false | -
+|===
+
+<<Table of Contents,Back to TOC>>
+
+=== JVMDebugConfiguration
+
+JVMDebugConfiguration configures remote JVM debugging via JDWP.
+
+[cols="4,8,4,2,4"options="header"]
+|===
+| Field | Description | Type | Required | Default
+m| enabled | Enabled turns on JVM debug mode. m| &#42;bool | false | -
+m| port | Port is the TCP port the JVM listens on for debugger connections (listen mode) m| &#42;int32 | false | 5005
+m| suspend | Suspend when true blocks JVM startup until a debugger connects. Pods may remain NotReady until a debugger attaches m| &#42;bool | false | -
+m| attach | Attach is the host:port of a listening debugger (attach mode). When set, the JVM connects out to the debugger instead of listening in the pod m| string | false | -
 |===
 
 <<Table of Contents,Back to TOC>>
@@ -1551,7 +1575,7 @@ m| imagePullPolicy | Pull policy for the Management Center image m| https://kube
 m| imagePullSecrets | Image pull secrets for the Management Center image m| []https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#localobjectreference-v1-core[corev1.LocalObjectReference] | false | -
 m| licenseKeySecretName | Name of the secret with Hazelcast Enterprise License Key. m| string | true | -
 m| hazelcastClusters | Connection configuration for the Hazelcast clusters that Management Center will monitor. m| []<<HazelcastClusterConfig,HazelcastClusterConfig>> | false | -
-m| externalConnectivity | Configuration to expose Management Center to outside. m| &#42;<<ExternalConnectivityConfiguration,ExternalConnectivityConfiguration>> | false | {type: "LoadBalancer"}
+m| externalConnectivity | Configuration to expose Management Center to outside. m| &#42;<<ExternalConnectivityConfiguration,ExternalConnectivityConfiguration>> | false | {serviceType: "LoadBalancer"}
 m| persistence | Configuration for Management Center persistence. m| &#42;<<MCPersistenceConfiguration,MCPersistenceConfiguration>> | false | {enabled: true, size: "10Gi"}
 m| scheduling | Scheduling details m| &#42;<<SchedulingConfiguration,SchedulingConfiguration>> | false | {}
 m| resources | Compute Resources required by the MC container. m| &#42;https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcerequirements-v1-core[corev1.ResourceRequirements] | false | {}
@@ -2821,9 +2845,9 @@ m| "Unisocket" | ExposeExternallyTypeUnisocket exposes all Hazelcast members wit
 
 <<Table of Contents,Back to TOC>>
 
-=== ExternalConnectivityType
+=== ExternalConnectivityServiceType
 
-ExternalConnectivityType describes how Management Center is exposed.
+ExternalConnectivityServiceType describes how Management Center is exposed.
 
 [cols="5,10"options="header"]
 |===
