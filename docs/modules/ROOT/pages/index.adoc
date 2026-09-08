@@ -30,7 +30,7 @@ By using Operator, teams can benefit from a more streamlined, automated, and Kub
 
 == Supported versions
 
-Operator only supports Enterprise Edition deployments of Hazelcast Platform. Community Edition does not support Operator.  
+Operator only supports Enterprise Edition deployments of Hazelcast Platform. Community Edition does not support Operator.
 
 === Kubernetes versions
 

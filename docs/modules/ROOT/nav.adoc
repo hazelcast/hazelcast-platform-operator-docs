@@ -1,5 +1,6 @@
 .Get started
 * xref:index.adoc[]
+* xref:deployed-containers.adoc[]
 * xref:release-notes.adoc[]
 * xref:get-support.adoc[]
 
@@ -83,6 +84,9 @@
 ** xref:management-center-ldap.adoc[]
 
 * xref:limitations.adoc[Limitations]
+
+.Troubleshoot
+* xref:logs.adoc[]
 
 .Reference
 * xref:api-ref.adoc[]
