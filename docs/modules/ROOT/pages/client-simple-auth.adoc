@@ -67,7 +67,14 @@ spec:
                   - lock
 ----
 
-NOTE: `operatorClientSecretName` is a mandatory field required for Operator to establish a connection with the Hazelcast cluster. The given user in the `operatorClientSecretName` field must have a role that has all the client permissions. Otherwise, Operator will fail with a validation error.
+[NOTE]
+====
+`operatorClientSecretName` is mandatory whenever `spec.security` is configured. Operator uses this Secret to authenticate to the cluster as a client.
+
+For simple authentication, the user in that Secret must also be listed under `realms.authentication.simple.users` and must have a role that matches `clientPermissions.all.principal`. Otherwise Operator fails validation.
+
+For JAAS authentication, this field is also required. See xref:configure-jaas.adoc[Configure JAAS-based authentication].
+====
 
 === Configure Management Center
 
