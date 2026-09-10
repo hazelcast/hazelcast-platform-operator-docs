@@ -6,3 +6,16 @@
 You can use Operator to configure JAAS-based authentication. To do this, configure `realms.jaas` in the Security section of the Hazelcast CR. For more information, see xref:api-ref.adoc#security[API types].
 
 For more information about using JAAS in Hazelcast, see link:https://docs.hazelcast.com/hazelcast/latest/security/jaas-authentication[JAAS authentication].
+
+== Operator client credentials
+
+When client authentication is enabled, Operator connects to the cluster as a Hazelcast client. `spec.security.operatorClientSecretName` is *required* for JAAS as well as for simple authentication.
+
+The referenced Secret must contain `username` and `password`. Operator uses these credentials when connecting to the cluster.
+
+This field is still relevant for JAAS:
+
+* *LDAP or username/password JAAS* - yes. Operator must present credentials that your login module accepts (for example a valid LDAP account). Invalid credentials will prevent Operator from connecting.
+* *Certificate-based (X509) JAAS* - Operator still requires the field, but username/password may be unused by the login module. In that case a Secret with `username` and `password` keys is still required, even if those values are not used for authentication.
+
+IMPORTANT: `realms.jaas` configures how the cluster authenticates clients. `operatorClientSecretName` configures the credentials Operator itself uses to connect. Other clients must provide their own credentials.
