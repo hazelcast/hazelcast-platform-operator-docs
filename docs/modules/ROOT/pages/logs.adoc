@@ -1,0 +1,46 @@
+= View logs
+:description: This page describes how to view logs for a Hazelcast cluster deployed with Operator, and how to centralize them in production.
+
+{description}
+
+The relevant logs may be in one of several places, depending on the issue you are troubleshooting.
+
+By default, `kubectl logs <pod>` shows only the first container. To see logs for the helper containers (see xref:deployed-containers.adoc[What Operator deploys]), name them explicitly with `-c`:
+
+[source,bash]
+----
+kubectl logs <hazelcast-pod> -c sidecar-agent
+kubectl logs <hazelcast-pod> -c init-container
+----
+
+The `init-container` runs once and exits before the member starts. If it has already completed, or a container has restarted, add `--previous` to view the logs from the terminated instance:
+
+[source,bash]
+----
+kubectl logs <hazelcast-pod> -c init-container --previous
+----
+
+To diagnose problems with Management Center, use:
+
+[source,bash]
+----
+kubectl logs <management-center-pod> -c management-center
+----
+
+The Operator can sometimes fail to reconcile the CR. To troubleshoot problems related to this, see the Operator's own logs. Replace `<operator-namespace>` with the namespace where you deployed Operator, for example `hz-system`:
+
+[source,bash]
+----
+kubectl logs -l app.kubernetes.io/name=hazelcast-platform-operator -n <operator-namespace>
+----
+
+== Centralize logs in production
+
+In production, we recommend shipping the logs from all containers to a central logging system, such as an ELK stack fed by Fluent Bit or Logstash. With centralized logging in place, you can search and correlate logs without running `kubectl logs` against individual pods, and logs are retained after a pod is rescheduled, upgraded, or replaced.
+
+Most node-level log collectors capture the output of every container automatically, so no extra configuration is needed. However, if your collector selects logs by container name, pod label, or annotation, make sure its rules include the helper containers as well as the `hazelcast` member container.
+
+== See also
+
+* xref:configure-diagnostic-logging.adoc[] -- for enabling detailed diagnostics on the Hazelcast _member_ (a separate feature from the container logs above).
+* xref:get-support.adoc[]
