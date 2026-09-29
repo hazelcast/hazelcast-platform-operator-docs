@@ -9,12 +9,12 @@ For help installing and running Operator, see xref:get-started.adoc[].
 
 == New features
 
-*Added support for multiple user code sources:* User Code Namespaces can now download JAR files from multiple buckets, URLs, and ConfigMaps, allowing user code to be assembled from multiple sources instead of being limited to a single source configuration.
+* *Added support for multiple user code sources:* User Code Namespaces can now download JAR files from multiple buckets, URLs, and ConfigMaps, allowing user code to be assembled from multiple sources instead of being limited to a single source configuration.
 
 == Enhancements
 
-*Improved Jet job failure reporting:* Enhanced JetJob failure handling to provide clearer error information when job submission or execution fails, making it easier to identify and troubleshoot the cause of a failure.
+* *Improved Jet job failure reporting:* Enhanced JetJob failure handling to provide clearer error information when job submission or execution fails, making it easier to identify and troubleshoot the cause of a failure.
 
 == Fixes
 
-*Fixed unnecessary TLS configuration updates:* Keystore and truststore files are now updated only when the content of the referenced Secret changes, preventing unnecessary TLS configuration updates when the Secret itself has not changed.
+* *Fixed unnecessary TLS configuration updates:* Keystore and truststore files are now updated only when the content of the referenced Secret changes, preventing unnecessary TLS configuration updates when the Secret itself has not changed.
