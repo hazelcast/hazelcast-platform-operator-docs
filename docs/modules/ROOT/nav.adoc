@@ -91,3 +91,7 @@
 .Reference
 * xref:api-ref.adoc[]
 * xref:phone-homes.adoc[]
+
+
+.Release Notes
+* xref:release-notes.adoc[5.20.0]
